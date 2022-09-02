@@ -1,10 +1,15 @@
-<div style="border: solid black 2px; width: 300px; height: 200px; display: flex; align-items: center; justify-content: center;" fxLayout="column">
-    <b>
-      {{name}}
-    </b>
+<div style="border: solid black 2px; width: fit-content; height: fit-content; padding: 10px; display: flex; align-items: center; justify-content: center;" fxLayout="column">
+    <input type="text" [(ngModel)]="template.code" placeholder="Code"/>
     <input type="text" [(ngModel)]="template.name" placeholder="Name"/>
     <input type="number" [(ngModel)]="template.maxHp" placeholder="Max HP"/>
-    <button (click)="save()">Save</button>
-    <button (click)="listKeys()">List Keys in console</button>
-    <button (click)="retrieve()">Retrieve</button>
+    <div fxLayout="row">
+      <button (click)="save()">Save</button>
+      <button (click)="listKeys()">List Saved</button>
+      <button (click)="retrieve()">Retrieve</button>
+    </div>
+    <ng-container *ngFor="let lookup of lookups">
+      <div>
+        {{lookup.name + ' (' + lookup.code + ')'}}
+      </div>
+    </ng-container>
 </div>

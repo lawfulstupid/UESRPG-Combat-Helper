@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { NpcTemplateRepository } from "src/app/dao/npc-template.repository";
+import { Lookup } from "src/app/model/lookup";
 import { NpcTemplate } from "src/app/model/npc-template";
 
 @Component({
@@ -8,10 +9,9 @@ import { NpcTemplate } from "src/app/model/npc-template";
 })
 export class NpcComponent {
   
-  @Input()
-  name: string | undefined;
+  template: NpcTemplate = new NpcTemplate('');
   
-  template: NpcTemplate = new NpcTemplate('acrobat');
+  lookups: Array<Lookup> = [];
   
   constructor(private npcTemplateRepo: NpcTemplateRepository) {
     
@@ -22,11 +22,12 @@ export class NpcComponent {
   }
   
   retrieve() {
-    this.template = this.npcTemplateRepo.retrieve('acrobat');
+    this.template = this.npcTemplateRepo.retrieve(this.template.code);
   }
   
   listKeys() {
-    console.log(this.npcTemplateRepo.getKeys());
+    this.lookups = this.npcTemplateRepo.getLookups();
+    console.log(this.lookups);
   }
   
 }

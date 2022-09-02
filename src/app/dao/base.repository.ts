@@ -1,32 +1,43 @@
+import { Lookup } from "../model/lookup";
+
 export abstract class BaseRepository<T extends Serializable> {
   
   abstract get REPOSITORY_KEY(): string;
   
-  private getFullKey(key: string): string {
-    return this.REPOSITORY_KEY + '.' + key;
+  getKeys(): Array<string> {
+    return Object.keys(this.getAll());
+  }
+  
+  getLookups(): Array<Lookup> {
+    const lookups: Array<Lookup> = [];
+    const list = this.getAll();
+    for (const key in list) {
+      const obj = list[key];
+      lookups.push(new Lookup(obj.code, obj.name));
+    }
+    lookups.sort((a,b) => a.name.localeCompare(b.name));
+    return lookups;
   }
   
   save(obj: T) {
-    localStorage.setItem(this.REPOSITORY_KEY + '.' + obj.code, JSON.stringify(obj));
+    const list = this.getAll();
+    list[obj.code] = obj;
+    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(list));
   }
   
   retrieve(key: string): T {
-    const value: string | null = localStorage.getItem(this.getFullKey(key));
-    return <T> (value && JSON.parse(value));
+    return this.getAll()[key];
   }
   
   delete(key: string) {
-    localStorage.removeItem(this.getFullKey(key));
+    const list = this.getAll();
+    delete list[key];
+    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(list));
   }
   
-  getKeys(): Array<string> {
+  private getAll(): {[key: string]: T} {
     const value: string | null = localStorage.getItem(this.REPOSITORY_KEY);
-    if (!value) {
-      return [];
-    } else {
-      const obj: any = JSON.parse(value);
-      return Object.keys(obj);
-    }
+    return value ? JSON.parse(value) : {};
   }
   
 }
@@ -34,5 +45,6 @@ export abstract class BaseRepository<T extends Serializable> {
 export interface Serializable {
   
   get code(): string;
+  get name(): string;
   
 }
