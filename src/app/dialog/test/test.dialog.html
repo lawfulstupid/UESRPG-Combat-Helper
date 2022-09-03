@@ -1,0 +1,6 @@
+<section fxLayout="column">
+  <b>Test Dialog</b>
+  {{data.content}}
+  <input matInput type="text" [(ngModel)]="response" placeholder="Response"/>
+  <button mat-raised-button (click)="sendResponse()">Send Response</button>
+</section>
