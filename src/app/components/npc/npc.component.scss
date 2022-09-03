@@ -1,0 +1,18 @@
+.npc {
+  width: 33vw;
+  height: fit-content;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.drag-handle {
+  background-color: aqua;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 5px;
+  top: 5px;
+}

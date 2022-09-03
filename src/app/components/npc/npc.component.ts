@@ -7,7 +7,8 @@ import {TestDialog} from '../../dialog/test/test.dialog';
 
 @Component({
   selector: 'npc',
-  templateUrl: 'npc.component.html'
+  templateUrl: './npc.component.html',
+  styleUrls: ['./npc.component.scss']
 })
 export class NpcComponent {
   

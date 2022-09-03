@@ -10,6 +10,7 @@ import {TestDialog} from './dialog/test/test.dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {DragulaModule} from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {MatInputModule} from '@angular/material/input';
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
+    DragulaModule.forRoot(),
     FlexLayoutModule,
     FormsModule,
     MatDialogModule,

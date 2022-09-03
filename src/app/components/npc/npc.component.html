@@ -1,16 +1,17 @@
-<div style="width: fit-content; height: fit-content; padding: 10px; display: flex; align-items: center; justify-content: center;" fxLayout="column">
-    <input matInput type="text" [(ngModel)]="template.code" placeholder="Code"/>
-    <input matInput type="text" [(ngModel)]="template.name" placeholder="Name"/>
-    <input matInput type="number" [(ngModel)]="template.maxHp" placeholder="Max HP"/>
-    <div fxLayout="row">
-      <button mat-raised-button (click)="save()">Save</button>
-      <button mat-raised-button (click)="listKeys()">List Saved</button>
-      <button mat-raised-button (click)="retrieve()">Retrieve</button>
-      <button mat-raised-button (click)="openDialog()">Open Dialog</button>
+<div class="npc" fxLayout="column">
+  <div class="drag-handle"></div>
+  <input matInput type="text" [(ngModel)]="template.code" placeholder="Code"/>
+  <input matInput type="text" [(ngModel)]="template.name" placeholder="Name"/>
+  <input matInput type="number" [(ngModel)]="template.maxHp" placeholder="Max HP"/>
+  <div fxLayout="row">
+    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button (click)="listKeys()">List Saved</button>
+    <button mat-raised-button (click)="retrieve()">Retrieve</button>
+    <button mat-raised-button (click)="openDialog()">Open Dialog</button>
+  </div>
+  <ng-container *ngFor="let lookup of lookups">
+    <div>
+      {{lookup.name + ' (' + lookup.code + ')'}}
     </div>
-    <ng-container *ngFor="let lookup of lookups">
-      <div>
-        {{lookup.name + ' (' + lookup.code + ')'}}
-      </div>
-    </ng-container>
+  </ng-container>
 </div>
