@@ -18,6 +18,7 @@ export class NpcTemplate extends Serializable<NpcTemplate> {
      * Speed
      * Size
    * Skills
+   * Unconventional Skills
    * Equipment Options
    * Special Abilities
    * Talents
