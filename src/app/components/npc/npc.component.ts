@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {NpcTemplateRepository} from "src/app/dao/npc-template.repository";
+import {NpcTemplateService} from '../../service/npc-template.service';
 import {Lookup} from "src/app/model/lookup";
 import {NpcTemplate} from "src/app/model/npc-template";
 import {MatDialog} from '@angular/material/dialog';
@@ -17,21 +17,20 @@ export class NpcComponent {
   lookups: Array<Lookup> = [];
   
   constructor(
-    private npcTemplateRepo: NpcTemplateRepository,
+    private npcTemplateService: NpcTemplateService,
     private dialog: MatDialog
   ) {}
   
   save() {
-    this.npcTemplateRepo.save(this.template);
+    this.npcTemplateService.updateTemplate(this.template.code);
   }
   
   retrieve() {
-    this.template = this.npcTemplateRepo.retrieve(this.template.code);
+    this.template = this.npcTemplateService.getTemplate(this.template.code);
   }
   
   listKeys() {
-    this.lookups = this.npcTemplateRepo.getLookups();
-    console.log(this.lookups);
+    this.lookups = this.npcTemplateService.getLookups();
   }
 
   openDialog() {

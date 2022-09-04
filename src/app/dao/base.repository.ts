@@ -1,22 +1,9 @@
-import {Lookup} from "../model/lookup";
-
 export abstract class BaseRepository<T extends Serializable> {
   
   abstract get REPOSITORY_KEY(): string;
   
   getKeys(): Array<string> {
     return Object.keys(this.retrieveAll());
-  }
-  
-  getLookups(): Array<Lookup> {
-    const lookups: Array<Lookup> = [];
-    const list = this.retrieveAll();
-    for (const key in list) {
-      const obj = list[key];
-      lookups.push(new Lookup(obj.code, obj.name));
-    }
-    lookups.sort((a,b) => a.name.localeCompare(b.name));
-    return lookups;
   }
   
   save(obj: T) {
