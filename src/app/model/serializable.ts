@@ -1,12 +1,7 @@
-export abstract class Serializable<T extends Serializable<T>> {
+export abstract class Serializable<T> {
 
-  constructor() {
-    Reflect.defineProperty(this, 'pullDataFrom', {
-      value: this.pullDataFrom,
-      configurable: false,
-      writable: false,
-      enumerable: false
-    });
+  public serialize(): string {
+    return JSON.stringify(this);
   }
 
   pullDataFrom(obj: T) {

@@ -1,4 +1,5 @@
 import {Serializable} from '../model/serializable';
+import {SerialCollection} from '../model/serial-collection';
 
 export abstract class BaseRepository<T extends Serializable<T>> {
   
@@ -7,29 +8,27 @@ export abstract class BaseRepository<T extends Serializable<T>> {
   
   save(key: string, obj: T) {
     const collection = this.retrieveAll();
-    collection[key] = obj;
-    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(collection));
+    collection.put(key, obj);
+    localStorage.setItem(this.REPOSITORY_KEY, collection.serialize());
   }
   
   retrieve(key: string): T {
-    return this.retrieveAll()[key];
+    return this.retrieveAll().get(key);
   }
   
   delete(key: string) {
-    const list = this.retrieveAll();
-    delete list[key];
-    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(list));
+    const collection = this.retrieveAll();
+    collection.delete(key);
+    localStorage.setItem(this.REPOSITORY_KEY, collection.serialize());
   }
   
-  retrieveAll(): {[key: string]: T} {
+  retrieveAll(): SerialCollection<T> {
     const value: string | null = localStorage.getItem(this.REPOSITORY_KEY);
-    const collection: {[key: string]: T} = value ? JSON.parse(value) : {};
-    for (const key in collection) {
-      const newObj: T = this.makeNew();
-      newObj.pullDataFrom(collection[key]);
-      collection[key] = newObj;
+    if (value) {
+      return SerialCollection.deserialize(value, this.makeNew);
+    } else {
+      return new SerialCollection<T>();
     }
-    return collection;
   }
   
 }

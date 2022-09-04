@@ -11,7 +11,7 @@ import {NpcTemplate} from "src/app/model/npc-template";
 export class NpcComponent {
 
   key: string = '';
-  template: NpcTemplate = new NpcTemplate('');
+  template: NpcTemplate = new NpcTemplate();
   
   lookups: Array<Lookup> = [];
   
@@ -20,7 +20,7 @@ export class NpcComponent {
   ) {}
   
   save() {
-    this.npcTemplateService.updateTemplate(this.key);
+    this.npcTemplateService.updateTemplate(this.key, this.template);
   }
   
   retrieve() {
