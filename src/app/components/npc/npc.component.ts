@@ -2,8 +2,6 @@ import {Component} from "@angular/core";
 import {NpcTemplateService} from '../../service/npc-template.service';
 import {Lookup} from "src/app/model/lookup";
 import {NpcTemplate} from "src/app/model/npc-template";
-import {MatDialog} from '@angular/material/dialog';
-import {TestDialog} from '../../dialog/test/test.dialog';
 
 @Component({
   selector: 'npc',
@@ -17,8 +15,7 @@ export class NpcComponent {
   lookups: Array<Lookup> = [];
   
   constructor(
-    private npcTemplateService: NpcTemplateService,
-    private dialog: MatDialog
+    private npcTemplateService: NpcTemplateService
   ) {}
   
   save() {
@@ -33,15 +30,9 @@ export class NpcComponent {
     this.lookups = this.npcTemplateService.getLookups();
   }
 
-  openDialog() {
-    const config = {
-      width: '30vw',
-      data: {
-        content: 'Hello, world!'
-      }
-    };
-    this.dialog.open(TestDialog, config).afterClosed().subscribe(result => {
-      console.log(result);
+  logHp() {
+    this.template.hp.get().subscribe(hp => {
+      console.log(hp);
     });
   }
   

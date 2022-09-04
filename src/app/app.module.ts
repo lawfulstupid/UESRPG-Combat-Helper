@@ -6,20 +6,20 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 import {AppComponent} from './app.component';
 import {NpcComponent} from './components/npc/npc.component';
-import {TestDialog} from './dialog/test/test.dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {DragulaModule} from 'ng2-dragula';
+import {ValueRequestDialog} from './dialog/value-request/value-request.dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     NpcComponent,
-    TestDialog
+    ValueRequestDialog
   ],
   entryComponents: [
-    TestDialog
+    ValueRequestDialog
   ],
   imports: [
     BrowserAnimationsModule,

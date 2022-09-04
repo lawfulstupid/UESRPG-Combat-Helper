@@ -1,9 +1,11 @@
 import {Serializable} from "../dao/base.repository";
+import {RequestableValue} from './requestable-value';
 
 export class NpcTemplate implements Serializable {
   
   code: string;
   name: string = 'Unnamed';
+  hp: RequestableValue<number> = new RequestableValue('HP');
 
   /* Information to store:
    * Characteristics

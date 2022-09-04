@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {DragulaService} from 'ng2-dragula';
+import {StaticProvider} from './static.provider';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,11 @@ import {DragulaService} from 'ng2-dragula';
 })
 export class AppComponent {
 
-  constructor(private dragulaService: DragulaService) {
+  constructor(
+    private dialog: MatDialog,
+    private dragulaService: DragulaService
+  ) {
+    StaticProvider.dialog = dialog;
     dragulaService.createGroup("DRAGGABLE", {
       revertOnSpill: true,
       moves: (_el, _container, handle) => {
