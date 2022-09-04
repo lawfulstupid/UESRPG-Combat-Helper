@@ -8,15 +8,19 @@ import {
   ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
+import {
+  ID,
+  Serializable
+} from './serializable';
 
-export class RequestableValue<T> {
+export class RequestableValue<T> extends Serializable<RequestableValue<T>> {
 
-  private valueName: string;
-  private value?: T;
+  private readonly name: string;
+  private value?: T = undefined;
 
-  constructor(valueName: string, value?: T) {
-    this.valueName = valueName;
-    this.value = value;
+  constructor(id: ID, name: string) {
+    super(id);
+    this.name = name;
   }
 
   public get(): Observable<T> {
@@ -30,7 +34,7 @@ export class RequestableValue<T> {
   private populate(): Observable<T> {
     const config = {
       data: <ValueRequest>{
-        valueName: this.valueName
+        valueName: this.name
       }
     }
 

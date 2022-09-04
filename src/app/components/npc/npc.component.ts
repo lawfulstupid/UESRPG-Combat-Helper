@@ -19,11 +19,11 @@ export class NpcComponent {
   ) {}
   
   save() {
-    this.npcTemplateService.updateTemplate(this.template.code);
+    this.npcTemplateService.updateTemplate(this.template.id);
   }
   
   retrieve() {
-    this.template = this.npcTemplateService.getTemplate(this.template.code);
+    this.template = this.npcTemplateService.getTemplate(this.template.id);
   }
   
   listKeys() {

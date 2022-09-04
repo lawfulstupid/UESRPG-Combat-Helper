@@ -1,6 +1,6 @@
 <div class="npc" fxLayout="column">
   <div class="drag-handle"></div>
-  <input matInput type="text" [(ngModel)]="template.code" placeholder="Code"/>
+  <input matInput type="text" [(ngModel)]="template.id" placeholder="ID"/>
   <input matInput type="text" [(ngModel)]="template.name" placeholder="Name"/>
   <div fxLayout="row">
     <button mat-raised-button (click)="save()">Save</button>
@@ -10,7 +10,7 @@
   </div>
   <ng-container *ngFor="let lookup of lookups">
     <div>
-      {{lookup.name + ' (' + lookup.code + ')'}}
+      {{lookup.name + ' (' + lookup.id + ')'}}
     </div>
   </ng-container>
 </div>

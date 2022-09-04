@@ -1,15 +1,17 @@
-export abstract class BaseRepository<T extends Serializable> {
+import {
+  ID,
+  Serializable
+} from '../model/serializable';
+
+export abstract class BaseRepository<T extends Serializable<T>> {
   
   abstract get REPOSITORY_KEY(): string;
-  
-  getKeys(): Array<string> {
-    return Object.keys(this.retrieveAll());
-  }
+  abstract makeNew(id: ID): T;
   
   save(obj: T) {
-    const list = this.retrieveAll();
-    list[obj.code] = obj;
-    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(list));
+    const collection = this.retrieveAll();
+    collection[obj.id] = obj;
+    localStorage.setItem(this.REPOSITORY_KEY, JSON.stringify(collection));
   }
   
   retrieve(key: string): T {
@@ -24,14 +26,13 @@ export abstract class BaseRepository<T extends Serializable> {
   
   retrieveAll(): {[key: string]: T} {
     const value: string | null = localStorage.getItem(this.REPOSITORY_KEY);
-    return value ? JSON.parse(value) : {};
+    const collection: {[key: string]: T} = value ? JSON.parse(value) : {};
+    for (const key in collection) {
+      const newObj: T = this.makeNew(key);
+      newObj.pullDataFrom(collection[key]);
+      collection[key] = newObj;
+    }
+    return collection;
   }
-  
-}
-
-export interface Serializable {
-  
-  get code(): string;
-  get name(): string;
   
 }
