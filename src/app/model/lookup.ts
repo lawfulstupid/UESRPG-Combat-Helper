@@ -1,12 +1,10 @@
-import {ID} from './serializable';
-
 export class Lookup {
   
-  id: ID;
+  key: string;
   name: string;
   
-  constructor(id: ID, name: string) {
-    this.id = id;
+  constructor(key: string, name: string) {
+    this.key = key;
     this.name = name;
   }
   

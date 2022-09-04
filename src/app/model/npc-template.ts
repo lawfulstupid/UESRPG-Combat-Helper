@@ -4,7 +4,7 @@ import {Serializable} from './serializable';
 export class NpcTemplate extends Serializable<NpcTemplate> {
 
   name: string = '';
-  hp: RequestableValue<number> = new RequestableValue('hp', 'HP');
+  hp: RequestableValue<number> = new RequestableValue('HP');
 
   /* Information to store:
    * Characteristics

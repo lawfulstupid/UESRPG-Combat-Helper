@@ -1,9 +1,6 @@
 export abstract class Serializable<T extends Serializable<T>> {
 
-  id: ID;
-
-  constructor(id: ID) {
-    this.id = id;
+  constructor() {
     Reflect.defineProperty(this, 'pullDataFrom', {
       value: this.pullDataFrom,
       configurable: false,
@@ -25,5 +22,3 @@ export abstract class Serializable<T extends Serializable<T>> {
   }
 
 }
-
-export type ID = string;

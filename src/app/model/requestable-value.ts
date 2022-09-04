@@ -8,18 +8,15 @@ import {
   ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
-import {
-  ID,
-  Serializable
-} from './serializable';
+import {Serializable} from './serializable';
 
 export class RequestableValue<T> extends Serializable<RequestableValue<T>> {
 
   private readonly name: string;
   private value?: T = undefined;
 
-  constructor(id: ID, name: string) {
-    super(id);
+  constructor(name: string) {
+    super();
     this.name = name;
   }
 

@@ -14,19 +14,19 @@ export class NpcTemplateService {
     this.templates = repo.retrieveAll();
   }
 
-  getTemplate(id: string) {
-    return this.templates[id];
+  getTemplate(key: string) {
+    return this.templates[key];
   }
 
-  updateTemplate(id: string) {
-    this.repo.save(this.getTemplate(id));
+  updateTemplate(key: string) {
+    this.repo.save(key, this.getTemplate(key));
   }
 
   getLookups(): Array<Lookup> {
     const lookups: Array<Lookup> = [];
     for (const key in this.templates) {
       const obj = this.templates[key];
-      lookups.push(new Lookup(obj.id, obj.name));
+      lookups.push(new Lookup(key, obj.name));
     }
     lookups.sort((a,b) => a.name.localeCompare(b.name));
     return lookups;

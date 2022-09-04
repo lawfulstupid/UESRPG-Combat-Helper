@@ -9,7 +9,8 @@ import {NpcTemplate} from "src/app/model/npc-template";
   styleUrls: ['./npc.component.scss']
 })
 export class NpcComponent {
-  
+
+  key: string = '';
   template: NpcTemplate = new NpcTemplate('');
   
   lookups: Array<Lookup> = [];
@@ -19,11 +20,11 @@ export class NpcComponent {
   ) {}
   
   save() {
-    this.npcTemplateService.updateTemplate(this.template.id);
+    this.npcTemplateService.updateTemplate(this.key);
   }
   
   retrieve() {
-    this.template = this.npcTemplateService.getTemplate(this.template.id);
+    this.template = this.npcTemplateService.getTemplate(this.key);
   }
   
   listKeys() {
