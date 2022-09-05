@@ -1,10 +1,10 @@
-export abstract class Serializable<T> {
+export abstract class Serializable {
 
   public serialize(): string {
     return JSON.stringify(this);
   }
 
-  pullDataFrom(obj: T) {
+  pullDataFrom(obj: this) {
     for (const field in obj) {
       if (field in this) {
         if ((<any>this)[field] instanceof Serializable) {

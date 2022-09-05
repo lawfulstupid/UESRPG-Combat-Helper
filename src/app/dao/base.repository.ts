@@ -1,7 +1,7 @@
 import {Serializable} from '../model/serializable';
 import {SerialCollection} from '../model/serial-collection';
 
-export abstract class BaseRepository<T extends Serializable<T>> {
+export abstract class BaseRepository<T extends Serializable> {
   
   abstract get REPOSITORY_KEY(): string;
   abstract makeNew(): T;

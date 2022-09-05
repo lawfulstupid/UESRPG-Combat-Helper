@@ -1,7 +1,7 @@
 import {RequestableValue} from './requestable-value';
 import {Serializable} from './serializable';
 
-export class NpcTemplate extends Serializable<NpcTemplate> {
+export class NpcTemplate extends Serializable {
 
   name: string = '';
   hp: RequestableValue<number> = new RequestableValue('HP');

@@ -10,7 +10,7 @@ import {
 } from '../dialog/value-request/value-request.dialog';
 import {Serializable} from './serializable';
 
-export class RequestableValue<T> extends Serializable<RequestableValue<T>> {
+export class RequestableValue<T> extends Serializable {
 
   private readonly name: string;
   private value?: T = undefined;

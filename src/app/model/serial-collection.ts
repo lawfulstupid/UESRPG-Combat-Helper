@@ -1,6 +1,6 @@
 import {Serializable} from './serializable';
 
-export class SerialCollection<T extends Serializable<T>> extends Serializable<SerialCollection<T>> {
+export class SerialCollection<T extends Serializable> extends Serializable {
 
   private contents: {[key: string]: T} = {};
 
@@ -14,7 +14,7 @@ export class SerialCollection<T extends Serializable<T>> extends Serializable<Se
     return result;
   }
 
-  public static deserialize<T extends Serializable<T>>(json: string, makeNew: () => T): SerialCollection<T> {
+  public static deserialize<T extends Serializable>(json: string, makeNew: () => T): SerialCollection<T> {
     const collection: SerialCollection<T> = new SerialCollection<T>();
     const basicValues = JSON.parse(json);
     for (const key in basicValues) {
