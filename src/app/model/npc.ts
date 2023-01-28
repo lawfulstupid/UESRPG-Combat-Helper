@@ -1,6 +1,6 @@
 import { tap, mergeMap, Observable, of } from "rxjs";
 import { DataCharacter } from "./data-character";
-import { Property, TemplateRole } from "./property";
+import { Property, TemplateRole } from "./lookup/property";
 import { NpcTemplate } from "./npc-template";
 import { ValueRequestDialog } from "../dialog/value-request/value-request.dialog";
 

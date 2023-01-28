@@ -1,10 +1,9 @@
 <div class="npc" fxLayout="column">
   <div class="drag-handle"></div>
   <input matInput type="text" [(ngModel)]="key" placeholder="ID"/>
-  <input matInput type="text" [(ngModel)]="npc.template.name" placeholder="Name" *ngIf="npc"/>
+  <input matInput type="text" [(ngModel)]="npc.name" placeholder="Name" *ngIf="npc"/>
   <div fxLayout="row">
-    <button mat-raised-button (click)="listKeys()">List Saved</button>
-    <button mat-raised-button (click)="retrieve()">Retrieve</button>
+    <button mat-raised-button (click)="retrieve()">Load</button>
     <button mat-raised-button (click)="logHp()" *ngIf="npc">Log HP</button>
     <button mat-raised-button (click)="addHp()" *ngIf="npc">Add HP</button>
   </div>

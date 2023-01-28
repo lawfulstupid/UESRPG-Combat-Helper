@@ -8,7 +8,7 @@ import {
 } from '@angular/material/dialog';
 import { map, Observable } from 'rxjs';
 import { DataCharacter } from 'src/app/model/data-character';
-import { Property } from 'src/app/model/property';
+import { Property } from 'src/app/model/lookup/property';
 import { StaticProvider } from 'src/app/static.provider';
 
 @Component({

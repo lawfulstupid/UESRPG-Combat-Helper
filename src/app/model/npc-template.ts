@@ -1,5 +1,5 @@
 import { tap, Observable } from 'rxjs';
-import { Property } from './property';
+import { Property } from './lookup/property';
 import {
   ValueRequest,
   ValueRequestDialog

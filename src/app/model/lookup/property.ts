@@ -1,12 +1,11 @@
-export class Property {
+import { Identifier } from "./identifier";
+
+export class Property extends Identifier {
   
-  key: string;  // identifer for persistance
-  name?: string; // display name
-  templatingMode: TemplateRole;
+  templatingMode: TemplateRole; // how the npc template is used
   
   constructor(key: string, name?: string, templatingMode: TemplateRole = TemplateRole.REFERENCE) {
-    this.key = key;
-    this.name = name;
+    super(key, name);
     this.templatingMode = templatingMode;
   }
   

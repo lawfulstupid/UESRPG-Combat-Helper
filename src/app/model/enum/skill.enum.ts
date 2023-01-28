@@ -1,4 +1,4 @@
-import { Property } from "../property";
+import { Property } from "../lookup/property";
 
 export class SkillEnum {
 
