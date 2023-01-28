@@ -1,4 +1,3 @@
-import {Serializable} from '../model/serializable';
 import { NpcTemplate } from '../model/npc-template';
 import { Identifier } from '../model/identifier/identifier';
 
@@ -10,10 +9,10 @@ export abstract class NpcTemplateRepository {
   
   static retrieve(key: string): NpcTemplate {
     const str = localStorage.getItem(key);
-    if (str === null) return new NpcTemplate(new Identifier(key));
+    if (str === null) return new NpcTemplate('');
     
     const obj = JSON.parse(str);
-    return new NpcTemplate(new Identifier(key, obj.ident.name), obj.data);
+    return new NpcTemplate(obj.name, obj.data);
   }
   
   static delete(key: string) {
@@ -24,7 +23,7 @@ export abstract class NpcTemplateRepository {
     const list: Array<Identifier> = [];
     for (let key of Object.keys(localStorage)) {
       let template: NpcTemplate = this.retrieve(key);
-      list.push(template.ident);
+      list.push(new Identifier(key, template.name));
     }
     return list;
   }

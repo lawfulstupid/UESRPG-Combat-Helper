@@ -1,7 +1,7 @@
 <div class="npc" fxLayout="column">
   <div class="drag-handle"></div>
   <input matInput type="text" [(ngModel)]="key" placeholder="ID"/>
-  <input matInput type="text" [(ngModel)]="npc.template.ident.name" placeholder="Name"/>
+  <input matInput type="text" [(ngModel)]="npc.template.name" placeholder="Name"/>
   <div fxLayout="row">
     <button mat-raised-button (click)="save()">Save</button>
     <button mat-raised-button (click)="listKeys()">List Saved</button>

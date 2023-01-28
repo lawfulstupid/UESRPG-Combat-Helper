@@ -12,7 +12,7 @@ export class NonPlayerCharacter extends Character {
     if (template) {
       this.template = template;
     } else {
-      this.template = new NpcTemplate(new Identifier(name, name));
+      this.template = new NpcTemplate(name);
     }
   }
   

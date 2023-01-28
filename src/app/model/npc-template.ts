@@ -1,20 +1,18 @@
 import { mergeMap, Observable, of } from 'rxjs';
-import { AttributeEnum } from './enum/attribute.enum';
 import { Identifier } from './identifier/identifier';
-import {RequestableValue} from './requestable-value';
 import {
   ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
-import {Serializable} from './serializable';
 import { StaticProvider } from '../static.provider';
 
-export class NpcTemplate extends Serializable {
+export class NpcTemplate {
 
+  name: string = '';
   data: {[key: string]: any} = {};
   
-  constructor(ident: Identifier, data = {}) {
-    super(ident);
+  constructor(name: string, data = {}) {
+    this.name = name;
     this.data = data;
   }
 
