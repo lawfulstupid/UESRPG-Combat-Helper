@@ -15,7 +15,7 @@ export class NpcComponent {
   key: string = '';
   npc: NonPlayerCharacter = new NonPlayerCharacter('NPC');
   
-  idents: Array<Identifier> = [];
+  templateList: Array<Identifier> = [];
   
   save() {
     NpcTemplateRepository.save(this.key, this.npc.template);
@@ -26,7 +26,7 @@ export class NpcComponent {
   }
   
   listKeys() {
-    this.idents = NpcTemplateRepository.list();
+    this.templateList = NpcTemplateRepository.list();
   }
 
   logHp() {

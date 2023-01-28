@@ -38,25 +38,25 @@ export class NpcTemplate extends Serializable {
    * Variants?
    */
   
-  get(ident: Identifier): Observable<any> {
-    let value = this.data[ident.key];
+  get(stat: Identifier): Observable<any> {
+    let value = this.data[stat.key];
     if (value) {
       return of(value);
     } else {
-      return this.populate(ident);
+      return this.populate(stat);
     }
   }
   
-  private populate(ident: Identifier): Observable<any> {
+  private populate(stat: Identifier): Observable<any> {
     const config = {
       data: <ValueRequest>{
-        valueName: this.ident.name
+        valueName: stat.name
       }
     }
     
     return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(mergeMap(result => {
-      this.data[ident.key] = result;
-      return this.get(ident);
+      this.data[stat.key] = result;
+      return this.get(stat);
     }));
   }
   

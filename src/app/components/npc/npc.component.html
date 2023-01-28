@@ -8,9 +8,9 @@
     <button mat-raised-button (click)="retrieve()">Retrieve</button>
     <button mat-raised-button (click)="logHp()">Log HP</button>
   </div>
-  <ng-container *ngFor="let ident of idents">
+  <ng-container *ngFor="let templateId of templateList">
     <div>
-      {{ident.name + ' (' + ident.key + ')'}}
+      {{templateId.name + ' (' + templateId.key + ')'}}
     </div>
   </ng-container>
 </div>
