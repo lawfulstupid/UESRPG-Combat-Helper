@@ -17,10 +17,6 @@ export class NpcComponent {
   
   templateList: Array<Identifier> = [];
   
-  save() {
-    NpcTemplateRepository.save(this.npc.template);
-  }
-  
   retrieve() {
     this.npc.template = NpcTemplateRepository.retrieve(this.key);
   }
@@ -30,7 +26,7 @@ export class NpcComponent {
   }
 
   logHp() {
-    this.npc.template.get(AttributeEnum.HP).subscribe(hp => {
+    this.npc.template.getStat(AttributeEnum.HP).subscribe(hp => {
       console.log(hp);
     });
   }

@@ -1,4 +1,4 @@
-import { mergeMap, Observable, of } from 'rxjs';
+import { identity, mergeMap, Observable, of } from 'rxjs';
 import { Identifier } from './identifier/identifier';
 import {
   ValueRequest,
@@ -19,27 +19,35 @@ export class NpcTemplate {
     this.data = data;
   }
   
-  get(stat: Identifier): Observable<any> {
-    let value = this.data[stat.key];
+  private getRaw<T>(property: Identifier, castFn: (json: string) => T): Observable<T> {
+    let value: T = this.data[property.key];
     if (value) {
       return of(value);
-    } else {
-      return this.populate(stat);
     }
-  }
-  
-  private populate(stat: Identifier): Observable<any> {
+    
     const config = {
       data: <ValueRequest>{
-        valueName: stat.name
+        valueName: property.name
       }
     }
     
     return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(mergeMap(result => {
-      this.data[stat.key] = result;
+      this.data[property.key] = castFn(result);
       NpcTemplateRepository.save(this);
-      return this.get(stat);
+      return this.getRaw(property, castFn);
     }));
+  }
+  
+  getStat(stat: Identifier): Observable<number> {
+    return this.getRaw(stat, Number.parseInt);
+  }
+  
+  getText(textId: Identifier): Observable<string> {
+    return this.getRaw(textId, identity);
+  }
+  
+  getObject<T>(id: Identifier, castFn: (json: string) => T): Observable<T> {
+    return this.getRaw(id, castFn);
   }
   
 }
