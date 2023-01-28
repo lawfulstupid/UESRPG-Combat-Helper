@@ -14,11 +14,13 @@ import {ValueRequestDialog} from './dialog/value-request/value-request.dialog';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
+    WorkspaceComponent,
     NpcComponent,
     ValueRequestDialog
   ],

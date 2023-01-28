@@ -11,16 +11,9 @@ import {MatDialog} from '@angular/material/dialog';
 export class AppComponent {
 
   constructor(
-    private dialog: MatDialog,
-    private dragulaService: DragulaService
+    private dialog: MatDialog
   ) {
     StaticProvider.dialog = dialog;
-    dragulaService.createGroup("DRAGGABLE", {
-      revertOnSpill: true,
-      moves: (_el, _container, handle) => {
-        return (<Element>handle).className === 'drag-handle';
-      }
-    });
   }
 
 }
