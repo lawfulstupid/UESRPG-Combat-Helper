@@ -1,0 +1,5 @@
+<div fxLayout="row" class="actionbar">
+  <button *ngFor="let action of actions" mat-raised-button (click)="action.callback()">
+    {{action.label}}
+  </button>
+</div>

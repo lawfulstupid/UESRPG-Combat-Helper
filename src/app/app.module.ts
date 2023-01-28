@@ -16,12 +16,14 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
+import { ActionbarComponent } from './components/actionbar/actionbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenubarComponent,
     WorkspaceComponent,
+    ActionbarComponent,
     NpcComponent,
     ValueRequestDialog,
     NewNpcDialog
