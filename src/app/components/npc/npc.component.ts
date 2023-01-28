@@ -1,13 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
-import { Property } from "src/app/model/lookup/property";
 import { Npc as Npc } from "src/app/model/npc";
 import { NpcTemplateRepository } from "src/app/service/npc-template-repository";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Identifier } from "src/app/model/lookup/identifier";
 
 @Component({
-  selector: 'npc',
+  selector: 'app-npc',
   templateUrl: './npc.component.html',
   styleUrls: ['./npc.component.scss']
 })
