@@ -15,6 +15,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 
 @NgModule({
   declarations: [
@@ -22,10 +23,12 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
     ToolbarComponent,
     WorkspaceComponent,
     NpcComponent,
-    ValueRequestDialog
+    ValueRequestDialog,
+    NewNpcDialog
   ],
   entryComponents: [
-    ValueRequestDialog
+    ValueRequestDialog,
+    NewNpcDialog
   ],
   imports: [
     BrowserAnimationsModule,
