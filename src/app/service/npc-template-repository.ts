@@ -3,8 +3,8 @@ import { Identifier } from '../model/identifier/identifier';
 
 export abstract class NpcTemplateRepository {
   
-  static save(key: string, obj: NpcTemplate) {
-    localStorage.setItem(key, JSON.stringify(obj));
+  static save(obj: NpcTemplate) {
+    localStorage.setItem(obj.key, JSON.stringify(obj));
   }
   
   static retrieve(key: string): NpcTemplate {
@@ -12,7 +12,7 @@ export abstract class NpcTemplateRepository {
     if (str === null) return new NpcTemplate('');
     
     const obj = JSON.parse(str);
-    return new NpcTemplate(obj.name, obj.data);
+    return new NpcTemplate(obj.key, obj.name, obj.data);
   }
   
   static delete(key: string) {

@@ -5,36 +5,19 @@ import {
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
 import { StaticProvider } from '../static.provider';
+import { NpcTemplateRepository } from '../service/npc-template-repository';
 
 export class NpcTemplate {
 
-  name: string = '';
+  readonly key: string;
+  name?: string;
   data: {[key: string]: any} = {};
   
-  constructor(name: string, data = {}) {
+  constructor(key: string, name?: string, data = {}) {
+    this.key = key;
     this.name = name;
     this.data = data;
   }
-
-  /* Information to store:
-   * Characteristics
-   * Attributes:
-     * Hit Points
-     * Wound Threshold
-     * Magicka Points
-     * Stamina Points
-     * Initiative Rating
-     * Action Point
-     * Speed
-     * Size
-   * Skills
-   * Unconventional Skills
-   * Equipment Options
-   * Special Abilities
-   * Talents
-   * Spells
-   * Variants?
-   */
   
   get(stat: Identifier): Observable<any> {
     let value = this.data[stat.key];
@@ -54,6 +37,7 @@ export class NpcTemplate {
     
     return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(mergeMap(result => {
       this.data[stat.key] = result;
+      NpcTemplateRepository.save(this);
       return this.get(stat);
     }));
   }

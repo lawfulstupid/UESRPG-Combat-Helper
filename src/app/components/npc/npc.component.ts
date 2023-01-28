@@ -18,7 +18,7 @@ export class NpcComponent {
   templateList: Array<Identifier> = [];
   
   save() {
-    NpcTemplateRepository.save(this.key, this.npc.template);
+    NpcTemplateRepository.save(this.npc.template);
   }
   
   retrieve() {
