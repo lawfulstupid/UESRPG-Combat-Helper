@@ -4,10 +4,10 @@ import { StaticProvider } from "src/app/static.provider";
 
 @Component({
   selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  templateUrl: './menubar.component.html',
+  styleUrls: ['./menubar.component.scss']
 })
-export class ToolbarComponent {
+export class MenubarComponent {
   
   newNpc() {
     StaticProvider.dialog.open(NewNpcDialog, {}).afterClosed().subscribe(result => {
