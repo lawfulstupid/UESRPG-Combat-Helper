@@ -1,5 +1,5 @@
 <section fxLayout="column">
-  <span>Enter {{data.valueName}}:</span>
+  <span>Enter {{data.entityName}}'s {{data.valueName}}:</span>
   <div fxLayout="row">
     <input matInput type="text" [(ngModel)]="value" placeholder="Value" (submit)="respond()"/>
     <button mat-raised-button (click)="respond()">Submit</button>

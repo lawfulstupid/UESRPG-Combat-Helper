@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
-import { Identifier } from "src/app/model/identifier/identifier";
-import { NonPlayerCharacter } from "src/app/model/non-player-character";
-import {NpcTemplate} from "src/app/model/npc-template";
+import { Property } from "src/app/model/property";
+import { Npc as Npc } from "src/app/model/npc";
 import { NpcTemplateRepository } from "src/app/service/npc-template-repository";
+import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 
 @Component({
   selector: 'npc',
@@ -13,12 +13,15 @@ import { NpcTemplateRepository } from "src/app/service/npc-template-repository";
 export class NpcComponent {
 
   key: string = '';
-  npc: NonPlayerCharacter = new NonPlayerCharacter('NPC');
+  npc?: Npc;
   
-  templateList: Array<Identifier> = [];
+  templateList: Array<Property> = [];
   
   retrieve() {
-    this.npc.template = NpcTemplateRepository.retrieve(this.key);
+    const template = NpcTemplateRepository.retrieve(this.key);
+    if (template !== null) {
+      this.npc = new Npc('', template);
+    }
   }
   
   listKeys() {
@@ -26,8 +29,17 @@ export class NpcComponent {
   }
 
   logHp() {
-    this.npc.template.getStat(AttributeEnum.HP).subscribe(hp => {
+    if (this.npc === undefined) throw new Error();
+    this.npc.getStat(AttributeEnum.HP).subscribe(hp => {
       console.log(hp);
+    });
+  }
+  
+  addHp() {
+    if (this.npc === undefined) throw new Error();
+    ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP, Number.parseInt).subscribe(value => {
+      if (this.npc === undefined) throw new Error();
+      this.npc.data['hitPoints'] += value;
     });
   }
   

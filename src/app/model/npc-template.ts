@@ -1,53 +1,32 @@
-import { identity, mergeMap, Observable, of } from 'rxjs';
-import { Identifier } from './identifier/identifier';
+import { tap, Observable } from 'rxjs';
+import { Property } from './property';
 import {
   ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
 import { StaticProvider } from '../static.provider';
 import { NpcTemplateRepository } from '../service/npc-template-repository';
+import { DataCharacter } from './data-character';
 
-export class NpcTemplate {
+export class NpcTemplate extends DataCharacter {
 
   readonly key: string;
-  name?: string;
-  data: {[key: string]: any} = {};
   
-  constructor(key: string, name?: string, data = {}) {
+  constructor(name: string, key: string, data = {}) {
+    super(name, data);
     this.key = key;
-    this.name = name;
-    this.data = data;
   }
   
-  private getRaw<T>(property: Identifier, castFn: (json: string) => T): Observable<T> {
-    let value: T = this.data[property.key];
-    if (value) {
-      return of(value);
-    }
-    
-    const config = {
-      data: <ValueRequest>{
-        valueName: property.name
-      }
-    }
-    
-    return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(mergeMap(result => {
-      this.data[property.key] = castFn(result);
-      NpcTemplateRepository.save(this);
-      return this.getRaw(property, castFn);
+  protected override writeData<T>(property: Property, value: T) {
+    super.writeData(property, value);
+    NpcTemplateRepository.save(this); // save update in local storage
+  }
+  
+  // get value from user input
+  protected override populate<T>(property: Property, castFn: (json: string) => T): Observable<T> {
+    return ValueRequestDialog.requestValue(this, property, castFn).pipe(tap(value => {
+      this.writeData(property, value);
     }));
-  }
-  
-  getStat(stat: Identifier): Observable<number> {
-    return this.getRaw(stat, Number.parseInt);
-  }
-  
-  getText(textId: Identifier): Observable<string> {
-    return this.getRaw(textId, identity);
-  }
-  
-  getObject<T>(id: Identifier, castFn: (json: string) => T): Observable<T> {
-    return this.getRaw(id, castFn);
   }
   
 }

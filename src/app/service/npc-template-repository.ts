@@ -1,5 +1,5 @@
 import { NpcTemplate } from '../model/npc-template';
-import { Identifier } from '../model/identifier/identifier';
+import { Property } from '../model/property';
 
 export abstract class NpcTemplateRepository {
   
@@ -7,9 +7,9 @@ export abstract class NpcTemplateRepository {
     localStorage.setItem(obj.key, JSON.stringify(obj));
   }
   
-  static retrieve(key: string): NpcTemplate {
+  static retrieve(key: string): NpcTemplate | null{
     const str = localStorage.getItem(key);
-    if (str === null) return new NpcTemplate('');
+    if (str === null) return null;
     
     const obj = JSON.parse(str);
     return new NpcTemplate(obj.key, obj.name, obj.data);
@@ -19,11 +19,13 @@ export abstract class NpcTemplateRepository {
     localStorage.removeItem(key);
   }
   
-  static list(): Array<Identifier> {
-    const list: Array<Identifier> = [];
+  static list(): Array<Property> {
+    const list: Array<Property> = [];
     for (let key of Object.keys(localStorage)) {
-      let template: NpcTemplate = this.retrieve(key);
-      list.push(new Identifier(key, template.name));
+      let template: NpcTemplate | null = this.retrieve(key);
+      if (template !== null) {
+        list.push(new Property(key, template.name));
+      }
     }
     return list;
   }
