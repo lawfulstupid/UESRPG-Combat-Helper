@@ -7,6 +7,7 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import { map, Observable } from 'rxjs';
+import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { DataCharacter } from 'src/app/model/data-character';
 import { Property } from 'src/app/model/lookup/property';
 import { StaticProvider } from 'src/app/static.provider';
@@ -16,6 +17,11 @@ import { StaticProvider } from 'src/app/static.provider';
 })
 export class ValueRequestDialog {
 
+  actions: Array<ActionItem> = [{
+    label: 'Submit',
+    callback: this.respond.bind(this)
+  }]
+  
   value: string = '';
 
   constructor(
