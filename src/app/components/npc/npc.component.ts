@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
-import {NpcTemplateService} from '../../service/npc-template.service';
-import {Lookup} from "src/app/model/lookup";
+import { AttributeEnum } from "src/app/model/enum/attribute.enum";
+import { Identifier } from "src/app/model/identifier/identifier";
+import { NonPlayerCharacter } from "src/app/model/non-player-character";
 import {NpcTemplate} from "src/app/model/npc-template";
+import { NpcTemplateRepository } from "src/app/service/npc-template-repository";
 
 @Component({
   selector: 'npc',
@@ -11,28 +13,24 @@ import {NpcTemplate} from "src/app/model/npc-template";
 export class NpcComponent {
 
   key: string = '';
-  template: NpcTemplate = new NpcTemplate();
+  npc: NonPlayerCharacter = new NonPlayerCharacter('NPC');
   
-  lookups: Array<Lookup> = [];
-  
-  constructor(
-    private npcTemplateService: NpcTemplateService
-  ) {}
+  idents: Array<Identifier> = [];
   
   save() {
-    this.npcTemplateService.updateTemplate(this.key, this.template);
+    NpcTemplateRepository.save(this.key, this.npc.template);
   }
   
   retrieve() {
-    this.template = this.npcTemplateService.getTemplate(this.key);
+    this.npc.template = NpcTemplateRepository.retrieve(this.key);
   }
   
   listKeys() {
-    this.lookups = this.npcTemplateService.getLookups();
+    this.idents = NpcTemplateRepository.list();
   }
 
   logHp() {
-    this.template.hp.get().subscribe(hp => {
+    this.npc.template.get(AttributeEnum.HP).subscribe(hp => {
       console.log(hp);
     });
   }

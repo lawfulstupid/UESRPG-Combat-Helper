@@ -9,15 +9,14 @@ import {
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
 import {Serializable} from './serializable';
+import { Identifier } from './identifier/identifier';
 
 export class RequestableValue<T> extends Serializable {
 
-  private readonly name: string;
   private value?: T = undefined;
 
-  constructor(name: string) {
-    super();
-    this.name = name;
+  constructor(lookup: Identifier) {
+    super(lookup);
   }
 
   public get(): Observable<T> {
@@ -31,7 +30,7 @@ export class RequestableValue<T> extends Serializable {
   private populate(): Observable<T> {
     const config = {
       data: <ValueRequest>{
-        valueName: this.name
+        valueName: this.ident.name
       }
     }
 
