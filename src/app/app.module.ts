@@ -11,6 +11,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {DragulaModule} from 'ng2-dragula';
 import {ValueRequestDialog} from './dialog/value-request/value-request.dialog';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import {ValueRequestDialog} from './dialog/value-request/value-request.dialog';
     FormsModule,
     MatDialogModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]

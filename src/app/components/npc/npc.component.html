@@ -1,6 +1,13 @@
 <div class="npc" fxLayout="column">
   <div class="drag-handle"></div>
-  <input matInput type="text" [(ngModel)]="key" placeholder="ID"/>
+  <mat-select [(ngModel)]="key" placeholder="Class">
+    <mat-option>
+      <ngx-mat-select-search></ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let template of templateList" [value]="template.key">
+      {{template.name}}
+    </mat-option>
+  </mat-select>
   <input matInput type="text" [(ngModel)]="npc.name" placeholder="Name" *ngIf="npc"/>
   <div fxLayout="row">
     <button mat-raised-button (click)="retrieve()">Load</button>
