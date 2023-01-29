@@ -1,3 +1,5 @@
+import { sortAscendingPriority } from '@angular/flex-layout';
+import { stringToKeyValue } from '@angular/flex-layout/extended/style/style-transforms';
 import { Identifier } from '../model/lookup/identifier';
 import { NpcTemplate } from '../model/npc-template';
 import { ErrorService } from './error.service';
@@ -68,7 +70,7 @@ export class NpcTemplateManager {
       const template: NpcTemplate = this.loadFromLocalStorage(key);
       list.push(new Identifier(key, template.name));
     }
-    return list;
+    return list.sort((a,b) => a.name.localeCompare(b.name));
   }
   
 }
