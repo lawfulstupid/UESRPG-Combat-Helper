@@ -1,12 +1,11 @@
-import { Dialog } from "@angular/cdk/dialog";
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { TitleStrategy } from "@angular/router";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Identifier } from "src/app/model/lookup/identifier";
-import { NpcTemplate } from "src/app/model/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { NpcManager } from "src/app/service/npc.manager";
+import { StaticProvider } from "src/app/service/static.provider";
+import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'new-npc.dialog.html',
@@ -46,11 +45,19 @@ export class NewNpcDialog {
   create() {
     if (this.valid()) {
       if (this.newTemplate) {
-        NpcTemplateManager.create(this.templateKey, this.templateName);
+        const config = { data: new Identifier(<string>this.templateKey, <string>this.templateName) };
+        StaticProvider.dialog.open(NewNpcTemplateDialog, config).afterClosed().subscribe(template => {
+          this.createAndClose();
+        });
+      } else {
+        this.createAndClose();
       }
-      const npc = NpcManager.create(this.name, this.templateKey);
-      this.dialogRef.close(npc);
     }
+  }
+  
+  private createAndClose() {
+    const npc = NpcManager.create(this.name, this.templateKey);
+    this.dialogRef.close(npc);
   }
   
   newTemplateOptions() {

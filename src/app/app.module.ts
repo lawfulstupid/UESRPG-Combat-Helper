@@ -15,6 +15,7 @@ import { MenubarComponent } from './components/menubar/menubar.component';
 import { NpcComponent } from './components/npc/npc.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
 import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
@@ -29,6 +30,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     NpcComponent,
     ValueRequestDialog,
     NewNpcDialog,
+    NewNpcTemplateDialog,
     ActionItemFilterPipe
   ],
   imports: [

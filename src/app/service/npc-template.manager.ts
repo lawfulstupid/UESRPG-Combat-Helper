@@ -6,18 +6,19 @@ export class NpcTemplateManager {
   
   private static loadedTemplates: {[key: string]: NpcTemplate} = {};
   
-  static create(key?: string, name?: string) {
+  static create(key?: string, name?: string, data: any = {}): NpcTemplate {
     if (!key || !name) {
       ErrorService.err('Parameters cannot be null');
     }
     
-    const template = new NpcTemplate(<string>key, <string>name);
-    this.save(template);
+    const template = new NpcTemplate(<string>key, <string>name, data);
+    return this.save(template);
   }
   
-  static save(template: NpcTemplate) {
+  static save(template: NpcTemplate): NpcTemplate {
     this.loadedTemplates[template.key] = template; // update internally (for new templates)
     localStorage.setItem(template.key, JSON.stringify(template));
+    return template;
   }
   
   static load(key: string): NpcTemplate {

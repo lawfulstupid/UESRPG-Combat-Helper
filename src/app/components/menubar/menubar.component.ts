@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { NewNpcTemplateDialog } from "src/app/dialog/new-npc-template/new-npc-template.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
@@ -28,7 +29,7 @@ export class MenubarComponent {
   }
   
   newNpcTemplate() {
-    // TODO
+    StaticProvider.dialog.open(NewNpcTemplateDialog, {});
   }
   
 }
