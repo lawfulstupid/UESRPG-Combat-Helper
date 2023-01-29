@@ -17,6 +17,8 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { ActionbarComponent } from './components/actionbar/actionbar.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { EventService } from './service/event.service';
+import { NpcManager } from './service/npc.manager';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { DialogComponent } from './dialog/dialog.component';
     NgxMatSelectSearchModule
   ],
   providers: [
-    
+    EventService,
+    NpcManager
   ],
   bootstrap: [AppComponent]
 })

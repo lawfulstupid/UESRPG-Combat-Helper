@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {DragulaService} from 'ng2-dragula';
 import {StaticProvider} from './static.provider';
 import {MatDialog} from '@angular/material/dialog';
 

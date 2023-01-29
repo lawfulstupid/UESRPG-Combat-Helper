@@ -1,22 +1,9 @@
-<div class="npc" fxLayout="column">
+<div class="npc" fxLayout="column" *ngIf="npc">
   <div class="drag-handle"></div>
-  <mat-select [(ngModel)]="key" placeholder="Class">
-    <mat-option>
-      <ngx-mat-select-search></ngx-mat-select-search>
-    </mat-option>
-    <mat-option *ngFor="let template of templateList" [value]="template.key">
-      {{template.name}}
-    </mat-option>
-  </mat-select>
-  <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name" *ngIf="npc"/>
+  <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name"/>
+  <span>Class: {{npc.template.name}}</span>
   <div fxLayout="row">
-    <button mat-raised-button (click)="retrieve()">Load</button>
     <button mat-raised-button (click)="logHp()" *ngIf="npc">Log HP</button>
     <button mat-raised-button (click)="addHp()" *ngIf="npc">Add HP</button>
   </div>
-  <ng-container *ngFor="let templateId of templateList">
-    <div>
-      {{templateId.name + ' (' + templateId.key + ')'}}
-    </div>
-  </ng-container>
 </div>

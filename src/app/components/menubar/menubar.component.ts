@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
+import { EventService } from "src/app/service/event.service";
+import { NpcManager } from "src/app/service/npc.manager";
 import { StaticProvider } from "src/app/static.provider";
 import { ActionItem } from "../actionbar/actionbar.component";
 
@@ -18,9 +20,15 @@ export class MenubarComponent {
     callback: this.newNpcTemplate.bind(this)
   }];
   
+  constructor(
+    private eventService: EventService
+  ) {}
+  
   newNpc() {
     StaticProvider.dialog.open(NewNpcDialog, {}).afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {
+        this.eventService.addNpcEvent.emit(result);
+      }
     });
   }
   
