@@ -7,7 +7,7 @@ export class NpcManager {
   
   static create(name?: string, templateKey?: string): Npc {
     if (!name || !templateKey) {
-      ErrorService.err("Parameters cannot be null");
+      throw ErrorService.err("Parameters cannot be null");
     }
     
     const template: NpcTemplate = NpcTemplateManager.load(<string>templateKey);

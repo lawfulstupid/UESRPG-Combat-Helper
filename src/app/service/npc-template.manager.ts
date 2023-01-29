@@ -8,17 +8,35 @@ export class NpcTemplateManager {
   
   static create(key?: string, name?: string, data: any = {}): NpcTemplate {
     if (!key || !name) {
-      ErrorService.err('Parameters cannot be null');
+      throw ErrorService.err('Parameters cannot be null');
     }
     
-    const template = new NpcTemplate(<string>key, <string>name, data);
-    return this.save(template);
+    if (this.exists(key)) {
+      throw ErrorService.err('Template with key \'' + key + '\' already exists')
+    } else {
+      return this.save(new NpcTemplate(<string>key, <string>name, data));
+    }
   }
   
-  static save(template: NpcTemplate): NpcTemplate {
+  static update(template: NpcTemplate): NpcTemplate {
+    if (this.exists(template.key)) {
+      return this.save(template);
+    } else {
+      throw ErrorService.err("Template does not exist in database");
+    }
+  }
+  
+  private static save(template: NpcTemplate): NpcTemplate {
     this.loadedTemplates[template.key] = template; // update internally (for new templates)
     localStorage.setItem(template.key, JSON.stringify(template));
     return template;
+  }
+  
+  static exists(templateKey: string): boolean {
+    for (let key of Object.keys(localStorage)) {
+      if (key === templateKey) return true;
+    }
+    return false;
   }
   
   static load(key: string): NpcTemplate {

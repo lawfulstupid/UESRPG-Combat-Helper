@@ -17,7 +17,7 @@ export class NpcTemplate extends DataCharacter {
   
   override writeData<T>(property: Property, value: T) {
     super.writeData(property, value);
-    NpcTemplateManager.save(this); // save update in local storage
+    NpcTemplateManager.update(this); // save update in local storage
   }
   
   // get value from user input

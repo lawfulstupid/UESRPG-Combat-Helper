@@ -1,8 +1,8 @@
 export class ErrorService {
   
-  static err(msg: string) {
+  static err(msg: string): Error {
     console.error(msg);
-    throw new Error(msg);
+    return new Error(msg);
   }
   
 }
