@@ -1,12 +1,12 @@
 <app-dialog title="Manage NPC Templates" [actions]="actions" cancel="Close" width="30vw">
   <div class="table">
     <div class="header-row" fxLayout="row">
-      <span fxFlex="30">Name</span>
+      <div fxFlex="30">Name</div>
       <div fxFlex="30">Key</div>
       <div fxFlex="40">Manage</div>
     </div>
     <div class="row" *ngFor="let template of templateList" fxLayout="row">
-      <span fxFlex="30">{{template.name}}</span>
+      <div fxFlex="30">{{template.name}}</div>
       <div fxFlex="30">{{template.key}}</div>
       <div fxFlex="40">
         <app-actionbar [actions]="rowActions" [callbackParam]="template.key"></app-actionbar>
