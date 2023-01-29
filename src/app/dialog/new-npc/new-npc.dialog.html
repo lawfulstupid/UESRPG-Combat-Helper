@@ -1,9 +1,9 @@
-<app-dialog title="New NPC" [actions]="actions" cancel="Close" width="auto">
-  <mat-form-field fxLayout="row">
+<app-dialog title="New NPC" [actions]="actions" cancel="Close" width="15vw">
+  <mat-form-field >
     <input matInput [(ngModel)]="name" placeholder="Name" autocomplete="false"/>
   </mat-form-field>
-  <mat-form-field fxLayout="row">
-    <mat-select [(ngModel)]="selectedTemplate" placeholder="Class">
+  <mat-form-field *ngIf="!newTemplate">
+    <mat-select [(ngModel)]="templateKey" placeholder="Class">
       <mat-option>
         <ngx-mat-select-search placeholderLabel="Search..."></ngx-mat-select-search>
       </mat-option>
@@ -11,5 +11,11 @@
         {{template.name}}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="newTemplate">
+    <input matInput [(ngModel)]="templateKey" placeholder="Template Key" autocomplete="false"/>
+  </mat-form-field>
+  <mat-form-field *ngIf="newTemplate">
+    <input matInput [(ngModel)]="templateName" placeholder="Template Name" autocomplete="false"/>
   </mat-form-field>
 </app-dialog>

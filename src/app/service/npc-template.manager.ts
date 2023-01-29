@@ -1,9 +1,19 @@
 import { Identifier } from '../model/lookup/identifier';
 import { NpcTemplate } from '../model/npc-template';
+import { ErrorService } from './error.service';
 
 export class NpcTemplateManager {
   
   private static loadedTemplates: {[key: string]: NpcTemplate} = {};
+  
+  static create(key?: string, name?: string) {
+    if (!key || !name) {
+      ErrorService.err('Parameters cannot be null');
+    }
+    
+    const template = new NpcTemplate(<string>key, <string>name);
+    this.save(template);
+  }
   
   static save(template: NpcTemplate) {
     this.loadedTemplates[template.key] = template; // update internally (for new templates)
