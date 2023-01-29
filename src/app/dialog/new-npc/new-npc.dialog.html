@@ -3,7 +3,7 @@
     <input matInput [(ngModel)]="name" placeholder="Name" autocomplete="false"/>
   </mat-form-field>
   <mat-form-field *ngIf="!newTemplate">
-    <mat-select [(ngModel)]="templateKey" placeholder="Class">
+    <mat-select [(ngModel)]="templateKey" placeholder="Class" (selectionChange)="onSelect()">
       <mat-option>
         <ngx-mat-select-search placeholderLabel="Search..."></ngx-mat-select-search>
       </mat-option>

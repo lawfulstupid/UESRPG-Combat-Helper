@@ -37,6 +37,12 @@ export class NewNpcDialog {
   
   constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {}
   
+  onSelect() {
+    if (this.templateKey !== undefined && !this.name) {
+      this.name = this.templateList.find(template => template.key === this.templateKey)!.name;
+    }
+  }
+  
   create() {
     if (this.valid()) {
       if (this.newTemplate) {
