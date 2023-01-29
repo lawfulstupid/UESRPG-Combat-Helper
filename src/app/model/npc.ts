@@ -33,4 +33,9 @@ export class Npc extends DataCharacter {
     }
   }
   
+  // gets the maximum value of a numerical property
+  getStatMax(stat: Property): Observable<number> {
+    return this.template.getStat(stat);
+  }
+  
 }
