@@ -2,6 +2,7 @@
   <button mat-raised-button *ngFor="let action of actions | actionItemFilter"
     (click)="action.callback()"
     [disabled]="action.isDisabled && action.isDisabled()"
+    tabindex="-1"
   >
     {{action.label}}
   </button>
