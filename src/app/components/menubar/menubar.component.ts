@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { ManageNpcTemplateDialog } from "src/app/dialog/manage-npc-templates/manage-npc-template.dialog";
 import { NewNpcTemplateDialog } from "src/app/dialog/new-npc-template/new-npc-template.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { EventManager } from "src/app/service/event.manager";
@@ -18,10 +19,13 @@ export class MenubarComponent {
   }, {
     label: 'New Template',
     callback: this.newNpcTemplate.bind(this)
+  }, {
+    label: 'Manage Templates',
+    callback: this.manageNpcTemplates.bind(this)
   }];
   
   newNpc() {
-    StaticProvider.dialog.open(NewNpcDialog, {}).afterClosed().subscribe(npc => {
+    StaticProvider.dialog.open(NewNpcDialog).afterClosed().subscribe(npc => {
       if (npc) {
         EventManager.addNpcEvent.emit(npc);
       }
@@ -29,7 +33,11 @@ export class MenubarComponent {
   }
   
   newNpcTemplate() {
-    StaticProvider.dialog.open(NewNpcTemplateDialog, {});
+    StaticProvider.dialog.open(NewNpcTemplateDialog);
+  }
+  
+  manageNpcTemplates() {
+    StaticProvider.dialog.open(ManageNpcTemplateDialog);
   }
   
 }

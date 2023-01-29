@@ -1,3 +1,20 @@
 .headerbar {
     // background-color: aqua;
 }
+
+.table {
+    .header-row {
+        @extend .row;
+        font-weight: bold;
+    }
+    .row {
+        padding: 0 10px;
+        * {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
+    .row:nth-child(even) {
+        background-color: rgb(80, 80, 80);
+    }
+}

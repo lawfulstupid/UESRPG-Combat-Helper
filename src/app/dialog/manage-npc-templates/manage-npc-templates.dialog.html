@@ -1,0 +1,16 @@
+<app-dialog title="Manage NPC Templates" cancel="Close" width="30vw">
+  <div class="table">
+    <div class="header-row" fxLayout="row">
+      <span fxFlex="30">Name</span>
+      <div fxFlex="30">Key</div>
+      <div fxFlex="40">Manage</div>
+    </div>
+    <div class="row" *ngFor="let template of templateList" fxLayout="row">
+      <span fxFlex="30">{{template.name}}</span>
+      <div fxFlex="30">{{template.key}}</div>
+      <div fxFlex="40">
+        <app-actionbar [actions]="actions"></app-actionbar>
+      </div>
+    </div>
+  </div>
+</app-dialog>
