@@ -3,8 +3,7 @@ import {
   Inject
 } from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogRef
+  MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { map, Observable } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';

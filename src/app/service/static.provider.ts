@@ -1,4 +1,4 @@
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 export class StaticProvider {
 

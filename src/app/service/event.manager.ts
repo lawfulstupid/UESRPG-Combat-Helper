@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { EventEmitter } from "@angular/core";
 import { Npc } from "../model/npc";
 
 export class EventManager {

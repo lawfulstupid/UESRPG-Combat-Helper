@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {StaticProvider} from './service/static.provider';
-import {MatDialog} from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { StaticProvider } from './service/static.provider';
 
 @Component({
   selector: 'app-root',

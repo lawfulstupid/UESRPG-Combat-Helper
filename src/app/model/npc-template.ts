@@ -1,12 +1,10 @@
-import { tap, Observable } from 'rxjs';
-import { Property } from './lookup/property';
+import { Observable, tap } from 'rxjs';
 import {
-  ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
-import { StaticProvider } from '../service/static.provider';
 import { NpcTemplateManager } from '../service/npc-template.manager';
 import { DataCharacter } from './data-character';
+import { Property } from './lookup/property';
 
 export class NpcTemplate extends DataCharacter {
 
