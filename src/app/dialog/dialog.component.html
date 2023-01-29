@@ -2,7 +2,7 @@
 <mat-dialog-content fxLayout="column">
   <ng-content></ng-content>
 </mat-dialog-content>
-<mat-dialog-actions *ngIf="actions.length" [align]="'end'">
+<mat-dialog-actions *ngIf="actions.length || cancelButton" [align]="'end'">
   <button mat-raised-button *ngIf="cancelButton" mat-dialog-close>
     {{cancelButton}}
   </button>
