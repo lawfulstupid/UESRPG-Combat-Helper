@@ -1,10 +1,10 @@
 <h1 class="headerbar" [ngStyle]="{'width': width, 'min-height': minHeight, 'max-height': maxHeight}" mat-dialog-title>{{title}}</h1>
-<mat-dialog-content>
+<mat-dialog-content fxLayout="column">
   <ng-content></ng-content>
 </mat-dialog-content>
 <mat-dialog-actions *ngIf="actions.length" [align]="'end'">
-  <app-actionbar [actions]="actions"></app-actionbar>
   <button mat-raised-button *ngIf="cancelButton" mat-dialog-close>
     {{cancelButton}}
   </button>
+  <app-actionbar [actions]="actions"></app-actionbar>
 </mat-dialog-actions>

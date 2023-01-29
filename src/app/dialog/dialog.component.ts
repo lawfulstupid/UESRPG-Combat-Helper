@@ -12,7 +12,7 @@ export class DialogComponent {
   title: string = '';
   
   @Input('width')
-  width: string = '30vw';
+  width: string = 'auto';
   
   @Input('min-height')
   minHeight: string = 'auto';
