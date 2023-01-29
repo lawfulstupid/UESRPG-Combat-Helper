@@ -4,7 +4,7 @@ export class Property extends Identifier {
   
   templatingMode: TemplateRole; // how the npc template is used
   
-  constructor(key: string, name?: string, templatingMode: TemplateRole = TemplateRole.REFERENCE) {
+  constructor(key: string, name: string, templatingMode: TemplateRole = TemplateRole.REFERENCE) {
     super(key, name);
     this.templatingMode = templatingMode;
   }
