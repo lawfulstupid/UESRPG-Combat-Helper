@@ -2,7 +2,10 @@ import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Identifier } from "src/app/model/lookup/identifier";
+import { Npc } from "src/app/model/npc";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
+import { StaticProvider } from "src/app/service/static.provider";
+import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'manage-npc-templates.dialog.html',
@@ -11,23 +14,41 @@ import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 export class ManageNpcTemplateDialog {
   
   actions: Array<ActionItem> = [{
-    label: 'Edit',
-    callback: this.edit.bind(this)
-  }, {
-    label: 'Delete',
-    callback: this.delete.bind(this)
+    label: 'New',
+    callback: this.newTemplate.bind(this)
   }];
   
-  templateList: Array<Identifier> = NpcTemplateManager.list();
+  rowActions: Array<ActionItem> = [{
+    label: 'Edit',
+    callback: this.editTemplate.bind(this)
+  }, {
+    label: 'Delete',
+    callback: this.deleteTemplate.bind(this)
+  }];
   
-  constructor(private dialogRef: MatDialogRef<ManageNpcTemplateDialog>) {}
+  templateList: Array<Identifier> = [];
   
-  edit() {
+  constructor(private dialogRef: MatDialogRef<ManageNpcTemplateDialog>) {
+    this.loadTemplateList();
+  }
+  
+  loadTemplateList() {
+    this.templateList = NpcTemplateManager.list();
+  }
+  
+  newTemplate() {
+    StaticProvider.dialog.open(NewNpcTemplateDialog).afterClosed().subscribe(() => {
+      this.loadTemplateList();
+    });
+  }
+  
+  editTemplate(templateKey: string) {
     
   }
   
-  delete() {
-    
+  deleteTemplate(templateKey: string) {
+    NpcTemplateManager.delete(templateKey);
+    this.loadTemplateList();
   }
   
 }

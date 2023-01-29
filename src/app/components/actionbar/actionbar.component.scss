@@ -1,6 +1,9 @@
 .actionbar {
     padding-top: 8px;
     padding-bottom: 8px;
+    button:first-child {  
+        margin-left: 0px;
+    }
     button {
         margin-left: 8px;
     }

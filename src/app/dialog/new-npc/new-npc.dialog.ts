@@ -14,6 +14,10 @@ import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialo
 export class NewNpcDialog {
   
   actions: Array<ActionItem> = [{
+    label: 'Create',
+    callback: this.create.bind(this),
+    isDisabled: () => !this.valid()
+  }, {
     label: 'New Template',
     callback: this.newTemplateOptions.bind(this),
     isHidden: () => this.newTemplate
@@ -21,10 +25,6 @@ export class NewNpcDialog {
     label: 'Existing Template',
     callback: this.existingTemplateOptions.bind(this),
     isHidden: () => !this.newTemplate
-  }, {
-    label: 'Create',
-    callback: this.create.bind(this),
-    isDisabled: () => !this.valid()
   }]
   
   templateList: Array<Identifier> = NpcTemplateManager.list();

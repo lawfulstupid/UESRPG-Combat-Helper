@@ -1,4 +1,4 @@
-<app-dialog title="Manage NPC Templates" cancel="Close" width="30vw">
+<app-dialog title="Manage NPC Templates" [actions]="actions" cancel="Close" width="30vw">
   <div class="table">
     <div class="header-row" fxLayout="row">
       <span fxFlex="30">Name</span>
@@ -9,7 +9,7 @@
       <span fxFlex="30">{{template.name}}</span>
       <div fxFlex="30">{{template.key}}</div>
       <div fxFlex="40">
-        <app-actionbar [actions]="actions"></app-actionbar>
+        <app-actionbar [actions]="rowActions" [callbackParam]="template.key"></app-actionbar>
       </div>
     </div>
   </div>

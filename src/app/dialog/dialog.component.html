@@ -2,9 +2,10 @@
 <mat-dialog-content fxLayout="column">
   <ng-content></ng-content>
 </mat-dialog-content>
-<mat-dialog-actions *ngIf="actions.length || cancelButton" [align]="'end'">
+<mat-dialog-actions *ngIf="actions.length || cancelButton">
+  <app-actionbar [actions]="actions"></app-actionbar>
+  <div class="separator"></div>
   <button mat-raised-button *ngIf="cancelButton" mat-dialog-close>
     {{cancelButton}}
   </button>
-  <app-actionbar [actions]="actions"></app-actionbar>
 </mat-dialog-actions>
