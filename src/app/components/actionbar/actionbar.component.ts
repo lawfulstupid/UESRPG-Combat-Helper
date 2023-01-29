@@ -16,4 +16,5 @@ export interface ActionItem {
   label: string;
   callback: () => void;
   isDisabled?: () => boolean;
+  isHidden?: () => boolean;
 }

@@ -17,6 +17,7 @@ import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
+import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ValueRequestDialog } from './dialog/value-request/value-request.dialog'
     ActionbarComponent,
     NpcComponent,
     ValueRequestDialog,
-    NewNpcDialog
+    NewNpcDialog,
+    ActionItemFilterPipe
   ],
   imports: [
     BrowserAnimationsModule,
