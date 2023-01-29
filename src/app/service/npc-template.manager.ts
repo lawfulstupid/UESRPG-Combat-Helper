@@ -1,5 +1,6 @@
 import { NpcTemplate } from '../model/npc-template';
 import { Identifier } from '../model/lookup/identifier';
+import { Observable, of, throwError } from 'rxjs';
 
 export class NpcTemplateManager {
   
@@ -9,19 +10,18 @@ export class NpcTemplateManager {
     localStorage.setItem(template.key, JSON.stringify(template));
   }
   
-  static load(key: string): NpcTemplate | null {
+  static load(key: string): NpcTemplate {
     // Try to get loaded version
-    let loadedTemplate: NpcTemplate = this.loadedTemplates[key];
-    if (loadedTemplate) {
-      return loadedTemplate;
-    }
+    let template: NpcTemplate = this.loadedTemplates[key];
+    if (template) return template;
     
     // Otherwise check in local storage
     const str = localStorage.getItem(key);
-    if (str === null) return null;
+    if (!str) throw new Error('No template found with key \'' + key + '\'');
     
+    // Process the saved data
     const obj = JSON.parse(str);
-    let template = new NpcTemplate(obj.key, obj.name, obj.data);
+    template = new NpcTemplate(obj.key, obj.name, obj.data);
     this.loadedTemplates[key] = template; // store internally
     return template;
   }
@@ -34,10 +34,8 @@ export class NpcTemplateManager {
   static list(): Array<Identifier> {
     const list: Array<Identifier> = [];
     for (let key of Object.keys(localStorage)) {
-      let template: NpcTemplate | null = this.load(key);
-      if (template !== null) {
-        list.push(new Identifier(key, template.name));
-      }
+      const template: NpcTemplate = this.load(key);
+      list.push(new Identifier(key, template.name));
     }
     return list;
   }
