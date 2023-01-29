@@ -30,10 +30,8 @@ export class WorkspaceComponent {
     eventService.addNpcEvent.subscribe(this.addNpc.bind(this));
   }
   
-  private addNpc(templateKey: string) {
-    const npc: Npc = NpcManager.makeNewNpc(templateKey);
-    const component = this.container.createComponent(NpcComponent);
-    component.setInput('npc', npc);
+  private addNpc(npc: Npc) {
+    this.container.createComponent(NpcComponent).setInput('npc', npc);
   }
   
 }

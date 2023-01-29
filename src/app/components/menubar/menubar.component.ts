@@ -25,9 +25,10 @@ export class MenubarComponent {
   ) {}
   
   newNpc() {
-    StaticProvider.dialog.open(NewNpcDialog, {}).afterClosed().subscribe(result => {
-      if (result) {
-        this.eventService.addNpcEvent.emit(result);
+    StaticProvider.dialog.open(NewNpcDialog, {}).afterClosed().subscribe(template => {
+      if (template) {
+        const npc = NpcManager.makeNewNpc(template);
+        this.eventService.addNpcEvent.emit(npc);
       }
     });
   }

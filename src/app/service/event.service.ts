@@ -1,8 +1,9 @@
 import { EventEmitter, Injectable } from "@angular/core";
+import { Npc } from "../model/npc";
 
 @Injectable({providedIn: 'root'})
 export class EventService {
   
-  addNpcEvent: EventEmitter<string> = new EventEmitter();
+  addNpcEvent: EventEmitter<Npc> = new EventEmitter();
   
 }
