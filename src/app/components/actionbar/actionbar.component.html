@@ -1,5 +1,5 @@
 <div fxLayout="row" class="actionbar">
-  <button *ngFor="let action of actions" mat-raised-button (click)="action.callback()">
+  <button *ngFor="let action of actions" mat-raised-button (click)="action.callback()" [disabled]="action.isDisabled && action.isDisabled()">
     {{action.label}}
   </button>
 </div>
