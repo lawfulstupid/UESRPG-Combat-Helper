@@ -5,7 +5,7 @@ import {
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
 import { StaticProvider } from '../service/static.provider';
-import { NpcTemplateRepository } from '../service/npc-template-repository';
+import { NpcTemplateManager } from '../service/npc-template.manager';
 import { DataCharacter } from './data-character';
 
 export class NpcTemplate extends DataCharacter {
@@ -19,7 +19,7 @@ export class NpcTemplate extends DataCharacter {
   
   override writeData<T>(property: Property, value: T) {
     super.writeData(property, value);
-    NpcTemplateRepository.save(this); // save update in local storage
+    NpcTemplateManager.save(this); // save update in local storage
   }
   
   // get value from user input

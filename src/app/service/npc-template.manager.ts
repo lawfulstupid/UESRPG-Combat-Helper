@@ -1,7 +1,7 @@
 import { NpcTemplate } from '../model/npc-template';
 import { Identifier } from '../model/lookup/identifier';
 
-export class NpcTemplateRepository {
+export class NpcTemplateManager {
   
   static save(obj: NpcTemplate) {
     localStorage.setItem(obj.key, JSON.stringify(obj));
