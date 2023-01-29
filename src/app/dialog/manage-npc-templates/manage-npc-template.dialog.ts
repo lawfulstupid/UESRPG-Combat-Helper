@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Identifier } from "src/app/model/lookup/identifier";
-import { Npc } from "src/app/model/npc";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
+import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
@@ -43,7 +43,8 @@ export class ManageNpcTemplateDialog {
   }
   
   editTemplate(templateKey: string) {
-    
+    const config: MatDialogConfig = { data: templateKey };
+    StaticProvider.dialog.open(EditNpcTemplateDialog, config);
   }
   
   deleteTemplate(templateKey: string) {

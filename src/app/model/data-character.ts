@@ -16,6 +16,11 @@ export abstract class DataCharacter extends Character {
     this.data[property.key] = value;
   }
   
+  // gets a copy of internal data
+  getRawDataCopy(): {[key: string]: any} {
+    return {...this.data};
+  }
+  
   // gets a property
   getObject<T>(property: Property, castFn: (json: string) => T): Observable<T> {
     let value: T = this.data[property.key];

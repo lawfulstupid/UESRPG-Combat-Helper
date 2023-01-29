@@ -1,0 +1,50 @@
+<app-dialog title="Edit NPC Template" [actions]="actions" cancel="Cancel" width="30vw">
+  <div class="table">
+    <div class="header-row" fxLayout="row">
+      <div fxFlex="40">Property</div>
+      <div fxFlex="40">Value</div>
+      <div fxFlex="10"></div>
+    </div>
+    <!-- Name -->
+    <div class="row" fxLayout="row">
+      <div fxFlex="40">
+        Name
+      </div>
+      <div fxFlex="40">
+        <mat-form-field>
+          <input matInput [(ngModel)]="name" autocomplete="off" autocompleteOff/>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- Existing Properties -->
+    <div class="row" *ngFor="let key of keys" fxLayout="row">
+      <div fxFlex="40">
+        {{key}}
+      </div>
+      <div fxFlex="40">
+        <mat-form-field>
+          <input matInput [(ngModel)]="data[key]" autocomplete="off" autocompleteOff/>
+        </mat-form-field>
+      </div>
+      <div fxFlex="10">
+        <button mat-raised-button (click)="deleteExistingRow(key)" [disabled]="true">Delete</button>
+      </div>
+    </div>
+    <!-- New Properties -->
+    <div class="row" *ngFor="let row of newRows; let idx = index" fxLayout="row">
+      <div fxFlex="40">
+        <mat-form-field>
+          <input matInput [(ngModel)]="row[0]" autocomplete="off" autocompleteOff/>
+        </mat-form-field>
+      </div>
+      <div fxFlex="40">
+        <mat-form-field>
+          <input matInput [(ngModel)]="row[1]" autocomplete="off" autocompleteOff/>
+        </mat-form-field>
+      </div>
+      <div fxFlex="10">
+        <button mat-raised-button (click)="deleteNewRow(idx)">Delete</button>
+      </div>
+    </div>
+  </div>
+</app-dialog>
