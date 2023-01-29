@@ -1,6 +1,6 @@
 <div class="npc" fxLayout="column" *ngIf="npc">
   <div class="drag-handle"></div>
-  <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name"/>
+  <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name" autocomplete="false"/>
   <span>Class: {{npc.template.name}}</span>
   <div fxLayout="row">
     <button mat-raised-button (click)="logHp()" *ngIf="npc">Log HP</button>
