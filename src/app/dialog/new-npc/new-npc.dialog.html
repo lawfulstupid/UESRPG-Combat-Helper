@@ -1,11 +1,15 @@
-<app-dialog title="New NPC" [actions]="actions" cancel="Close">
-  <span>Select Class:</span>
-  <mat-select [(ngModel)]="selectedTemplate" placeholder="Class">
-    <mat-option>
-      <ngx-mat-select-search></ngx-mat-select-search>
-    </mat-option>
-    <mat-option *ngFor="let template of templateList" [value]="template.key">
-      {{template.name}}
-    </mat-option>
-  </mat-select>
+<app-dialog title="New NPC" [actions]="actions" cancel="Close" width="auto">
+  <mat-form-field fxLayout="row">
+    <input matInput [(ngModel)]="name" placeholder="Name" autocomplete="false"/>
+  </mat-form-field>
+  <mat-form-field fxLayout="row">
+    <mat-select [(ngModel)]="selectedTemplate" placeholder="Class">
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search..."></ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let template of templateList" [value]="template.key">
+        {{template.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </app-dialog>

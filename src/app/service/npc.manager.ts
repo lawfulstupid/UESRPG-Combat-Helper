@@ -4,9 +4,9 @@ import { NpcTemplateManager } from "./npc-template.manager";
 
 export class NpcManager {
   
-  static makeNewNpc(templateKey: string): Npc {
+  static makeNewNpc(name: string, templateKey: string): Npc {
     let template: NpcTemplate = NpcTemplateManager.load(templateKey);
-    return new Npc('', template);
+    return new Npc(name, template);
   }
   
 }
