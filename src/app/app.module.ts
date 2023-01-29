@@ -1,24 +1,22 @@
-import {NgModule} from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {FormsModule} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
-import {MatDialogModule} from '@angular/material/dialog';
-import {AppComponent} from './app.component';
-import {NpcComponent} from './components/npc/npc.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {DragulaModule} from 'ng2-dragula';
-import {ValueRequestDialog} from './dialog/value-request/value-request.dialog';
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MenubarComponent } from './components/menubar/menubar.component';
-import { WorkspaceComponent } from './components/workspace/workspace.component';
-import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragulaModule } from 'ng2-dragula';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AppComponent } from './app.component';
 import { ActionbarComponent } from './components/actionbar/actionbar.component';
+import { MenubarComponent } from './components/menubar/menubar.component';
+import { NpcComponent } from './components/npc/npc.component';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { EventService } from './service/event.service';
-import { NpcManager } from './service/npc.manager';
+import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
+import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
 
 @NgModule({
   declarations: [
@@ -42,10 +40,6 @@ import { NpcManager } from './service/npc.manager';
     MatInputModule,
     MatSelectModule,
     NgxMatSelectSearchModule
-  ],
-  providers: [
-    EventService,
-    NpcManager
   ],
   bootstrap: [AppComponent]
 })

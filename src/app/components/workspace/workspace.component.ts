@@ -1,8 +1,7 @@
-import { Component, ComponentFactoryResolver, QueryList, ViewChild, ViewChildren, ViewContainerRef } from "@angular/core";
+import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Npc } from "src/app/model/npc";
-import { EventService } from "src/app/service/event.service";
-import { NpcManager } from "src/app/service/npc.manager";
+import { EventManager } from "src/app/service/event.manager";
 import { NpcComponent } from "../npc/npc.component";
 
 @Component({
@@ -17,7 +16,6 @@ export class WorkspaceComponent {
   
   constructor(
     private dragulaService: DragulaService,
-    private eventService: EventService,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
     dragulaService.createGroup("DRAGGABLE", {
@@ -27,7 +25,7 @@ export class WorkspaceComponent {
       }
     });
     
-    eventService.addNpcEvent.subscribe(this.addNpc.bind(this));
+    EventManager.addNpcEvent.subscribe(this.addNpc.bind(this));
   }
   
   private addNpc(npc: Npc) {

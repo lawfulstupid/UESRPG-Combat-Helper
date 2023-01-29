@@ -1,7 +1,7 @@
-import {Component, Input} from "@angular/core";
-import { AttributeEnum } from "src/app/model/enum/attribute.enum";
-import { Npc as Npc } from "src/app/model/npc";
+import { Component, Input } from "@angular/core";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
+import { AttributeEnum } from "src/app/model/enum/attribute.enum";
+import { Npc } from "src/app/model/npc";
 
 @Component({
   selector: 'app-npc',

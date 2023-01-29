@@ -1,6 +1,5 @@
-import { NpcTemplate } from '../model/npc-template';
 import { Identifier } from '../model/lookup/identifier';
-import { Observable, of, throwError } from 'rxjs';
+import { NpcTemplate } from '../model/npc-template';
 
 export class NpcTemplateManager {
   
