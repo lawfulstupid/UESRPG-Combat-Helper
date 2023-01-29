@@ -10,7 +10,7 @@ import { map, Observable } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { DataCharacter } from 'src/app/model/data-character';
 import { Property } from 'src/app/model/lookup/property';
-import { StaticProvider } from 'src/app/static.provider';
+import { StaticProvider } from 'src/app/service/static.provider';
 
 @Component({
   templateUrl: 'value-request.dialog.html'

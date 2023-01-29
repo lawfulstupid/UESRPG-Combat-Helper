@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {StaticProvider} from './static.provider';
+import {StaticProvider} from './service/static.provider';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({

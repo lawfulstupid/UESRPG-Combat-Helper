@@ -4,7 +4,7 @@ import {
   ValueRequest,
   ValueRequestDialog
 } from '../dialog/value-request/value-request.dialog';
-import { StaticProvider } from '../static.provider';
+import { StaticProvider } from '../service/static.provider';
 import { NpcTemplateRepository } from '../service/npc-template-repository';
 import { DataCharacter } from './data-character';
 
