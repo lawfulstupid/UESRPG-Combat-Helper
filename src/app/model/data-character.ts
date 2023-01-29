@@ -4,7 +4,7 @@ import { Property } from "./lookup/property";
 
 export abstract class DataCharacter extends Character {
   
-  data: {[key: string]: any} = {};
+  private data: {[key: string]: any} = {};
   
   constructor(name: string, data = {}) {
     super(name);
@@ -12,7 +12,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // save data to the internal store
-  protected writeData<T>(property: Property, value: T) {
+  writeData<T>(property: Property, value: T) {
     this.data[property.key] = value;
   }
   

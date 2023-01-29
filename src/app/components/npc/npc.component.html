@@ -2,8 +2,9 @@
   <div class="drag-handle"></div>
   <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name" autocomplete="false"/>
   <span>Class: {{npc.template.name}}</span>
+  <span>HP: {{npc.getStat(attributeEnum.HP) | async}}/{{npc.getStatMax(attributeEnum.HP) | async}}</span>
   <div fxLayout="row">
-    <button mat-raised-button (click)="logHp()" *ngIf="npc">Log HP</button>
-    <button mat-raised-button (click)="addHp()" *ngIf="npc">Add HP</button>
+    <button mat-raised-button (click)="addHp()">Add HP</button>
+    <button mat-raised-button (click)="editMaxHp()">Edit Max HP</button>
   </div>
 </div>

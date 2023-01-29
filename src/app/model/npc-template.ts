@@ -17,7 +17,7 @@ export class NpcTemplate extends DataCharacter {
     this.key = key;
   }
   
-  protected override writeData<T>(property: Property, value: T) {
+  override writeData<T>(property: Property, value: T) {
     super.writeData(property, value);
     NpcTemplateRepository.save(this); // save update in local storage
   }

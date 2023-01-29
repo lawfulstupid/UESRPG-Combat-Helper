@@ -11,20 +11,23 @@ import { Identifier } from "src/app/model/lookup/identifier";
   styleUrls: ['./npc.component.scss']
 })
 export class NpcComponent {
+  
+  attributeEnum = AttributeEnum;
 
   @Input()
   npc!: Npc;
 
-  logHp() {
-    this.npc.getStat(AttributeEnum.HP).subscribe(hp => {
-      console.log(hp);
+  addHp() {
+    ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP, Number.parseInt).subscribe(value => {
+      this.npc.getStat(AttributeEnum.HP).subscribe(currentHp => {
+        this.npc.writeData(AttributeEnum.HP, currentHp + value);
+      });
     });
   }
   
-  addHp() {
+  editMaxHp() {
     ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP, Number.parseInt).subscribe(value => {
-      if (this.npc === undefined) throw new Error();
-      this.npc.data['hitPoints'] += value;
+      this.npc.template.writeData(AttributeEnum.HP, value);
     });
   }
   
