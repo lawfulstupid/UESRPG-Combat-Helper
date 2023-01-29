@@ -3,9 +3,7 @@
   <ng-content></ng-content>
 </mat-dialog-content>
 <mat-dialog-actions *ngIf="actions.length" [align]="'end'">
-  <button mat-raised-button *ngFor="let action of actions" (click)="action.callback()">
-    {{action.label}}
-  </button>
+  <app-actionbar [actions]="actions"></app-actionbar>
   <button mat-raised-button *ngIf="cancelButton" mat-dialog-close>
     {{cancelButton}}
   </button>
