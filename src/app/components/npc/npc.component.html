@@ -1,5 +1,6 @@
-<div class="npc" fxLayout="column" *ngIf="npc">
+<div class="npc" fxLayout="column" *ngIf="npc && !deleted">
   <div class="drag-handle"></div>
+  <div class="delete-button" (click)="deleted = true"></div>
   <input mat-input type="text" [(ngModel)]="npc.name" placeholder="Name" autocomplete="false"/>
   <span>Class: {{npc.template.name}}</span>
   <span>HP: {{npc.getStat(attributeEnum.HP) | async}}/{{npc.getStatMax(attributeEnum.HP) | async}}</span>

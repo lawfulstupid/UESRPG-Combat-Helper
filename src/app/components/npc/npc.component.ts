@@ -11,6 +11,8 @@ import { Npc } from "src/app/model/npc";
 export class NpcComponent {
   
   attributeEnum = AttributeEnum;
+  
+  deleted: boolean = false;
 
   @Input()
   npc!: Npc;
