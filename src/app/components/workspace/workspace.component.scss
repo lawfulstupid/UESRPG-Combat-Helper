@@ -1,5 +1,10 @@
 .drag-column {
     min-height: 100px;
     height: 100vh;
-    width: 33vw;
+    width: 100%;
+    // border-left: 1px solid aqua;
+}
+
+.drag-column:first-child {
+    border-left: none;
 }
