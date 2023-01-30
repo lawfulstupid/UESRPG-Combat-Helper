@@ -2,9 +2,13 @@
   <mat-form-field *ngIf="!newTemplate">
     <mat-select [(ngModel)]="templateKey" placeholder="Class" (selectionChange)="onSelectTemplate()">
       <mat-option>
-        <ngx-mat-select-search placeholderLabel="Search..."></ngx-mat-select-search>
+        <ngx-mat-select-search
+          placeholderLabel="Search..."
+          noEntriesFoundLabel="No results"
+          ngModel (ngModelChange)="filterTemplates($event)"
+        ></ngx-mat-select-search>
       </mat-option>
-      <mat-option *ngFor="let template of templateList" [value]="template.key">
+      <mat-option *ngFor="let template of filteredTemplateList" [value]="template.key">
         {{template.name}}
       </mat-option>
     </mat-select>

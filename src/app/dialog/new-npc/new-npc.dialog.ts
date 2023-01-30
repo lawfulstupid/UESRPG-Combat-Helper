@@ -28,6 +28,7 @@ export class NewNpcDialog {
   }]
   
   templateList: Array<Identifier> = NpcTemplateManager.list();
+  filteredTemplateList: Array<Identifier> = this.templateList;
   
   name?: string;
   nameDirty: boolean = false;
@@ -36,6 +37,14 @@ export class NewNpcDialog {
   templateName?: string;
   
   constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {}
+  
+  filterTemplates(search: string) {
+    const searchI = search.toLocaleLowerCase();
+    this.filteredTemplateList = this.templateList.filter(template => {
+      return template.name.toLocaleLowerCase().includes(searchI)
+        || template.key.toLocaleLowerCase().includes(searchI);
+    });
+  }
   
   onSelectTemplate() {
     if (this.templateKey && !this.nameDirty) {
