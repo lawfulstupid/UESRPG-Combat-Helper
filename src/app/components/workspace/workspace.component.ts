@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef } from "@angular/core";
+import { Component, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Npc } from "src/app/model/npc";
 import { EventManager } from "src/app/service/event.manager";
@@ -11,8 +11,8 @@ import { NpcComponent } from "../npc/npc.component";
 })
 export class WorkspaceComponent {
   
-  @ViewChild('insertionPoint', {read: ViewContainerRef})
-  container!: ViewContainerRef;
+  @ViewChildren('insertionPoint', {read: ViewContainerRef})
+  containers!: QueryList<ViewContainerRef>;
   
   constructor(
     private dragulaService: DragulaService 
@@ -28,7 +28,7 @@ export class WorkspaceComponent {
   }
   
   private addNpc(npc: Npc) {
-    this.container.createComponent(NpcComponent).setInput('npc', npc);
+    this.containers.first.createComponent(NpcComponent).setInput('npc', npc);
   }
   
 }
