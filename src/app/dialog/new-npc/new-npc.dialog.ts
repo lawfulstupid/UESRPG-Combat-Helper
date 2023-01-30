@@ -30,15 +30,22 @@ export class NewNpcDialog {
   templateList: Array<Identifier> = NpcTemplateManager.list();
   
   name?: string;
+  nameDirty: boolean = false;
   newTemplate: boolean = false;
   templateKey?: string;
   templateName?: string;
   
   constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {}
   
-  onSelect() {
-    if (this.templateKey !== undefined && !this.name) {
+  onSelectTemplate() {
+    if (this.templateKey && !this.nameDirty) {
       this.name = this.templateList.find(template => template.key === this.templateKey)!.name;
+    }
+  }
+  
+  onTemplateNameChange() {
+    if (this.templateName && !this.nameDirty) {
+      this.name = this.templateName;
     }
   }
   
