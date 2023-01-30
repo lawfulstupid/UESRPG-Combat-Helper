@@ -25,7 +25,7 @@ export class NewNpcDialog {
     label: 'Existing Template',
     callback: this.existingTemplateOptions.bind(this),
     isHidden: () => !this.newTemplate
-  }]
+  }];
   
   templateList: Array<Identifier> = NpcTemplateManager.list();
   filteredTemplateList: Array<Identifier> = this.templateList;
