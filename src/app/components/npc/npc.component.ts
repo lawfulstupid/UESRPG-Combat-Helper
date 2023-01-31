@@ -4,6 +4,7 @@ import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.d
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
 import { Property } from "src/app/model/lookup/property";
 import { Npc } from "src/app/model/npc";
+import { EventManager } from "src/app/service/event.manager";
 
 @Component({
   selector: 'app-npc',
@@ -15,8 +16,6 @@ export class NpcComponent {
   readonly attributeEnum = AttributeEnum;
   
   npc!: Npc;
-  
-  deleted: boolean = false;
   
   statDisplay(property: Property): Observable<string> {
     return this.npc.getStatMax(property).pipe(mergeMap(statMax => {
@@ -32,6 +31,10 @@ export class NpcComponent {
         this.npc.writeData(AttributeEnum.HP, currentHp + value);
       });
     });
+  }
+  
+  close() {
+    EventManager.removeNpcEvent.emit(this.npc);
   }
   
 }

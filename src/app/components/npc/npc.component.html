@@ -1,7 +1,7 @@
-<div class="npc" fxLayout="column" *ngIf="npc && !deleted">
+<div class="npc" fxLayout="column" *ngIf="npc">
   <!-- floating buttons -->
   <div class="drag-handle"></div>
-  <div class="delete-button" (click)="deleted = true"></div>
+  <div class="delete-button" (click)="close()"></div>
   <!-- content -->
   <mat-form-field style="align-items: center" fxLayout="column">
     <input matInput type="text" [(ngModel)]="npc.name" autocomplete="false"/>

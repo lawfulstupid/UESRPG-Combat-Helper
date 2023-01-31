@@ -4,5 +4,6 @@ import { Npc } from "../model/npc";
 export class EventManager {
   
   static addNpcEvent: EventEmitter<Npc> = new EventEmitter();
+  static removeNpcEvent: EventEmitter<Npc> = new EventEmitter();
   
 }
