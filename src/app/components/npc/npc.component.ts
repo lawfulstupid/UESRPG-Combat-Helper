@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
