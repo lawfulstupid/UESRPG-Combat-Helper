@@ -16,19 +16,19 @@ export class NpcTemplate extends DataCharacter {
     this.key = key;
   }
   
-  override writeData<T>(property: Property, value: T) {
+  override writeData<T>(property: Property<T>, value: T) {
     super.writeData(property, value);
     NpcTemplateManager.update(this); // save update in local storage
   }
   
   // get value from user input
-  protected override populate<T>(property: Property, castFn: (json: string) => T): Observable<T> {
-    return ValueRequestDialog.requestValue(this, property, castFn).pipe(tap(value => {
+  protected override populate<T>(property: Property<T>): Observable<T> {
+    return ValueRequestDialog.requestValue(this, property).pipe(tap(value => {
       this.writeData(property, value);
     }));
   }
   
-  public static readonly REQUIRED_PROPERTIES: Array<Property> = [
+  public static readonly REQUIRED_PROPERTIES: Array<Property<any>> = [
     AttributeEnum.HP
   ];
   

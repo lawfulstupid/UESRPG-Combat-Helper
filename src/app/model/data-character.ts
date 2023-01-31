@@ -12,7 +12,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // save data to the internal store
-  writeData<T>(property: Property, value: T) {
+  writeData<T>(property: Property<T>, value: T) {
     this.data[property.key] = value;
   }
   
@@ -22,7 +22,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // gets a property
-  getObject<T>(property: Property, castFn: (json: string) => T): Observable<T> {
+  getObject<T>(property: Property<T>, castFn: (json: string) => T): Observable<T> {
     let value: T = this.data[property.key];
     if (value) {
       return of(value); // try to get value from internal data
@@ -32,15 +32,15 @@ export abstract class DataCharacter extends Character {
   }
   
   // gets a property from some external source
-  protected abstract populate<T>(property: Property, castFn: (json: string) => T): Observable<T>;
+  protected abstract populate<T>(property: Property<T>, castFn: (json: string) => T): Observable<T>;
   
   // gets a numerical property
-  getStat(stat: Property): Observable<number> {
+  getStat(stat: Property<number>): Observable<number> {
     return this.getObject(stat, Number.parseInt);
   }
   
   // gets a textual property
-  getText(textId: Property): Observable<string> {
+  getText(textId: Property<string>): Observable<string> {
     return this.getObject(textId, identity);
   }
   

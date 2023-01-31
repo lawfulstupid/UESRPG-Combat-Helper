@@ -13,7 +13,7 @@ export class Npc extends DataCharacter {
     this.template = template;
   }
   
-  protected override populate<T>(property: Property, castFn: (json: string) => T): Observable<T> {
+  protected override populate<T>(property: Property<T>, castFn: (json: string) => T): Observable<T> {
     switch (property.templatingMode) {
       case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
         // get value from template
@@ -25,7 +25,7 @@ export class Npc extends DataCharacter {
         }));
       case TemplateRole.NO_TEMPLATE:
         // get value from user input
-        return ValueRequestDialog.requestValue<T>(this, property, castFn).pipe(tap(value => {
+        return ValueRequestDialog.requestValue<T>(this, property).pipe(tap(value => {
           this.writeData(property, value); // and save
         }));
       default:
@@ -34,7 +34,7 @@ export class Npc extends DataCharacter {
   }
   
   // gets the maximum value of a numerical property
-  getStatMax(stat: Property): Observable<number> {
+  getStatMax(stat: Property<number>): Observable<number> {
     return this.template.getStat(stat);
   }
   

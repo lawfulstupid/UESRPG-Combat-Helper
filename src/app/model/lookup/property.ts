@@ -1,12 +1,20 @@
 import { Identifier } from "./identifier";
 
-export class Property extends Identifier {
+export class Property<T> extends Identifier {
   
   templatingMode: TemplateRole; // how the npc template is used
   
   constructor(key: string, name: string, templatingMode: TemplateRole = TemplateRole.REFERENCE) {
     super(key, name);
     this.templatingMode = templatingMode;
+  }
+  
+  serialise(value: T): string {
+    return JSON.stringify(value);
+  }
+  
+  deserialise(str: string): T {
+    return JSON.parse(str);
   }
   
 }

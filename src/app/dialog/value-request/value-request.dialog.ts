@@ -33,7 +33,7 @@ export class ValueRequestDialog {
   }
   
   // performs a request to the user to get a value
-  static requestValue<T>(requester: DataCharacter, property: Property, castFn: (json: string) => T): Observable<T> {
+  static requestValue<T>(requester: DataCharacter, property: Property<T>): Observable<T> {
     const config = {
       data: <ValueRequest>{
         entityName: requester.name,
@@ -41,7 +41,7 @@ export class ValueRequestDialog {
       }
     }
     
-    return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(map(castFn));
+    return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(map(property.deserialise));
   }
 
 }

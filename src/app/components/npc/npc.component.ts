@@ -17,7 +17,7 @@ export class NpcComponent {
   
   npc!: Npc;
   
-  statDisplay(property: Property): Observable<string> {
+  statDisplay(property: Property<number>): Observable<string> {
     return this.npc.getStatMax(property).pipe(mergeMap(statMax => {
       return this.npc.getStat(property).pipe(map(stat => {
         return '' + stat + '/' + statMax;
@@ -26,7 +26,7 @@ export class NpcComponent {
   }
 
   addHp() {
-    ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP, Number.parseInt).subscribe(value => {
+    ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP).subscribe(value => {
       this.npc.getStat(AttributeEnum.HP).subscribe(currentHp => {
         this.npc.writeData(AttributeEnum.HP, currentHp + value);
       });

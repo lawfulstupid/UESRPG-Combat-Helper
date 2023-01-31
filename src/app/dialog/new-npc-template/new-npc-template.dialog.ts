@@ -1,7 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
-import { AttributeEnum } from "src/app/model/enum/attribute.enum";
 import { Identifier } from "src/app/model/lookup/identifier";
 import { Property } from "src/app/model/lookup/property";
 import { NpcTemplate } from "src/app/model/npc-template";
@@ -23,7 +22,7 @@ export class NewNpcTemplateDialog {
   key?: string;
   name?: string;
   properties: {[key: string]: any} = {};
-  requiredProperties: Array<Property>;
+  requiredProperties: Array<Property<any>>;
   
   constructor(
     private dialogRef: MatDialogRef<NewNpcTemplateDialog>,
