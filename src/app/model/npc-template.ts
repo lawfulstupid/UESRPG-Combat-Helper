@@ -4,6 +4,7 @@ import {
 } from '../dialog/value-request/value-request.dialog';
 import { NpcTemplateManager } from '../service/npc-template.manager';
 import { DataCharacter } from './data-character';
+import { AttributeEnum } from './enum/attribute.enum';
 import { Property } from './lookup/property';
 
 export class NpcTemplate extends DataCharacter {
@@ -26,5 +27,9 @@ export class NpcTemplate extends DataCharacter {
       this.writeData(property, value);
     }));
   }
+  
+  public static readonly REQUIRED_PROPERTIES: Array<Property> = [
+    AttributeEnum.HP
+  ];
   
 }

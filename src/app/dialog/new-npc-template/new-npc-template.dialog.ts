@@ -4,6 +4,7 @@ import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
 import { Identifier } from "src/app/model/lookup/identifier";
 import { Property } from "src/app/model/lookup/property";
+import { NpcTemplate } from "src/app/model/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 
 @Component({
@@ -22,15 +23,13 @@ export class NewNpcTemplateDialog {
   key?: string;
   name?: string;
   properties: {[key: string]: any} = {};
-  
-  requiredProperties: Array<Property> = [
-    AttributeEnum.HP
-  ];
+  requiredProperties: Array<Property>;
   
   constructor(
     private dialogRef: MatDialogRef<NewNpcTemplateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Identifier | undefined
   ) {
+    this.requiredProperties = NpcTemplate.REQUIRED_PROPERTIES;
     if (this.data) {
       this.preDefined = true;
       this.key = data?.key;
