@@ -28,7 +28,8 @@ export class WorkspaceComponent {
   }
   
   private addNpc(npc: Npc) {
-    this.containers.first.createComponent(NpcComponent).setInput('npc', npc);
+    const component = this.containers.first.createComponent(NpcComponent);
+    component.instance.npc = npc;
   }
   
 }

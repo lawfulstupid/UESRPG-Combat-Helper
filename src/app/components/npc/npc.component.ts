@@ -14,7 +14,6 @@ export class NpcComponent {
   
   readonly attributeEnum = AttributeEnum;
   
-  @Input()
   npc!: Npc;
   
   deleted: boolean = false;
