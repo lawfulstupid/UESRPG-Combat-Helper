@@ -1,6 +1,4 @@
 <app-dialog title="Value Request" [actions]="actions">
-  <span>Enter {{data.entityName}}'s {{data.valueName}}:</span>
-  <div fxLayout="row">
-    <input mat-input type="text" [(ngModel)]="value" placeholder="Value"/>
-  </div>
+  <span>Enter {{data.entityName}}'s {{data.property.name}}:</span>
+  <app-property-input [property]="data.property" (valueChange)="onValueChange($event)"></app-property-input>
 </app-dialog>
