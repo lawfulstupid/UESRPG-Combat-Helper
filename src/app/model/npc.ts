@@ -13,11 +13,11 @@ export class Npc extends DataCharacter {
     this.template = template;
   }
   
-  protected override populate<T>(property: Property<T>, castFn: (json: string) => T): Observable<T> {
+  protected override populate<T>(property: Property<T>): Observable<T> {
     switch (property.templatingMode) {
       case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getObject<T>(property, castFn).pipe(tap(value => {
+        return this.template.getObject<T>(property).pipe(tap(value => {
           if (property.templatingMode === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);

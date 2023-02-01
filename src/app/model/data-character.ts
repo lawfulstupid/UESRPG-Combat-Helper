@@ -22,26 +22,26 @@ export abstract class DataCharacter extends Character {
   }
   
   // gets a property
-  getObject<T>(property: Property<T>, castFn: (json: string) => T): Observable<T> {
+  getObject<T>(property: Property<T>): Observable<T> {
     let value: T = this.data[property.key];
     if (value) {
       return of(value); // try to get value from internal data
     } else {
-      return this.populate(property, castFn); // otherwise get it from elsewhere
+      return this.populate(property); // otherwise get it from elsewhere
     }
   }
   
   // gets a property from some external source
-  protected abstract populate<T>(property: Property<T>, castFn: (json: string) => T): Observable<T>;
+  protected abstract populate<T>(property: Property<T>): Observable<T>;
   
   // gets a numerical property
   getStat(stat: Property<number>): Observable<number> {
-    return this.getObject(stat, Number.parseInt);
+    return this.getObject(stat);
   }
   
   // gets a textual property
   getText(textId: Property<string>): Observable<string> {
-    return this.getObject(textId, identity);
+    return this.getObject(textId);
   }
   
 }
