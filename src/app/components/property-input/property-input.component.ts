@@ -17,6 +17,9 @@ export class PropertyInputComponent<T> {
   @Output()
   valueChange: EventEmitter<T> = new EventEmitter();
   
+  @Output()
+  onEnter: EventEmitter<void> = new EventEmitter();
+  
   onValueChange(value: string) {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
@@ -31,6 +34,12 @@ export class PropertyInputComponent<T> {
   
   onFocusChange() {
     this.showErrorMessage = !!this.errorMessage;
+  }
+  
+  onKeypress(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.onEnter.emit();
+    }
   }
   
 }

@@ -1,4 +1,4 @@
 <app-dialog title="Value Request" [actions]="actions" cancel="Cancel">
   <span>Enter {{data.entityName}}'s {{data.property.name}}:</span>
-  <app-property-input [property]="data.property" (valueChange)="onValueChange($event)"></app-property-input>
+  <app-property-input [property]="data.property" (valueChange)="onValueChange($event)" (onEnter)="respond()"></app-property-input>
 </app-dialog>
