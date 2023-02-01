@@ -1,0 +1,4 @@
+<mat-form-field>
+  <input matInput ngModel (ngModelChange)="onValueChange($event)" (change)="onFocusChange()" [placeholder]="property.name" autocomplete="false"/>
+  <mat-hint *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
+</mat-form-field>
