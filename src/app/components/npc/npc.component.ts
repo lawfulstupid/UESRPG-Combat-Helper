@@ -26,7 +26,7 @@ export class NpcComponent {
   }
 
   addHp() {
-    ValueRequestDialog.requestValue(this.npc, AttributeEnum.HP).subscribe(value => {
+    ValueRequestDialog.requestValue<number>(this.npc, AttributeEnum.HP).subscribe(value => {
       this.npc.getStat(AttributeEnum.HP).subscribe(currentHp => {
         this.npc.writeData(AttributeEnum.HP, currentHp + value);
       });

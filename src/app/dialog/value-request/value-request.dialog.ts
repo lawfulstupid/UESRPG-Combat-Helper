@@ -5,7 +5,7 @@ import {
 import {
   MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { map, Observable } from 'rxjs';
+import { EMPTY, mergeMap, Observable, of } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { DataCharacter } from 'src/app/model/data-character';
 import { Property } from 'src/app/model/lookup/property';
@@ -19,7 +19,7 @@ export class ValueRequestDialog<T> {
   actions: Array<ActionItem> = [{
     label: 'Submit',
     callback: this.respond.bind(this),
-    isDisabled: this.valid.bind(this)
+    isDisabled: () => !this.valid()
   }]
   
   value?: T;
@@ -52,7 +52,14 @@ export class ValueRequestDialog<T> {
       }
     }
     
-    return StaticProvider.dialog.open(ValueRequestDialog, config).afterClosed().pipe(map(property.deserialise));
+    return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
+      // eliminate the value if undefined, so .subscribe() never triggers
+      if (value === undefined) {
+        return EMPTY;
+      } else {
+        return of(value);
+      }
+    }));
   }
 
 }
