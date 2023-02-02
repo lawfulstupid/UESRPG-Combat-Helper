@@ -42,4 +42,15 @@ export class Npc extends DataCharacter {
     return this.template.getProperty(stat);
   }
   
+  override hasProperty<T>(property: Property<T>): boolean {
+    if (super.hasProperty(property)) {
+      return true;
+    } else switch (property.templateRole) {
+      case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
+        return this.template.hasProperty(property);
+      default:
+        return false;
+    }
+  }
+  
 }

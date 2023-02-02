@@ -21,7 +21,6 @@ export abstract class DataCharacter extends Character {
     return {...this.data};
   }
   
-  // gets a property
   getProperty<T>(property: Property<T>): Observable<T> {
     let value: T = this.data[property.key];
     if (value) {
@@ -33,5 +32,9 @@ export abstract class DataCharacter extends Character {
   
   // gets a property from some external source
   protected abstract populate<T>(property: Property<T>): Observable<T>;
+  
+  hasProperty<T>(property: Property<T>): boolean {
+    return this.data[property.key] !== undefined;
+  }
   
 }
