@@ -6,7 +6,7 @@
   <mat-form-field style="align-items: center" fxLayout="column">
     <input matInput type="text" [(ngModel)]="npc.name" autocomplete="false"/>
   </mat-form-field>
-  <span>Class: {{npc.template.name}}</span>
+  <span>Class: {{npc.getTemplateName()}}</span>
   <span>HP: {{statDisplay(attributeEnum.HP) | async}}</span>
   <div fxLayout="row">
     <button mat-raised-button (click)="addHp()">Add HP</button>

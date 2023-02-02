@@ -6,7 +6,7 @@ import { NpcTemplate } from "./npc-template";
 
 export class Npc extends DataCharacter {
   
-  template: NpcTemplate;
+  private template: NpcTemplate;
   
   constructor(name: string, template: NpcTemplate) {
     super(name, {});
@@ -17,7 +17,7 @@ export class Npc extends DataCharacter {
     switch (property.templateRole) {
       case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getObject<T>(property).pipe(tap(value => {
+        return this.template.getProperty<T>(property).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);
@@ -33,9 +33,13 @@ export class Npc extends DataCharacter {
     }
   }
   
+  getTemplateName(): string {
+    return this.template.name;
+  }
+  
   // gets the maximum value of a numerical property
-  getStatMax(stat: Property<number>): Observable<number> {
-    return this.template.getStat(stat);
+  getTemplateProperty(stat: Property<number>): Observable<number> {
+    return this.template.getProperty(stat);
   }
   
 }

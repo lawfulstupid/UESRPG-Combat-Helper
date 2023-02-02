@@ -22,7 +22,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // gets a property
-  getObject<T>(property: Property<T>): Observable<T> {
+  getProperty<T>(property: Property<T>): Observable<T> {
     let value: T = this.data[property.key];
     if (value) {
       return of(value); // try to get value from internal data
@@ -33,15 +33,5 @@ export abstract class DataCharacter extends Character {
   
   // gets a property from some external source
   protected abstract populate<T>(property: Property<T>): Observable<T>;
-  
-  // gets a numerical property
-  getStat(stat: Property<number>): Observable<number> {
-    return this.getObject(stat);
-  }
-  
-  // gets a textual property
-  getText(textId: Property<string>): Observable<string> {
-    return this.getObject(textId);
-  }
   
 }
