@@ -11,7 +11,7 @@ export class Characteristic extends NumericalProperty {
   public static readonly PERCEPTION = new Characteristic('perception', 'Perception');
   public static readonly PERSONALITY = new Characteristic('personality', 'Personality');
   
-  private constructor(key: string, name: string) {
+  protected constructor(key: string, name: string) {
     super(key, name, TemplateRole.REFERENCE);
   }
 

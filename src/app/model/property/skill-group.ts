@@ -12,7 +12,7 @@ export class SkillGroup extends NumericalProperty {
   public static readonly STEALTH = new SkillGroup('stealth', 'Stealth');
   public static readonly EVADE = new SkillGroup('evade', 'Evade');
   
-  private constructor(key: string, name: string) {
+  protected constructor(key: string, name: string) {
     super(key, name, TemplateRole.REFERENCE);
   }
   

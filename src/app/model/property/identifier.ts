@@ -1,7 +1,7 @@
 export class Identifier {
   
-  key: string;   // identifer for persistance
-  name: string;  // display name
+  readonly key: string;   // identifer for persistance
+  readonly name: string;  // display name
   
   constructor(key: string, name: string) {
     this.key = key;
