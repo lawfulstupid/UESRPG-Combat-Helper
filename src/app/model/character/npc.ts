@@ -15,7 +15,8 @@ export class Npc extends DataCharacter {
   
   protected override populate<T>(property: Property<T>): Observable<T> {
     switch (property.templateRole) {
-      case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
+      case TemplateRole.REFERENCE:
+      case TemplateRole.MAXIMUM:
         // get value from template
         return this.template.getProperty<T>(property).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
