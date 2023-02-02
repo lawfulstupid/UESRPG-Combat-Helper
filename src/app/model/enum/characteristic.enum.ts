@@ -1,4 +1,4 @@
-import { NumericalProperty } from "../property/numerical-property";
+import { NumericalProperty } from "../property/property-number";
 
 export class CharacteristicEnum {
 

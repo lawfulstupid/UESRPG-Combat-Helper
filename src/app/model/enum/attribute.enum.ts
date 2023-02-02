@@ -1,6 +1,6 @@
-import { NumericalProperty } from "../property/numerical-property";
 import { TemplateRole } from "../property/property";
-import { TextualProperty } from "../property/textual-property";
+import { NumericalProperty } from "../property/property-number";
+import { TextualProperty } from "../property/property-string";
 
 export class AttributeEnum {
 
