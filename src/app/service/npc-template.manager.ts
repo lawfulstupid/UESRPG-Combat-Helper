@@ -1,5 +1,5 @@
 import { NpcTemplate } from '../model/character/npc-template';
-import { Identifier } from '../model/property/identifier';
+import { Identifier } from '../model/identifier';
 import { ErrorService } from './error.service';
 
 export class NpcTemplateManager {
