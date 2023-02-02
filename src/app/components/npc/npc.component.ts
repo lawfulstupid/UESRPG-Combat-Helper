@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
-import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Attribute } from "src/app/model/property/attribute";
 import { Property } from "src/app/model/property/property";
@@ -25,12 +24,7 @@ export class NpcComponent {
     }));
   }
 
-  addHp() {
-    ValueRequestDialog.requestValue<number>(this.npc, Attribute.HP).subscribe(value => {
-      this.npc.getProperty(Attribute.HP).subscribe(currentHp => {
-        this.npc.writeData(Attribute.HP, currentHp + value);
-      });
-    });
+  testButton() {
   }
   
   close() {
