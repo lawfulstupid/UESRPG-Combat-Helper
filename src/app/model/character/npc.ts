@@ -1,7 +1,7 @@
 import { Observable, tap } from "rxjs";
-import { ValueRequestDialog } from "../dialog/value-request/value-request.dialog";
+import { ValueRequestDialog } from "../../dialog/value-request/value-request.dialog";
+import { Property, TemplateRole } from "../property/property";
 import { DataCharacter } from "./data-character";
-import { Property, TemplateRole } from "./lookup/property";
 import { NpcTemplate } from "./npc-template";
 
 export class Npc extends DataCharacter {

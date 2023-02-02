@@ -1,4 +1,4 @@
-import { Property, TemplateRole } from "../lookup/property";
+import { Property, TemplateRole } from "../property/property";
 
 export class AttributeEnum {
 

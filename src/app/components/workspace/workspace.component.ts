@@ -1,6 +1,6 @@
 import { Component, ComponentRef, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
-import { Npc } from "src/app/model/npc";
+import { Npc } from "src/app/model/character/npc";
 import { EventManager } from "src/app/service/event.manager";
 import { NpcComponent } from "../npc/npc.component";
 

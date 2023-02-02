@@ -1,11 +1,11 @@
 import { Observable, tap } from 'rxjs';
 import {
   ValueRequestDialog
-} from '../dialog/value-request/value-request.dialog';
-import { NpcTemplateManager } from '../service/npc-template.manager';
+} from '../../dialog/value-request/value-request.dialog';
+import { NpcTemplateManager } from '../../service/npc-template.manager';
+import { AttributeEnum } from '../enum/attribute.enum';
+import { Property } from '../property/property';
 import { DataCharacter } from './data-character';
-import { AttributeEnum } from './enum/attribute.enum';
-import { Property } from './lookup/property';
 
 export class NpcTemplate extends DataCharacter {
 

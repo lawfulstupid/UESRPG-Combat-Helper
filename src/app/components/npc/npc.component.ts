@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
+import { Npc } from "src/app/model/character/npc";
 import { AttributeEnum } from "src/app/model/enum/attribute.enum";
-import { Property } from "src/app/model/lookup/property";
-import { Npc } from "src/app/model/npc";
+import { Property } from "src/app/model/property/property";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({

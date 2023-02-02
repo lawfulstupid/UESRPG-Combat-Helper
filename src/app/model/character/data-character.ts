@@ -1,6 +1,6 @@
-import { identity, Observable, of } from "rxjs";
+import { Observable, of } from "rxjs";
+import { Property } from "../property/property";
 import { Character } from "./character";
-import { Property } from "./lookup/property";
 
 export abstract class DataCharacter extends Character {
   

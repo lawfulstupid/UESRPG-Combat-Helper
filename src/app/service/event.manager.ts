@@ -1,5 +1,5 @@
 import { EventEmitter } from "@angular/core";
-import { Npc } from "../model/npc";
+import { Npc } from "../model/character/npc";
 
 export class EventManager {
   

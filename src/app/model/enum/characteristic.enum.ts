@@ -1,4 +1,4 @@
-import { Property } from "../lookup/property";
+import { Property } from "../property/property";
 
 export class CharacteristicEnum {
 

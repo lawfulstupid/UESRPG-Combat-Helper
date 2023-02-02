@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Property } from "src/app/model/lookup/property";
+import { Property } from "src/app/model/property/property";
 
 @Component({
   selector: 'app-property-input',

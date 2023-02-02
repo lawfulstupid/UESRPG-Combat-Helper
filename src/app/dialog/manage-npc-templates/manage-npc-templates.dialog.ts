@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
-import { Identifier } from "src/app/model/lookup/identifier";
+import { Identifier } from "src/app/model/property/identifier";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
@@ -11,7 +11,7 @@ import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialo
   templateUrl: 'manage-npc-templates.dialog.html',
   styleUrls: ['../dialog.component.scss']
 })
-export class ManageNpcTemplateDialog {
+export class ManageNpcTemplatesDialog {
   
   actions: Array<ActionItem> = [{
     label: 'New',
@@ -28,7 +28,7 @@ export class ManageNpcTemplateDialog {
   
   templateList: Array<Identifier> = [];
   
-  constructor(private dialogRef: MatDialogRef<ManageNpcTemplateDialog>) {
+  constructor(private dialogRef: MatDialogRef<ManageNpcTemplatesDialog>) {
     this.loadTemplateList();
   }
   

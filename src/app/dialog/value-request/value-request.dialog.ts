@@ -7,8 +7,8 @@ import {
 } from '@angular/material/dialog';
 import { EMPTY, mergeMap, Observable, of } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
-import { DataCharacter } from 'src/app/model/data-character';
-import { Property } from 'src/app/model/lookup/property';
+import { DataCharacter } from 'src/app/model/character/data-character';
+import { Property } from 'src/app/model/property/property';
 import { StaticProvider } from 'src/app/service/static.provider';
 
 @Component({

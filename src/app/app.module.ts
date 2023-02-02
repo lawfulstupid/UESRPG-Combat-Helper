@@ -17,7 +17,7 @@ import { PropertyInputComponent } from './components/property-input/property-inp
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
-import { ManageNpcTemplateDialog } from './dialog/manage-npc-templates/manage-npc-template.dialog';
+import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
 import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
@@ -35,7 +35,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     ValueRequestDialog,
     NewNpcDialog,
     NewNpcTemplateDialog,
-    ManageNpcTemplateDialog,
+    ManageNpcTemplatesDialog,
     EditNpcTemplateDialog,
     ActionItemFilterPipe
   ],

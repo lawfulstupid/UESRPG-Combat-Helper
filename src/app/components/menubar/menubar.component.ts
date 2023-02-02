@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ManageNpcTemplateDialog } from "src/app/dialog/manage-npc-templates/manage-npc-template.dialog";
+import { ManageNpcTemplatesDialog } from "src/app/dialog/manage-npc-templates/manage-npc-templates.dialog";
 import { NewNpcTemplateDialog } from "src/app/dialog/new-npc-template/new-npc-template.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { EventManager } from "src/app/service/event.manager";
@@ -37,7 +37,7 @@ export class MenubarComponent {
   }
   
   manageNpcTemplates() {
-    StaticProvider.dialog.open(ManageNpcTemplateDialog);
+    StaticProvider.dialog.open(ManageNpcTemplatesDialog);
   }
   
 }

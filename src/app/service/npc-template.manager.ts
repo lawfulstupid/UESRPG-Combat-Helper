@@ -1,7 +1,5 @@
-import { sortAscendingPriority } from '@angular/flex-layout';
-import { stringToKeyValue } from '@angular/flex-layout/extended/style/style-transforms';
-import { Identifier } from '../model/lookup/identifier';
-import { NpcTemplate } from '../model/npc-template';
+import { NpcTemplate } from '../model/character/npc-template';
+import { Identifier } from '../model/property/identifier';
 import { ErrorService } from './error.service';
 
 export class NpcTemplateManager {

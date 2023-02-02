@@ -1,5 +1,5 @@
-import { Npc } from "../model/npc";
-import { NpcTemplate } from "../model/npc-template";
+import { Npc } from "../model/character/npc";
+import { NpcTemplate } from "../model/character/npc-template";
 import { ErrorService } from "./error.service";
 import { NpcTemplateManager } from "./npc-template.manager";
 
