@@ -4,9 +4,9 @@ export abstract class Property<T> extends Identifier {
   
   readonly templateRole: TemplateRole; // how the npc template is used
   
-  protected constructor(key: string, name: string, templatingMode: TemplateRole) {
+  protected constructor(key: string, name: string, templateRole: TemplateRole) {
     super(key, name);
-    this.templateRole = templatingMode;
+    this.templateRole = templateRole;
   }
   
   abstract serialise(value: T): string;
