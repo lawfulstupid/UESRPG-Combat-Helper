@@ -4,7 +4,7 @@ export abstract class Property<T> extends Identifier {
   
   templateRole: TemplateRole; // how the npc template is used
   
-  constructor(key: string, name: string, templatingMode: TemplateRole = TemplateRole.REFERENCE) {
+  constructor(key: string, name: string, templatingMode: TemplateRole) {
     super(key, name);
     this.templateRole = templatingMode;
   }

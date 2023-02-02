@@ -3,7 +3,7 @@ import {
   ValueRequestDialog
 } from '../../dialog/value-request/value-request.dialog';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
-import { AttributeEnum } from '../enum/attribute.enum';
+import { Attribute } from '../property/attribute';
 import { Property } from '../property/property';
 import { DataCharacter } from './data-character';
 
@@ -29,7 +29,7 @@ export class NpcTemplate extends DataCharacter {
   }
   
   public static readonly REQUIRED_PROPERTIES: Array<Property<any>> = [
-    AttributeEnum.HP
+    Attribute.HP
   ];
   
 }

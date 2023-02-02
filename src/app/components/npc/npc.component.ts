@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
-import { AttributeEnum } from "src/app/model/enum/attribute.enum";
+import { Attribute } from "src/app/model/property/attribute";
 import { Property } from "src/app/model/property/property";
 import { EventManager } from "src/app/service/event.manager";
 
@@ -13,7 +13,7 @@ import { EventManager } from "src/app/service/event.manager";
 })
 export class NpcComponent {
   
-  readonly attributeEnum = AttributeEnum;
+  readonly attributeEnum = Attribute;
   
   npc!: Npc;
   
@@ -26,9 +26,9 @@ export class NpcComponent {
   }
 
   addHp() {
-    ValueRequestDialog.requestValue<number>(this.npc, AttributeEnum.HP).subscribe(value => {
-      this.npc.getProperty(AttributeEnum.HP).subscribe(currentHp => {
-        this.npc.writeData(AttributeEnum.HP, currentHp + value);
+    ValueRequestDialog.requestValue<number>(this.npc, Attribute.HP).subscribe(value => {
+      this.npc.getProperty(Attribute.HP).subscribe(currentHp => {
+        this.npc.writeData(Attribute.HP, currentHp + value);
       });
     });
   }
