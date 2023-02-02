@@ -1,13 +1,15 @@
-import { Property, TemplateRole } from "../property/property";
+import { NumericalProperty } from "../property/numerical-property";
+import { TemplateRole } from "../property/property";
+import { TextualProperty } from "../property/textual-property";
 
 export class AttributeEnum {
 
-  public static readonly HP = new Property<number>('hitPoints', 'Hit Points', TemplateRole.MAXIMUM);
-  public static readonly WT = new Property<number>('woundThreshold', 'Wound Threshold');
-  public static readonly MP = new Property<number>('magicka', 'Magicka Points', TemplateRole.MAXIMUM);
-  public static readonly SP = new Property<number>('stamina', 'Stamina Points', TemplateRole.MAXIMUM);
-  public static readonly IR = new Property<number>('initiative', 'Initiative Rating');
-  public static readonly SPEED = new Property<number>('speed', 'Speed');
-  public static readonly SIZE = new Property<string>('size', 'Size');
+  public static readonly HP = new NumericalProperty('hitPoints', 'Hit Points', TemplateRole.MAXIMUM);
+  public static readonly WT = new NumericalProperty('woundThreshold', 'Wound Threshold');
+  public static readonly MP = new NumericalProperty('magicka', 'Magicka Points', TemplateRole.MAXIMUM);
+  public static readonly SP = new NumericalProperty('stamina', 'Stamina Points', TemplateRole.MAXIMUM);
+  public static readonly IR = new NumericalProperty('initiative', 'Initiative Rating');
+  public static readonly SPEED = new NumericalProperty('speed', 'Speed');
+  public static readonly SIZE = new TextualProperty('size', 'Size');
 
 }

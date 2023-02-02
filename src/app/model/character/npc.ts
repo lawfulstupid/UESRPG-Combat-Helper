@@ -14,11 +14,11 @@ export class Npc extends DataCharacter {
   }
   
   protected override populate<T>(property: Property<T>): Observable<T> {
-    switch (property.templatingMode) {
+    switch (property.templateRole) {
       case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
         // get value from template
         return this.template.getObject<T>(property).pipe(tap(value => {
-          if (property.templatingMode === TemplateRole.MAXIMUM) {
+          if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);
           }
@@ -29,7 +29,7 @@ export class Npc extends DataCharacter {
           this.writeData(property, value); // and save
         }));
       default:
-        throw new Error('Unhandled templating mode: ' + property.templatingMode);
+        throw new Error('Unhandled templating mode: ' + property.templateRole);
     }
   }
   
