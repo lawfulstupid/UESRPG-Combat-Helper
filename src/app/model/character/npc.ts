@@ -47,7 +47,8 @@ export class Npc extends DataCharacter {
     if (super.hasProperty(property)) {
       return true;
     } else switch (property.templateRole) {
-      case TemplateRole.REFERENCE | TemplateRole.MAXIMUM:
+      case TemplateRole.REFERENCE:
+      case TemplateRole.MAXIMUM:
         return this.template.hasProperty(property);
       default:
         return false;
