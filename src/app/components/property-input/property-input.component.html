@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field style="width: 100%">
   <input matInput ngModel
     (ngModelChange)="onValueChange($event)"
     (change)="onFocusChange()"
@@ -6,5 +6,5 @@
     autocomplete="false"
     (keypress)="onKeypress($event)"
   />
-  <mat-hint *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
+  <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
 </mat-form-field>
