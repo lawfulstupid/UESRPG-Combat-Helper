@@ -1,7 +1,7 @@
 .npc {
     height: fit-content;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding: 16px;
+    padding-top: 0;
     display: flex;
     position: relative;
     background-color: rgb(70, 70, 70);
@@ -9,6 +9,7 @@
     margin-top: 8px;
     margin-left: 8px;
     margin-right: 8px;
+    align-items: center;
 }
 
 .circle-button {
@@ -38,14 +39,13 @@
     text-align: center;
 }
 
-.infoline {
-    color: lightgray;
-    font-size: smaller;
-    text-align: center;
+mat-hint.hint-table {
+    // color: lightgray;
+    // font-size: smaller;
+    // text-align: center;
+    width: 100%;
     white-space: nowrap;
-    width: 180px;
-    transform: translateY(-16px);
-    margin: 0 auto;
+    // margin: 0 auto;
     display: table;
     table-layout: fixed;
     * {
@@ -57,4 +57,9 @@
     *:last-child {
         text-align: right;
     }
+}
+
+// Remove blank space at end of hint
+::ng-deep .mat-form-field-hint-spacer {
+    flex: none !important;
 }
