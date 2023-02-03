@@ -44,9 +44,9 @@ export class AttributeBarComponent {
   }
   
   modify(direction: number) {
-    ValueRequestDialog.requestValue(this.npc, Attribute.HP).subscribe(amount => {
-      this.npc.getProperty(Attribute.HP).subscribe(hp => {
-        this.npc.writeData(Attribute.HP, hp + direction * amount);
+    ValueRequestDialog.requestValue(this.npc, this.attribute).subscribe(amount => {
+      this.npc.getProperty(this.attribute).subscribe(attr => {
+        this.npc.writeData(this.attribute, attr + direction * amount);
       });
     });
   }
