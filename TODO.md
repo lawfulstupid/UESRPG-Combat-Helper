@@ -1,4 +1,0 @@
-- Display on NpcComponent:
-    - HP, SP, MP
-    - Attack button
-    - Take damage button
