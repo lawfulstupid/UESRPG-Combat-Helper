@@ -1,5 +1,6 @@
 <mat-form-field style="width: 100%">
-  <input matInput ngModel
+  <input matInput *ngIf="!usingOptions"
+    [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange($event)"
     (change)="onFocusChange()"
     [placeholder]="property.name"
@@ -7,4 +8,14 @@
     (keypress)="onKeypress($event)"
   />
   <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
+  
+  <mat-select *ngIf="usingOptions"
+    [(ngModel)]="valueStr"
+    (ngModelChange)="onValueChange($event)"
+    [placeholder]="property.name"
+  >
+    <mat-option *ngFor="let option of property.options" [value]="option.key">
+      {{option.name}}
+    </mat-option>
+  </mat-select>
 </mat-form-field>

@@ -12,6 +12,6 @@ export class Attribute extends NumericalProperty {
   public static readonly IR = new Attribute('initiative', 'Initiative Rating', TemplateRole.REFERENCE);
   public static readonly AP = new Attribute('actionPoints', 'Action Points', TemplateRole.NO_TEMPLATE);
   public static readonly SPEED = new Attribute('speed', 'Speed', TemplateRole.REFERENCE);
-  public static readonly SIZE = new EnumProperty<SizeEnum>('size', 'Size', SizeEnum, TemplateRole.REFERENCE);
+  public static readonly SIZE = new EnumProperty<SizeEnum>('size', 'Size', SizeEnum, TemplateRole.REFERENCE, SizeEnum.STANDARD);
   
 }

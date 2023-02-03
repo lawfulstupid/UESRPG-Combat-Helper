@@ -7,9 +7,20 @@ import { Property } from "src/app/model/property/abstract/property";
 })
 export class PropertyInputComponent<T> {
   
-  @Input()
-  property!: Property<T>;
+  @Input('property')
+  set setProperty(property: Property<T>) {
+    this.property = property;
+    if (property.defaultValue !== undefined) {
+      this.valueStr = property.serialise(property.defaultValue);
+    }
+    if (property.options !== undefined) {
+      this.usingOptions = true;
+    }
+  }
   
+  property!: Property<T>;
+  usingOptions: boolean = false;
+  valueStr?: string;
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
@@ -26,6 +37,7 @@ export class PropertyInputComponent<T> {
       let value: T = this.property.deserialise(valueStr);
       this.valueChange.emit({valueStr: valueStr, value: value});
     } catch (e) {
+      console.log(e);
       this.errorMessage = 'Invalid'; // TODO: more detail
       this.valueChange.emit(undefined);
     }
