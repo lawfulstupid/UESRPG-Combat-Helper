@@ -30,6 +30,8 @@ export class NpcTemplate extends DataCharacter {
   
   public static readonly REQUIRED_PROPERTIES: Array<Property<any>> = [
     Attribute.HP,
+    Attribute.SP,
+    Attribute.MP,
     Attribute.SIZE,
     Attribute.SPEED
   ];

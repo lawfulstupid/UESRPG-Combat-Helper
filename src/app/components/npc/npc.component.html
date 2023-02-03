@@ -1,8 +1,9 @@
 <div class="npc" fxLayout="column" *ngIf="loaded">
-  <!-- floating buttons -->
+  <!-- Floating Buttons -->
   <div class="drag-handle"></div>
   <div class="delete-button" (click)="close()"></div>
-  <!-- content -->
+  
+  <!-- Header -->
   <mat-form-field class="npc-name" fxLayout="column">
     <input matInput type="text" [(ngModel)]="npc.name" autocomplete="false"/>
     <mat-hint class="hint-table">
@@ -10,7 +11,15 @@
       <span>Speed: {{npc.getProperty(attributeEnum.SPEED) | async}}m</span>
     </mat-hint>
   </mat-form-field>
+  <div style="height: 8px"></div>
+  
+  <!-- Attributes -->
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" color="crimson"></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" color="mediumseagreen"></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" color="cornflowerblue"></app-attribute-bar>
+  <div style="height: 8px"></div>
+  
+  <!-- Buttons -->
   <div fxLayout="row">
     <button mat-raised-button (click)="testButton()">TEST</button>
   </div>
