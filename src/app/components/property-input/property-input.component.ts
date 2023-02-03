@@ -12,6 +12,7 @@ export class PropertyInputComponent<T> {
     this.property = property;
     if (property.defaultValue !== undefined) {
       this.valueStr = property.serialise(property.defaultValue);
+      this.valueChange.emit({valueStr: this.valueStr, value: property.defaultValue});
     }
     if (property.options !== undefined) {
       this.usingOptions = true;
@@ -20,7 +21,7 @@ export class PropertyInputComponent<T> {
   
   property!: Property<T>;
   usingOptions: boolean = false;
-  valueStr?: string;
+  valueStr: string = '';
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
@@ -30,12 +31,12 @@ export class PropertyInputComponent<T> {
   @Output()
   onEnter: EventEmitter<void> = new EventEmitter();
   
-  onValueChange(valueStr: string) {
+  onValueChange() {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
     try {
-      let value: T = this.property.deserialise(valueStr);
-      this.valueChange.emit({valueStr: valueStr, value: value});
+      let value: T = this.property.deserialise(this.valueStr);
+      this.valueChange.emit({valueStr: this.valueStr, value: value});
     } catch (e) {
       console.log(e);
       this.errorMessage = 'Invalid'; // TODO: more detail

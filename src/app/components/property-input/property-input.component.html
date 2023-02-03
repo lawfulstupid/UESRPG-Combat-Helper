@@ -1,7 +1,7 @@
 <mat-form-field style="width: 100%">
   <input matInput *ngIf="!usingOptions"
     [(ngModel)]="valueStr"
-    (ngModelChange)="onValueChange($event)"
+    (ngModelChange)="onValueChange()"
     (change)="onFocusChange()"
     [placeholder]="property.name"
     autocomplete="false"
@@ -11,7 +11,7 @@
   
   <mat-select *ngIf="usingOptions"
     [(ngModel)]="valueStr"
-    (ngModelChange)="onValueChange($event)"
+    (ngModelChange)="onValueChange()"
     [placeholder]="property.name"
   >
     <mat-option *ngFor="let option of property.options" [value]="option.key">
