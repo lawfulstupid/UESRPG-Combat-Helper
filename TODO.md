@@ -1,2 +1,16 @@
-Implement proper (de)serialisation when interacting with localstorage
-Easiest to do this by serialising in DataCharacter.writeData() and simplifying internal data model to string -> string
+# TO DO:
+- Implement proper (de)serialisation when interacting with localstorage
+    - Easiest to do this by serialising in DataCharacter.writeData() and simplifying internal data model to string -> string
+- Global 'New Round' button on menubar
+- Attribute bars:
+    - HP, SP, MP, AP?
+    - Edit button
+    - Disable SP edit button if SP spent this round
+- Override property button to save against NPC
+- Skill roller
+- Wound display
+- Info copy for roll20 tooltip
+- Equipment manager
+    - Left hand / right hand drop down
+    - Use item button -- attack/block/parry?
+    - List of special ability/traits/talents/spells
