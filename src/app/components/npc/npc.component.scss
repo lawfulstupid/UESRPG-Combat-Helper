@@ -63,3 +63,8 @@ mat-hint.hint-table {
 ::ng-deep .mat-form-field-hint-spacer {
     flex: none !important;
 }
+
+div.gap {
+    height: 8px;
+    width: 0;
+}

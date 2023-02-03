@@ -11,13 +11,13 @@
       <span>Speed: {{npc.getProperty(attributeEnum.SPEED) | async}}m</span>
     </mat-hint>
   </mat-form-field>
-  <div style="height: 8px"></div>
+  <div class="gap"></div>
   
   <!-- Attributes -->
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" color="crimson"></app-attribute-bar>
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" color="mediumseagreen"></app-attribute-bar>
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" color="cornflowerblue"></app-attribute-bar>
-  <div style="height: 8px"></div>
+  <div class="gap"></div>
   
   <!-- Buttons -->
   <div fxLayout="row">
