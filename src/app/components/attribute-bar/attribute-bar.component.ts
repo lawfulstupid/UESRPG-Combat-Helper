@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { map, mergeMap, Observable } from "rxjs";
+import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Attribute } from "src/app/model/property/attribute";
 
@@ -28,7 +29,7 @@ export class AttributeBarComponent {
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
       return this.npc.getProperty(this.attribute).pipe(map(stat => {
-        return '' + stat + '/' + statMax;
+        return '' + stat + ' / ' + statMax;
       }));
     }));
   }
@@ -40,6 +41,14 @@ export class AttributeBarComponent {
         return ratio.toFixed(0) + '%';
       }));
     }));
+  }
+  
+  modify(direction: number) {
+    ValueRequestDialog.requestValue(this.npc, Attribute.HP).subscribe(amount => {
+      this.npc.getProperty(Attribute.HP).subscribe(hp => {
+        this.npc.writeData(Attribute.HP, hp + direction * amount);
+      });
+    });
   }
   
 }

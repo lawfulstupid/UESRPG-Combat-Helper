@@ -26,6 +26,14 @@
     background-color: gray;
 }
 
+.attribute-bar-text {
+    @extend .attribute-bar;
+    width: 100%;
+    text-align: center;
+    font-size: small;
+    transform: translateY(-3px);
+}
+
 .control-column {
     
 }
