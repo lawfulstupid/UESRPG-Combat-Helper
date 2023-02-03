@@ -50,7 +50,7 @@ export class NewNpcTemplateDialog {
   }
   
   onValueChange<T>(property: Property<T>, change: ValueChange<T>) {
-    this.properties[property.key] = change.valueStr;
+    this.properties[property.key] = change?.valueStr;
   }
   
 }

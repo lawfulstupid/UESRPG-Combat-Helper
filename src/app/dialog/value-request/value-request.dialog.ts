@@ -31,7 +31,7 @@ export class ValueRequestDialog<T> {
   ) {}
   
   onValueChange(change: ValueChange<T>) {
-    this.value = change.value;
+    this.value = change?.value;
   }
   
   valid(): boolean {
