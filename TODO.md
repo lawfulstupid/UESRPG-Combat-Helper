@@ -1,0 +1,1 @@
+Implement proper (de)serialisation when interacting with localstorage
