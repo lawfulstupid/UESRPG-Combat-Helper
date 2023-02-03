@@ -1,1 +1,12 @@
-<span>HP: {{statDisplay(attribute) | async}}</span>
+<!-- <span>HP: {{statDisplay(attribute) | async}}</span> -->
+<div fxLayout="row">
+  <div class="bar-column">
+    <div class="bar-container">
+      <div class="attribute-bar-bg"></div>
+      <div class="attribute-bar"></div>
+    </div>
+  </div>
+  <div class="control-column">
+    {{statDisplay(attributeEnum.HP) | async}}
+  </div>
+</div>

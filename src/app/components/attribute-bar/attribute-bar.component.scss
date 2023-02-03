@@ -1,0 +1,32 @@
+:host {
+    width: 100%;
+}
+
+.bar-column {
+    width: 100%;
+    padding: 8px;
+    padding-left: 0;
+    background-color: blue; // for designing
+}
+
+.bar-container {
+    width: 100%;
+    position: relative;
+}
+
+.attribute-bar {
+    position: absolute;
+    height: 4px;
+    border-radius: 2px;
+    width: 100%;
+    background-color: crimson;
+}
+
+.attribute-bar-bg {
+    @extend .attribute-bar;
+    background-color: darkgrey;
+}
+
+.control-column {
+    
+}

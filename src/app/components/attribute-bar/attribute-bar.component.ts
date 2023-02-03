@@ -11,6 +11,8 @@ import { Attribute } from "src/app/model/property/attribute";
 })
 export class AttributeBarComponent {
   
+  readonly attributeEnum = Attribute;
+  
   @Input()
   npc!: Npc;
   
