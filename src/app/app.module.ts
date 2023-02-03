@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DragulaModule } from 'ng2-dragula';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppComponent } from './app.component';
@@ -46,6 +47,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     BrowserModule,
     DragulaModule.forRoot(),
     FlexLayoutModule,
+    FontAwesomeModule,
     FormsModule,
     MatDialogModule,
     MatButtonModule,

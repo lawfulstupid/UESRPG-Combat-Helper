@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
+import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { map, mergeMap, Observable } from "rxjs";
 import { Npc } from "src/app/model/character/npc";
-import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
 
 @Component({
@@ -10,6 +10,9 @@ import { Attribute } from "src/app/model/property/attribute";
   styleUrls: ['attribute-bar.component.scss']
 })
 export class AttributeBarComponent {
+  
+  readonly faCircleMinus = faCircleMinus;
+  readonly faCirclePlus = faCirclePlus;
   
   readonly attributeEnum = Attribute;
   

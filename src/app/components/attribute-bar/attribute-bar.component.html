@@ -1,5 +1,8 @@
 <!-- <span>HP: {{statDisplay(attribute) | async}}</span> -->
 <div fxLayout="row">
+  <div class="control-column">
+    <fa-icon [icon]="faCircleMinus"></fa-icon>
+  </div>
   <div class="bar-column">
     <div class="bar-container">
       <div class="attribute-bar-bg"></div>
@@ -7,6 +10,6 @@
     </div>
   </div>
   <div class="control-column">
-    {{statDisplay() | async}}
+    <fa-icon [icon]="faCirclePlus"></fa-icon>
   </div>
 </div>
