@@ -3,6 +3,7 @@ import {
   Inject
 } from '@angular/core';
 import {
+  MatDialogConfig,
   MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { EMPTY, mergeMap, Observable, of } from 'rxjs';
@@ -27,7 +28,7 @@ export class ValueRequestDialog<T> {
 
   constructor(
     private dialogRef: MatDialogRef<ValueRequestDialog<T>>,
-    @Inject(MAT_DIALOG_DATA) public data: ValueRequest<T>
+    @Inject(MAT_DIALOG_DATA) public request: ValueRequest<T>
   ) {}
   
   onValueChange(change: ValueChange<T>) {
@@ -44,28 +45,40 @@ export class ValueRequestDialog<T> {
     }
   }
   
-  // performs a request to the user to get a value
-  static requestValue<T>(requester: DataCharacter, property: Property<T>): Observable<T> {
-    const config = {
-      data: <ValueRequest<T>>{
-        entityName: requester.name,
-        property: property
-      }
-    }
-    
+  /* Static methods */
+  
+  // Performs a request to the user to get a value
+  static requestValue<T>(property: Property<T>, requester: DataCharacter): Observable<T> {
+    return this.doRequest({
+      property: property,
+      message: requester.name + '\'s ' + property.name + ':'
+    });
+  }
+  
+  // Performs a request to the user to get a change to a value
+  static requestValueChange<T>(property: Property<T>): Observable<T> {
+    return this.doRequest({
+      property: property,
+      message: property.name + ' change:'
+    });
+  }
+  
+  private static doRequest<T>(request: ValueRequest<T>): Observable<T> {
+    const config: MatDialogConfig = { data: request };
     return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
-      // eliminate the value if undefined, so .subscribe() never triggers
+      // Eliminate the value if undefined, so .subscribe() never triggers
       if (value === undefined) {
         return EMPTY;
       } else {
         return of(value);
       }
     }));
+    
   }
-
+  
 }
 
-export interface ValueRequest<T> {
-  entityName: string;
+interface ValueRequest<T> {
   property: Property<T>;
+  message: string;
 }

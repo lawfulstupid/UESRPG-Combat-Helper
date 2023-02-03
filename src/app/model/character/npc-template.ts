@@ -23,7 +23,7 @@ export class NpcTemplate extends DataCharacter {
   
   // get value from user input
   protected override populate<T>(property: Property<T>): Observable<T> {
-    return ValueRequestDialog.requestValue(this, property).pipe(tap(value => {
+    return ValueRequestDialog.requestValue(property, this).pipe(tap(value => {
       this.writeData(property, value);
     }));
   }

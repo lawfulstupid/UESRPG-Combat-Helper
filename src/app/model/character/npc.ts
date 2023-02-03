@@ -26,7 +26,7 @@ export class Npc extends DataCharacter {
         }));
       case TemplateRole.NO_TEMPLATE:
         // get value from user input
-        return ValueRequestDialog.requestValue<T>(this, property).pipe(tap(value => {
+        return ValueRequestDialog.requestValue<T>(property, this).pipe(tap(value => {
           this.writeData(property, value); // and save
         }));
       default:
