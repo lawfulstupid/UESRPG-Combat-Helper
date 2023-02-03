@@ -3,10 +3,10 @@
   <div class="bar-column">
     <div class="bar-container">
       <div class="attribute-bar-bg"></div>
-      <div class="attribute-bar"></div>
+      <div class="attribute-bar" [style.width]="getBarPercent() | async" [style.background-color]="color"></div>
     </div>
   </div>
   <div class="control-column">
-    {{statDisplay(attributeEnum.HP) | async}}
+    {{statDisplay() | async}}
   </div>
 </div>

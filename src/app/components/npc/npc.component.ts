@@ -29,6 +29,9 @@ export class NpcComponent implements OnInit {
   }
   
   testButton() {
+    this.npc.getProperty(Attribute.HP).subscribe(hp => {
+      this.npc.writeData(Attribute.HP, hp - 1);
+    });
   }
   
   close() {

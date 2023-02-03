@@ -6,7 +6,6 @@
     width: 100%;
     padding: 8px;
     padding-left: 0;
-    background-color: blue; // for designing
 }
 
 .bar-container {
@@ -18,13 +17,13 @@
     position: absolute;
     height: 4px;
     border-radius: 2px;
-    width: 100%;
-    background-color: crimson;
+    max-width: 100%;
 }
 
 .attribute-bar-bg {
     @extend .attribute-bar;
-    background-color: darkgrey;
+    width: 100%;
+    background-color: gray;
 }
 
 .control-column {

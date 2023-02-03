@@ -19,10 +19,22 @@ export class AttributeBarComponent {
   @Input()
   attribute!: Attribute;
   
-  statDisplay(property: Property<number>): Observable<string> {
-    return this.npc.getTemplateProperty(property).pipe(mergeMap(statMax => {
-      return this.npc.getProperty(property).pipe(map(stat => {
+  @Input()
+  color: string = 'white';
+  
+  statDisplay(): Observable<string> {
+    return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
+      return this.npc.getProperty(this.attribute).pipe(map(stat => {
         return '' + stat + '/' + statMax;
+      }));
+    }));
+  }
+  
+  getBarPercent(): Observable<string> {
+    return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
+      return this.npc.getProperty(this.attribute).pipe(map(stat => {
+        let ratio = 100 * stat / statMax;
+        return ratio.toFixed(0) + '%';
       }));
     }));
   }
