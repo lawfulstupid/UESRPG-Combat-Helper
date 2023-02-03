@@ -1,6 +1,6 @@
 import { Observable, tap } from "rxjs";
 import { ValueRequestDialog } from "../../dialog/value-request/value-request.dialog";
-import { Property, TemplateRole } from "../property/property";
+import { Property, TemplateRole } from "../property/abstract/property";
 import { DataCharacter } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 

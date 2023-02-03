@@ -1,5 +1,5 @@
-import { TemplateRole } from "./property";
-import { NumericalProperty } from "./property-number";
+import { TemplateRole } from "./abstract/property";
+import { NumericalProperty } from "./generic/number.property";
 
 export class Characteristic extends NumericalProperty {
 

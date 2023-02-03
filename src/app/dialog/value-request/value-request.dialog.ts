@@ -8,7 +8,7 @@ import {
 import { EMPTY, mergeMap, Observable, of } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { DataCharacter } from 'src/app/model/character/data-character';
-import { Property } from 'src/app/model/property/property';
+import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { map, mergeMap, Observable } from "rxjs";
 import { Npc } from "src/app/model/character/npc";
+import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
-import { Property } from "src/app/model/property/property";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({

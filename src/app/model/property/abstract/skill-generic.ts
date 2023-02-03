@@ -1,6 +1,6 @@
-import { Characteristic } from "./characteristic";
+import { Characteristic } from "../characteristic";
+import { NumericalProperty } from "../generic/number.property";
 import { TemplateRole } from "./property";
-import { NumericalProperty } from "./property-number";
 
 export abstract class GenericSkill extends NumericalProperty {
   

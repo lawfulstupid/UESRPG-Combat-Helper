@@ -1,4 +1,4 @@
-import { Property } from "./property";
+import { Property } from "../abstract/property";
 
 export class NumericalProperty extends Property<number> {
   

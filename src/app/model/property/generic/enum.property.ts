@@ -1,5 +1,5 @@
-import { Enum } from "../enum/enum";
-import { Property, TemplateRole } from "./property";
+import { Enum } from "../../enum/enum";
+import { Property, TemplateRole } from "../abstract/property";
 
 export class EnumProperty<T extends Enum> extends Property<T> {
   

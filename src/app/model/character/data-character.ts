@@ -1,5 +1,5 @@
 import { Observable, of } from "rxjs";
-import { Property } from "../property/property";
+import { Property } from "../property/abstract/property";
 import { Character } from "./character";
 
 export abstract class DataCharacter extends Character {

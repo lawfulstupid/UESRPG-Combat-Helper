@@ -1,7 +1,7 @@
 import { SizeEnum } from "../enum/size.enum";
-import { TemplateRole } from "./property";
-import { EnumProperty } from "./property-enum";
-import { NumericalProperty } from "./property-number";
+import { TemplateRole } from "./abstract/property";
+import { EnumProperty } from "./generic/enum.property";
+import { NumericalProperty } from "./generic/number.property";
 
 export class Attribute extends NumericalProperty {
   

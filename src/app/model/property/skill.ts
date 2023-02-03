@@ -1,5 +1,5 @@
+import { GenericSkill } from "./abstract/skill-generic";
 import { Characteristic } from "./characteristic";
-import { GenericSkill } from "./skill-generic";
 import { NpcSkill } from "./skill-npc";
 
 export class Skill extends GenericSkill {
