@@ -6,7 +6,7 @@
   <mat-form-field class="npc-name" fxLayout="column">
     <input matInput type="text" [(ngModel)]="npc.name" autocomplete="false"/>
     <mat-hint class="hint-table">
-      <span>{{(npc.getProperty(attributeEnum.SIZE) | async)!.name}} {{npc.getTemplateName()}}</span>
+      <span>{{npc.getTemplateName()}} {{(npc.getProperty(attributeEnum.SIZE) | async)!.display}}</span>
       <span>Speed: {{npc.getProperty(attributeEnum.SPEED) | async}}m</span>
     </mat-hint>
   </mat-form-field>

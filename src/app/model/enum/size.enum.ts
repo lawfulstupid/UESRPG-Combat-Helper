@@ -22,7 +22,11 @@ export class SizeEnum extends Enum {
   }
   
   get display(): string {
-    return this.name + ' (' + this.width + 'x' + this.width + ')';
+    if (this === SizeEnum.STANDARD) {
+      return '';
+    } else {
+      return ' (' + this.name + ')';
+    }
   }
   
 }
