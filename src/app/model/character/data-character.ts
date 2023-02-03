@@ -27,8 +27,8 @@ export abstract class DataCharacter extends Character {
   }
   
   getProperty<T>(property: Property<T>): Observable<T> {
-    let value: T = property.deserialise(this.data[property.key]);
-    if (value) {
+    if (this.data[property.key] !== undefined) {
+      let value: T = property.deserialise(this.data[property.key]);
       return of(value); // try to get value from internal data
     } else {
       return this.populate(property); // otherwise get it from elsewhere
