@@ -9,7 +9,7 @@ export class Npc extends DataCharacter {
   private template: NpcTemplate;
   
   constructor(name: string, template: NpcTemplate) {
-    super(name, {});
+    super(name);
     this.template = template;
   }
   

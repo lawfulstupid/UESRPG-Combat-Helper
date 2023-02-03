@@ -32,3 +32,28 @@
     left: calc(100% - 16px);
     top: 0px;
 }
+
+.npc-name {
+    align-items: center;
+    text-align: center;
+}
+
+.infoline {
+    color: lightgray;
+    font-size: smaller;
+    text-align: center;
+    width: 180px;
+    transform: translateY(-17px);
+    margin: 0 auto;
+    display: table;
+    table-layout: fixed;
+    * {
+        display: table-cell;
+    }
+    *:first-child {
+        text-align: left;
+    }
+    *:last-child {
+        text-align: right;
+    }
+}
