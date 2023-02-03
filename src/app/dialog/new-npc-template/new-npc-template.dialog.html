@@ -8,6 +8,6 @@
   <app-property-input
     *ngFor="let property of requiredProperties"
     [property]="property"
-    (valueChange)="properties[property.key] = $event"
+    (valueChange)="onValueChange(property, $event)"
   ></app-property-input>
 </app-dialog>

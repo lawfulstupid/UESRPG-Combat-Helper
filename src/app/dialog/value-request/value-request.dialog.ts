@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import { EMPTY, mergeMap, Observable, of } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
+import { ValueChange } from 'src/app/components/property-input/property-input.component';
 import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
@@ -29,8 +30,8 @@ export class ValueRequestDialog<T> {
     @Inject(MAT_DIALOG_DATA) public data: ValueRequest<T>
   ) {}
   
-  onValueChange(value: T) {
-    this.value = value;
+  onValueChange(change: ValueChange<T>) {
+    this.value = change.value;
   }
   
   valid(): boolean {

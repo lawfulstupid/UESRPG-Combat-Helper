@@ -10,26 +10,25 @@ export class PropertyInputComponent<T> {
   @Input()
   property!: Property<T>;
   
-  value?: T;
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
   @Output()
-  valueChange: EventEmitter<T> = new EventEmitter();
+  valueChange: EventEmitter<ValueChange<T>> = new EventEmitter();
   
   @Output()
   onEnter: EventEmitter<void> = new EventEmitter();
   
-  onValueChange(value: string) {
+  onValueChange(valueStr: string) {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
     try {
-      this.value = this.property.deserialise(value);
+      let value: T = this.property.deserialise(valueStr);
+      this.valueChange.emit({valueStr: valueStr, value: value});
     } catch (e) {
-      this.value = undefined;
       this.errorMessage = 'Invalid'; // TODO: more detail
+      this.valueChange.emit(undefined);
     }
-    this.valueChange.emit(this.value);
   }
   
   onFocusChange() {
@@ -42,4 +41,9 @@ export class PropertyInputComponent<T> {
     }
   }
   
+}
+
+export interface ValueChange<T> {
+  valueStr: string;
+  value: T
 }

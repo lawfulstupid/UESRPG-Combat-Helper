@@ -1,6 +1,4 @@
 # TO DO:
-- Implement proper (de)serialisation when interacting with localstorage
-    - Easiest to do this by serialising in DataCharacter.writeData() and simplifying internal data model to string -> string
 - Global 'New Round' button on menubar
 - Attribute bars:
     - HP, SP, MP, AP?

@@ -5,13 +5,13 @@ import {
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
 import { Attribute } from '../property/attribute';
-import { DataCharacter } from './data-character';
+import { Data, DataCharacter } from './data-character';
 
 export class NpcTemplate extends DataCharacter {
 
   readonly key: string;
   
-  constructor(key: string, name: string, data = {}) {
+  constructor(key: string, name: string, data: Data) {
     super(name, data);
     this.key = key;
   }

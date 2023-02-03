@@ -1,3 +1,4 @@
+import { Data } from '../model/character/data-character';
 import { NpcTemplate } from '../model/character/npc-template';
 import { Identifier } from '../model/identifier';
 import { ErrorService } from './error.service';
@@ -6,15 +7,11 @@ export class NpcTemplateManager {
   
   private static loadedTemplates: {[key: string]: NpcTemplate} = {};
   
-  static create(key?: string, name?: string, data: any = {}): NpcTemplate {
-    if (!key || !name) {
-      throw ErrorService.err('Parameters cannot be null');
-    }
-    
-    if (this.exists(key)) {
-      throw ErrorService.err('Template with key \'' + key + '\' already exists')
+  static create(template: NpcTemplate): NpcTemplate {
+    if (this.exists(template.key)) {
+      throw ErrorService.err('Template with key \'' + template.key + '\' already exists')
     } else {
-      return this.save(new NpcTemplate(<string>key, <string>name, data));
+      return this.save(template);
     }
   }
   

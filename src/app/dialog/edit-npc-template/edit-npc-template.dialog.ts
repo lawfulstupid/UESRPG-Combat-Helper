@@ -1,6 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
+import { Data } from "src/app/model/character/data-character";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 
@@ -20,7 +21,7 @@ export class EditNpcTemplateDialog {
   
   name: string;
   keys: Array<string> = [];
-  data: {[key: string]: any};
+  data: Data;
   newRows: Array<[string, string]> = [];
   
   constructor(
@@ -46,7 +47,7 @@ export class EditNpcTemplateDialog {
   }
   
   save() {
-    const finalData = {...this.data};
+    const finalData: Data = {...this.data};
     this.newRows.forEach(row => {
       finalData[row[0]] = row[1];
     });
