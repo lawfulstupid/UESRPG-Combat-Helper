@@ -1,4 +1,3 @@
-import { Data } from '../model/character/data-character';
 import { NpcTemplate } from '../model/character/npc-template';
 import { Identifier } from '../model/identifier';
 import { ErrorService } from './error.service';
@@ -10,21 +9,26 @@ export class NpcTemplateManager {
   static create(template: NpcTemplate): NpcTemplate {
     if (this.exists(template.key)) {
       throw ErrorService.err('Template with key \'' + template.key + '\' already exists')
-    } else {
-      return this.save(template);
     }
+    
+    this.loadedTemplates[template.key] = template; // save internally
+    return this.save(template);
   }
   
   static update(template: NpcTemplate): NpcTemplate {
-    if (this.exists(template.key)) {
-      return this.save(template);
-    } else {
+    if (!this.exists(template.key)) {
       throw ErrorService.err("Template does not exist in database");
     }
+    
+    // Merge with existing template
+    const existing: NpcTemplate = this.load(template.key);
+    existing.name = template.name;
+    existing.replaceData(template.getRawDataCopy());
+    return this.save(existing);
   }
   
+  // save externally
   private static save(template: NpcTemplate): NpcTemplate {
-    this.loadedTemplates[template.key] = template; // update internally (for new templates)
     localStorage.setItem(template.key, JSON.stringify(template));
     return template;
   }

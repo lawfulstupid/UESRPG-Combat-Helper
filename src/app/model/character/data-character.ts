@@ -16,6 +16,11 @@ export abstract class DataCharacter extends Character {
     this.data[property.key] = property.serialise(value);
   }
   
+  // replace the internal data entirely - use with caution!
+  replaceData(newData: Data) {
+    this.data = {...newData};
+  }
+  
   // gets a copy of internal data
   getRawDataCopy(): Data {
     return {...this.data};
