@@ -1,4 +1,3 @@
-- Synchronise NpcTemplate changes across similar NPCs with an single source NpcTemplateManager
 - Monadise Npc(Template) loading/creation with Observable
 - Display on NpcComponent:
     - HP, SP, MP
