@@ -8,7 +8,11 @@ export class EnumProperty<T extends Enum> extends Property<T> {
   }
   
   deserialise(key: string): T {
-    return Enum.value(key, this.clazz);
+    const value: T = Enum.value(key, this.clazz);
+    if (value === undefined) {
+      throw new Error('Key \'' + key + '\' does not exist on ' + this.clazz['name']);
+    }
+    return value;
   }
   
   constructor(key: string, name: string, private clazz: any, templateRole: TemplateRole) {

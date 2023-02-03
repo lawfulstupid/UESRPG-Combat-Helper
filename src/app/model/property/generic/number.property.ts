@@ -7,7 +7,11 @@ export class NumericalProperty extends Property<number> {
   }
   
   deserialise(str: string): number {
-    return Number.parseInt(str);
+    const value: number = Number.parseInt(str);
+    if (value === null || value === undefined || Number.isNaN(value)) {
+      throw new Error('Unable to convert \'' + str + '\' to number');
+    }
+    return value;
   }
   
 }
