@@ -10,15 +10,12 @@ export class SizeEnum extends Enum {
   public static readonly HUGE = new SizeEnum('Huge', 2, 3);
   public static readonly MASSIVE = new SizeEnum('Massive', 3, 4);
   
-  readonly name: string;
-  readonly rank: number;
-  readonly width: number;
-  
-  protected constructor(name: string, rank: number, width: number) {
+  protected constructor(
+    readonly name: string,
+    readonly rank: number,
+    readonly width: number
+  ) {
     super();
-    this.name = name;
-    this.rank = rank;
-    this.width = width;
   }
   
   get display(): string {
