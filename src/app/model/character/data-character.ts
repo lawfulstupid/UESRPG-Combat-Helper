@@ -1,4 +1,5 @@
 import { Observable, of } from "rxjs";
+import { Dictionary } from "src/app/util/dictionary.util";
 import { Property } from "../property/abstract/property";
 import { Character } from "./character";
 
@@ -44,4 +45,4 @@ export abstract class DataCharacter extends Character {
   
 }
 
-export type Data = {[key: string]: string};
+export type Data = Dictionary<string>;
