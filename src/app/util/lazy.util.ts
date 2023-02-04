@@ -1,3 +1,6 @@
+export type Lazy<T> = () => T;
+export type MaybeLazy<T> = T | Lazy<T>;
+
 export class LazyUtil {
   
   public static resolve<T>(maybeLazy: MaybeLazy<T>): T {
@@ -9,6 +12,3 @@ export class LazyUtil {
   };
   
 }
-
-export type Lazy<T> = () => T;
-export type MaybeLazy<T> = T | Lazy<T>;
