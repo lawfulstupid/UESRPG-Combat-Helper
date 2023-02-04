@@ -26,11 +26,12 @@ export class Npc extends DataCharacter {
           }
         }));
       case TemplateRole.NO_TEMPLATE:
+        // try using default value first, otherwise try user input (lazy value)
         return ObservableUtil.coalesce(
-          of(property.defaultValue),                                // try using default value first
-          () => ValueRequestDialog.requestValue<T>(property, this)  // otherwise try user input (lazy value)
+          of(property.defaultValue),
+          () => ValueRequestDialog.requestValue<T>(property, this) // lazy value
         ).pipe(tap(value => {
-          this.writeData(property, value);                    // save the result wherever it came from
+          this.writeData(property, value); // save the result wherever it came from
         }));
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
@@ -53,8 +54,10 @@ export class Npc extends DataCharacter {
       case TemplateRole.REFERENCE:
       case TemplateRole.MAXIMUM:
         return this.template.hasProperty(property);
+      case TemplateRole.NO_TEMPLATE:
+        return property.defaultValue !== undefined;
       default:
-        return false;
+        throw new Error('Unhandled templating mode: ' + property.templateRole);
     }
   }
   
