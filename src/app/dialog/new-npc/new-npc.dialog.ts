@@ -5,6 +5,7 @@ import { Identifier } from "src/app/model/identifier";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { NpcManager } from "src/app/service/npc.manager";
 import { StaticProvider } from "src/app/service/static.provider";
+import { SearchUtil } from "src/app/util/search.util";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
@@ -28,7 +29,7 @@ export class NewNpcDialog {
   }];
   
   templateList: Array<Identifier> = NpcTemplateManager.list();
-  filteredTemplateList: Array<Identifier> = this.templateList;
+  filteredTemplateList: Array<Identifier> = [];
   
   name?: string;
   nameDirty: boolean = false;
@@ -36,13 +37,13 @@ export class NewNpcDialog {
   templateKey?: string;
   templateName?: string;
   
-  constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {}
+  constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {
+    this.filterTemplates('');
+  }
   
   filterTemplates(search: string) {
-    const searchI = search.toLocaleLowerCase();
     this.filteredTemplateList = this.templateList.filter(template => {
-      return template.name.toLocaleLowerCase().includes(searchI)
-        || template.key.toLocaleLowerCase().includes(searchI);
+      return SearchUtil.matchAny(search, template.name, template.key);
     });
   }
   
