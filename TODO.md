@@ -1,11 +1,12 @@
 # TO DO:
 - Global 'New Round' button on menubar
-- Attribute bars:
-    - HP, SP, MP, AP?
-    - Edit button
-    - Disable SP edit button if SP spent this round
+    - AP -> 3
+    - Attacks made -> 0
+    - Stamina Spent -> false
 - Override property button to save against NPC
 - Skill roller
+- Deal damage dialog / auto-handle typed damaged esp. vs. armour
+- Auto wound detection based on AttributeBar.onChange
 - Wound display
 - Info copy for roll20 tooltip
 - Equipment manager
