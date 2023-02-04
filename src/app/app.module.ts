@@ -13,6 +13,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppComponent } from './app.component';
 import { ActionbarComponent } from './components/actionbar/actionbar.component';
 import { AttributeBarComponent } from './components/attribute-bar/attribute-bar.component';
+import { LongPressButtonComponent } from './components/long-press-button/long-press-button.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { NpcComponent } from './components/npc/npc.component';
 import { PropertyInputComponent } from './components/property-input/property-input.component';
@@ -35,6 +36,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     NpcComponent,
     PropertyInputComponent,
     AttributeBarComponent,
+    LongPressButtonComponent,
     ValueRequestDialog,
     NewNpcDialog,
     NewNpcTemplateDialog,

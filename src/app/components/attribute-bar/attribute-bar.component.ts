@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { map, mergeMap, Observable } from "rxjs";
+import { map, mergeMap, Observable, of } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Attribute } from "src/app/model/property/attribute";
@@ -43,10 +43,16 @@ export class AttributeBarComponent {
     }));
   }
   
-  modify(direction: number) {
-    ValueRequestDialog.requestValueChange(this.attribute).subscribe(amount => {
-      this.npc.getProperty(this.attribute).subscribe(attr => {
-        this.npc.writeData(this.attribute, attr + direction * amount);
+  modify(direction: number, value?: number) {
+    of(value).pipe(mergeMap(value => {
+      if (value !== undefined) {  // If value is provided, use it as-is
+        return of(value);
+      } else {                    // Otherwise, get value from user:
+        return ValueRequestDialog.requestValueChange(this.attribute);
+      }
+    })).subscribe(value => {
+      this.npc.getProperty(this.attribute).subscribe(currentValue => {        // Get current value from NPC
+        this.npc.writeData(this.attribute, currentValue + direction * value); // Modify it appropriately
       });
     });
   }
