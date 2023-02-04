@@ -19,6 +19,9 @@ export class PropertyInputComponent<T> {
     }
   }
   
+  @Input()
+  allowBlank: boolean = false;
+  
   property!: Property<T>;
   usingOptions: boolean = false;
   valueStr: string = '';
@@ -35,7 +38,12 @@ export class PropertyInputComponent<T> {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
     try {
-      let value: T = this.property.deserialise(this.valueStr);
+      let value: T | undefined;
+      if (this.allowBlank && this.valueStr === '') {
+        value = undefined;
+      } else {
+        value = this.property.deserialise(this.valueStr);
+      }
       this.valueChange.emit({valueStr: this.valueStr, value: value});
     } catch (e) {
       this.errorMessage = 'Invalid'; // TODO: more detail
@@ -57,5 +65,5 @@ export class PropertyInputComponent<T> {
 
 export interface ValueChange<T> {
   valueStr: string;
-  value: T
+  value: T | undefined
 }
