@@ -21,7 +21,7 @@ export class BodyPartEnum extends Enum {
   }
   
   static getHitLocation(roll: number) {
-    return this.values<BodyPartEnum>().find(bodyPart => bodyPart.isHitBy(roll));
+    return <BodyPartEnum>this.values<BodyPartEnum>().find(bodyPart => bodyPart.isHitBy(roll));
   }
   
 }
