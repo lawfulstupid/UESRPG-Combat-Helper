@@ -1,13 +1,13 @@
 import { Enum } from "./enum";
 
-export class BodyPart extends Enum {
+export class BodyPartEnum extends Enum {
   
-  public static readonly HEAD  = new BodyPart('Head', [0]);
-  public static readonly BODY  = new BodyPart('Body', [1,2,3,4,5]);
-  public static readonly LEG_R = new BodyPart('Right Leg', [6]);
-  public static readonly LEG_L = new BodyPart('Left Leg', [7]);
-  public static readonly ARM_R = new BodyPart('Right Arm', [8]);
-  public static readonly ARM_L = new BodyPart('Left Arm', [9]);
+  public static readonly HEAD  = new BodyPartEnum('Head', [0]);
+  public static readonly BODY  = new BodyPartEnum('Body', [1,2,3,4,5]);
+  public static readonly LEG_R = new BodyPartEnum('Right Leg', [6]);
+  public static readonly LEG_L = new BodyPartEnum('Left Leg', [7]);
+  public static readonly ARM_R = new BodyPartEnum('Right Arm', [8]);
+  public static readonly ARM_L = new BodyPartEnum('Left Arm', [9]);
   
   constructor(
     readonly name: string,
@@ -21,7 +21,7 @@ export class BodyPart extends Enum {
   }
   
   static getHitLocation(roll: number) {
-    return this.values<BodyPart>().find(bodyPart => bodyPart.isHitBy(roll));
+    return this.values<BodyPartEnum>().find(bodyPart => bodyPart.isHitBy(roll));
   }
   
 }
