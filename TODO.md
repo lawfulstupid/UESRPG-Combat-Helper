@@ -6,7 +6,7 @@
 - Override property button to save against NPC
 - Threat rating + crit chance
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
-- Auto wound detection based on AttributeBar.onChange
+- Auto wound detection based on NpcComponent.onHpChange()
 - Wound display
 - Info copy for roll20 tooltip
 - Equipment manager
