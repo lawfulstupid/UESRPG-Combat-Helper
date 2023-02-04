@@ -1,4 +1,5 @@
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
+import { ObservableUtil } from 'src/app/util/observable.util';
 import {
   ValueRequestDialog
 } from '../../dialog/value-request/value-request.dialog';
@@ -22,8 +23,11 @@ export class NpcTemplate extends DataCharacter {
   }
   
   // get value from user input
-  protected override populate<T>(property: Property<T>): Observable<T> {
-    return ValueRequestDialog.requestValue(property, this).pipe(tap(value => {
+  override populate<T>(property: Property<T>, useValue?: T): Observable<T> {
+    return ObservableUtil.coalesce(
+      of(useValue),
+      () => ValueRequestDialog.requestValue(property, this)
+    ).pipe(tap(value => {
       this.writeData(property, value);
     }));
   }

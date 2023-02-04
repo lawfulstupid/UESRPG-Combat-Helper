@@ -14,12 +14,12 @@ export class Npc extends DataCharacter {
     this.template = template;
   }
   
-  protected override populate<T>(property: Property<T>): Observable<T> {
+  override populate<T>(property: Property<T>, useValue?: T): Observable<T> {
     switch (property.templateRole) {
       case TemplateRole.REFERENCE:
       case TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getProperty<T>(property).pipe(tap(value => {
+        return this.template.getProperty<T>(property, useValue).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);
@@ -28,6 +28,7 @@ export class Npc extends DataCharacter {
       case TemplateRole.NO_TEMPLATE:
         // try using default value first, otherwise try user input (lazy value)
         return ObservableUtil.coalesce(
+          of(useValue),
           of(property.defaultValue),
           () => ValueRequestDialog.requestValue<T>(property, this) // lazy value
         ).pipe(tap(value => {

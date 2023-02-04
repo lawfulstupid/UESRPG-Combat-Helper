@@ -27,17 +27,17 @@ export abstract class DataCharacter extends Character {
     return {...this.data};
   }
   
-  getProperty<T>(property: Property<T>): Observable<T> {
+  getProperty<T>(property: Property<T>, populateUseValue?: T): Observable<T> {
     if (this.data[property.key] !== undefined) {
       let value: T = property.deserialise(this.data[property.key]);
       return of(value); // try to get value from internal data
     } else {
-      return this.populate(property); // otherwise get it from elsewhere
+      return this.populate(property, populateUseValue); // otherwise get it from elsewhere
     }
   }
   
   // gets a property from some external source
-  protected abstract populate<T>(property: Property<T>): Observable<T>;
+  abstract populate<T>(property: Property<T>, useValue?: T): Observable<T>;
   
   hasProperty<T>(property: Property<T>): boolean {
     return this.data[property.key] !== undefined;
