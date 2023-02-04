@@ -17,6 +17,7 @@ import { LongPressButtonComponent } from './components/long-press-button/long-pr
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { NpcComponent } from './components/npc/npc.component';
 import { PropertyInputComponent } from './components/property-input/property-input.component';
+import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
@@ -38,6 +39,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     PropertyInputComponent,
     AttributeBarComponent,
     LongPressButtonComponent,
+    SkillRollerComponent,
     ValueRequestDialog,
     RequiredValuesDialog,
     NewNpcDialog,

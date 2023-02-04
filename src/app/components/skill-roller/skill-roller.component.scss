@@ -1,0 +1,30 @@
+:host {
+    width: 100%;
+}
+
+.roller {
+    mat-select {
+        width: 100%;
+    }
+    app-property-input {
+        width: 52px;
+    }
+    * {
+        margin: auto 0;
+        margin-left: 8px;
+    }
+    *:first-child {
+        margin-left: 0;
+    }
+}
+
+.test-results-block {
+    font-size: large;
+    text-align: center;
+    .test-results {
+        width: 100%;
+    }
+    .invis {
+        visibility: hidden;
+    }
+}

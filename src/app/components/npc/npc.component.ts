@@ -30,12 +30,6 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     }
   }
   
-  testButton() {
-    this.npc.getProperty(Attribute.HP).subscribe(hp => {
-      this.npc.writeData(Attribute.HP, hp - 1);
-    });
-  }
-  
   close() {
     EventManager.removeNpcEvent.emit(this.npc);
   }

@@ -22,10 +22,7 @@
     [disabled]="npc.getProperty(combatEnum.STAMINA_SPENT) | async"
   ></app-attribute-bar>
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" color="cornflowerblue"></app-attribute-bar>
-  <div class="gap"></div>
   
-  <!-- Buttons -->
-  <div fxLayout="row">
-    <button mat-raised-button (click)="testButton()">TEST</button>
-  </div>
+  <!-- Skill roller -->
+  <app-skill-roller [npc]="npc"></app-skill-roller>
 </div>
