@@ -1,8 +1,7 @@
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Dictionary } from "src/app/util/dictionary.util";
 import { LazyUtil, MaybeLazy } from "src/app/util/lazy.util";
-import { ObservableUtil } from "src/app/util/observable.util";
 import { Property } from "../property/abstract/property";
 import { Character } from "./character";
 
@@ -30,6 +29,7 @@ export abstract class DataCharacter extends Character {
     return {...this.data};
   }
   
+  // Step 1: retrieves a property of the character from internal data
   getProperty<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
     if (this.data[property.key] !== undefined) {
       let value: T = property.deserialise(this.data[property.key]);
@@ -39,27 +39,27 @@ export abstract class DataCharacter extends Character {
     }
   }
   
-  // gets a property from some external source
+  // Tries to retrieve a value without creating a ValueRequest
+  getPropertySilent<T>(property: Property<T>): Observable<T> {
+    return this.getProperty(property, () => throwError(() => new Error('No value available')));
+  }
+  
+  // Step 2: If getProperty() failed to find a value internally, this determines how to go about finding a value externally
   abstract populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T>;
   
-  produceValue<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
-    let producer: Observable<T | undefined>;
-    if (valueProducer === undefined) {
-      producer = of(undefined); // This allows passthrough to ValueRequestDialog via coalesce
+  // Step 3: This produces the value from an external source
+  produceValue<T>(property: Property<T>, valueProducer: ValueProducer<T> = this.defaultValueProducer(property)): Observable<T> {
+    const strictValueProducer: T | Observable<T> = LazyUtil.resolve(valueProducer);
+    if (strictValueProducer instanceof Observable) {
+      return strictValueProducer;
     } else {
-      const strictValueProducer: T | Observable<T> = LazyUtil.resolve(valueProducer);
-      if (strictValueProducer instanceof Observable) {
-        producer = strictValueProducer;
-      } else {
-        producer = of(strictValueProducer);
-      }
+      return of(strictValueProducer);
     }
-    
-    // First try to get value using valueProducer, then default back to asking user
-    return ObservableUtil.coalesce(
-      producer,
-      () => ValueRequestDialog.requestValue(property, this)
-    );
+  }
+  
+  // Default method to produce values externally -- value request dialog
+  private defaultValueProducer<T>(property: Property<T>): ValueProducer<T> {
+    return () => ValueRequestDialog.requestValue(property, this);
   }
   
   hasProperty<T>(property: Property<T>): boolean {
