@@ -3,6 +3,7 @@ import { forkJoin } from "rxjs";
 import { Npc } from "src/app/model/character/npc";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Attribute } from "src/app/model/property/attribute";
+import { CombatProperty } from "src/app/model/property/combat.property";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({
@@ -13,6 +14,7 @@ import { EventManager } from "src/app/service/event.manager";
 export class NpcComponent implements OnInit {
   
   readonly attributeEnum = Attribute;
+  readonly combatEnum = CombatProperty;
   
   npc!: Npc;
   loaded: boolean = false;

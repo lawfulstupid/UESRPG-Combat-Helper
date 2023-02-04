@@ -6,7 +6,7 @@ export abstract class Property<T> extends Identifier {
   readonly defaultValue?: T;
   readonly options?: Array<Identifier> = undefined;
   
-  protected constructor(key: string, name: string, templateRole: TemplateRole, defaultValue?: T, options?: Array<Identifier>) {
+  constructor(key: string, name: string, templateRole: TemplateRole, defaultValue?: T, options?: Array<Identifier>) {
     super(key, name);
     this.templateRole = templateRole;
     this.defaultValue = defaultValue;
