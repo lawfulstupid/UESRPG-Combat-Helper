@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { map, mergeMap, Observable, of, tap } from "rxjs";
+import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
-import { Npc } from "src/app/model/character/npc";
+import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
 import { ObservableUtil } from "src/app/util/observable.util";
 
@@ -11,15 +12,12 @@ import { ObservableUtil } from "src/app/util/observable.util";
   templateUrl: 'attribute-bar.component.html',
   styleUrls: ['attribute-bar.component.scss']
 })
-export class AttributeBarComponent {
+export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   
   private static readonly RECENT_CHANGE_DURATION_MS = 3000;
   
   readonly faCircleMinus = faCircleMinus;
   readonly faCirclePlus = faCirclePlus;
-  
-  @Input()
-  npc!: Npc;
   
   @Input()
   attribute!: Attribute;
@@ -30,11 +28,15 @@ export class AttributeBarComponent {
   @Input()
   disabled?: boolean | null = false;
   
+  private recentChangeTimeout?: NodeJS.Timeout;
+  private recentChanges: number = 0;
+  
   @Output()
   onChange: EventEmitter<number> = new EventEmitter();
   
-  private recentChangeTimeout?: NodeJS.Timeout;
-  private recentChanges: number = 0;
+  protected override requiredProperties(): Array<Property<any>> {
+    return [this.attribute];
+  }
   
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {

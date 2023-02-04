@@ -24,13 +24,13 @@ export class NewNpcTemplateDialog {
   key?: string;
   name?: string;
   properties: Data = {};
-  requiredProperties: Array<Property<any>>;
+  requiredProperties: Array<Property<any>>; // TODO: remove this
   
   constructor(
     private dialogRef: MatDialogRef<NewNpcTemplateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Identifier | undefined
   ) {
-    this.requiredProperties = NpcTemplate.REQUIRED_PROPERTIES;
+    this.requiredProperties = [];
     if (this.data) {
       this.preDefined = true;
       this.key = data?.key;

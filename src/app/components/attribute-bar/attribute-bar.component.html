@@ -1,5 +1,4 @@
-<!-- <span>HP: {{statDisplay(attribute) | async}}</span> -->
-<div fxLayout="row">
+<div fxLayout="row" *ngIf="loaded">
   <app-long-press-button (shortPress)="modify(-1,1)" (longPress)="modify(-1)" [disabled]="disabled">
     <fa-icon [icon]="faCircleMinus"></fa-icon>
   </app-long-press-button>

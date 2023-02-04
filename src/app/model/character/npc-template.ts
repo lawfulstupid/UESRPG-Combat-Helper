@@ -5,7 +5,6 @@ import {
 } from '../../dialog/value-request/value-request.dialog';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
-import { Attribute } from '../property/attribute';
 import { Data, DataCharacter } from './data-character';
 
 export class NpcTemplate extends DataCharacter {
@@ -31,13 +30,5 @@ export class NpcTemplate extends DataCharacter {
       this.writeData(property, value);
     }));
   }
-  
-  public static readonly REQUIRED_PROPERTIES: Array<Property<any>> = [
-    Attribute.HP,
-    Attribute.SP,
-    Attribute.MP,
-    Attribute.SIZE,
-    Attribute.SPEED
-  ];
   
 }

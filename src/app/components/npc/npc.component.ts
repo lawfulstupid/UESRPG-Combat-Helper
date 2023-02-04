@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { forkJoin } from "rxjs";
-import { Npc } from "src/app/model/character/npc";
-import { NpcTemplate } from "src/app/model/character/npc-template";
+import { Component } from "@angular/core";
+import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
+import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
 import { CombatProperty } from "src/app/model/property/combat.property";
 import { EventManager } from "src/app/service/event.manager";
@@ -11,22 +10,13 @@ import { EventManager } from "src/app/service/event.manager";
   templateUrl: './npc.component.html',
   styleUrls: ['./npc.component.scss']
 })
-export class NpcComponent implements OnInit {
+export class NpcComponent extends DisplayRequiredValuesComponent {
   
   readonly attributeEnum = Attribute;
   readonly combatEnum = CombatProperty;
   
-  npc!: Npc;
-  loaded: boolean = false;
-  
-  ngOnInit() {
-    // Make sure all required values are accounted for
-    // TODO: Gather missing variables and request them all on one screen
-    forkJoin(
-      NpcTemplate.REQUIRED_PROPERTIES.map(this.npc.getProperty.bind(this.npc))
-    ).subscribe(values => {
-      this.loaded = true;
-    });
+  protected override requiredProperties(): Array<Property<any>> {
+    return [Attribute.SPEED, Attribute.SIZE, CombatProperty.STAMINA_SPENT];
   }
   
   onHpChange(change: number) {
