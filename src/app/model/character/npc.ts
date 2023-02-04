@@ -1,4 +1,5 @@
-import { Observable, tap } from "rxjs";
+import { Observable, of, tap } from "rxjs";
+import { ObservableUtil } from "src/app/util/observable.util";
 import { ValueRequestDialog } from "../../dialog/value-request/value-request.dialog";
 import { Property, TemplateRole } from "../property/abstract/property";
 import { DataCharacter } from "./data-character";
@@ -25,9 +26,11 @@ export class Npc extends DataCharacter {
           }
         }));
       case TemplateRole.NO_TEMPLATE:
-        // get value from user input
-        return ValueRequestDialog.requestValue<T>(property, this).pipe(tap(value => {
-          this.writeData(property, value); // and save
+        return ObservableUtil.coalesce(
+          of(property.defaultValue),                          // try using default value first
+          ValueRequestDialog.requestValue<T>(property, this)  // otherwise try user input
+        ).pipe(tap(value => {
+          this.writeData(property, value);                    // save the result wherever it came from
         }));
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
