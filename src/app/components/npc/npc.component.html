@@ -14,8 +14,13 @@
   <div class="gap"></div>
   
   <!-- Attributes -->
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" color="crimson"></app-attribute-bar>
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" color="mediumseagreen" (onChange)="onSpChange($event)" [disabled]="npc.getProperty(combatEnum.STAMINA_SPENT) | async"></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" color="crimson"
+    (onChange)="onHpChange($event)"
+  ></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" color="mediumseagreen"
+    (onChange)="onSpChange($event)"
+    [disabled]="npc.getProperty(combatEnum.STAMINA_SPENT) | async"
+  ></app-attribute-bar>
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" color="cornflowerblue"></app-attribute-bar>
   <div class="gap"></div>
   

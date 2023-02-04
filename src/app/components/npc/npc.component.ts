@@ -30,6 +30,11 @@ export class NpcComponent implements OnInit {
     });
   }
   
+  onHpChange(change: number) {
+    // TODO: use this to detect wounds
+    console.log('HP Change:', change);
+  }
+  
   onSpChange(change: number) {
     if (change < 0) {
       this.npc.writeData(CombatProperty.STAMINA_SPENT, true);

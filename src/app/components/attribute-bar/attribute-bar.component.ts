@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { map, mergeMap, Observable, of } from "rxjs";
+import { map, mergeMap, Observable, of, tap } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Attribute } from "src/app/model/property/attribute";
@@ -13,7 +13,7 @@ import { ObservableUtil } from "src/app/util/observable.util";
 })
 export class AttributeBarComponent {
   
-  private static readonly RECENT_CHANGE_DURATION_MS = 5000;
+  private static readonly RECENT_CHANGE_DURATION_MS = 3000;
   
   readonly faCircleMinus = faCircleMinus;
   readonly faCirclePlus = faCirclePlus;
@@ -55,8 +55,15 @@ export class AttributeBarComponent {
   
   modify(direction: number, value?: number) {
     ObservableUtil.coalesce(
-      of(value),                                                  // If value is provided, use it as-is
-      () => ValueRequestDialog.requestValueChange(this.attribute) // Otherwise, get value from user (lazy value)
+      of(value),  // If value is provided, use it as-is
+      () => {     // Otherwise, get value from user (lazy value)
+        this.pauseChangeCollector(); // Pause timeout while dialog is open
+        return ValueRequestDialog.requestValueChange(this.attribute).pipe(tap({
+          complete: () => {
+            this.resumeChangeCollector(); // Resume timeout when dialog closes
+          }
+        }));
+      }
     ).subscribe(value => {
       this.npc.getProperty(this.attribute).subscribe(currentValue => {  // Get current value from NPC
         const change = direction * value;
@@ -76,6 +83,15 @@ export class AttributeBarComponent {
         this.recentChanges = 0;
       }
     }, AttributeBarComponent.RECENT_CHANGE_DURATION_MS);
+  }
+  
+  // Technically resets the countdown completely but no matter
+  private pauseChangeCollector() {
+    clearTimeout(this.recentChangeTimeout);
+  }
+  
+  private resumeChangeCollector() {
+    this.updateChanges(0);
   }
   
 }
