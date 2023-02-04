@@ -47,8 +47,8 @@ export class AttributeBarComponent {
   
   modify(direction: number, value?: number) {
     ObservableUtil.coalesce(
-      of(value),                                            // If value is provided, use it as-is
-      ValueRequestDialog.requestValueChange(this.attribute) // Otherwise, get value from user
+      of(value),                                                  // If value is provided, use it as-is
+      () => ValueRequestDialog.requestValueChange(this.attribute) // Otherwise, get value from user (lazy value)
     ).subscribe(value => {
       this.npc.getProperty(this.attribute).subscribe(currentValue => {        // Get current value from NPC
         this.npc.writeData(this.attribute, currentValue + direction * value); // Modify it appropriately

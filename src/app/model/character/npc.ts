@@ -27,8 +27,8 @@ export class Npc extends DataCharacter {
         }));
       case TemplateRole.NO_TEMPLATE:
         return ObservableUtil.coalesce(
-          of(property.defaultValue),                          // try using default value first
-          ValueRequestDialog.requestValue<T>(property, this)  // otherwise try user input
+          of(property.defaultValue),                                // try using default value first
+          () => ValueRequestDialog.requestValue<T>(property, this)  // otherwise try user input (lazy value)
         ).pipe(tap(value => {
           this.writeData(property, value);                    // save the result wherever it came from
         }));
