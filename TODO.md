@@ -1,4 +1,10 @@
 # TO DO:
+- Move cumulative change detection from AttributeComponent to DataCharacter/Npc.writeData?
+    - Woukd need a new Property protocol to handle accumulation, but can default this to take-newest
+    - Really only need it for HP and SP, this might be overkill and lots of unnecessary data flying around
+    - But it would centralise the HP change detector, useful for when typed damage is implemented so I don't have to handle wound detection in two places
+    - Unless I pass in the final typed damage to the atrribute bar and handle it from there
+    - Better to pass data up than down though, do it at the root
 - Deprecate 'REQUIRED_PROPERTIES', replace with per-component property initialisation
 - Global 'New Round' button on menubar
     - AP -> 3
