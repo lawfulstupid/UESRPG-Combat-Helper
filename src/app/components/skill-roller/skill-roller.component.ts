@@ -8,6 +8,7 @@ import { CombatProperty } from 'src/app/model/property/combat.property';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Skill } from 'src/app/model/property/skill';
 import { Test } from 'src/app/model/test/test';
+import { SearchUtil } from 'src/app/util/search.util';
 import { ValueChange } from '../property-input/property-input.component';
 
 @Component({
@@ -17,17 +18,31 @@ import { ValueChange } from '../property-input/property-input.component';
 })
 export class SkillRollerComponent {
   
-  readonly characteristics: Array<Characteristic> = Enum.values(Characteristic);
-  readonly skills: Array<Skill> = Enum.values(Skill);
   readonly modifierProperty = CombatProperty.MISC_MODIFIER;
   readonly faClose = faXmark;
   
   @Input()
   npc!: Npc;
   
+  skills: Array<Skill> = [];
+  characteristics: Array<Characteristic> = [];
+  
   selectedSkill?: Skill;
   modifier?: number;
   test?: Test;
+  
+  constructor() {
+    this.filterSkills('');
+  }
+  
+  filterSkills(search: string) {
+    this.characteristics = Enum.values<Characteristic>(Characteristic).filter(characteristic => {
+      return SearchUtil.matchAny(search, characteristic.name);
+    });
+    this.skills = Enum.values<Skill>(Skill).filter(skill => {
+      return SearchUtil.matchAny(search, skill.name);
+    });
+  }
   
   displayTargetNumber(skill: NumericalProperty): Observable<string> {
     if (this.npc.hasProperty(skill)) {
