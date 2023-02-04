@@ -25,7 +25,6 @@ export class NpcComponent implements OnInit {
     forkJoin(
       NpcTemplate.REQUIRED_PROPERTIES.map(this.npc.getProperty.bind(this.npc))
     ).subscribe(values => {
-      console.log(this.npc.name + ' loaded');
       this.loaded = true;
     });
   }

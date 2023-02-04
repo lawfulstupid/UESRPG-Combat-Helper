@@ -38,7 +38,6 @@ export class PropertyInputComponent<T> {
       let value: T = this.property.deserialise(this.valueStr);
       this.valueChange.emit({valueStr: this.valueStr, value: value});
     } catch (e) {
-      console.log(e);
       this.errorMessage = 'Invalid'; // TODO: more detail
       this.valueChange.emit(undefined);
     }
