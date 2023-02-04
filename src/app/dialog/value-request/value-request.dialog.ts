@@ -6,7 +6,7 @@ import {
   MatDialogConfig,
   MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material/dialog';
-import { EMPTY, mergeMap, Observable, of } from 'rxjs';
+import { mergeMap, Observable, of, throwError } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { ValueChange } from 'src/app/components/property-input/property-input.component';
 import { DataCharacter } from 'src/app/model/character/data-character';
@@ -66,14 +66,13 @@ export class ValueRequestDialog<T> {
   private static doRequest<T>(request: ValueRequest<T>): Observable<T> {
     const config: MatDialogConfig = { data: request };
     return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
-      // Eliminate the value if undefined, so .subscribe() never triggers
       if (value === undefined) {
-        return EMPTY;
+        // Throw error if undefined, so .subscribe() never triggers
+        return throwError(() => new Error('No value provided for ' + request.property.name));
       } else {
         return of(value);
       }
     }));
-    
   }
   
 }

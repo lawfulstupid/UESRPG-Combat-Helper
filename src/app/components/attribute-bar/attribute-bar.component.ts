@@ -61,9 +61,9 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
       () => {     // Otherwise, get value from user (lazy value)
         this.pauseChangeCollector(); // Pause timeout while dialog is open
         return ValueRequestDialog.requestValueChange(this.attribute).pipe(tap({
-          complete: () => {
-            this.resumeChangeCollector(); // Resume timeout when dialog closes
-          }
+          // Resume timeout when dialog closes (error or otherwise)
+          error: this.resumeChangeCollector,
+          complete: this.resumeChangeCollector
         }));
       }
     ).subscribe(value => {
