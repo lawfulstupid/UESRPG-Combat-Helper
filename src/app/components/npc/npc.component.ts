@@ -30,6 +30,12 @@ export class NpcComponent implements OnInit {
     });
   }
   
+  onSpChange(change: number) {
+    if (change < 0) {
+      this.npc.writeData(CombatProperty.STAMINA_SPENT, true);
+    }
+  }
+  
   testButton() {
     this.npc.getProperty(Attribute.HP).subscribe(hp => {
       this.npc.writeData(Attribute.HP, hp - 1);
