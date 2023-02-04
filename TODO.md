@@ -1,4 +1,5 @@
 # TO DO:
+- Deprecate 'REQUIRED_PROPERTIES', replace with per-component property initialisation
 - Global 'New Round' button on menubar
     - AP -> 3
     - Attacks made -> 0
