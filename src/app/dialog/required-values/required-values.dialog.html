@@ -1,0 +1,5 @@
+<app-dialog [title]="request.title" [actions]="actions">
+  <ng-container *ngFor="let property of request.properties">
+    <app-property-input [property]="property" (valueChange)="onValueChange(property, $event)" (onEnter)="respond()"></app-property-input>
+  </ng-container>
+</app-dialog>

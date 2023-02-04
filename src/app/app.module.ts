@@ -23,6 +23,7 @@ import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-templ
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
 import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
+import { RequiredValuesDialog } from './dialog/required-values/required-values.dialog';
 import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
 import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
 
@@ -38,11 +39,12 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     AttributeBarComponent,
     LongPressButtonComponent,
     ValueRequestDialog,
+    RequiredValuesDialog,
     NewNpcDialog,
     NewNpcTemplateDialog,
     ManageNpcTemplatesDialog,
     EditNpcTemplateDialog,
-    ActionItemFilterPipe
+    ActionItemFilterPipe,
   ],
   imports: [
     BrowserAnimationsModule,
