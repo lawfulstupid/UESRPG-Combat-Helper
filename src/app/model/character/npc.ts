@@ -1,8 +1,7 @@
 import { Observable, of, tap } from "rxjs";
 import { ObservableUtil } from "src/app/util/observable.util";
-import { ValueRequestDialog } from "../../dialog/value-request/value-request.dialog";
 import { Property, TemplateRole } from "../property/abstract/property";
-import { DataCharacter } from "./data-character";
+import { DataCharacter, ValueProducer } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 
 export class Npc extends DataCharacter {
@@ -14,12 +13,12 @@ export class Npc extends DataCharacter {
     this.template = template;
   }
   
-  override populate<T>(property: Property<T>, useValue?: T): Observable<T> {
+  override populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
     switch (property.templateRole) {
       case TemplateRole.REFERENCE:
       case TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getProperty<T>(property, useValue).pipe(tap(value => {
+        return this.template.getProperty<T>(property, valueProducer).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);
@@ -28,9 +27,8 @@ export class Npc extends DataCharacter {
       case TemplateRole.NO_TEMPLATE:
         // try using default value first, otherwise try user input (lazy value)
         return ObservableUtil.coalesce(
-          of(useValue),
           of(property.defaultValue),
-          () => ValueRequestDialog.requestValue<T>(property, this) // lazy value
+          () => this.produceValue(property, valueProducer)
         ).pipe(tap(value => {
           this.writeData(property, value); // save the result wherever it came from
         }));
