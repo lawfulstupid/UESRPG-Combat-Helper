@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-long-press-button',
@@ -8,6 +8,9 @@ export class LongPressButtonComponent {
   
   private static readonly LONG_PRESS_DURATION_MS = 500;
   
+  @Input()
+  disabled: boolean = false;
+  
   @Output()
   shortPress: EventEmitter<void> = new EventEmitter();
   
@@ -15,28 +18,32 @@ export class LongPressButtonComponent {
   longPress: EventEmitter<void> = new EventEmitter();
   
   longPressTimeout?: NodeJS.Timeout;
-  longPressFired: boolean = false; // tracks if long press has been emitted since last mouse down
+  depressed: boolean = false; // is button currently being clicked?
 
   onMouseDown() {
-    this.longPressFired = false;
-    this.longPressTimeout = setTimeout(() => {  // this callback happens on long press
-      if (!this.longPressFired) {               // don't emit if action cancelled by onMouseLeave()
-        this.longPressFired = true;
-        this.longPress.emit();
+    if (this.disabled) return;
+    this.depressed = true;
+    this.longPressTimeout = setTimeout(() => { // this callback happens on long press
+      if (this.depressed) {     // if button is still being held down (not released by leaving)
+        this.depressed = false; // release button
+        this.longPress.emit();  // emit long press
       }
     }, LongPressButtonComponent.LONG_PRESS_DURATION_MS);
   }
   
   onMouseUp() {
-    clearTimeout(this.longPressTimeout);
-    if (!this.longPressFired) { // if no long press was emitted...
-      this.shortPress.emit();   // ...emit a short press
+    if (this.disabled) return;
+    clearTimeout(this.longPressTimeout); // prevent long press from firing
+    if (this.depressed) {     // if button still being held down (not released by long press or leaving)
+      this.shortPress.emit(); // emit a short press
     }
+    this.depressed = false;   // release button either way
   }
   
   onMouseLeave() {
-    clearTimeout(this.longPressTimeout);
-    this.longPressFired = true; // prevents emitting any press until next mouse down
+    if (this.disabled) return;
+    clearTimeout(this.longPressTimeout);  // prevent long press from firing
+    this.depressed = false;               // release button
   }
   
 }

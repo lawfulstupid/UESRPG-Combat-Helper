@@ -15,8 +15,6 @@ export class AttributeBarComponent {
   readonly faCircleMinus = faCircleMinus;
   readonly faCirclePlus = faCirclePlus;
   
-  readonly attributeEnum = Attribute;
-  
   @Input()
   npc!: Npc;
   
@@ -25,6 +23,9 @@ export class AttributeBarComponent {
   
   @Input()
   color: string = 'white';
+  
+  @Input()
+  disabled: boolean = false;
   
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {

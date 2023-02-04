@@ -1,6 +1,6 @@
 <!-- <span>HP: {{statDisplay(attribute) | async}}</span> -->
 <div fxLayout="row">
-  <app-long-press-button (shortPress)="modify(-1,1)" (longPress)="modify(-1)">
+  <app-long-press-button (shortPress)="modify(-1,1)" (longPress)="modify(-1)" [disabled]="disabled">
     <fa-icon [icon]="faCircleMinus"></fa-icon>
   </app-long-press-button>
   <div class="bar-column">
@@ -12,7 +12,7 @@
       </div>
     </div>
   </div>
-  <app-long-press-button (shortPress)="modify(1,1)" (longPress)="modify(1)">
+  <app-long-press-button (shortPress)="modify(1,1)" (longPress)="modify(1)" [disabled]="disabled">
     <fa-icon [icon]="faCirclePlus"></fa-icon>
   </app-long-press-button>
 </div>
