@@ -4,6 +4,7 @@ import { map, mergeMap, Observable, of } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Attribute } from "src/app/model/property/attribute";
+import { ObservableUtil } from "src/app/util/observable.util";
 
 @Component({
   selector: 'app-attribute-bar',
@@ -45,13 +46,10 @@ export class AttributeBarComponent {
   }
   
   modify(direction: number, value?: number) {
-    of(value).pipe(mergeMap(value => {
-      if (value !== undefined) {  // If value is provided, use it as-is
-        return of(value);
-      } else {                    // Otherwise, get value from user:
-        return ValueRequestDialog.requestValueChange(this.attribute);
-      }
-    })).subscribe(value => {
+    ObservableUtil.coalesce(
+      of(value),                                            // If value is provided, use it as-is
+      ValueRequestDialog.requestValueChange(this.attribute) // Otherwise, get value from user
+    ).subscribe(value => {
       this.npc.getProperty(this.attribute).subscribe(currentValue => {        // Get current value from NPC
         this.npc.writeData(this.attribute, currentValue + direction * value); // Modify it appropriately
       });
