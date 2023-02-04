@@ -3,6 +3,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { map, Observable, of } from 'rxjs';
 import { Npc } from 'src/app/model/character/npc';
 import { Enum } from 'src/app/model/enum/enum';
+import { Characteristic } from 'src/app/model/property/characteristic';
 import { CombatProperty } from 'src/app/model/property/combat.property';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Skill } from 'src/app/model/property/skill';
@@ -16,6 +17,7 @@ import { ValueChange } from '../property-input/property-input.component';
 })
 export class SkillRollerComponent {
   
+  readonly characteristics: Array<Characteristic> = Enum.values(Characteristic);
   readonly skills: Array<Skill> = Enum.values(Skill);
   readonly modifierProperty = CombatProperty.MISC_MODIFIER;
   readonly faClose = faXmark;

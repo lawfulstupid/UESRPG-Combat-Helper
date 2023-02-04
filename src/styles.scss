@@ -11,3 +11,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-right: auto;
     min-width: 8px;
 }
+
+mat-option.divider {
+    display: none;
+}
+mat-option.divider + * {
+    border-top: 1px solid gray;
+}
