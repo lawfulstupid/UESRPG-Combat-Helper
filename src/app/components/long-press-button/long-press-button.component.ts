@@ -9,7 +9,7 @@ export class LongPressButtonComponent {
   private static readonly LONG_PRESS_DURATION_MS = 500;
   
   @Input()
-  disabled: boolean = false;
+  disabled?: boolean | null = false;
   
   @Output()
   shortPress: EventEmitter<void> = new EventEmitter();

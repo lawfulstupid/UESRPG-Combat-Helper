@@ -25,7 +25,7 @@ export class AttributeBarComponent {
   color: string = 'white';
   
   @Input()
-  disabled: boolean = false;
+  disabled?: boolean | null = false;
   
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
