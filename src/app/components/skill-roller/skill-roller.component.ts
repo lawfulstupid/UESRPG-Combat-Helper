@@ -8,6 +8,7 @@ import { CombatProperty } from 'src/app/model/property/combat.property';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Skill } from 'src/app/model/property/skill';
 import { Test } from 'src/app/model/test/test';
+import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
 import { ValueChange } from '../property-input/property-input.component';
 
@@ -24,8 +25,8 @@ export class SkillRollerComponent {
   @Input()
   npc!: Npc;
   
-  skills: Array<Skill> = [];
-  characteristics: Array<Characteristic> = [];
+  skills: Array<NumericalProperty> = [];
+  characteristics: Array<NumericalProperty> = [];
   
   selectedSkill?: Skill;
   modifier?: number;
@@ -64,9 +65,16 @@ export class SkillRollerComponent {
   
   roll() {
     if (this.selectedSkill === undefined) return;
-    this.npc.getProperty(this.selectedSkill).subscribe(skill => {
-      const targetNumber = skill + (this.modifier || 0);
-      this.test = new Test(targetNumber, this.selectedSkill === Skill.COMBAT_STYLE);
+    const skill: Skill = <Skill>this.selectedSkill; // cast away undefined
+    
+    // Tries a few strategies to get the TN:
+    ObservableUtil.coalesce(
+      () => this.npc.getPropertySilent(skill),    // 1. Check for PC skill
+      () => this.npc.getProperty(skill.npcSkill), // 2. Check for NPC skill, ask user if missing
+      () => this.npc.getProperty(skill)           // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
+    ).subscribe(skill => {
+        const targetNumber = skill + (this.modifier || 0);
+        this.test = new Test(targetNumber, this.selectedSkill === Skill.COMBAT_STYLE);
     });
   }
   
