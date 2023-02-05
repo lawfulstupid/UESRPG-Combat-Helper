@@ -25,6 +25,14 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     return [Attribute.SPEED, Attribute.SIZE, CombatProperty.STAMINA_SPENT];
   }
   
+  protected override init() {
+    EventManager.newRoundEvent.subscribe(() => {
+      this.npc.reset(CombatProperty.STAMINA_SPENT);
+      this.npc.reset(CombatProperty.ATTACKS_MADE);
+      this.npc.reset(Attribute.AP);
+    });
+  }
+  
   onHpChange(change: number) {
     // TODO: use this to detect wounds
     console.log('HP Change:', change);

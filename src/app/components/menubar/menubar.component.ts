@@ -15,6 +15,10 @@ import { ActionItem } from "../actionbar/actionbar.component";
 export class MenubarComponent implements OnInit {
   
   actions: Array<ActionItem> = [{
+    label: 'New Round',
+    callback: this.newRound.bind(this),
+    separator: true
+  }, {
     label: 'New NPC',
     callback: this.newNpc.bind(this)
   }, {
@@ -49,6 +53,10 @@ export class MenubarComponent implements OnInit {
   
   manageNpcTemplates() {
     StaticProvider.dialog.open(ManageNpcTemplatesDialog);
+  }
+  
+  newRound() {
+    EventManager.newRoundEvent.emit();
   }
   
 }

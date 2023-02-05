@@ -17,8 +17,11 @@ export abstract class DisplayRequiredValuesComponent implements OnInit {
         this.loaded = true;
       }
     });
+    this.init();
   };
   
   protected abstract requiredProperties(): Array<Property<any>>;
+  
+  protected init() {}
   
 }

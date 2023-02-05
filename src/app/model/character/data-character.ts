@@ -24,6 +24,10 @@ export abstract class DataCharacter extends Character {
     this.data = {...newData};
   }
   
+  reset<T>(property: Property<T>) {
+    this.writeData(property, property.defaultValue);
+  }
+  
   // gets a copy of internal data
   getRawDataCopy(): Data {
     return {...this.data};

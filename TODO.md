@@ -1,8 +1,4 @@
 # TO DO:
-- Global 'New Round' button on menubar
-    - AP -> 3
-    - Attacks made -> 0
-    - Stamina Spent -> false
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
 - Auto wound detection based on NpcComponent.onHpChange()
