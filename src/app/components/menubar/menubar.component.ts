@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ManageNpcTemplatesDialog } from "src/app/dialog/manage-npc-templates/manage-npc-templates.dialog";
-import { NewNpcTemplateDialog } from "src/app/dialog/new-npc-template/new-npc-template.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
@@ -22,9 +21,6 @@ export class MenubarComponent implements OnInit {
     label: 'New NPC',
     callback: this.newNpc.bind(this)
   }, {
-    label: 'New Template',
-    callback: this.newNpcTemplate.bind(this)
-  }, {
     label: 'Manage Templates',
     callback: this.manageNpcTemplates.bind(this)
   }];
@@ -45,10 +41,6 @@ export class MenubarComponent implements OnInit {
         EventManager.addNpcEvent.emit(npc);
       }
     });
-  }
-  
-  newNpcTemplate() {
-    StaticProvider.dialog.open(NewNpcTemplateDialog);
   }
   
   manageNpcTemplates() {

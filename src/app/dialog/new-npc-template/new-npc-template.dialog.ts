@@ -36,6 +36,11 @@ export class NewNpcTemplateDialog {
       this.key = data?.key;
       this.name = data?.name;
     }
+    
+    // Auto-close if no data needs entering
+    if (this.valid()) {
+      this.save();
+    }
   }
   
   save() {
