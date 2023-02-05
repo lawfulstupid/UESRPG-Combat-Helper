@@ -42,12 +42,14 @@ export class Npc extends DataCharacter {
   }
   
   // gets the maximum value of a numerical property
-  getTemplateProperty(stat: Property<number>): Observable<number> {
-    return this.template.getProperty(stat);
+  getTemplateProperty(property?: Property<number>): Observable<number> {
+    return this.template.getProperty(property);
   }
   
-  override hasProperty<T>(property: Property<T>): boolean {
-    if (super.hasProperty(property)) {
+  override hasProperty<T>(property?: Property<T>): boolean {
+    if (property === undefined) {
+      return false;
+    } else if (super.hasProperty(property)) {
       return true;
     } else switch (property.templateRole) {
       case TemplateRole.REFERENCE:

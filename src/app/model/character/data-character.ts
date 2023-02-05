@@ -30,8 +30,10 @@ export abstract class DataCharacter extends Character {
   }
   
   // Step 1: retrieves a property of the character from internal data
-  getProperty<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
-    if (this.data[property.key] !== undefined) {
+  getProperty<T>(property?: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
+    if (property === undefined) {
+      return throwError(() => new Error('Undefined property'));
+    } else if (this.data[property.key] !== undefined) {
       let value: T = property.deserialise(this.data[property.key]);
       return of(value); // try to get value from internal data
     } else {
@@ -40,7 +42,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // Tries to retrieve a value without creating a ValueRequest
-  getPropertySilent<T>(property: Property<T>): Observable<T> {
+  getPropertySilent<T>(property?: Property<T>): Observable<T> {
     return this.getProperty(property, () => throwError(() => new Error('No value available')));
   }
   
@@ -62,7 +64,8 @@ export abstract class DataCharacter extends Character {
     return () => ValueRequestDialog.requestValue(property, this);
   }
   
-  hasProperty<T>(property: Property<T>): boolean {
+  hasProperty<T>(property?: Property<T>): boolean {
+    if (property === undefined) return false;
     return this.data[property.key] !== undefined;
   }
   
