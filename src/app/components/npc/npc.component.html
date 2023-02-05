@@ -14,14 +14,14 @@
   <div class="gap"></div>
   
   <!-- Attributes -->
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" color="crimson"
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HP" [color]="colorEnum.RED"
     (onChange)="onHpChange($event)"
   ></app-attribute-bar>
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" color="mediumseagreen"
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.SP" [color]="colorEnum.GREEN"
     (onChange)="onSpChange($event)"
     [disabled]="npc.getProperty(combatEnum.STAMINA_SPENT) | async"
   ></app-attribute-bar>
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" color="cornflowerblue"></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" [color]="colorEnum.BLUE"></app-attribute-bar>
   
   <!-- Skill roller -->
   <app-skill-roller [npc]="npc"></app-skill-roller>
