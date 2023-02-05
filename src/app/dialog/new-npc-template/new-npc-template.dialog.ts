@@ -7,14 +7,15 @@ import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Identifier } from "src/app/model/identifier";
 import { Property } from "src/app/model/property/abstract/property";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
+import { DialogComponent } from "../dialog.component";
 
 @Component({
   templateUrl: 'new-npc-template.dialog.html',
   styleUrls: ['../dialog.component.scss']
 })
-export class NewNpcTemplateDialog {
+export class NewNpcTemplateDialog extends DialogComponent<NewNpcTemplateDialog> {
   
-  actions: Array<ActionItem> = [{
+  override actions: Array<ActionItem> = [{
     label: 'Save',
     callback: this.save.bind(this),
     isDisabled: () => !this.valid()
@@ -27,9 +28,10 @@ export class NewNpcTemplateDialog {
   requiredProperties: Array<Property<any>>; // TODO: remove this
   
   constructor(
-    private dialogRef: MatDialogRef<NewNpcTemplateDialog>,
+    dialogRef: MatDialogRef<NewNpcTemplateDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Identifier | undefined
   ) {
+    super(dialogRef);
     this.requiredProperties = [];
     if (this.data) {
       this.preDefined = true;

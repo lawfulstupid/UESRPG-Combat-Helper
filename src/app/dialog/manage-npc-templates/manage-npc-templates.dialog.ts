@@ -4,6 +4,7 @@ import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Identifier } from "src/app/model/identifier";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
+import { DialogComponent } from "../dialog.component";
 import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
@@ -11,9 +12,9 @@ import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialo
   templateUrl: 'manage-npc-templates.dialog.html',
   styleUrls: ['../dialog.component.scss']
 })
-export class ManageNpcTemplatesDialog {
+export class ManageNpcTemplatesDialog extends DialogComponent<ManageNpcTemplatesDialog> {
   
-  actions: Array<ActionItem> = [{
+  override actions: Array<ActionItem> = [{
     label: 'New',
     callback: this.newTemplate.bind(this)
   }];
@@ -28,7 +29,8 @@ export class ManageNpcTemplatesDialog {
   
   templateList: Array<Identifier> = [];
   
-  constructor(private dialogRef: MatDialogRef<ManageNpcTemplatesDialog>) {
+  constructor(dialogRef: MatDialogRef<ManageNpcTemplatesDialog>) {
+    super(dialogRef);
     this.loadTemplateList();
   }
   

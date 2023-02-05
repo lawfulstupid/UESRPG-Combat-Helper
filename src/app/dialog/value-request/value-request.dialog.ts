@@ -12,13 +12,14 @@ import { ValueChange } from 'src/app/components/property-input/property-input.co
 import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
+import { DialogComponent } from '../dialog.component';
 
 @Component({
   templateUrl: 'value-request.dialog.html'
 })
-export class ValueRequestDialog<T> {
+export class ValueRequestDialog<T> extends DialogComponent<ValueRequestDialog<T>> {
 
-  actions: Array<ActionItem> = [{
+  override actions: Array<ActionItem> = [{
     label: 'Submit',
     callback: this.respond.bind(this),
     isDisabled: () => !this.valid()
@@ -27,9 +28,11 @@ export class ValueRequestDialog<T> {
   value?: T;
 
   constructor(
-    private dialogRef: MatDialogRef<ValueRequestDialog<T>>,
+    dialogRef: MatDialogRef<ValueRequestDialog<T>>,
     @Inject(MAT_DIALOG_DATA) public request: ValueRequest<T>
-  ) {}
+  ) {
+    super(dialogRef);
+  }
   
   onValueChange(change: ValueChange<T>) {
     this.value = change?.value;

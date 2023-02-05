@@ -6,15 +6,16 @@ import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { NpcManager } from "src/app/service/npc.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { SearchUtil } from "src/app/util/search.util";
+import { DialogComponent } from "../dialog.component";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'new-npc.dialog.html',
   styleUrls: ['../dialog.component.scss']
 })
-export class NewNpcDialog {
+export class NewNpcDialog extends DialogComponent<NewNpcDialog> {
   
-  actions: Array<ActionItem> = [{
+  override actions: Array<ActionItem> = [{
     label: 'Create',
     callback: this.create.bind(this),
     isDisabled: () => !this.valid()
@@ -37,7 +38,8 @@ export class NewNpcDialog {
   templateKey?: string;
   templateName?: string;
   
-  constructor(private dialogRef: MatDialogRef<NewNpcDialog>) {
+  constructor(dialogRef: MatDialogRef<NewNpcDialog>) {
+    super(dialogRef);
     this.filterTemplates('');
   }
   

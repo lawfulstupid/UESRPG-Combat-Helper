@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "../components/actionbar/actionbar.component";
 
 @Component({
@@ -6,7 +7,7 @@ import { ActionItem } from "../components/actionbar/actionbar.component";
   templateUrl: 'dialog.component.html',
   styleUrls: ['dialog.component.scss']
 })
-export class DialogComponent {
+export class DialogComponent<T> {
   
   @Input('title')
   title: string = '';
@@ -28,5 +29,16 @@ export class DialogComponent {
   
   @Input('cancelValue')
   cancelValue: any = undefined;
+  
+  constructor(protected dialogRef: MatDialogRef<T>) {
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.setFocus();
+    });
+  }
+  
+  private setFocus() {
+    const list = document.getElementsByTagName('app-dialog');
+    list?.item(list.length - 1)?.querySelector('input')?.focus();
+  }
   
 }

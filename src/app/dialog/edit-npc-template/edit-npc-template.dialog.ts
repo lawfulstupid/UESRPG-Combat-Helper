@@ -6,14 +6,15 @@ import { NpcTemplate } from "src/app/model/character/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
+import { DialogComponent } from "../dialog.component";
 
 @Component({
   templateUrl: 'edit-npc-template.dialog.html',
   styleUrls: ['../dialog.component.scss']
 })
-export class EditNpcTemplateDialog {
+export class EditNpcTemplateDialog extends DialogComponent<EditNpcTemplateDialog> {
   
-  actions: Array<ActionItem> = [{
+  override actions: Array<ActionItem> = [{
     label: 'Add Row',
     callback: this.addRow.bind(this)
   }, {
@@ -30,9 +31,10 @@ export class EditNpcTemplateDialog {
   newRows: Array<[string, string]> = [];
   
   constructor(
-    private dialogRef: MatDialogRef<EditNpcTemplateDialog>,
+    dialogRef: MatDialogRef<EditNpcTemplateDialog>,
     @Inject(MAT_DIALOG_DATA) public templateKey: string
   ) {
+    super(dialogRef);
     const template = NpcTemplateManager.load(this.templateKey);
     this.name = template.name;
     this.data = template.getRawDataCopy();

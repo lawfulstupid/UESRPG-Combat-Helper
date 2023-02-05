@@ -7,13 +7,15 @@ import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
 import { Dictionary, DictionaryUtil } from 'src/app/util/dictionary.util';
+import { DialogComponent } from '../dialog.component';
 
 @Component({
+  selector: 'app-required-values-dialog',
   templateUrl: './required-values.dialog.html'
 })
-export class RequiredValuesDialog {
-
-  actions: Array<ActionItem> = [{
+export class RequiredValuesDialog extends DialogComponent<RequiredValuesDialog> {
+  
+  override actions: Array<ActionItem> = [{
     label: 'Submit',
     callback: this.respond.bind(this),
     isDisabled: () => !this.valid()
@@ -22,9 +24,11 @@ export class RequiredValuesDialog {
   private values: Dictionary<any> = {};
 
   constructor(
-    private dialogRef: MatDialogRef<RequiredValuesDialog>,
+    dialogRef: MatDialogRef<RequiredValuesDialog>,
     @Inject(MAT_DIALOG_DATA) public request: RequiredValuesRequest
-  ) {}
+  ) {
+    super(dialogRef);
+  }
   
   onValueChange<T>(property: Property<T>, change: ValueChange<T>) {
     this.values[property.key] = change?.value;
