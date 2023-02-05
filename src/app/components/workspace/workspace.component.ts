@@ -1,4 +1,4 @@
-import { Component, ComponentRef, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
+import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Npc } from "src/app/model/character/npc";
 import { EventManager } from "src/app/service/event.manager";
@@ -9,7 +9,7 @@ import { NpcComponent } from "../npc/npc.component";
   templateUrl: './workspace.component.html',
   styleUrls: ['./workspace.component.scss']
 })
-export class WorkspaceComponent {
+export class WorkspaceComponent implements OnInit {
   
   @ViewChildren('insertionPoint', {read: ViewContainerRef})
   containers!: QueryList<ViewContainerRef>;
@@ -28,6 +28,15 @@ export class WorkspaceComponent {
     
     EventManager.addNpcEvent.subscribe(this.addNpc.bind(this));
     EventManager.removeNpcEvent.subscribe(this.removeNpcEvent.bind(this));
+  }
+  
+  ngOnInit() {
+    // Fix column width to be integer pixel
+    const list = Array.from(document.getElementsByClassName('drag-column'));
+    for (let elm of list) {
+      const realElm = <HTMLElement>elm;
+      realElm.style.width = Math.floor(elm.clientWidth / list.length) + 'px';
+    }
   }
   
   private addNpc(npc: Npc) {

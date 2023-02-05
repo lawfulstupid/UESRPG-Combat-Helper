@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { faArrowsUpDownLeftRight, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsUpDownLeftRight, faClose } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
@@ -18,7 +18,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly attributeEnum = Attribute;
   readonly combatEnum = CombatProperty;
   
-  readonly closeIcon = faXmark;
+  readonly closeIcon = faClose;
   readonly moveIcon = faArrowsUpDownLeftRight;
   
   protected override requiredProperties(): Array<Property<any>> {
