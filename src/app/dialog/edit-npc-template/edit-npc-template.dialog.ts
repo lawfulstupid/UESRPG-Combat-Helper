@@ -31,6 +31,10 @@ export class EditNpcTemplateDialog {
     const template = NpcTemplateManager.load(this.templateKey);
     this.name = template.name;
     this.data = template.getRawDataCopy();
+    this.computeKeys();
+  }
+  
+  private computeKeys() {
     this.keys = Object.keys(this.data).sort();
   }
   
@@ -40,6 +44,7 @@ export class EditNpcTemplateDialog {
   
   deleteExistingRow(key: string) {
     delete this.data[key];
+    this.computeKeys();
   }
   
   deleteNewRow(idx: number) {
