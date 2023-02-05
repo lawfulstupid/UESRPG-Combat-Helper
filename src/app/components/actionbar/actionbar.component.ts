@@ -26,6 +26,7 @@ export class ActionbarComponent {
 export interface ActionItem {
   label: string;
   callback: Function;
+  separator?: boolean;
   isDisabled?: () => boolean;
   isHidden?: () => boolean;
 }

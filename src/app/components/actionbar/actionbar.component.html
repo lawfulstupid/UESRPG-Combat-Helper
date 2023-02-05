@@ -1,9 +1,12 @@
 <div fxLayout="row" class="actionbar">
-  <button mat-raised-button *ngFor="let action of actions | actionItemFilter"
-    (click)="doCallback(action)"
-    [disabled]="action.isDisabled && action.isDisabled()"
-    tabindex="-1"
-  >
-    {{action.label}}
-  </button>
+  <ng-container *ngFor="let action of actions | actionItemFilter">
+    <button mat-raised-button 
+      (click)="doCallback(action)"
+      [disabled]="action.isDisabled && action.isDisabled()"
+      tabindex="-1"
+    >
+      {{action.label}}
+    </button>
+    <div class="separator" *ngIf="action.separator"></div>
+  </ng-container>
 </div>
