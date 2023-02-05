@@ -27,8 +27,10 @@ export class MenubarComponent implements OnInit {
   
   ngOnInit() {
     let [r,g,b] = [0,0,0];
-    while (r+g+b < 100) {
+    let lum = 0;
+    while (lum < 128 || lum > 200) {
       [r,g,b] = [RandomUtil.d(255),RandomUtil.d(255),RandomUtil.d(255)];
+      lum = 0.2126*r + 0.7152*g + 0.0722*b;
     }
     document.getElementById('menubar')!.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
   }
