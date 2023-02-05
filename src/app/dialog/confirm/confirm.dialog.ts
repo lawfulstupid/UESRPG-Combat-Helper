@@ -1,13 +1,13 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
-import { DialogComponent } from "../dialog.component";
+import { Dialog } from "../dialog";
 
 @Component({
   templateUrl: 'confirm.dialog.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.scss']
 })
-export class ConfirmDialog extends DialogComponent<ConfirmDialog> {
+export class ConfirmDialog extends Dialog<ConfirmDialog> {
   
   override actions: Array<ActionItem> = [{
     label: this.data.yesButton || 'Yes',

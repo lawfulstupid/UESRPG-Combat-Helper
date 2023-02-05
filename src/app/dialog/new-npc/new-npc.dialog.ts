@@ -6,14 +6,14 @@ import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { NpcManager } from "src/app/service/npc.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { SearchUtil } from "src/app/util/search.util";
-import { DialogComponent } from "../dialog.component";
+import { Dialog } from "../dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'new-npc.dialog.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.scss']
 })
-export class NewNpcDialog extends DialogComponent<NewNpcDialog> {
+export class NewNpcDialog extends Dialog<NewNpcDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'Create',

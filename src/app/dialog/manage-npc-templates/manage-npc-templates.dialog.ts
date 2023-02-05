@@ -4,15 +4,15 @@ import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Identifier } from "src/app/model/identifier";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
-import { DialogComponent } from "../dialog.component";
+import { Dialog } from "../dialog";
 import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'manage-npc-templates.dialog.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.scss']
 })
-export class ManageNpcTemplatesDialog extends DialogComponent<ManageNpcTemplatesDialog> {
+export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'New',

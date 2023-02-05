@@ -4,10 +4,10 @@ import { ActionItem } from "../components/actionbar/actionbar.component";
 
 @Component({
   selector: 'app-dialog',
-  templateUrl: 'dialog.component.html',
-  styleUrls: ['dialog.component.scss']
+  templateUrl: 'dialog.html',
+  styleUrls: ['dialog.scss']
 })
-export class DialogComponent<T> {
+export class Dialog<T> {
   
   @Input('title')
   title: string = '';

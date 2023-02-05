@@ -7,13 +7,13 @@ import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Identifier } from "src/app/model/identifier";
 import { Property } from "src/app/model/property/abstract/property";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
-import { DialogComponent } from "../dialog.component";
+import { Dialog } from "../dialog";
 
 @Component({
   templateUrl: 'new-npc-template.dialog.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.scss']
 })
-export class NewNpcTemplateDialog extends DialogComponent<NewNpcTemplateDialog> {
+export class NewNpcTemplateDialog extends Dialog<NewNpcTemplateDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'Save',

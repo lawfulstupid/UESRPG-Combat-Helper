@@ -7,13 +7,13 @@ import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
 import { Dictionary, DictionaryUtil } from 'src/app/util/dictionary.util';
-import { DialogComponent } from '../dialog.component';
+import { Dialog } from '../dialog';
 
 @Component({
-  selector: 'app-required-values-dialog',
-  templateUrl: './required-values.dialog.html'
+  templateUrl: './required-values.dialog.html',
+  styleUrls: ['../dialog.scss']
 })
-export class RequiredValuesDialog extends DialogComponent<RequiredValuesDialog> {
+export class RequiredValuesDialog extends Dialog<RequiredValuesDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'Submit',

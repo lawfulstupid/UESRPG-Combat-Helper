@@ -20,7 +20,7 @@ import { PropertyInputComponent } from './components/property-input/property-inp
 import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
-import { DialogComponent } from './dialog/dialog.component';
+import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
 import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
@@ -32,7 +32,6 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    DialogComponent,
     MenubarComponent,
     WorkspaceComponent,
     ActionbarComponent,
@@ -41,6 +40,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     AttributeBarComponent,
     LongPressButtonComponent,
     SkillRollerComponent,
+    Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
     NewNpcDialog,

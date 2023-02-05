@@ -6,13 +6,13 @@ import { NpcTemplate } from "src/app/model/character/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
-import { DialogComponent } from "../dialog.component";
+import { Dialog } from "../dialog";
 
 @Component({
   templateUrl: 'edit-npc-template.dialog.html',
-  styleUrls: ['../dialog.component.scss']
+  styleUrls: ['../dialog.scss']
 })
-export class EditNpcTemplateDialog extends DialogComponent<EditNpcTemplateDialog> {
+export class EditNpcTemplateDialog extends Dialog<EditNpcTemplateDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'Add Row',

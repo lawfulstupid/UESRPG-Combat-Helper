@@ -12,12 +12,13 @@ import { ValueChange } from 'src/app/components/property-input/property-input.co
 import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
-import { DialogComponent } from '../dialog.component';
+import { Dialog } from '../dialog';
 
 @Component({
-  templateUrl: 'value-request.dialog.html'
+  templateUrl: 'value-request.dialog.html',
+  styleUrls: ['../dialog.scss']
 })
-export class ValueRequestDialog<T> extends DialogComponent<ValueRequestDialog<T>> {
+export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
 
   override actions: Array<ActionItem> = [{
     label: 'Submit',
