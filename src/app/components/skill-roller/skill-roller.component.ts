@@ -22,7 +22,7 @@ import { ValueChange } from '../property-input/property-input.component';
 export class SkillRollerComponent {
   
   readonly modifierProperty = CombatProperty.MISC_MODIFIER;
-  readonly faClose = faXmark;
+  readonly closeIcon = faXmark;
   
   @Input()
   npc!: Npc;

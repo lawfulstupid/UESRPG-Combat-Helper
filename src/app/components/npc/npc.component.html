@@ -1,7 +1,11 @@
 <div class="npc" fxLayout="column" *ngIf="loaded">
   <!-- Floating Buttons -->
-  <div class="drag-handle"></div>
-  <div class="delete-button" (click)="close()"></div>
+  <div class="drag-handle">
+    <fa-icon [icon]="moveIcon"></fa-icon>
+  </div>
+  <div class="delete-button" (click)="close()">
+    <fa-icon [icon]="closeIcon"></fa-icon>
+  </div>
   
   <!-- Header -->
   <mat-form-field class="npc-name" fxLayout="column">

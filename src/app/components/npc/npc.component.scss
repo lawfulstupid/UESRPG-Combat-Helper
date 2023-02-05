@@ -18,13 +18,22 @@
     border-radius: 8px;
     position: absolute;
     z-index: 100;
+    color: rgb(70, 70, 70);
+    fa-icon {
+        position: absolute;
+        pointer-events: none;
+    }
 }
 
 .drag-handle {
     @extend .circle-button;
-    background-color: aqua;
+    background-color: cornflowerblue;
     left: 0px;
     top: 0px;
+    fa-icon {
+        top: -1px;
+        left: 1px;
+    }
 }
 
 .delete-button {
@@ -32,6 +41,11 @@
     background-color: crimson;
     left: calc(100% - 16px);
     top: 0px;
+    fa-icon {
+        font-size: large;
+        top: -1px;
+        left: 2px;
+    }
 }
 
 .npc-name {
@@ -40,12 +54,8 @@
 }
 
 mat-hint.hint-table {
-    // color: lightgray;
-    // font-size: smaller;
-    // text-align: center;
     width: 100%;
     white-space: nowrap;
-    // margin: 0 auto;
     display: table;
     table-layout: fixed;
     * {
