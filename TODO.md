@@ -11,5 +11,6 @@
 - Info copy for roll20 tooltip
 - Equipment manager
     - Left hand / right hand drop down
-    - Use item button -- attack/block/parry?
+    - Use item button -- attack / block / parry? / roll damage
     - List of special ability/traits/talents/spells
+- Export/import current board state to/from file
