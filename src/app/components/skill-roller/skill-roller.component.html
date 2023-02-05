@@ -16,14 +16,14 @@
     </mat-option>
   </mat-select>
   <app-property-input [property]="modifierProperty" [allowBlank]="true" (valueChange)="setModifier($event)"></app-property-input>
-  <button mat-raised-button (click)="roll()">Roll!</button>
+  <button mat-raised-button (click)="roll()">Roll</button>
 </div>
 <div class="test-results-block" fxLayout="row" *ngIf="test">
-  <div class="invis">
-    <fa-icon [icon]="faClose"></fa-icon>
+  <div class="test-roll" [style.color]="test.result.color">
+    {{test.rollDisplay()}}
   </div>
   <div class="test-results">
-    {{test.display()}}
+    {{test.resultDisplay()}}
   </div>
   <div (click)="closeResults()">
     <fa-icon [icon]="faClose"></fa-icon>

@@ -11,7 +11,7 @@
     }
     * {
         margin: auto 0;
-        margin-left: 8px;
+        margin-left: 16px;
     }
     *:first-child {
         margin-left: 0;
@@ -20,11 +20,10 @@
 
 .test-results-block {
     font-size: large;
-    text-align: center;
+    .test-roll {
+        margin-right: 1em;
+    }
     .test-results {
         width: 100%;
-    }
-    .invis {
-        visibility: hidden;
     }
 }

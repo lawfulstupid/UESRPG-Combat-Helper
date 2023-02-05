@@ -32,10 +32,13 @@ export class Test {
     return this.roll <= this.target ? TestResultEnum.PASS : TestResultEnum.FAIL;
   }
   
-  display(): string | undefined {
+  rollDisplay(): string {
+    return this.roll + '/' + this.target;
+  }
+  
+  resultDisplay(): string {
     let str = '';
     str += this.result.name;
-    str += ' (' + this.roll + '/' + this.target + ')';
     if (this.result.isPass()) {
       str += ' with ' + this.degreesOfSuccess + ' DoS';
       if (this.bodyPartHit) {
