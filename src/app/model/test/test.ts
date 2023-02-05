@@ -1,6 +1,7 @@
 import { RandomUtil } from "src/app/util/random.util";
 import { BodyPartEnum } from "../enum/body-part.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
+import { ThreatRatingEnum } from "../enum/threat-rating.enum";
 
 export class Test {
   
@@ -10,17 +11,28 @@ export class Test {
   readonly degreesOfSuccess: number;
   readonly bodyPartHit?: BodyPartEnum;
   
-  constructor(target: number, isAttack: boolean = false) {
+  constructor(target: number, isAttack: boolean = false, threatRating?: ThreatRatingEnum) {
     this.roll = RandomUtil.d100();
     this.target = target;
-    this.result = this.roll <= this.target ? TestResultEnum.PASS : TestResultEnum.FAIL;
+    this.result = this.determineResult(threatRating);
     this.degreesOfSuccess = this.result.isPass() ? Math.max(1, Math.floor(this.roll/10)) : 0;
     if (isAttack) {
       this.bodyPartHit = BodyPartEnum.getHitLocation(this.roll);
     }
   }
   
-  display(): string {
+  determineResult(threatRating?: ThreatRatingEnum): TestResultEnum {
+    if (threatRating !== undefined) {
+      if (this.roll <= threatRating.critRange) {
+        return TestResultEnum.CRIT;
+      } else if (threatRating.critFailRange <= this.roll) {
+        return TestResultEnum.CRIT_FAIL;
+      }
+    }
+    return this.roll <= this.target ? TestResultEnum.PASS : TestResultEnum.FAIL;
+  }
+  
+  display(): string | undefined {
     let str = '';
     str += this.result.name;
     str += ' (' + this.roll + '/' + this.target + ')';

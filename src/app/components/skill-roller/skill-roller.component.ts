@@ -3,6 +3,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { map, Observable, of } from 'rxjs';
 import { Npc } from 'src/app/model/character/npc';
 import { Enum } from 'src/app/model/enum/enum';
+import { Attribute } from 'src/app/model/property/attribute';
 import { Characteristic } from 'src/app/model/property/characteristic';
 import { CombatProperty } from 'src/app/model/property/combat.property';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
@@ -74,7 +75,9 @@ export class SkillRollerComponent {
       () => this.npc.getProperty(skill)           // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
     ).subscribe(skill => {
         const targetNumber = skill + (this.modifier || 0);
-        this.test = new Test(targetNumber, this.selectedSkill === Skill.COMBAT_STYLE);
+        this.npc.getProperty(Attribute.THREAT_RATING).subscribe(threatRating => {
+          this.test = new Test(targetNumber, this.selectedSkill === Skill.COMBAT_STYLE, threatRating);
+        });
     });
   }
   

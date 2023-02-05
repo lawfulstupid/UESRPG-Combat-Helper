@@ -4,7 +4,6 @@
     - Attacks made -> 0
     - Stamina Spent -> false
 - Override property button to save against NPC
-- Threat rating + crit chance
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
 - Auto wound detection based on NpcComponent.onHpChange()
 - Wound display
