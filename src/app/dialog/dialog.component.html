@@ -5,7 +5,7 @@
 <mat-dialog-actions *ngIf="actions.length || cancelButton">
   <app-actionbar [actions]="actions"></app-actionbar>
   <div class="separator"></div>
-  <button mat-raised-button *ngIf="cancelButton" [mat-dialog-close]="">
+  <button mat-raised-button *ngIf="cancelButton" [mat-dialog-close]="cancelValue">
     {{cancelButton}}
   </button>
 </mat-dialog-actions>

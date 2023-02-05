@@ -1,9 +1,11 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/actionbar/actionbar.component";
 import { Data } from "src/app/model/character/data-character";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
+import { StaticProvider } from "src/app/service/static.provider";
+import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
 
 @Component({
   templateUrl: 'edit-npc-template.dialog.html',
@@ -17,6 +19,9 @@ export class EditNpcTemplateDialog {
   }, {
     label: 'Save',
     callback: this.save.bind(this)
+  }, {
+    label: 'Delete All',
+    callback: this.deleteAll.bind(this)
   }];
   
   name: string;
@@ -49,6 +54,22 @@ export class EditNpcTemplateDialog {
   
   deleteNewRow(idx: number) {
     this.newRows.splice(idx, 1);
+  }
+  
+  deleteAll() {
+    const config: MatDialogConfig = {
+      data: <ConfirmDialogConfig>{
+        title: 'Delete All Properties',
+        message: 'Are you sure?'
+      }
+    };
+    StaticProvider.dialog.open(ConfirmDialog, config).afterClosed().subscribe(response => {
+      if (response) {
+        this.data = {};
+        this.keys = [];
+        this.newRows = [];
+      }
+    });
   }
   
   save() {

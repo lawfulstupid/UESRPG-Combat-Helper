@@ -19,6 +19,7 @@ import { NpcComponent } from './components/npc/npc.component';
 import { PropertyInputComponent } from './components/property-input/property-input.component';
 import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
 import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
@@ -46,6 +47,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     NewNpcTemplateDialog,
     ManageNpcTemplatesDialog,
     EditNpcTemplateDialog,
+    ConfirmDialog,
     ActionItemFilterPipe,
   ],
   imports: [

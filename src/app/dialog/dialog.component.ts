@@ -26,4 +26,7 @@ export class DialogComponent {
   @Input('cancel')
   cancelButton?: string;
   
+  @Input('cancelValue')
+  cancelValue: any = undefined;
+  
 }
