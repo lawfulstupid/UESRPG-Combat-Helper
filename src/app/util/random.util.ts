@@ -12,4 +12,25 @@ export class RandomUtil {
   static d20 = () => this.d(20);
   static d100 = () => this.d(100);
   
+  // Evaluate a dice expression e.g. "2d6+1"
+  static eval(expr: string): number {
+    return expr.replace(/\s+/g, '').split('+').map(this.evalTerm).reduce((s,x) => s + x);
+  }
+  
+  // Argument takes the form "<number>|<number>d<number>"
+  private static evalTerm(term: string): number {
+    const splits = term.split('d').map(Number.parseInt);
+    if (splits.length === 1) {
+      return splits[0];
+    } else if (splits.length === 2) {
+      let sum = 0;
+      for (let i = 0; i < splits[0]; i++) {
+        sum += RandomUtil.d(splits[1]);
+      }
+      return sum;
+    } else {
+      throw new Error('Could not parse term "' + term + '"');
+    }
+  }
+  
 }
