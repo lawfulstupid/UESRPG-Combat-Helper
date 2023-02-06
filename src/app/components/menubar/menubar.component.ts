@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { ManageNpcTemplatesDialog } from "src/app/dialog/manage-npc-templates/manage-npc-templates.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
+import { Npc } from "src/app/model/character/npc";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { RandomUtil } from "src/app/util/random.util";
 import { environment } from "src/environments/environment";
 import { ActionItem } from "../actionbar/actionbar.component";
+import { WorkspaceComponent } from "../workspace/workspace.component";
 
 @Component({
   selector: 'app-toolbar',
@@ -43,7 +45,7 @@ export class MenubarComponent implements OnInit {
     document.getElementById('menubar')!.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
   }
   
-  newNpc() {
+  private newNpc() {
     StaticProvider.dialog.open(NewNpcDialog).afterClosed().subscribe(npc => {
       if (npc) {
         EventManager.addNpcEvent.emit(npc);
@@ -51,15 +53,16 @@ export class MenubarComponent implements OnInit {
     });
   }
   
-  manageNpcTemplates() {
+  private manageNpcTemplates() {
     StaticProvider.dialog.open(ManageNpcTemplatesDialog);
   }
   
-  newRound() {
+  private newRound() {
     EventManager.newRoundEvent.emit();
   }
   
-  test() {
+  private test() {
+    const npc: Npc = WorkspaceComponent.instance.componentRefs[0].instance.npc;
   }
   
 }
