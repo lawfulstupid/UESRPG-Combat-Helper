@@ -14,6 +14,8 @@ import { ActionItem } from "../actionbar/actionbar.component";
 })
 export class MenubarComponent implements OnInit {
   
+  readonly version = environment.appVersion;
+  
   actions: Array<ActionItem> = [{
     label: 'Test',
     callback: this.test.bind(this),
