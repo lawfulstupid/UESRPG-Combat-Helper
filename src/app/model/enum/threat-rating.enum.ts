@@ -1,4 +1,6 @@
-export class ThreatRatingEnum {
+import { Enum } from "./enum";
+
+export class ThreatRatingEnum extends Enum {
   
   public static readonly MINOR_SOLO      = new ThreatRatingEnum('Minor Solo',       0,  95);
   public static readonly MINOR_GROUP     = new ThreatRatingEnum('Minor Group',      1,  96);
@@ -13,6 +15,8 @@ export class ThreatRatingEnum {
     readonly name: string,
     readonly critRange: number,
     readonly critFailRange: number
-  ) {}
+  ) {
+    super();
+  }
   
 }
