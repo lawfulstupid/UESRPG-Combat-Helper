@@ -1,3 +1,4 @@
+import { AbstractType } from "@angular/core";
 import { Property, TemplateRole } from "../abstract/property";
 
 export class ArrayProperty<T> extends Property<Array<T>> {
@@ -17,7 +18,7 @@ export class ArrayProperty<T> extends Property<Array<T>> {
   private readonly proxySerialiser: (value: T) => string;
   private readonly proxyDeserialiser: (str: string) => T;
   
-  constructor(key: string, name: string, templateRole: TemplateRole, baseProperty: any, binding?: any) {
+  constructor(key: string, name: string, templateRole: TemplateRole, baseProperty: AbstractType<Property<T>>, binding?: any) {
     super(key, name, templateRole, []);
     this.proxySerialiser = baseProperty.prototype.serialise.bind(binding);
     this.proxyDeserialiser = baseProperty.prototype.deserialise.bind(binding);

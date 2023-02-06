@@ -1,3 +1,4 @@
+import { AbstractType } from "@angular/core";
 import { Enum } from "../../enum/enum";
 import { Identifier } from "../../identifier";
 import { Property, TemplateRole } from "../abstract/property";
@@ -16,7 +17,7 @@ export class EnumProperty<T extends Enum> extends Property<T> {
     return value;
   }
   
-  constructor(key: string, name: string, private clazz: any, templateRole: TemplateRole, defaultValue?: T) {
+  constructor(private clazz: AbstractType<T>, key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
     const options = Enum.keys(clazz).map(enumKey => {
       const enumValue = Enum.value<typeof clazz>(enumKey, clazz);
       return new Identifier(enumKey, enumValue.name);
