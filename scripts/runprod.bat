@@ -1,1 +1,1 @@
-@npx --yes live-server ..\dist\uesrpg-combat-helper\ --port=8247
+@npx --yes live-server %~dp0\..\dist\uesrpg-combat-helper\ --port=8080

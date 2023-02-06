@@ -2,10 +2,10 @@
   "name": "uesrpg-combat-helper",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "version": "npm run build"
+    "version": "npm run build",
+    "prod": "scripts/runprod.bat"
   },
   "private": true,
   "dependencies": {
