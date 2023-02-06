@@ -7,11 +7,11 @@ export class ArrayProperty<T> extends Property<Array<T>> {
   // public static readonly SIZE_LIST = new ArrayProperty<SizeEnum>('sizeList', 'Size List', TemplateRole.REFERENCE, EnumProperty, {clazz: SizeEnum});
   
   serialise(value: T[]): string {
-    return value.map(this.proxySerialiser).reduce((s,x) => s + ',' + x);
+    return JSON.stringify(value.map(this.proxySerialiser));
   }
   
   deserialise(str: string): T[] {
-    return str.replace(/\s+/g, '').split(',').map(this.proxyDeserialiser);
+    return JSON.parse(str).map(this.proxyDeserialiser);
   }
   
   private readonly proxySerialiser: (value: T) => string;

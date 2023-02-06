@@ -1,5 +1,4 @@
 # TO DO:
-- Change ArrayProperty methods to use JSON.parse and JSON.stringify
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
 - Auto wound detection based on NpcComponent.onHpChange()
