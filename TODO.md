@@ -1,5 +1,4 @@
 # TO DO:
-- Hide error thrown on roller when no property given
 - PropertyInput for array type
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
