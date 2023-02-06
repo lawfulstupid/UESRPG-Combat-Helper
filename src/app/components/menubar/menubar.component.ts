@@ -4,6 +4,7 @@ import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { RandomUtil } from "src/app/util/random.util";
+import { environment } from "src/environments/environment";
 import { ActionItem } from "../actionbar/actionbar.component";
 
 @Component({
@@ -14,6 +15,11 @@ import { ActionItem } from "../actionbar/actionbar.component";
 export class MenubarComponent implements OnInit {
   
   actions: Array<ActionItem> = [{
+    label: 'Test',
+    callback: this.test.bind(this),
+    separator: true,
+    isHidden: () => environment.production
+  }, {
     label: 'New Round',
     callback: this.newRound.bind(this),
     separator: true
@@ -49,6 +55,9 @@ export class MenubarComponent implements OnInit {
   
   newRound() {
     EventManager.newRoundEvent.emit();
+  }
+  
+  test() {
   }
   
 }

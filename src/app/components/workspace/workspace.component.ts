@@ -11,6 +11,8 @@ import { NpcComponent } from "../npc/npc.component";
 })
 export class WorkspaceComponent implements OnInit {
   
+  public static instance: WorkspaceComponent;
+  
   @ViewChildren('insertionPoint', {read: ViewContainerRef})
   containers!: QueryList<ViewContainerRef>;
   
@@ -19,6 +21,8 @@ export class WorkspaceComponent implements OnInit {
   constructor(
     private dragulaService: DragulaService 
   ) {
+    WorkspaceComponent.instance = this;
+    
     this.dragulaService.createGroup("DRAGGABLE", {
       revertOnSpill: true,
       moves: (_el, _container, handle) => {
