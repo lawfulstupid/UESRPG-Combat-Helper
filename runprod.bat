@@ -1,0 +1,1 @@
+@npx --yes live-server .\dist\uesrpg-combat-helper\ --port=4200
