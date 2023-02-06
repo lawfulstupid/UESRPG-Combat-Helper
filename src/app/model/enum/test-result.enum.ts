@@ -8,7 +8,7 @@ export class TestResultEnum extends Enum {
   public static readonly FAIL = new TestResultEnum('Fail', undefined, -1);
   public static readonly CRIT_FAIL = new TestResultEnum('Crit Fail', ColorEnum.RED, -2);
   
-  constructor(
+  private constructor(
     readonly name: string,
     readonly color: ColorEnum | undefined,
     readonly advantagesGained: number

@@ -11,7 +11,7 @@ export class ThreatRatingEnum extends Enum {
   public static readonly LEGENDARY_SOLO  = new ThreatRatingEnum('Legendary Solo',   6, 101);
   public static readonly LEGENDARY_GROUP = new ThreatRatingEnum('Legendary Group', 10, 101);
   
-  constructor(
+  private constructor(
     readonly name: string,
     readonly critRange: number,
     readonly critFailRange: number

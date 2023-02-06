@@ -10,7 +10,7 @@ export class SizeEnum extends Enum {
   public static readonly HUGE = new SizeEnum('Huge', 2, 3);
   public static readonly MASSIVE = new SizeEnum('Massive', 3, 4);
   
-  protected constructor(
+  private constructor(
     readonly name: string,
     readonly rank: number,
     readonly width: number

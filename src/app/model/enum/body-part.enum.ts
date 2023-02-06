@@ -9,7 +9,7 @@ export class BodyPartEnum extends Enum {
   public static readonly ARM_R = new BodyPartEnum('Right Arm', [8]);
   public static readonly ARM_L = new BodyPartEnum('Left Arm', [9]);
   
-  constructor(
+  private constructor(
     readonly name: string,
     readonly hitRange: Array<number>
   ) {
