@@ -1,6 +1,6 @@
 import { Property } from "../abstract/property";
 
-export class TextualProperty extends Property<string> {
+export class TextProperty extends Property<string> {
   
   serialise(value: string): string {
     return value;
