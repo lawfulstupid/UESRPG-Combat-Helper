@@ -8,7 +8,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Build
 
-Run `ng build` to build the project. Run `npm run prod` to launch the application in production mode.
+Run `npm run prod` or `scripts/runprod.bat` to build and launch the application in production mode.
 
 ## Further help
 

@@ -4,7 +4,6 @@
 - Save notes section to npc.data
 - Set number of columns from file when importing
 - Test/handle case when import fails to parse
-- `runprod.bat` should run `ng serve` if `dist/` is empty
 - PropertyInput for array type
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
