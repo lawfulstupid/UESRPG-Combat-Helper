@@ -3,10 +3,12 @@ import { catchError, EMPTY } from "rxjs";
 import { DataCharacter } from "src/app/model/character/data-character";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
+import { TextAreaProperty } from "src/app/model/property/generic/text-area.property";
 
 @Component({
   selector: 'app-property-input',
-  templateUrl: 'property-input.component.html'
+  templateUrl: 'property-input.component.html',
+  styleUrls: ['property-input.component.scss']
 })
 export class PropertyInputComponent<T> implements OnInit {
   
@@ -20,6 +22,8 @@ export class PropertyInputComponent<T> implements OnInit {
     
     if (property instanceof EnumProperty) {
       this.enumProperty = property;
+    } else if (property instanceof TextAreaProperty) {
+      this.textAreaProperty = property;
     } else {
       this.defaultProperty = property;
     }
@@ -34,6 +38,7 @@ export class PropertyInputComponent<T> implements OnInit {
   private property!: Property<T>;
   // Only one of the below will be populated -- determines how property input is displayed
   defaultProperty?: Property<T>;
+  textAreaProperty?: TextAreaProperty;
   enumProperty?: EnumProperty<any>;
   
   valueStr: string = '';

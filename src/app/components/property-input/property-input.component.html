@@ -9,6 +9,15 @@
   />
   <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
   
+  <textarea matInput *ngIf="textAreaProperty"
+    class="notes"
+    [(ngModel)]="valueStr"
+    (ngModelChange)="onValueChange()"
+    (change)="onFocusChange()"
+    [placeholder]="textAreaProperty.name"
+    autocomplete="false"
+  ></textarea>
+  
   <mat-select *ngIf="enumProperty"
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"

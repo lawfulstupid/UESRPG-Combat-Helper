@@ -1,7 +1,6 @@
 # TO DO:
 - Convert this file into github issues
 - Display warning before clearing stage
-- Save notes section to npc.data
 - Set number of columns from file when importing
 - Test/handle case when import fails to parse
 - PropertyInput for BooleanProperty (checkbox)
