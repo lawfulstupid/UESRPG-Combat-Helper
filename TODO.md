@@ -1,5 +1,6 @@
 # TO DO:
 - Convert this file into github issues
+- Stamina reduced below 0 should apply fatigue penalty
 - Display warning before clearing stage
 - Set number of columns from file when importing
 - Test/handle case when import fails to parse
