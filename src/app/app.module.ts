@@ -18,7 +18,7 @@ import { MenubarComponent } from './components/menubar/menubar.component';
 import { NpcComponent } from './components/npc/npc.component';
 import { PropertyInputComponent } from './components/property-input/property-input.component';
 import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
-import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { StageComponent } from './components/stage/stage.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
@@ -33,7 +33,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
   declarations: [
     AppComponent,
     MenubarComponent,
-    WorkspaceComponent,
+    StageComponent,
     ActionbarComponent,
     NpcComponent,
     PropertyInputComponent,

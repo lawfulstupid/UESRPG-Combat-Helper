@@ -5,13 +5,13 @@ import { EventManager } from "src/app/service/event.manager";
 import { NpcComponent } from "../npc/npc.component";
 
 @Component({
-  selector: 'app-workspace',
-  templateUrl: './workspace.component.html',
-  styleUrls: ['./workspace.component.scss']
+  selector: 'app-stage',
+  templateUrl: './stage.component.html',
+  styleUrls: ['./stage.component.scss']
 })
-export class WorkspaceComponent implements OnInit {
+export class StageComponent implements OnInit {
   
-  public static instance: WorkspaceComponent;
+  public static instance: StageComponent;
   
   @ViewChildren('insertionPoint', {read: ViewContainerRef})
   containers!: QueryList<ViewContainerRef>;
@@ -21,7 +21,7 @@ export class WorkspaceComponent implements OnInit {
   constructor(
     private dragulaService: DragulaService 
   ) {
-    WorkspaceComponent.instance = this;
+    StageComponent.instance = this;
     
     this.dragulaService.createGroup("DRAGGABLE", {
       revertOnSpill: true,

@@ -7,7 +7,7 @@ import { StaticProvider } from "src/app/service/static.provider";
 import { RandomUtil } from "src/app/util/random.util";
 import { environment } from "src/environments/environment";
 import { ActionItem } from "../actionbar/actionbar.component";
-import { WorkspaceComponent } from "../workspace/workspace.component";
+import { StageComponent } from "../stage/stage.component";
 
 @Component({
   selector: 'app-toolbar',
@@ -62,7 +62,7 @@ export class MenubarComponent implements OnInit {
   }
   
   private test() {
-    const npc: Npc = WorkspaceComponent.instance.componentRefs[0].instance.npc;
+    const npc: Npc = StageComponent.instance.componentRefs[0].instance.npc;
   }
   
 }
