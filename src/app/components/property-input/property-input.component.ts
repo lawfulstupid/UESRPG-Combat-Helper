@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { catchError, EMPTY } from "rxjs";
 import { DataCharacter } from "src/app/model/character/data-character";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
+import { EnumProperty } from "src/app/model/property/generic/enum.property";
 
 @Component({
   selector: 'app-property-input',
@@ -16,8 +17,11 @@ export class PropertyInputComponent<T> implements OnInit {
       this.valueStr = property.serialise(property.defaultValue);
       this.valueChange.emit({valueStr: this.valueStr, value: property.defaultValue});
     }
-    if (property.options !== undefined) {
-      this.usingOptions = true;
+    
+    if (property instanceof EnumProperty) {
+      this.enumProperty = property;
+    } else {
+      this.defaultProperty = property;
     }
   }
   
@@ -27,8 +31,10 @@ export class PropertyInputComponent<T> implements OnInit {
   @Input()
   directCharacterAccess?: DataCharacter;
   
-  property!: Property<T>;
-  usingOptions: boolean = false;
+  private property!: Property<T>;
+  // Only one of the below will be populated -- determines how property input is displayed
+  defaultProperty?: Property<T>;
+  enumProperty?: EnumProperty<any>;
   
   valueStr: string = '';
   value?: T;

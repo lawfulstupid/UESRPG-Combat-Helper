@@ -17,12 +17,15 @@ export class EnumProperty<T extends Enum> extends Property<T> {
     return value;
   }
   
+  
+  readonly options: Array<Identifier>;
+  
   constructor(private clazz: AbstractType<T>, key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
-    const options = Enum.keys(clazz).map(enumKey => {
+    super(key, name, templateRole, defaultValue);
+    this.options = Enum.keys(clazz).map(enumKey => {
       const enumValue = Enum.value<typeof clazz>(enumKey, clazz);
       return new Identifier(enumKey, enumValue.name);
     });
-    super(key, name, templateRole, defaultValue, options);
   }
   
 }

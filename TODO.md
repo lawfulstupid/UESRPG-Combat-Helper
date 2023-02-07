@@ -4,7 +4,8 @@
 - Save notes section to npc.data
 - Set number of columns from file when importing
 - Test/handle case when import fails to parse
-- PropertyInput for array type
+- PropertyInput for BooleanProperty (checkbox)
+- PropertyInput for ArrayProperty
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour
 - Auto wound detection based on NpcComponent.onHpChange()

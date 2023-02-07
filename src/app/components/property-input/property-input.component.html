@@ -1,20 +1,20 @@
 <mat-form-field style="width: 100%">
-  <input matInput *ngIf="!usingOptions"
+  <input matInput *ngIf="defaultProperty"
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"
     (change)="onFocusChange()"
-    [placeholder]="property.name"
+    [placeholder]="defaultProperty.name"
     autocomplete="false"
     (keypress)="onKeypress($event)"
   />
   <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
   
-  <mat-select *ngIf="usingOptions"
+  <mat-select *ngIf="enumProperty"
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"
-    [placeholder]="property.name"
+    [placeholder]="enumProperty.name"
   >
-    <mat-option *ngFor="let option of property.options" [value]="option.key">
+    <mat-option *ngFor="let option of enumProperty.options" [value]="option.key">
       {{option.name}}
     </mat-option>
   </mat-select>

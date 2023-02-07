@@ -4,13 +4,11 @@ export abstract class Property<T> extends Identifier {
   
   readonly templateRole: TemplateRole; // how the npc template is used
   readonly defaultValue?: T;
-  readonly options?: Array<Identifier> = undefined;
   
-  constructor(key: string, name: string, templateRole: TemplateRole, defaultValue?: T, options?: Array<Identifier>) {
+  constructor(key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
     super(key, name);
     this.templateRole = templateRole;
     this.defaultValue = defaultValue;
-    this.options = options;
   }
   
   abstract serialise(value: T): string;
