@@ -1,4 +1,6 @@
 # TO DO:
+- Display warning before clearing stage
+- Test/handle case when import fails to parse
 - PropertyInput for array type
 - Override property button to save against NPC
 - Deal damage dialog / auto-handle typed damaged esp. vs. armour

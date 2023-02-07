@@ -1,5 +1,6 @@
-import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
+import { Component, ComponentRef, EventEmitter, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
+import { Observable } from "rxjs";
 import { Npc } from "src/app/model/character/npc";
 import { SerialNpc } from "src/app/model/stage/serial-npc";
 import { EventManager } from "src/app/service/event.manager";
@@ -46,8 +47,8 @@ export class StageComponent implements OnInit {
     }
   }
   
-  private addNpc(npc: Npc) {
-    const component = this.containers.first.createComponent(NpcComponent);
+  private addNpc(npc: Npc, column: number = 0) {
+    const component = this.containers.get(column)!.createComponent(NpcComponent);
     this.componentRefs.push(component);
     component.instance.npc = npc;
   }
@@ -58,12 +59,22 @@ export class StageComponent implements OnInit {
     componentRef.destroy();
   }
   
+  // Delete all NPCs
+  private clearStage() {
+    // TODO: display a warning if componentRefs is not empty
+    this.componentRefs.forEach(ref => {
+      ref.destroy();
+    });
+    this.componentRefs = [];
+  }
+  
   private exportStage() {
     const stage: Array<Array<SerialNpc>> = [];
     for (let elmDragColumn of Array.from(document.getElementsByClassName('drag-column'))) {
       const column: Array<SerialNpc> = [];
       for (let elmNpc of Array.from(elmDragColumn.querySelectorAll('app-npc'))) {
-        column.push(new SerialNpc(this.componentRefs.find(ref => ref.location.nativeElement === elmNpc)!.instance.npc));
+        const npc = this.componentRefs.find(ref => ref.location.nativeElement === elmNpc)!.instance.npc;
+        column.push(new SerialNpc(npc));
       }
       stage.push(column);
     }
@@ -71,7 +82,14 @@ export class StageComponent implements OnInit {
   }
   
   private importStage() {
-    // TODO
+    this.upload<Array<Array<SerialNpc>>>().subscribe(stage => {
+      this.clearStage();
+      for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
+        for (let npc of stage[columnIdx]) {
+          this.addNpc(SerialNpc.toNpc(npc), columnIdx);
+        }
+      }
+    });
   }
   
   private download(data: any, filename: string) {
@@ -81,6 +99,21 @@ export class StageComponent implements OnInit {
     link.download = filename;
     link.click();
     link.remove();
+  }
+  
+  private upload<T>(): Observable<T> {
+    const tempEvent: EventEmitter<T> = new EventEmitter();
+    const link = document.createElement('input');
+    link.type = 'file';
+    link.accept = '.json';
+    link.onchange = () => {
+      link.files?.item(0)?.text().then(text => {
+        tempEvent.emit(JSON.parse(text));
+      });
+    };
+    link.click();
+    link.remove();
+    return tempEvent;
   }
   
 }
