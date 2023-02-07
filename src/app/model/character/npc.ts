@@ -1,15 +1,15 @@
 import { Observable, of, tap } from "rxjs";
 import { ObservableUtil } from "src/app/util/observable.util";
 import { Property, TemplateRole } from "../property/abstract/property";
-import { DataCharacter, ValueProducer } from "./data-character";
+import { Data, DataCharacter, ValueProducer } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 
 export class Npc extends DataCharacter {
   
   private template: NpcTemplate;
   
-  constructor(name: string, template: NpcTemplate) {
-    super(name);
+  constructor(name: string, template: NpcTemplate, data: Data = {}) {
+    super(name, data);
     this.template = template;
   }
   
@@ -35,6 +35,10 @@ export class Npc extends DataCharacter {
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
     }
+  }
+  
+  getTemplateKey(): string {
+    return this.template.key;
   }
   
   getTemplateName(): string {

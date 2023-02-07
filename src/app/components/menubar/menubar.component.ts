@@ -7,7 +7,7 @@ import { StaticProvider } from "src/app/service/static.provider";
 import { RandomUtil } from "src/app/util/random.util";
 import { environment } from "src/environments/environment";
 import { ActionItem } from "../actionbar/actionbar.component";
-import { WorkspaceComponent } from "../workspace/workspace.component";
+import { StageComponent } from "../stage/stage.component";
 
 @Component({
   selector: 'app-toolbar',
@@ -25,7 +25,13 @@ export class MenubarComponent implements OnInit {
     isHidden: () => environment.production
   }, {
     label: 'New Round',
-    callback: this.newRound.bind(this),
+    callback: this.newRound.bind(this)
+  }, {
+    label: 'Export',
+    callback: () => {EventManager.exportStageEvent.emit();}
+  }, {
+    label: 'Import',
+    callback: () => {EventManager.importStageEvent.emit();},
     separator: true
   }, {
     label: 'New NPC',
@@ -62,7 +68,7 @@ export class MenubarComponent implements OnInit {
   }
   
   private test() {
-    const npc: Npc = WorkspaceComponent.instance.componentRefs[0].instance.npc;
+    const npc: Npc = StageComponent.instance.componentRefs[0].instance.npc;
   }
   
 }
