@@ -25,7 +25,13 @@ export class MenubarComponent implements OnInit {
     isHidden: () => environment.production
   }, {
     label: 'New Round',
-    callback: this.newRound.bind(this),
+    callback: this.newRound.bind(this)
+  }, {
+    label: 'Export',
+    callback: () => {EventManager.exportStageEvent.emit();}
+  }, {
+    label: 'Import',
+    callback: () => {EventManager.importStageEvent.emit();},
     separator: true
   }, {
     label: 'New NPC',

@@ -32,6 +32,8 @@ export class StageComponent implements OnInit {
     
     EventManager.addNpcEvent.subscribe(this.addNpc.bind(this));
     EventManager.removeNpcEvent.subscribe(this.removeNpcEvent.bind(this));
+    EventManager.exportStageEvent.subscribe(this.exportStage.bind(this));
+    EventManager.importStageEvent.subscribe(this.importStage.bind(this));
   }
   
   ngOnInit() {
@@ -53,6 +55,14 @@ export class StageComponent implements OnInit {
     const idx = this.componentRefs.findIndex(componentRef => componentRef.instance.npc === npc);
     const componentRef = this.componentRefs.splice(idx)[0];
     componentRef.destroy();
+  }
+  
+  private exportStage() {
+    // TODO
+  }
+  
+  private importStage() {
+    // TODO
   }
   
 }
