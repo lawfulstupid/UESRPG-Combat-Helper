@@ -37,6 +37,10 @@ export class Npc extends DataCharacter {
     }
   }
   
+  getTemplateKey(): string {
+    return this.template.key;
+  }
+  
   getTemplateName(): string {
     return this.template.name;
   }

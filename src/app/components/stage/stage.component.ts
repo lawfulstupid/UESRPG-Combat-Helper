@@ -1,6 +1,7 @@
 import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { DragulaService } from "ng2-dragula";
 import { Npc } from "src/app/model/character/npc";
+import { SerialNpc } from "src/app/model/stage/serial-npc";
 import { EventManager } from "src/app/service/event.manager";
 import { NpcComponent } from "../npc/npc.component";
 
@@ -58,11 +59,28 @@ export class StageComponent implements OnInit {
   }
   
   private exportStage() {
-    // TODO
+    const stage: Array<Array<SerialNpc>> = [];
+    for (let elmDragColumn of Array.from(document.getElementsByClassName('drag-column'))) {
+      const column: Array<SerialNpc> = [];
+      for (let elmNpc of Array.from(elmDragColumn.querySelectorAll('app-npc'))) {
+        column.push(new SerialNpc(this.componentRefs.find(ref => ref.location.nativeElement === elmNpc)!.instance.npc));
+      }
+      stage.push(column);
+    }
+    this.download(stage, 'stage-' + new Date().toISOString().slice(0,-5) + '.json');
   }
   
   private importStage() {
     // TODO
+  }
+  
+  private download(data: any, filename: string) {
+    const blob = new Blob([JSON.stringify(data)], {type: 'text/json'});
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    link.remove();
   }
   
 }
