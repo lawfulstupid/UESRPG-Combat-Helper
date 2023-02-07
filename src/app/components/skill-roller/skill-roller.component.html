@@ -15,7 +15,7 @@
       {{characteristic.name}} {{displayTargetNumber(characteristic) | async}}
     </mat-option>
   </mat-select>
-  <app-property-input [property]="modifierProperty" [allowBlank]="true" (valueChange)="setModifier($event)"></app-property-input>
+  <app-property-input [property]="miscModifierProperty" [directCharacterAccess]="npc" [allowBlank]="true" (valueChange)="setModifier($event)"></app-property-input>
   <button mat-raised-button (click)="roll()">Roll</button>
 </div>
 <div class="test-results-block" fxLayout="row" *ngIf="test">

@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { Property } from "src/app/model/property/abstract/property";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { catchError, EMPTY } from "rxjs";
+import { DataCharacter } from "src/app/model/character/data-character";
+import { Property, TemplateRole } from "src/app/model/property/abstract/property";
 
 @Component({
   selector: 'app-property-input',
   templateUrl: 'property-input.component.html'
 })
-export class PropertyInputComponent<T> {
+export class PropertyInputComponent<T> implements OnInit {
   
   @Input('property')
   set setProperty(property: Property<T>) {
@@ -22,9 +24,15 @@ export class PropertyInputComponent<T> {
   @Input()
   allowBlank: boolean = false;
   
+  @Input()
+  directCharacterAccess?: DataCharacter;
+  
   property!: Property<T>;
   usingOptions: boolean = false;
+  
   valueStr: string = '';
+  value?: T;
+  
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
@@ -34,20 +42,40 @@ export class PropertyInputComponent<T> {
   @Output()
   onEnter: EventEmitter<void> = new EventEmitter();
   
+  ngOnInit() {
+    if (this.directCharacterAccess) {
+      if (this.property.templateRole !== TemplateRole.NO_TEMPLATE) {
+        this.directCharacterAccess = undefined;
+        throw new Error('Cannot directly access templated properties');
+      }
+      this.directCharacterAccess.getPropertySilent(this.property).pipe(catchError(() => EMPTY)).subscribe(value => {
+        this.value = value;
+        this.valueStr = this.property.serialise(value);
+        this.outputValue(true);
+      });
+    }
+  }
+  
   onValueChange() {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
     try {
-      let value: T | undefined;
-      if (this.allowBlank && this.valueStr === '') {
-        value = undefined;
+      if (this.allowBlank && this.valueStr.trim() === '') {
+        this.value = undefined;
       } else {
-        value = this.property.deserialise(this.valueStr);
+        this.value = this.property.deserialise(this.valueStr);
       }
-      this.valueChange.emit({valueStr: this.valueStr, value: value});
+      this.outputValue();
     } catch (e) {
       this.errorMessage = 'Invalid'; // TODO: more detail
       this.valueChange.emit(undefined);
+    }
+  }
+  
+  outputValue(init: boolean = false) {
+    this.valueChange.emit({valueStr: this.valueStr, value: this.value});
+    if (this.directCharacterAccess && !init) {
+      this.directCharacterAccess.writeData(this.property, this.value);
     }
   }
   
