@@ -1,5 +1,6 @@
 # TO DO:
 - Display warning before clearing stage
+- Save notes section to npc.data
 - Test/handle case when import fails to parse
 - PropertyInput for array type
 - Override property button to save against NPC
