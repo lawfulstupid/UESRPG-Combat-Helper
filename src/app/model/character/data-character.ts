@@ -16,7 +16,11 @@ export abstract class DataCharacter extends Character {
   
   // save data to the internal store
   writeData<T>(property: Property<T>, value: T) {
-    this.data[property.key] = property.serialise(value);
+    if (value === undefined) {
+      delete this.data[property.key];
+    } else {
+      this.data[property.key] = property.serialise(value);
+    }
   }
   
   // replace the internal data entirely - use with caution!
