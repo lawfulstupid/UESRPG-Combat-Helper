@@ -1,6 +1,5 @@
 # TO DO:
 - Convert this file into github issues
-- Ensure NpcComponent height is a whole number
 - Roll log instead of skill-roller drop-down
 - Stamina reduced below 0 should apply fatigue penalty
 - Display warning before clearing stage
