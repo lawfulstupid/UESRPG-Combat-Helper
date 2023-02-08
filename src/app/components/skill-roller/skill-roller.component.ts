@@ -6,7 +6,7 @@ import { Enum } from 'src/app/model/enum/enum';
 import { Attribute } from 'src/app/model/property/attribute';
 import { Characteristic } from 'src/app/model/property/characteristic';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
-import { NpcProperties } from 'src/app/model/property/npc.property';
+import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
 import { Test } from 'src/app/model/test/test';
@@ -21,7 +21,7 @@ import { ValueChange } from '../property-input/property-input.component';
 })
 export class SkillRollerComponent {
   
-  readonly miscModifierProperty = NpcProperties.MISC_MODIFIER;
+  readonly miscModifierProperty = Modifier.MISC;
   readonly closeIcon = faXmark;
   
   @Input()
