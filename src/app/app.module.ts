@@ -16,6 +16,7 @@ import { AttributeBarComponent } from './components/attribute-bar/attribute-bar.
 import { LongPressButtonComponent } from './components/long-press-button/long-press-button.component';
 import { MenubarComponent } from './components/menubar/menubar.component';
 import { NpcComponent } from './components/npc/npc.component';
+import { PixelRounderComponent } from './components/pixel-rounder/pixel-rounder.component';
 import { PropertyInputComponent } from './components/property-input/property-input.component';
 import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
 import { StageComponent } from './components/stage/stage.component';
@@ -40,6 +41,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     AttributeBarComponent,
     LongPressButtonComponent,
     SkillRollerComponent,
+    PixelRounderComponent,
     Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
