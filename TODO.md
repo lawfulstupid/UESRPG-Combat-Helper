@@ -1,7 +1,6 @@
 # TO DO:
 - Convert this file into github issues
 - Roll log instead of skill-roller drop-down
-- Hide attribute bar if max = 0
 - Stamina reduced below 0 should apply fatigue penalty
 - Display warning before clearing stage
 - Set number of columns from file when importing

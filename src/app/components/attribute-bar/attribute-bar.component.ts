@@ -38,6 +38,12 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
     return [this.attribute];
   }
   
+  override init() {
+    this.npc.getTemplateProperty(this.attribute).subscribe(attrMax => {
+      this.loaded = attrMax > 0;
+    });
+  }
+  
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
       return this.npc.getProperty(this.attribute).pipe(map(stat => {

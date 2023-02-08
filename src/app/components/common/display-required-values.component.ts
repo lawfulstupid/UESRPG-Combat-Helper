@@ -15,9 +15,9 @@ export abstract class DisplayRequiredValuesComponent implements OnInit {
     RequiredValuesDialog.requestValues(this.npc, ...this.requiredProperties()).subscribe({
       complete: () => {
         this.loaded = true;
+        this.init();
       }
     });
-    this.init();
   };
   
   protected abstract requiredProperties(): Array<Property<any>>;
