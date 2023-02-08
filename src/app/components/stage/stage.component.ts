@@ -55,7 +55,7 @@ export class StageComponent implements OnInit {
   
   private removeNpcEvent(npc: Npc) {
     const idx = this.componentRefs.findIndex(componentRef => componentRef.instance.npc === npc);
-    const componentRef = this.componentRefs.splice(idx)[0];
+    const componentRef = this.componentRefs.splice(idx, 1)[0];
     componentRef.destroy();
   }
   
