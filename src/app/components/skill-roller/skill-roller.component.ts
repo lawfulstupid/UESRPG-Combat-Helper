@@ -30,7 +30,7 @@ export class SkillRollerComponent {
   skills: Array<NumericalProperty> = [];
   characteristics: Array<NumericalProperty> = [];
   
-  selectedSkill?: Skill;
+  selectedSkill?: NumericalProperty;
   modifier?: number;
   test?: Test;
   
@@ -77,10 +77,10 @@ export class SkillRollerComponent {
       () => this.npc.getPropertySilent(skill),          // 1. Check for PC skill
       () => this.npc.getProperty(this.npcSkill(skill)), // 2. Check for NPC skill, ask user if missing
       () => this.npc.getProperty(skill)                 // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
-    ).subscribe(skill => {
-        const targetNumber = skill + (this.modifier || 0);
+    ).subscribe(skillTN => {
+        const targetNumber = skillTN + (this.modifier || 0);
         this.npc.getProperty(Attribute.THREAT_RATING).subscribe(threatRating => {
-          this.test = new Test(targetNumber, this.selectedSkill === Skill.COMBAT_STYLE, threatRating);
+          this.test = new Test(skill, targetNumber, this.npc, threatRating, this.selectedSkill === Skill.COMBAT_STYLE);
         });
     });
   }

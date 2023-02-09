@@ -1,17 +1,24 @@
 import { RandomUtil } from "src/app/util/random.util";
+import { Character } from "../character/character";
 import { BodyPartEnum } from "../enum/body-part.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
+import { NumericalProperty } from "../property/generic/number.property";
 
 export class Test {
   
   readonly roll: number;
-  readonly target: number;
   readonly result: TestResultEnum;
   readonly degreesOfSuccess: number;
   readonly bodyPartHit?: BodyPartEnum;
   
-  constructor(target: number, isAttack: boolean = false, threatRating?: ThreatRatingEnum) {
+  constructor(
+    readonly property: NumericalProperty,
+    readonly target: number,
+    readonly character: Character,
+    readonly threatRating?: ThreatRatingEnum,
+    readonly isAttack: boolean = false
+  ) {
     this.roll = RandomUtil.d100();
     this.target = target;
     this.result = this.determineResult(threatRating);
