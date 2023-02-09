@@ -24,8 +24,8 @@ export class ErrorComponent {
 
 class ErrorMessage {
   
-  private static readonly MESSAGE_TIMEOUT_MS = 4000;
-  private static readonly FADEOUT_TIME_MS = 1000;
+  private static readonly MESSAGE_TIMEOUT_MS = 8000;
+  private static readonly FADEOUT_TIME_MS = 2000;
   
   fading: boolean = false;
   timeout?: NodeJS.Timeout;
