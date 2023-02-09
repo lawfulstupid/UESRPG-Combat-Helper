@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AppComponent } from "src/app/app.component";
 import { ManageNpcTemplatesDialog } from "src/app/dialog/manage-npc-templates/manage-npc-templates.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { Npc } from "src/app/model/character/npc";
@@ -38,7 +39,11 @@ export class MenubarComponent implements OnInit {
     callback: this.newNpc.bind(this)
   }, {
     label: 'Manage Templates',
-    callback: this.manageNpcTemplates.bind(this)
+    callback: this.manageNpcTemplates.bind(this),
+    separator: true
+  }, {
+    label: 'Log',
+    callback: this.openLog.bind(this)
   }];
   
   ngOnInit() {
@@ -65,6 +70,10 @@ export class MenubarComponent implements OnInit {
   
   private newRound() {
     EventManager.newRoundEvent.emit();
+  }
+  
+  private openLog() {
+    AppComponent.instance.drawer.open();
   }
   
   private test() {

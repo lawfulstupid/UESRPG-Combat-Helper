@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -65,7 +66,8 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatSidenavModule
   ],
   bootstrap: [AppComponent]
 })

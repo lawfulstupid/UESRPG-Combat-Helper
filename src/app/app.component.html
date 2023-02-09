@@ -1,3 +1,10 @@
 <app-error></app-error>
 <app-menubar></app-menubar>
-<app-stage></app-stage>
+<mat-drawer-container style="overflow-y: hidden;">
+  <mat-drawer mode="over" position="end" disableRipple #drawer>
+    Hello, world!
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-stage></app-stage>
+  </mat-drawer-content>
+</mat-drawer-container>
