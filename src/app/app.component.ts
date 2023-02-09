@@ -16,7 +16,7 @@ export class AppComponent {
   
   @ViewChild(MatDrawer, {read: MatDrawer, static: true})
   drawer!: MatDrawer;
-
+  
   constructor(
     dialog: MatDialog
   ) {
@@ -27,6 +27,12 @@ export class AppComponent {
         EventManager.addNpcEvent.emit(NpcManager.create('Testificate', 'bandit'));
       }, 100);
     }
+  }
+  
+  onDrawerOpen() {
+    const drawerElm: Element = this.drawer['_elementRef'].nativeElement;
+    const innerContainer = <Element> drawerElm.firstChild;
+    innerContainer.scrollTo(0, innerContainer.scrollHeight);
   }
 
 }

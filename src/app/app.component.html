@@ -1,7 +1,7 @@
 <app-error></app-error>
 <app-menubar></app-menubar>
 <mat-drawer-container style="overflow-y: hidden;">
-  <mat-drawer mode="over" position="end" style="width: 320px;">
+  <mat-drawer mode="over" position="end" style="width: 320px;" (openedStart)="onDrawerOpen()">
     <app-test-log></app-test-log>
   </mat-drawer>
   <mat-drawer-content>
