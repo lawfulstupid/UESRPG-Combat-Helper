@@ -18,14 +18,8 @@
   <app-property-input [property]="miscModifierProperty" [directCharacterAccess]="npc" [allowBlank]="true" (valueChange)="setModifier($event)"></app-property-input>
   <button mat-raised-button (click)="roll()">Roll</button>
 </div>
-<div class="test-results-block" fxLayout="row" *ngIf="test">
-  <div class="test-roll" [style.color]="test.result.color">
-    {{test.rollDisplay()}}
-  </div>
-  <div class="test-results">
-    {{test.resultDisplay()}}
-  </div>
+<app-test-result [test]="test" *ngIf="test">
   <div (click)="closeResults()">
     <fa-icon [icon]="closeIcon"></fa-icon>
   </div>
-</div>
+</app-test-result>

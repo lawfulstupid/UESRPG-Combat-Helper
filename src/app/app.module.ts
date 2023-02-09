@@ -23,6 +23,7 @@ import { PropertyInputComponent } from './components/property-input/property-inp
 import { SkillRollerComponent } from './components/skill-roller/skill-roller.component';
 import { StageComponent } from './components/stage/stage.component';
 import { TestLogComponent } from './components/test-log/test-log.component';
+import { TestResultComponent } from './components/test-result/test-result.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
@@ -47,6 +48,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     SkillRollerComponent,
     PixelRounderComponent,
     TestLogComponent,
+    TestResultComponent,
     Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
