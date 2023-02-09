@@ -1,0 +1,21 @@
+:host {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.error-message {
+    background-color: firebrick;
+    padding: 16px;
+    margin: 8px;
+    border-radius: 8px;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
+
+@keyframes fadeout {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}

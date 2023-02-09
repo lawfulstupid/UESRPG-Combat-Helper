@@ -1,6 +1,6 @@
+import { ErrorComponent } from '../components/error/error.component';
 import { NpcTemplate } from '../model/character/npc-template';
 import { Identifier } from '../model/identifier';
-import { ErrorService } from './error.service';
 
 export class NpcTemplateManager {
   
@@ -8,7 +8,7 @@ export class NpcTemplateManager {
   
   static create(template: NpcTemplate): NpcTemplate {
     if (this.exists(template.key)) {
-      throw ErrorService.err('Template with key \'' + template.key + '\' already exists')
+      throw ErrorComponent.error('Template with key \'' + template.key + '\' already exists');
     }
     
     this.loadedTemplates[template.key] = template; // save internally
@@ -17,7 +17,7 @@ export class NpcTemplateManager {
   
   static update(template: NpcTemplate): NpcTemplate {
     if (!this.exists(template.key)) {
-      throw ErrorService.err("Template does not exist in database");
+      throw ErrorComponent.error("Template does not exist in database");
     }
     
     // Merge with existing template

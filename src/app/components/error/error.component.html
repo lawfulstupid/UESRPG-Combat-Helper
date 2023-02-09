@@ -1,0 +1,8 @@
+<div *ngFor="let error of queue"
+  class="error-message"
+  [style.animation-name]="error.fading ? 'fadeout' : undefined"
+  (mouseenter)="error.stopTimer()"
+  (mouseleave)="error.startTimer()"
+>
+  {{error.message}}
+</div>
