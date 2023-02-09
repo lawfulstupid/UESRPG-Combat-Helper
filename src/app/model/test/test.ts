@@ -7,6 +7,7 @@ import { NumericalProperty } from "../property/generic/number.property";
 
 export class Test {
   
+  readonly timestamp: Date;
   readonly roll: number;
   readonly result: TestResultEnum;
   readonly degreesOfSuccess: number;
@@ -19,6 +20,7 @@ export class Test {
     readonly threatRating?: ThreatRatingEnum,
     readonly isAttack: boolean = false
   ) {
+    this.timestamp = new Date();
     this.roll = RandomUtil.d100();
     this.target = target;
     this.result = this.determineResult(threatRating);

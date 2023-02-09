@@ -10,6 +10,7 @@ import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
 import { Test } from 'src/app/model/test/test';
+import { EventManager } from 'src/app/service/event.manager';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
 import { ValueChange } from '../property-input/property-input.component';
@@ -81,6 +82,7 @@ export class SkillRollerComponent {
         const targetNumber = skillTN + (this.modifier || 0);
         this.npc.getProperty(Attribute.THREAT_RATING).subscribe(threatRating => {
           this.test = new Test(skill, targetNumber, this.npc, threatRating, this.selectedSkill === Skill.COMBAT_STYLE);
+          EventManager.diceRollEvent.emit(this.test);
         });
     });
   }

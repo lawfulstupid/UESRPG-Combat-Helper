@@ -1,0 +1,16 @@
+<div class="log-entry" *ngFor="let test of queue">
+  <div class="timestamp">
+    {{test.timestamp | date: 'mediumTime'}}
+  </div>
+  <div class="description">
+    {{test.character.name}} rolled {{test.property.name}}:
+  </div>
+  <div class="test-results-block" fxLayout="row">
+    <div class="test-roll" [style.color]="test.result.color">
+      {{test.rollDisplay()}}
+    </div>
+    <div class="test-results">
+      {{test.resultDisplay()}}
+    </div>
+  </div>
+</div>

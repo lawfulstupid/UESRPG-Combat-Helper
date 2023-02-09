@@ -1,5 +1,6 @@
 import { EventEmitter } from "@angular/core";
 import { Npc } from "../model/character/npc";
+import { Test } from "../model/test/test";
 
 export class EventManager {
   
@@ -10,5 +11,7 @@ export class EventManager {
   
   static exportStageEvent: EventEmitter<void> = new EventEmitter();
   static importStageEvent: EventEmitter<void> = new EventEmitter();
+  
+  static diceRollEvent: EventEmitter<Test> = new EventEmitter();
   
 }
