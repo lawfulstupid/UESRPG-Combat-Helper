@@ -1,9 +1,12 @@
 import { Component, ComponentRef, EventEmitter, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
+import { MatDialogConfig } from "@angular/material/dialog";
 import { DragulaService } from "ng2-dragula";
-import { Observable } from "rxjs";
+import { EMPTY, mergeMap, Observable, of, tap } from "rxjs";
+import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { SerialNpc } from "src/app/model/stage/serial-npc";
 import { EventManager } from "src/app/service/event.manager";
+import { StaticProvider } from "src/app/service/static.provider";
 import { ErrorComponent } from "../error/error.component";
 import { NpcComponent } from "../npc/npc.component";
 
@@ -60,13 +63,33 @@ export class StageComponent implements OnInit {
     componentRef.destroy();
   }
   
-  // Delete all NPCs
-  private clearStage() {
-    // TODO: display a warning if componentRefs is not empty
-    this.componentRefs.forEach(ref => {
-      ref.destroy();
-    });
-    this.componentRefs = [];
+  // Attempts to delete all NPCs and returns an observable value to indicate whether it succeeded
+  private clearStage(): Observable<void> {
+    // If there are no NPCs, no action required
+    if (this.componentRefs.length === 0) return of(undefined);
+    
+    // There are NPCs on the stage -- get confirmation from user to clear
+    const config: MatDialogConfig = {data:{
+      title: 'Clear Stage',
+      message: 'This will delete existing NPCs. Are you sure?',
+      yesButton: 'Proceed',
+      noButton: 'Cancel'
+    }};
+    
+    // open confirmation dialog
+    return StaticProvider.dialog.open(ConfirmDialog, config).afterClosed().pipe(mergeMap(response => {
+      if (response) {
+        // perform the stage clear if response was affirmative
+        this.componentRefs.forEach(ref => {
+          ref.destroy();
+        });
+        this.componentRefs = [];
+        return of(undefined);
+      } else {
+        // do not fire subscribers if response was negative
+        return EMPTY;
+      }
+    }));
   }
   
   private exportStage() {
@@ -84,12 +107,13 @@ export class StageComponent implements OnInit {
   
   private importStage() {
     this.upload<Array<Array<SerialNpc>>>().subscribe(stage => {
-      this.clearStage();
-      for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
-        for (let npc of stage[columnIdx]) {
-          this.addNpc(SerialNpc.toNpc(npc), columnIdx);
+      this.clearStage().subscribe(() => {
+        for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
+          for (let npc of stage[columnIdx]) {
+            this.addNpc(SerialNpc.toNpc(npc), columnIdx);
+          }
         }
-      }
+      });
     });
   }
   
