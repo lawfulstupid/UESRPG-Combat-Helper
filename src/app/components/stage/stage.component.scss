@@ -1,6 +1,7 @@
 .drag-column {
     min-height: 100px;
-    height: 100vh;
+    height: auto;
+    min-height: calc(100vh - 52px);
     width: 100%;
 }
 
