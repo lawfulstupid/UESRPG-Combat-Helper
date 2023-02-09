@@ -42,8 +42,12 @@ export abstract class DataCharacter extends Character {
     if (property === undefined) {
       return throwError(() => new Error('Undefined property'));
     } else if (this.data[property.key] !== undefined) {
-      let value: T = property.deserialise(this.data[property.key]);
-      return of(value); // try to get value from internal data
+      try {
+        let value: T = property.deserialise(this.data[property.key]);
+        return of(value); // try to get value from internal data
+      } catch (e) {
+        return throwError(() => new Error('Bad data: \'' + this.data[property.key].toString() + '\' for property ' + property.key));
+      }
     } else {
       return this.populate(property, valueProducer); // otherwise get it from elsewhere
     }
