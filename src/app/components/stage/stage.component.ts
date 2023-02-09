@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Npc } from "src/app/model/character/npc";
 import { SerialNpc } from "src/app/model/stage/serial-npc";
 import { EventManager } from "src/app/service/event.manager";
+import { ErrorComponent } from "../error/error.component";
 import { NpcComponent } from "../npc/npc.component";
 
 @Component({
@@ -108,7 +109,12 @@ export class StageComponent implements OnInit {
     link.accept = '.json';
     link.onchange = () => {
       link.files?.item(0)?.text().then(text => {
-        tempEvent.emit(JSON.parse(text));
+        try {
+          tempEvent.emit(JSON.parse(text));
+        } catch (e) {
+          ErrorComponent.error('Failed to parse file');
+          throw e;
+        }
       });
     };
     link.click();
