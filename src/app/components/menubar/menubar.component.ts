@@ -10,7 +10,7 @@ import { ActionItem } from "../actionbar/actionbar.component";
 import { StageComponent } from "../stage/stage.component";
 
 @Component({
-  selector: 'app-toolbar',
+  selector: 'app-menubar',
   templateUrl: './menubar.component.html',
   styleUrls: ['./menubar.component.scss']
 })
