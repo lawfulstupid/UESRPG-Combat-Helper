@@ -26,12 +26,15 @@
     [disabled]="npc.getProperty(combatEnum.STAMINA_SPENT) | async"
   ></app-attribute-bar>
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MP" [color]="colorEnum.BLUE"></app-attribute-bar>
+  <div class="gap"></div>
   
   <!-- Skill roller -->
   <app-skill-roller [npc]="npc"></app-skill-roller>
   
+  <!-- Wounds -->
+  <app-wounds [woundEvent]="woundEvent"></app-wounds>
+  
   <!-- Notes -->
-  <div class="gap"></div>
   <app-property-input [property]="npcProperties.NOTES" [directCharacterAccess]="npc" [allowBlank]="true"></app-property-input>
 </div>
 <app-pixel-rounder></app-pixel-rounder>

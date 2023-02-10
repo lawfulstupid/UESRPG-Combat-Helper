@@ -24,6 +24,7 @@ import { SkillRollerComponent } from './components/skill-roller/skill-roller.com
 import { StageComponent } from './components/stage/stage.component';
 import { TestLogComponent } from './components/test-log/test-log.component';
 import { TestResultComponent } from './components/test-result/test-result.component';
+import { WoundsComponent } from './components/wounds/wounds.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
@@ -49,6 +50,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     PixelRounderComponent,
     TestLogComponent,
     TestResultComponent,
+    WoundsComponent,
     Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
