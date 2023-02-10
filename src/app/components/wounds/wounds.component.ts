@@ -8,8 +8,8 @@ import { RenamedProperty } from "src/app/model/property/abstract/renamed.propert
 import { Attribute } from "src/app/model/property/attribute";
 import { Characteristic } from "src/app/model/property/characteristic";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
-import { Test } from "src/app/model/test/test";
-import { Wound } from "src/app/model/test/wound";
+import { Test } from "src/app/model/combat/test";
+import { Wound } from "src/app/model/combat/wound";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({

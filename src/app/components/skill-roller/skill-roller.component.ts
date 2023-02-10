@@ -9,7 +9,7 @@ import { NumericalProperty } from 'src/app/model/property/generic/number.propert
 import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
-import { Test } from 'src/app/model/test/test';
+import { Test } from 'src/app/model/combat/test';
 import { EventManager } from 'src/app/service/event.manager';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
