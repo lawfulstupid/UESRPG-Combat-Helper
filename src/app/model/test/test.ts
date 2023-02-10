@@ -1,6 +1,6 @@
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
-import { BodyPartEnum } from "../enum/body-part.enum";
+import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
 import { NumericalProperty } from "../property/generic/number.property";
@@ -11,7 +11,7 @@ export class Test {
   readonly roll: number;
   readonly result: TestResultEnum;
   readonly degreesOfSuccess: number;
-  readonly bodyPartHit?: BodyPartEnum;
+  readonly hitLocation?: HitLocationEnum;
   
   constructor(
     readonly property: NumericalProperty,
@@ -26,7 +26,7 @@ export class Test {
     this.result = this.determineResult(threatRating);
     this.degreesOfSuccess = this.result.isPass() ? Math.max(1, Math.floor(this.roll/10)) : 0;
     if (isAttack) {
-      this.bodyPartHit = BodyPartEnum.getHitLocation(this.roll);
+      this.hitLocation = HitLocationEnum.getHitLocation(this.roll);
     }
   }
   
@@ -50,8 +50,8 @@ export class Test {
     str += this.result.name;
     if (this.result.isPass()) {
       str += ' with ' + this.degreesOfSuccess + ' DoS';
-      if (this.bodyPartHit) {
-        str += ' on ' + this.bodyPartHit.name;
+      if (this.hitLocation) {
+        str += ' on ' + this.hitLocation.name;
       }
     }
     return str;
