@@ -1,8 +1,8 @@
 import { Characteristic } from "../characteristic";
-import { NumericalProperty } from "../generic/number.property";
 import { TemplateRole } from "./property";
+import { Rollable } from "./rollable";
 
-export abstract class GenericSkill extends NumericalProperty {
+export abstract class GenericSkill extends Rollable {
   
   readonly governingCharacteristics: Array<Characteristic>;
   
