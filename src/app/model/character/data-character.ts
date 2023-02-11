@@ -37,7 +37,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // Step 1: retrieves a property of the character from internal data
-  getProperty<T>(property?: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
+  getProperty<T>(property?: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
     if (property === undefined) {
       return throwError(() => new Error('Undefined property'));
     } else if (this.data[property.key] !== undefined) {
@@ -48,16 +48,16 @@ export abstract class DataCharacter extends Character {
         return throwError(() => new Error('Bad data: \'' + this.data[property.key].toString() + '\' for property ' + property.key));
       }
     } else {
-      return this.populate(property, valueProducer); // otherwise get it from elsewhere
+      return this.populate(property, fetchMethod); // otherwise get it from elsewhere
     }
   }
   
   // Step 2: If getProperty() failed to find a value internally, this determines how to go about finding a value externally
-  abstract populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T>;
+  abstract populate<T>(property: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T>;
   
   // Step 3: This produces the value from an external source
-  produceValue<T>(property: Property<T>, valueProducer: ValueProducer<T> = FetchMethod.DEFAULT): Observable<T> {
-    return valueProducer(property, this);
+  produceValue<T>(property: Property<T>, fetchMethod: ValueFetcher<T> = FetchMethod.DEFAULT): Observable<T> {
+    return fetchMethod(property, this);
   }
   
   hasProperty<T>(property?: Property<T>): boolean {
@@ -68,14 +68,14 @@ export abstract class DataCharacter extends Character {
 }
 
 export type Data = Dictionary<string>;
-export type ValueProducer<T> = (property: Property<T>, character: DataCharacter) => Observable<T>;
+export type ValueFetcher<T> = (property: Property<T>, character: DataCharacter) => Observable<T>;
 
 export class FetchMethod {
   
-  public static readonly DEFAULT: ValueProducer<any> = (property, character) => ValueRequestDialog.requestValue(property, character);
-  public static readonly REQUIRED: ValueProducer<any> = (property, character) => ValueRequestDialog.requestValue(property, character, true);
-  public static readonly SILENT: ValueProducer<any> = () => throwError(() => new Error('No value available'));
-  public static USE_VALUE(value: any): ValueProducer<any> {
+  public static readonly DEFAULT: ValueFetcher<any> = (property, character) => ValueRequestDialog.requestValue(property, character);
+  public static readonly REQUIRED: ValueFetcher<any> = (property, character) => ValueRequestDialog.requestValue(property, character, true);
+  public static readonly SILENT: ValueFetcher<any> = () => throwError(() => new Error('No value available'));
+  public static USE_VALUE(value: any): ValueFetcher<any> {
     return () => of(value);
   }
   
