@@ -8,6 +8,7 @@ import { HitLocationEnum } from "src/app/model/enum/hit-location.enum";
 import { TemplateRole } from "src/app/model/property/abstract/property";
 import { Characteristic } from "src/app/model/property/characteristic";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
+import { Modifier } from "src/app/model/property/modifier";
 
 @Component({
   selector: 'app-wounds',
@@ -38,6 +39,7 @@ export class WoundsComponent implements OnInit {
     ValueRequestDialog.requestValue(WoundsComponent.hitLocationProperty, this.npc, true).subscribe(hitLocation => {
       Test.make(this.npc, WoundsComponent.shockTestProperty, {required: true}).subscribe(shockTest => {
         this.wounds.push(new Wound(hitLocation, hpLoss, shockTest));
+        this.npc.writeData(Modifier.WOUND_PASSIVE, -20);
       });
     });
   }

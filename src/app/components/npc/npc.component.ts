@@ -5,6 +5,7 @@ import { DisplayRequiredValuesComponent } from "src/app/components/common/displa
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
 import { CombatProperty } from "src/app/model/property/combat.property";
+import { Modifier } from "src/app/model/property/modifier";
 import { NpcProperties } from "src/app/model/property/npc.property";
 import { EventManager } from "src/app/service/event.manager";
 import { ColorEnum } from "src/app/util/color.enum";
@@ -51,9 +52,18 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   }
   
   onSpChange(change: number) {
+    // Mark stamina as spent this round
     if (change < 0) {
       this.npc.writeData(CombatProperty.STAMINA_SPENT, true);
     }
+    // Apply fatigue penalty
+    this.npc.getProperty(Attribute.SP).subscribe(sp => {
+      if (sp < 0) {
+        this.npc.writeData(Modifier.FATIGUE, sp * 10);
+      } else {
+        this.npc.reset(Modifier.FATIGUE);
+      }
+    });
   }
   
   close() {

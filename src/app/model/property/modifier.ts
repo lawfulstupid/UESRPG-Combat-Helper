@@ -5,6 +5,8 @@ import { NumericalProperty } from "./generic/number.property";
 export class Modifier extends NumericalProperty {
   
   public static readonly MISC = new Modifier('miscModifier', 'Modifier');
+  public static readonly FATIGUE = new Modifier('fatigue', 'Fatigue Penalty');
+  public static readonly WOUND_PASSIVE = new Modifier('woundPassive', 'Wound Passive Penalty');
   
   constructor(key: string, name: string, private applications: Array<Rollable> | 'all' = 'all') {
     super(key, name, TemplateRole.NO_TEMPLATE, 0);
