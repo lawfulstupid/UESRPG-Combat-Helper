@@ -4,8 +4,8 @@ import { map, Observable, of } from 'rxjs';
 import { Npc } from 'src/app/model/character/npc';
 import { Test } from 'src/app/model/combat/test';
 import { Enum } from 'src/app/model/enum/enum';
+import { Rollable } from 'src/app/model/property/abstract/rollable';
 import { Characteristic } from 'src/app/model/property/characteristic';
-import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
@@ -26,10 +26,10 @@ export class SkillRollerComponent {
   @Input()
   npc!: Npc;
   
-  skills: Array<NumericalProperty> = [];
-  characteristics: Array<NumericalProperty> = [];
+  skills: Array<Skill> = [];
+  characteristics: Array<Characteristic> = [];
   
-  selectedSkill?: NumericalProperty;
+  selectedSkill?: Rollable;
   modifier?: number;
   test?: Test;
   
@@ -46,7 +46,7 @@ export class SkillRollerComponent {
     });
   }
   
-  displayTargetNumber(skill: NumericalProperty): Observable<string> {
+  displayTargetNumber(skill: Rollable): Observable<string> {
     if (this.npc.hasProperty(skill)) {
       return this.npc.getPropertySilent(skill).pipe(map(value => '(' + value + ')'));
     }
@@ -69,7 +69,7 @@ export class SkillRollerComponent {
   
   roll() {
     if (this.selectedSkill === undefined) return;
-    const skill: NumericalProperty = this.selectedSkill; // cast away undefined
+    const skill: Rollable = this.selectedSkill; // cast away undefined
     
     // Tries a few strategies to get the TN:
     ObservableUtil.coalesce(
@@ -84,7 +84,7 @@ export class SkillRollerComponent {
     });
   }
   
-  private npcSkill(skill: NumericalProperty): NpcSkill | undefined {
+  private npcSkill(skill: Rollable): NpcSkill | undefined {
     if (skill instanceof Skill) {
       return skill.npcSkill;
     } else {

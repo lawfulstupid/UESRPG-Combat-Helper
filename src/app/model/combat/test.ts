@@ -6,8 +6,8 @@ import { DataCharacter } from "../character/data-character";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
+import { Rollable } from "../property/abstract/rollable";
 import { Attribute } from "../property/attribute";
-import { NumericalProperty } from "../property/generic/number.property";
 
 export class Test {
   
@@ -18,7 +18,7 @@ export class Test {
   readonly hitLocation?: HitLocationEnum;
   
   private constructor(
-    readonly property: NumericalProperty,
+    readonly property: Rollable,
     readonly target: number,
     readonly character: Character,
     readonly threatRating?: ThreatRatingEnum,
@@ -62,7 +62,7 @@ export class Test {
     return str;
   }
   
-  static make<T>(property: NumericalProperty, target: number, character: DataCharacter, isAttack: boolean = false): Observable<Test> {
+  static make(property: Rollable, target: number, character: DataCharacter, isAttack: boolean = false): Observable<Test> {
     return character.getProperty(Attribute.THREAT_RATING).pipe(map(threatRating => {
       return new Test(property, target, character, threatRating, isAttack);
     }));
