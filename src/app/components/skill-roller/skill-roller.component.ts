@@ -2,15 +2,13 @@ import { Component, Input } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { map, Observable, of } from 'rxjs';
 import { Npc } from 'src/app/model/character/npc';
+import { Test } from 'src/app/model/combat/test';
 import { Enum } from 'src/app/model/enum/enum';
-import { Attribute } from 'src/app/model/property/attribute';
 import { Characteristic } from 'src/app/model/property/characteristic';
 import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
-import { Test } from 'src/app/model/test/test';
-import { EventManager } from 'src/app/service/event.manager';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
 import { ValueChange } from '../property-input/property-input.component';
@@ -80,9 +78,8 @@ export class SkillRollerComponent {
       () => this.npc.getProperty(skill)                 // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
     ).subscribe(skillTN => {
         const targetNumber = skillTN + (this.modifier || 0);
-        this.npc.getProperty(Attribute.THREAT_RATING).subscribe(threatRating => {
-          this.test = new Test(skill, targetNumber, this.npc, threatRating, this.selectedSkill === Skill.COMBAT_STYLE);
-          EventManager.diceRollEvent.emit(this.test);
+        Test.make(skill, targetNumber, this.npc, this.selectedSkill === Skill.COMBAT_STYLE).subscribe(test => {
+          this.test = test;
         });
     });
   }

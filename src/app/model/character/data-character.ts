@@ -58,6 +58,11 @@ export abstract class DataCharacter extends Character {
     return this.getProperty(property, () => throwError(() => new Error('No value available')));
   }
   
+  // Retrieves a value but does not allow user to close ValueRequest
+  getPropertyRequired<T>(property?: Property<T>): Observable<T> {
+    return this.getProperty(property, this.defaultValueProducer(<Property<T>>property, true));
+  }
+  
   // Step 2: If getProperty() failed to find a value internally, this determines how to go about finding a value externally
   abstract populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T>;
   
@@ -72,8 +77,8 @@ export abstract class DataCharacter extends Character {
   }
   
   // Default method to produce values externally -- value request dialog
-  private defaultValueProducer<T>(property: Property<T>): ValueProducer<T> {
-    return () => ValueRequestDialog.requestValue(property, this);
+  private defaultValueProducer<T>(property: Property<T>, required: boolean = false): ValueProducer<T> {
+    return () => ValueRequestDialog.requestValue(property, this, required);
   }
   
   hasProperty<T>(property?: Property<T>): boolean {

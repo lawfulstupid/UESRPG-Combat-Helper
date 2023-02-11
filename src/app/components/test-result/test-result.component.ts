@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Test } from "src/app/model/test/test";
+import { Test } from "src/app/model/combat/test";
 
 @Component({
   selector: 'app-test-result',

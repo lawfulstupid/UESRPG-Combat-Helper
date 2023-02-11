@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Test } from "src/app/model/test/test";
+import { Test } from "src/app/model/combat/test";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({

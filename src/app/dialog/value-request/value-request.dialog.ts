@@ -52,23 +52,28 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
   /* Static methods */
   
   // Performs a request to the user to get a value
-  static requestValue<T>(property: Property<T>, requester: DataCharacter): Observable<T> {
+  static requestValue<T>(property: Property<T>, requester?: DataCharacter, required: boolean = false): Observable<T> {
     return this.doRequest({
       property: property,
-      message: requester.name + '\'s ' + property.name + ':'
+      message: (requester ? requester.name + '\'s ' : '') + property.name + ':',
+      required: required
     });
   }
   
   // Performs a request to the user to get a change to a value
-  static requestValueChange<T>(property: Property<T>): Observable<T> {
+  static requestValueChange<T>(property: Property<T>, required: boolean = false): Observable<T> {
     return this.doRequest({
       property: property,
-      message: property.name + ' change:'
+      message: property.name + ' change:',
+      required: required
     });
   }
   
   private static doRequest<T>(request: ValueRequest<T>): Observable<T> {
-    const config: MatDialogConfig = { data: request };
+    const config: MatDialogConfig = {
+      disableClose: request.required,
+      data: request
+    };
     return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
       if (value === undefined) {
         // Throw error if undefined, so .subscribe() never triggers
@@ -84,4 +89,5 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
 interface ValueRequest<T> {
   property: Property<T>;
   message: string;
+  required: boolean;
 }

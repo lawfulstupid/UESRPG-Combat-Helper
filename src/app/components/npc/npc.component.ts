@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { faArrowsUpDownLeftRight, faClose } from "@fortawesome/free-solid-svg-icons";
+import { Subject } from "rxjs";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
@@ -23,6 +24,9 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly closeIcon = faClose;
   readonly moveIcon = faArrowsUpDownLeftRight;
   
+  // An number is passed if it causes a wound
+  woundEvent: Subject<number> = new Subject();
+  
   protected override requiredProperties(): Array<Property<any>> {
     return [Attribute.SPEED, Attribute.SIZE, CombatProperty.STAMINA_SPENT];
   }
@@ -35,9 +39,15 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     });
   }
   
-  onHpChange(change: number) {
-    // TODO: use this to detect wounds
-    console.log('HP Change:', change);
+  onHpChange(hpChange: number) {
+    if (hpChange < 0) {
+      this.npc.getProperty(Attribute.WT).subscribe(wt => {
+        const hpLoss = Math.abs(hpChange);
+        if (hpLoss > wt) {
+          this.woundEvent.next(hpLoss);
+        }
+      });
+    }
   }
   
   onSpChange(change: number) {
