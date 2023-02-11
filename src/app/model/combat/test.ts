@@ -1,8 +1,12 @@
+import { map, Observable } from "rxjs";
+import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
+import { DataCharacter } from "../character/data-character";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
+import { Attribute } from "../property/attribute";
 import { NumericalProperty } from "../property/generic/number.property";
 
 export class Test {
@@ -13,7 +17,7 @@ export class Test {
   readonly degreesOfSuccess: number;
   readonly hitLocation?: HitLocationEnum;
   
-  constructor(
+  private constructor(
     readonly property: NumericalProperty,
     readonly target: number,
     readonly character: Character,
@@ -28,6 +32,7 @@ export class Test {
     if (isAttack) {
       this.hitLocation = HitLocationEnum.getHitLocation(this.roll);
     }
+    EventManager.diceRollEvent.emit(this);
   }
   
   determineResult(threatRating?: ThreatRatingEnum): TestResultEnum {
@@ -55,6 +60,12 @@ export class Test {
       }
     }
     return str;
+  }
+  
+  static make<T>(property: NumericalProperty, target: number, character: DataCharacter, isAttack: boolean = false): Observable<Test> {
+    return character.getProperty(Attribute.THREAT_RATING).pipe(map(threatRating => {
+      return new Test(property, target, character, threatRating, isAttack);
+    }));
   }
   
 }
