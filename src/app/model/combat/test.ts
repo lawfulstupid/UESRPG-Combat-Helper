@@ -1,4 +1,4 @@
-import { map, mergeMap, Observable } from "rxjs";
+import { forkJoin, map, mergeMap, Observable } from "rxjs";
 import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
@@ -64,10 +64,12 @@ export class Test {
   
   static make(character: DataCharacter, property: Rollable, options?: TestOptions): Observable<Test> {
     const fetchMethod = options?.required ? FetchMethod.REQUIRED : FetchMethod.DEFAULT;
-    return property.getTargetNumber(character, fetchMethod).pipe(mergeMap(target => {
-      return character.getProperty(Attribute.THREAT_RATING, fetchMethod).pipe(map(threatRating => {
-        return new Test(property, target, character, threatRating, options?.isAttack);
-      }));
+    
+    return forkJoin([
+      character.getProperty(Attribute.THREAT_RATING, fetchMethod),
+      property.getTargetNumber(character, fetchMethod)
+    ]).pipe(map(([threatRating, targetNumber]) => {
+      return new Test(property, targetNumber, character, threatRating, options?.isAttack);
     }));
   }
   
