@@ -17,7 +17,8 @@ export abstract class Property<T> extends Identifier {
 }
 
 export enum TemplateRole {
-  REFERENCE,  // always use the template value (for most stats)
-  MAXIMUM,    // the template is the maximum value (for stats in a range e.g. HP)
-  NO_TEMPLATE // don't use the template (for temporary stats e.g. passive wound penalty)
+  REFERENCE,    // always use the template value (for most stats)
+  MAXIMUM,      // the template is the maximum value (for stats in a range e.g. HP)
+  NO_TEMPLATE,  // don't use the template (for temporary stats e.g. passive wound penalty)
+  TRANSIENT     // should not be saved
 }

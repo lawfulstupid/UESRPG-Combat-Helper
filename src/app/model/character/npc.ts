@@ -25,6 +25,7 @@ export class Npc extends DataCharacter {
           }
         }));
       case TemplateRole.NO_TEMPLATE:
+      case TemplateRole.TRANSIENT:
         // try using default value first, otherwise try user input (lazy value)
         return ObservableUtil.coalesce(
           of(property.defaultValue),

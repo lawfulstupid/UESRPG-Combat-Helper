@@ -1,7 +1,7 @@
 import { Observable, of, throwError } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Dictionary } from "src/app/util/dictionary.util";
-import { Property } from "../property/abstract/property";
+import { Property, TemplateRole } from "../property/abstract/property";
 import { Character } from "./character";
 
 export abstract class DataCharacter extends Character {
@@ -15,7 +15,9 @@ export abstract class DataCharacter extends Character {
   
   // save data to the internal store
   writeData<T>(property: Property<T>, value: T) {
-    if (value === undefined) {
+    if (property.templateRole !== TemplateRole.TRANSIENT) {
+      return;
+    } else if (value === undefined) {
       delete this.data[property.key];
     } else {
       this.data[property.key] = property.serialise(value);
