@@ -55,7 +55,7 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
   static requestValue<T>(property: Property<T>, requester?: DataCharacter, required: boolean = false): Observable<T> {
     return this.doRequest({
       property: property,
-      message: (requester ? requester.name + '\'s ' : '') + property.name + ':',
+      message: (requester ? requester.name + '\'s ' : '') + property.trueName + ':',
       required: required
     });
   }
@@ -64,7 +64,7 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
   static requestValueChange<T>(property: Property<T>, required: boolean = false): Observable<T> {
     return this.doRequest({
       property: property,
-      message: property.name + ' change:',
+      message: property.trueName + ' change:',
       required: required
     });
   }
@@ -77,7 +77,7 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
     return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
       if (value === undefined) {
         // Throw error if undefined, so .subscribe() never triggers
-        return throwError(() => new Error('No value provided for ' + request.property.name));
+        return throwError(() => new Error('No value provided for ' + request.property.trueName));
       } else {
         return of(value);
       }

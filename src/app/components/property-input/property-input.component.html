@@ -3,7 +3,7 @@
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"
     (change)="onFocusChange()"
-    [placeholder]="defaultProperty.name"
+    [placeholder]="defaultProperty.trueName"
     autocomplete="false"
     (keypress)="onKeypress($event)"
   />
@@ -14,14 +14,14 @@
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"
     (change)="onFocusChange()"
-    [placeholder]="textAreaProperty.name"
+    [placeholder]="textAreaProperty.trueName"
     autocomplete="false"
   ></textarea>
   
   <mat-select *ngIf="enumProperty"
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueChange()"
-    [placeholder]="enumProperty.name"
+    [placeholder]="enumProperty.trueName"
   >
     <mat-option *ngFor="let option of enumProperty.options" [value]="option.key">
       {{option.name}}
