@@ -6,6 +6,7 @@ Current ruleset implemented is a homebrew blend of V2 and V3.
 
 ## Running
 
+1. Download latest [tagged release](https://github.com/lawfulstupid/UESRPG-Combat-Helper/tags)
 1. Install [Node.js](nodejs.org).
 1. Run `npm run prod` from the root directory or `scripts/runprod.bat` to build and launch the application in production mode.
 1. A new tab will open in your web browser, otherwise navigate to http://127.0.0.1:8247.
