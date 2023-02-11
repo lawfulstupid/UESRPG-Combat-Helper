@@ -1,13 +1,15 @@
-import { forkJoin, map, mergeMap, Observable } from "rxjs";
+import { forkJoin, map, Observable } from "rxjs";
 import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
 import { DataCharacter, FetchMethod } from "../character/data-character";
+import { Enum } from "../enum/enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
 import { Rollable } from "../property/abstract/rollable";
 import { Attribute } from "../property/attribute";
+import { Modifier } from "../property/modifier";
 
 export class Test {
   
@@ -67,9 +69,20 @@ export class Test {
     
     return forkJoin([
       character.getProperty(Attribute.THREAT_RATING, fetchMethod),
-      property.getTargetNumber(character, fetchMethod)
-    ]).pipe(map(([threatRating, targetNumber]) => {
-      return new Test(property, targetNumber, character, threatRating, options?.isAttack);
+      property.getTargetNumber(character, fetchMethod),
+      Test.getModifier(character, property)
+    ]).pipe(map(([threatRating, targetNumber, modifier]) => {
+      return new Test(property, targetNumber + modifier, character, threatRating, options?.isAttack);
+    }));
+  }
+  
+  private static getModifier(character: DataCharacter, property: Rollable): Observable<number> {
+    return forkJoin(
+      Enum.values<Modifier>(Modifier)
+        .filter(modifier => modifier.appliesTo(property)) // find all modifiers applicable to skill being tested
+        .map(modifier => character.getProperty(modifier)) // get modifier value from character
+    ).pipe(map(modifierValues => {
+      return modifierValues.reduce((x,y) => x+y, 0);      // sum values to get single modifier
     }));
   }
   
