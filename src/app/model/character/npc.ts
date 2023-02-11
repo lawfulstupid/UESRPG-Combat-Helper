@@ -1,7 +1,7 @@
 import { Observable, of, tap } from "rxjs";
 import { ObservableUtil } from "src/app/util/observable.util";
 import { Property, TemplateRole } from "../property/abstract/property";
-import { Data, DataCharacter, ValueProducer } from "./data-character";
+import { Data, DataCharacter, ValueFetcher } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 
 export class Npc extends DataCharacter {
@@ -13,12 +13,12 @@ export class Npc extends DataCharacter {
     this.template = template;
   }
   
-  override populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
+  override populate<T>(property: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
     switch (property.templateRole) {
       case TemplateRole.REFERENCE:
       case TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getProperty<T>(property, valueProducer).pipe(tap(value => {
+        return this.template.getProperty<T>(property, fetchMethod).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
             this.writeData(property, value);
@@ -28,7 +28,7 @@ export class Npc extends DataCharacter {
         // try using default value first, otherwise try user input (lazy value)
         return ObservableUtil.coalesce(
           of(property.defaultValue),
-          () => this.produceValue(property, valueProducer)
+          () => this.produceValue(property, fetchMethod)
         ).pipe(tap(value => {
           this.writeData(property, value); // save the result wherever it came from
         }));

@@ -1,7 +1,7 @@
 import { TemplateRole } from "./abstract/property";
-import { NumericalProperty } from "./generic/number.property";
+import { Rollable } from "./abstract/rollable";
 
-export class Characteristic extends NumericalProperty {
+export class Characteristic extends Rollable {
 
   public static readonly STRENGTH = new Characteristic('strength', 'Strength');
   public static readonly ENDURANCE = new Characteristic('endurance', 'Endurance');

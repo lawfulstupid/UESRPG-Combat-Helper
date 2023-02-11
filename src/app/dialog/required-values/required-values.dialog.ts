@@ -3,7 +3,7 @@ import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { EMPTY, forkJoin, mergeMap, Observable } from 'rxjs';
 import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
 import { ValueChange } from 'src/app/components/property-input/property-input.component';
-import { DataCharacter } from 'src/app/model/character/data-character';
+import { DataCharacter, FetchMethod } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
 import { Dictionary, DictionaryUtil } from 'src/app/util/dictionary.util';
@@ -68,7 +68,7 @@ export class RequiredValuesDialog extends Dialog<RequiredValuesDialog> {
         // Find original property
         const property = <Property<any>>missingProperties.find(prop => prop.key === key);
         // Write value to character
-        return requester.populate(property, value);
+        return requester.populate(property, FetchMethod.USE_VALUE(value));
       })).pipe(mergeMap(() => {
         // MergeMap the result into EMPTY because we don't care about returning the actual values
         return EMPTY;

@@ -6,9 +6,9 @@ import { Test } from "src/app/model/combat/test";
 import { Wound } from "src/app/model/combat/wound";
 import { HitLocationEnum } from "src/app/model/enum/hit-location.enum";
 import { TemplateRole } from "src/app/model/property/abstract/property";
-import { RenamedProperty } from "src/app/model/property/abstract/renamed.property";
 import { Characteristic } from "src/app/model/property/characteristic";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
+import { Modifier } from "src/app/model/property/modifier";
 
 @Component({
   selector: 'app-wounds',
@@ -18,7 +18,7 @@ import { EnumProperty } from "src/app/model/property/generic/enum.property";
 export class WoundsComponent implements OnInit {
   
   private static readonly hitLocationProperty = new EnumProperty(HitLocationEnum, 'hitLocation', 'Wound Hit Location', TemplateRole.REFERENCE);
-  private static readonly shockTestProperty = new RenamedProperty(Characteristic.ENDURANCE, 'Shock Test');
+  private static readonly shockTestProperty = Characteristic.ENDURANCE.renamed('Shock Test');
   
   @Input()
   npc!: Npc;
@@ -37,11 +37,9 @@ export class WoundsComponent implements OnInit {
   private newWound(hpLoss: number) {
     // Get hit location from user
     ValueRequestDialog.requestValue(WoundsComponent.hitLocationProperty, this.npc, true).subscribe(hitLocation => {
-      // Get Endurance for Shock Test
-      this.npc.getPropertyRequired(Characteristic.ENDURANCE).subscribe(shockTestTN => {
-        Test.make(WoundsComponent.shockTestProperty, shockTestTN, this.npc).subscribe(shockTest => {
-          this.wounds.push(new Wound(hitLocation, hpLoss, shockTest));
-        });
+      Test.make(this.npc, WoundsComponent.shockTestProperty, {required: true}).subscribe(shockTest => {
+        this.wounds.push(new Wound(hitLocation, hpLoss, shockTest));
+        this.npc.writeData(Modifier.WOUND_PASSIVE, -20);
       });
     });
   }

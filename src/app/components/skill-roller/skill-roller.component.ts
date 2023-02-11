@@ -1,17 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { map, Observable, of } from 'rxjs';
+import { FetchMethod } from 'src/app/model/character/data-character';
 import { Npc } from 'src/app/model/character/npc';
 import { Test } from 'src/app/model/combat/test';
 import { Enum } from 'src/app/model/enum/enum';
+import { Rollable } from 'src/app/model/property/abstract/rollable';
 import { Characteristic } from 'src/app/model/property/characteristic';
-import { NumericalProperty } from 'src/app/model/property/generic/number.property';
 import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
-import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
-import { ValueChange } from '../property-input/property-input.component';
 
 @Component({
   selector: 'app-skill-roller',
@@ -26,11 +25,10 @@ export class SkillRollerComponent {
   @Input()
   npc!: Npc;
   
-  skills: Array<NumericalProperty> = [];
-  characteristics: Array<NumericalProperty> = [];
+  skills: Array<Skill> = [];
+  characteristics: Array<Characteristic> = [];
   
-  selectedSkill?: NumericalProperty;
-  modifier?: number;
+  selectedSkill?: Rollable;
   test?: Test;
   
   constructor() {
@@ -46,14 +44,16 @@ export class SkillRollerComponent {
     });
   }
   
-  displayTargetNumber(skill: NumericalProperty): Observable<string> {
+  displayTargetNumber(skill: Rollable): Observable<string> {
     if (this.npc.hasProperty(skill)) {
-      return this.npc.getPropertySilent(skill).pipe(map(value => '(' + value + ')'));
+      return this.npc.getProperty(skill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
     }
     
-    const npcSkill = this.npcSkill(skill);
-    if (this.npc.hasProperty(npcSkill)) {
-      return this.npc.getPropertySilent(npcSkill).pipe(map(value => '(' + value + ')'));
+    if (skill instanceof Skill) {
+      const npcSkill: NpcSkill = skill.npcSkill;
+      if (this.npc.hasProperty(npcSkill)) {
+        return this.npc.getProperty(npcSkill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
+      }
     }
     
     return of('');
@@ -63,33 +63,12 @@ export class SkillRollerComponent {
     this.test = undefined;
   }
   
-  setModifier(event: ValueChange<number>) {
-    this.modifier = event?.value;
-  }
-  
   roll() {
     if (this.selectedSkill === undefined) return;
-    const skill: NumericalProperty = this.selectedSkill; // cast away undefined
-    
-    // Tries a few strategies to get the TN:
-    ObservableUtil.coalesce(
-      () => this.npc.getPropertySilent(skill),          // 1. Check for PC skill
-      () => this.npc.getProperty(this.npcSkill(skill)), // 2. Check for NPC skill, ask user if missing
-      () => this.npc.getProperty(skill)                 // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
-    ).subscribe(skillTN => {
-        const targetNumber = skillTN + (this.modifier || 0);
-        Test.make(skill, targetNumber, this.npc, this.selectedSkill === Skill.COMBAT_STYLE).subscribe(test => {
-          this.test = test;
-        });
+    const skill: Rollable = this.selectedSkill; // cast away undefined
+    Test.make(this.npc, skill, {isAttack: skill.key === Skill.COMBAT_STYLE.key}).subscribe(test => {
+      this.test = test;
     });
-  }
-  
-  private npcSkill(skill: NumericalProperty): NpcSkill | undefined {
-    if (skill instanceof Skill) {
-      return skill.npcSkill;
-    } else {
-      return undefined;
-    }
   }
   
 }

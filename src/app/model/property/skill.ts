@@ -1,3 +1,6 @@
+import { Observable } from "rxjs";
+import { ObservableUtil } from "src/app/util/observable.util";
+import { DataCharacter, FetchMethod, ValueFetcher } from "../character/data-character";
 import { GenericSkill } from "./abstract/skill-generic";
 import { Characteristic } from "./characteristic";
 import { NpcSkill } from "./skill-npc";
@@ -36,6 +39,15 @@ export class Skill extends GenericSkill {
   protected constructor(key: string, name: string, npcSkill: NpcSkill, governedBy: Array<Characteristic>) {
     super(key, name, governedBy);
     this.npcSkill = npcSkill;
+  }
+  
+  override getTargetNumber(npc: DataCharacter, fetchMethod: ValueFetcher<number>): Observable<number> {
+    // Tries a few strategies to get the TN:
+    return ObservableUtil.coalesce(
+      () => npc.getProperty(this, FetchMethod.SILENT),       // 1. Check for PC skill without asking user
+      () => this.npcSkill.getTargetNumber(npc, fetchMethod), // 2. Check for NPC skill, ask user if missing
+      () => super.getTargetNumber(npc, fetchMethod)          // 3. Default method. This fires if user clicks 'Cancel' on NPC skill value request dialog
+    );
   }
   
 }

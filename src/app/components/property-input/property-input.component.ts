@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { catchError, EMPTY } from "rxjs";
-import { DataCharacter } from "src/app/model/character/data-character";
+import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
 import { TextAreaProperty } from "src/app/model/property/generic/text-area.property";
@@ -59,11 +59,13 @@ export class PropertyInputComponent<T> implements OnInit {
         this.directCharacterAccess = undefined;
         throw new Error('Cannot directly access templated properties');
       }
-      this.directCharacterAccess.getPropertySilent(this.property).pipe(catchError(() => EMPTY)).subscribe(value => {
-        this.value = value;
-        this.valueStr = this.property.serialise(value);
-        this.outputValue(true);
-      });
+      this.directCharacterAccess.getProperty(this.property, FetchMethod.SILENT)
+        .pipe(catchError(() => EMPTY))
+        .subscribe(value => {
+          this.value = value;
+          this.valueStr = this.property.serialise(value);
+          this.outputValue(true);
+        });
     }
   }
   

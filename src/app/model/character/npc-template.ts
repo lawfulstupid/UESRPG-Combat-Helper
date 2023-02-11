@@ -2,7 +2,7 @@ import { Observable, tap } from 'rxjs';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
-import { Data, DataCharacter, ValueProducer } from './data-character';
+import { Data, DataCharacter, ValueFetcher } from './data-character';
 
 export class NpcTemplate extends DataCharacter {
 
@@ -19,9 +19,9 @@ export class NpcTemplate extends DataCharacter {
   }
   
   // get value from user input
-  override populate<T>(property: Property<T>, valueProducer?: ValueProducer<T>): Observable<T> {
+  override populate<T>(property: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
     return ObservableUtil.coalesce(
-      () => this.produceValue(property, valueProducer)
+      () => this.produceValue(property, fetchMethod)
     ).pipe(tap(value => {
       this.writeData(property, value);
     }));
