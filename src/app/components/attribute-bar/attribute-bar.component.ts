@@ -55,7 +55,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   getBarPercent(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
       return this.npc.getProperty(this.attribute).pipe(map(stat => {
-        let ratio = 100 * stat / statMax;
+        let ratio = Math.max(0, 100 * stat / statMax);
         return ratio.toFixed(0) + '%';
       }));
     }));
