@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { map, Observable, of } from 'rxjs';
+import { FetchMethod } from 'src/app/model/character/data-character';
 import { Npc } from 'src/app/model/character/npc';
 import { Test } from 'src/app/model/combat/test';
 import { Enum } from 'src/app/model/enum/enum';
@@ -45,13 +46,13 @@ export class SkillRollerComponent {
   
   displayTargetNumber(skill: Rollable): Observable<string> {
     if (this.npc.hasProperty(skill)) {
-      return this.npc.getPropertySilent(skill).pipe(map(value => '(' + value + ')'));
+      return this.npc.getProperty(skill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
     }
     
     if (skill instanceof Skill) {
       const npcSkill: NpcSkill = skill.npcSkill;
       if (this.npc.hasProperty(npcSkill)) {
-        return this.npc.getPropertySilent(npcSkill).pipe(map(value => '(' + value + ')'));
+        return this.npc.getProperty(npcSkill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
       }
     }
     

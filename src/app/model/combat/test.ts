@@ -2,7 +2,7 @@ import { map, mergeMap, Observable } from "rxjs";
 import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
-import { DataCharacter } from "../character/data-character";
+import { DataCharacter, FetchMethod } from "../character/data-character";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
@@ -63,9 +63,9 @@ export class Test {
   }
   
   static make(character: DataCharacter, property: Rollable, options?: TestOptions): Observable<Test> {
+    const fetchMethod = options?.required ? FetchMethod.REQUIRED : FetchMethod.DEFAULT;
     return property.getTargetNumber(character, options?.required).pipe(mergeMap(target => {
-      const getPropertyMethod = options?.required ? character.getPropertyRequired : character.getProperty;
-      return getPropertyMethod.bind(character)(Attribute.THREAT_RATING).pipe(map(threatRating => {
+      return character.getProperty(Attribute.THREAT_RATING, fetchMethod).pipe(map(threatRating => {
         return new Test(property, target, character, threatRating, options?.isAttack);
       }));
     }));
