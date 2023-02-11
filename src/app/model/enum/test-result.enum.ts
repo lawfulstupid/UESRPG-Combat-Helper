@@ -9,11 +9,11 @@ export class TestResultEnum extends Enum {
   public static readonly CRIT_FAIL = new TestResultEnum('Crit Fail', ColorEnum.RED, -2);
   
   private constructor(
-    readonly name: string,
+    name: string,
     readonly color: ColorEnum | undefined,
     readonly advantagesGained: number
   ) {
-    super();
+    super(name);
   }
   
   isPass() {

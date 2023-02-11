@@ -18,6 +18,6 @@ export abstract class Enum {
     return clazz[key];
   }
   
-  protected constructor() {}
+  protected constructor(readonly name: string) {}
   
 }

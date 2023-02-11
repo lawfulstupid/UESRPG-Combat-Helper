@@ -10,10 +10,10 @@ export class HitLocationEnum extends Enum {
   public static readonly ARM_L = new HitLocationEnum('Left Arm', [9]);
   
   private constructor(
-    readonly name: string,
+    name: string,
     readonly hitRange: Array<number>
   ) {
-    super();
+    super(name);
   }
   
   isHitBy(roll: number) {

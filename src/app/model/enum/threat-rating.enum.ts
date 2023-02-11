@@ -12,11 +12,11 @@ export class ThreatRatingEnum extends Enum {
   public static readonly LEGENDARY_GROUP = new ThreatRatingEnum('Legendary Group', 10, 101);
   
   private constructor(
-    readonly name: string,
+    name: string,
     readonly critRange: number,
     readonly critFailRange: number
   ) {
-    super();
+    super(name);
   }
   
 }

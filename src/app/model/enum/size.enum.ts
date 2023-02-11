@@ -11,11 +11,11 @@ export class SizeEnum extends Enum {
   public static readonly MASSIVE = new SizeEnum('Massive', 3, 4);
   
   private constructor(
-    readonly name: string,
+    name: string,
     readonly rank: number,
     readonly width: number
   ) {
-    super();
+    super(name);
   }
   
   get display(): string {

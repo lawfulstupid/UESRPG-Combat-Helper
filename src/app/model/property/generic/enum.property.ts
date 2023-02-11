@@ -12,7 +12,7 @@ export class EnumProperty<T extends Enum> extends Property<T> {
   deserialise(key: string): T {
     const value: T = Enum.value(key, this.clazz);
     if (value === undefined) {
-      throw new Error('Key \'' + key + '\' does not exist on ' + this.clazz['name']);
+      throw new Error('Key \'' + key + '\' does not exist on ' + this.clazz.name);
     }
     return value;
   }
@@ -22,8 +22,8 @@ export class EnumProperty<T extends Enum> extends Property<T> {
   
   constructor(private clazz: AbstractType<T>, key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
     super(key, name, templateRole, defaultValue);
-    this.options = Enum.keys(clazz).map(enumKey => {
-      const enumValue = Enum.value<typeof clazz>(enumKey, clazz);
+    this.options = Enum.keys<T>(clazz).map(enumKey => {
+      const enumValue = Enum.value<T>(enumKey, clazz);
       return new Identifier(enumKey, enumValue.name);
     });
   }
