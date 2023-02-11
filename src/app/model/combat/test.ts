@@ -64,7 +64,7 @@ export class Test {
   
   static make(character: DataCharacter, property: Rollable, options?: TestOptions): Observable<Test> {
     const fetchMethod = options?.required ? FetchMethod.REQUIRED : FetchMethod.DEFAULT;
-    return property.getTargetNumber(character, options?.required).pipe(mergeMap(target => {
+    return property.getTargetNumber(character, fetchMethod).pipe(mergeMap(target => {
       return character.getProperty(Attribute.THREAT_RATING, fetchMethod).pipe(map(threatRating => {
         return new Test(property, target, character, threatRating, options?.isAttack);
       }));
