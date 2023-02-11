@@ -1,4 +1,4 @@
-import { map, Observable } from "rxjs";
+import { map, mergeMap, Observable } from "rxjs";
 import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Character } from "../character/character";
@@ -62,9 +62,11 @@ export class Test {
     return str;
   }
   
-  static make(property: Rollable, target: number, character: DataCharacter, isAttack: boolean = false): Observable<Test> {
-    return character.getProperty(Attribute.THREAT_RATING).pipe(map(threatRating => {
-      return new Test(property, target, character, threatRating, isAttack);
+  static make(character: DataCharacter, property: Rollable, isAttack: boolean = false): Observable<Test> {
+    return property.getTargetNumber(character).pipe(mergeMap(target => {
+      return character.getProperty(Attribute.THREAT_RATING).pipe(map(threatRating => {
+        return new Test(property, target, character, threatRating, isAttack);
+      }));
     }));
   }
   

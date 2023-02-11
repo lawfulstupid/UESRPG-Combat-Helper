@@ -10,7 +10,6 @@ import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
 import { SearchUtil } from 'src/app/util/search.util';
-import { ValueChange } from '../property-input/property-input.component';
 
 @Component({
   selector: 'app-skill-roller',
@@ -29,7 +28,6 @@ export class SkillRollerComponent {
   characteristics: Array<Characteristic> = [];
   
   selectedSkill?: Rollable;
-  modifier?: number;
   test?: Test;
   
   constructor() {
@@ -64,19 +62,11 @@ export class SkillRollerComponent {
     this.test = undefined;
   }
   
-  setModifier(event: ValueChange<number>) {
-    this.modifier = event?.value;
-  }
-  
   roll() {
     if (this.selectedSkill === undefined) return;
     const skill: Rollable = this.selectedSkill; // cast away undefined
-    
-    skill.getTargetNumber(this.npc).subscribe(skillTN => {
-      const targetNumber = skillTN + (this.modifier || 0);
-      Test.make(skill, targetNumber, this.npc, skill.key === Skill.COMBAT_STYLE.key).subscribe(test => {
-        this.test = test;
-      });
+    Test.make(this.npc, skill, skill.key === Skill.COMBAT_STYLE.key).subscribe(test => {
+      this.test = test;
     });
   }
   
