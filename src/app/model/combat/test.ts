@@ -62,12 +62,18 @@ export class Test {
     return str;
   }
   
-  static make(character: DataCharacter, property: Rollable, isAttack: boolean = false): Observable<Test> {
-    return property.getTargetNumber(character).pipe(mergeMap(target => {
-      return character.getProperty(Attribute.THREAT_RATING).pipe(map(threatRating => {
-        return new Test(property, target, character, threatRating, isAttack);
+  static make(character: DataCharacter, property: Rollable, options?: TestOptions): Observable<Test> {
+    return property.getTargetNumber(character, options?.required).pipe(mergeMap(target => {
+      const getPropertyMethod = options?.required ? character.getPropertyRequired : character.getProperty;
+      return getPropertyMethod.bind(character)(Attribute.THREAT_RATING).pipe(map(threatRating => {
+        return new Test(property, target, character, threatRating, options?.isAttack);
       }));
     }));
   }
   
+}
+
+interface TestOptions {
+  isAttack?: boolean;
+  required?: boolean;
 }

@@ -4,8 +4,13 @@ import { NumericalProperty } from "../generic/number.property";
 
 export abstract class Rollable extends NumericalProperty {
   
-  getTargetNumber(npc: DataCharacter): Observable<number> {
-    return npc.getProperty(this);
+  getTargetNumber(npc: DataCharacter, required: boolean = false): Observable<number> {
+    console.log('Target Number Required', required);
+    if (required) {
+      return npc.getPropertyRequired(this);
+    } else {
+      return npc.getProperty(this);
+    }
   }
   
 }

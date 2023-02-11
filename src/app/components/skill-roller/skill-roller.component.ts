@@ -65,7 +65,7 @@ export class SkillRollerComponent {
   roll() {
     if (this.selectedSkill === undefined) return;
     const skill: Rollable = this.selectedSkill; // cast away undefined
-    Test.make(this.npc, skill, skill.key === Skill.COMBAT_STYLE.key).subscribe(test => {
+    Test.make(this.npc, skill, {isAttack: skill.key === Skill.COMBAT_STYLE.key}).subscribe(test => {
       this.test = test;
     });
   }
