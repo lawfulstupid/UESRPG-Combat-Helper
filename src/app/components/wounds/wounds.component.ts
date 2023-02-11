@@ -37,7 +37,7 @@ export class WoundsComponent implements OnInit {
     // Get hit location from user
     ValueRequestDialog.requestValue(WoundsComponent.hitLocationProperty, this.npc, true).subscribe(hitLocation => {
       // Get Endurance for Shock Test
-      this.npc.getPropertyRequired(Characteristic.ENDURANCE).subscribe(shockTestTN => {
+      WoundsComponent.shockTestProperty.getTargetNumber(this.npc).subscribe(shockTestTN => {
         Test.make(WoundsComponent.shockTestProperty, shockTestTN, this.npc).subscribe(shockTest => {
           this.wounds.push(new Wound(hitLocation, hpLoss, shockTest));
         });
