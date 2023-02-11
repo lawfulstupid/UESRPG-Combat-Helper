@@ -9,7 +9,6 @@ import { Characteristic } from 'src/app/model/property/characteristic';
 import { Modifier } from 'src/app/model/property/modifier';
 import { Skill } from 'src/app/model/property/skill';
 import { NpcSkill } from 'src/app/model/property/skill-npc';
-import { ObservableUtil } from 'src/app/util/observable.util';
 import { SearchUtil } from 'src/app/util/search.util';
 import { ValueChange } from '../property-input/property-input.component';
 
@@ -51,9 +50,11 @@ export class SkillRollerComponent {
       return this.npc.getPropertySilent(skill).pipe(map(value => '(' + value + ')'));
     }
     
-    const npcSkill = this.npcSkill(skill);
-    if (this.npc.hasProperty(npcSkill)) {
-      return this.npc.getPropertySilent(npcSkill).pipe(map(value => '(' + value + ')'));
+    if (skill instanceof Skill) {
+      const npcSkill: NpcSkill = skill.npcSkill;
+      if (this.npc.hasProperty(npcSkill)) {
+        return this.npc.getPropertySilent(npcSkill).pipe(map(value => '(' + value + ')'));
+      }
     }
     
     return of('');
@@ -71,25 +72,12 @@ export class SkillRollerComponent {
     if (this.selectedSkill === undefined) return;
     const skill: Rollable = this.selectedSkill; // cast away undefined
     
-    // Tries a few strategies to get the TN:
-    ObservableUtil.coalesce(
-      () => this.npc.getPropertySilent(skill),          // 1. Check for PC skill
-      () => this.npc.getProperty(this.npcSkill(skill)), // 2. Check for NPC skill, ask user if missing
-      () => this.npc.getProperty(skill)                 // 3. Check for PC skill, ask use if missing. This fires if user clicks 'Cancel' on NPC skill value request dialog
-    ).subscribe(skillTN => {
-        const targetNumber = skillTN + (this.modifier || 0);
-        Test.make(skill, targetNumber, this.npc, this.selectedSkill === Skill.COMBAT_STYLE).subscribe(test => {
-          this.test = test;
-        });
+    skill.getTargetNumber(this.npc).subscribe(skillTN => {
+      const targetNumber = skillTN + (this.modifier || 0);
+      Test.make(skill, targetNumber, this.npc, skill.key === Skill.COMBAT_STYLE.key).subscribe(test => {
+        this.test = test;
+      });
     });
-  }
-  
-  private npcSkill(skill: Rollable): NpcSkill | undefined {
-    if (skill instanceof Skill) {
-      return skill.npcSkill;
-    } else {
-      return undefined;
-    }
   }
   
 }
