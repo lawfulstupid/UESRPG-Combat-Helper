@@ -6,7 +6,6 @@ import { Test } from "src/app/model/combat/test";
 import { Wound } from "src/app/model/combat/wound";
 import { HitLocationEnum } from "src/app/model/enum/hit-location.enum";
 import { TemplateRole } from "src/app/model/property/abstract/property";
-import { RenamedProperty } from "src/app/model/property/abstract/renamed.property";
 import { Characteristic } from "src/app/model/property/characteristic";
 import { EnumProperty } from "src/app/model/property/generic/enum.property";
 
@@ -18,7 +17,7 @@ import { EnumProperty } from "src/app/model/property/generic/enum.property";
 export class WoundsComponent implements OnInit {
   
   private static readonly hitLocationProperty = new EnumProperty(HitLocationEnum, 'hitLocation', 'Wound Hit Location', TemplateRole.REFERENCE);
-  private static readonly shockTestProperty = new RenamedProperty(Characteristic.ENDURANCE, 'Shock Test');
+  private static readonly shockTestProperty = Characteristic.ENDURANCE.renamed('Shock Test');
   
   @Input()
   npc!: Npc;

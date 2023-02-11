@@ -14,6 +14,10 @@ export abstract class Property<T> extends Identifier {
   abstract serialise(value: T): string;
   abstract deserialise(str: string): T;
   
+  renamed(newName: string): typeof this {
+    return {...this, name: newName};
+  }
+  
 }
 
 export enum TemplateRole {
