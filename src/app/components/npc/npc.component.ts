@@ -5,8 +5,8 @@ import { DisplayRequiredValuesComponent } from "src/app/components/common/displa
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute";
 import { CombatProperty } from "src/app/model/property/combat.property";
+import { MiscProperties } from "src/app/model/property/misc.property";
 import { Modifier } from "src/app/model/property/modifier";
-import { NpcProperties } from "src/app/model/property/npc.property";
 import { EventManager } from "src/app/service/event.manager";
 import { ColorEnum } from "src/app/util/color.enum";
 
@@ -20,7 +20,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly colorEnum = ColorEnum;
   readonly attributeEnum = Attribute;
   readonly combatEnum = CombatProperty;
-  readonly npcProperties = NpcProperties;
+  readonly notesProperty = MiscProperties.NOTES;
   
   readonly closeIcon = faClose;
   readonly moveIcon = faArrowsUpDownLeftRight;
