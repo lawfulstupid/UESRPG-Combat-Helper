@@ -15,7 +15,7 @@ export abstract class DataCharacter extends Character {
   
   // save data to the internal store
   writeData<T>(property: Property<T>, value: T) {
-    if (property.templateRole !== TemplateRole.TRANSIENT) {
+    if (property.templateRole === TemplateRole.TRANSIENT) {
       return;
     } else if (value === undefined) {
       delete this.data[property.key];
@@ -52,6 +52,12 @@ export abstract class DataCharacter extends Character {
     } else {
       return this.populate(property, fetchMethod); // otherwise get it from elsewhere
     }
+  }
+  
+  alterProperty<T>(property: Property<T>, transform: (currentValue: T) => T) {
+    this.getProperty(property).subscribe(currentValue => {
+      this.writeData(property, transform(currentValue));
+    });
   }
   
   // Step 2: If getProperty() failed to find a value internally, this determines how to go about finding a value externally
