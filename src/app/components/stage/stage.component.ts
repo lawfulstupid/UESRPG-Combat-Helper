@@ -1,10 +1,10 @@
 import { Component, ComponentRef, EventEmitter, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { DragulaService } from "ng2-dragula";
-import { EMPTY, mergeMap, Observable, of, tap } from "rxjs";
+import { EMPTY, mergeMap, Observable, of } from "rxjs";
 import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
-import { Npc } from "src/app/model/character/npc";
-import { SerialNpc } from "src/app/model/stage/serial-npc";
+import { Npc, SimplifiedNpc } from "src/app/model/character/npc";
+import { Simple } from "src/app/model/interface/simple";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { ErrorComponent } from "../error/error.component";
@@ -93,12 +93,12 @@ export class StageComponent implements OnInit {
   }
   
   private exportStage() {
-    const stage: Array<Array<SerialNpc>> = [];
+    const stage: Array<Array<SimplifiedNpc>> = [];
     for (let elmDragColumn of Array.from(document.getElementsByClassName('drag-column'))) {
-      const column: Array<SerialNpc> = [];
+      const column: Array<SimplifiedNpc> = [];
       for (let elmNpc of Array.from(elmDragColumn.querySelectorAll('app-npc'))) {
         const npc = this.componentRefs.find(ref => ref.location.nativeElement === elmNpc)!.instance.npc;
-        column.push(new SerialNpc(npc));
+        column.push(npc.simplify());
       }
       stage.push(column);
     }
@@ -106,11 +106,11 @@ export class StageComponent implements OnInit {
   }
   
   private importStage() {
-    this.upload<Array<Array<SerialNpc>>>().subscribe(stage => {
+    this.upload<Array<Array<SimplifiedNpc>>>().subscribe(stage => {
       this.clearStage().subscribe(() => {
         for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
           for (let npc of stage[columnIdx]) {
-            this.addNpc(SerialNpc.toNpc(npc), columnIdx);
+            this.addNpc(Simple.desimplify(npc, SimplifiedNpc), columnIdx);
           }
         }
       });

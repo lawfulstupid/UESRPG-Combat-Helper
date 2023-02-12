@@ -1,10 +1,12 @@
 import { Observable, of, tap } from "rxjs";
+import { NpcManager } from "src/app/service/npc.manager";
 import { ObservableUtil } from "src/app/util/observable.util";
+import { Simplifiable, Simplified } from "../interface/simple";
 import { Property, TemplateRole } from "../property/abstract/property";
 import { Data, DataCharacter, ValueFetcher } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 
-export class Npc extends DataCharacter {
+export class Npc extends DataCharacter implements Simplifiable<Npc> {
   
   private template: NpcTemplate;
   
@@ -69,6 +71,28 @@ export class Npc extends DataCharacter {
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
     }
+  }
+  
+  simplify(): SimplifiedNpc {
+    return new SimplifiedNpc(this);
+  }
+  
+}
+
+export class SimplifiedNpc implements Simplified<Npc> {
+  
+  readonly name: string;
+  readonly templateKey: string;
+  readonly data: Data;
+  
+  constructor(npc: Npc) {
+    this.name = npc.name;
+    this.templateKey = npc.getTemplateKey();
+    this.data = npc.getRawDataCopy();
+  }
+  
+  desimplify(): Npc {
+    return NpcManager.create(this.name, this.templateKey, this.data);
   }
   
 }

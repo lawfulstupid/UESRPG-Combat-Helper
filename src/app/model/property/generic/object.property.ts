@@ -1,5 +1,5 @@
 import { AbstractType } from "@angular/core";
-import { Simplifiable, Simplified } from "../../interface/simple";
+import { Simple, Simplifiable, Simplified } from "../../interface/simple";
 import { Property, TemplateRole } from "../abstract/property";
 
 export class ObjectProperty<T extends Simplifiable<T>> extends Property<T> {
@@ -9,8 +9,7 @@ export class ObjectProperty<T extends Simplifiable<T>> extends Property<T> {
   }
   
   deserialise(str: string): T {
-    const simpleObj = Object.setPrototypeOf(JSON.parse(str), this.simpleClass.prototype);
-    return simpleObj.desimplify();
+    return Simple.desimplify(JSON.parse(str), this.simpleClass);
   }
   
   constructor(private readonly simpleClass: AbstractType<Simplified<T>>, key: string, name: string, templateRole: TemplateRole) {
