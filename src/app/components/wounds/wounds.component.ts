@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Npc } from "src/app/model/character/npc";
-import { CombatProperty } from "src/app/model/property/collections/combat";
+import { CombatProperties } from "src/app/model/property/collections/combat";
 
 @Component({
   selector: 'app-wounds',
@@ -9,7 +9,7 @@ import { CombatProperty } from "src/app/model/property/collections/combat";
 })
 export class WoundsComponent {
   
-  woundsProperty = CombatProperty.WOUNDS;
+  woundsProperty = CombatProperties.WOUNDS;
   
   @Input()
   npc!: Npc;

@@ -2,7 +2,7 @@ import { Npc } from "../character/npc";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { Simplifiable, Simplified } from "../interface/simple";
-import { CombatProperty } from "../property/collections/combat";
+import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
 import { Modifier } from "../property/modifier.property";
 import { Test } from "./test";
@@ -22,7 +22,7 @@ export class Wound implements Simplifiable<Wound> {
   static make(npc: Npc, hitLocation: HitLocationEnum, damage: number) {
     return Test.make(npc, MiscProperties.SHOCK_TEST, {required: true}).subscribe(shockTest => {
       const wound = new Wound(hitLocation, damage, shockTest.result);
-      npc.alterProperty(CombatProperty.WOUNDS, wounds => wounds.concat(wound));
+      npc.alterProperty(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
       npc.alterProperty(Modifier.WOUND_PASSIVE, penalty => penalty - 20);
       return wound;
     });

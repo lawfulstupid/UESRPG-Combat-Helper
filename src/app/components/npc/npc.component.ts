@@ -5,7 +5,7 @@ import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute.property";
-import { CombatProperty } from "src/app/model/property/collections/combat";
+import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { Modifier } from "src/app/model/property/modifier.property";
 import { EventManager } from "src/app/service/event.manager";
@@ -20,20 +20,20 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   
   readonly colorEnum = ColorEnum;
   readonly attributeEnum = Attribute;
-  readonly combatEnum = CombatProperty;
+  readonly combatEnum = CombatProperties;
   readonly notesProperty = MiscProperties.NOTES;
   
   readonly closeIcon = faClose;
   readonly moveIcon = faArrowsUpDownLeftRight;
   
   protected override requiredProperties(): Array<Property<any>> {
-    return [Attribute.SPEED, Attribute.SIZE, CombatProperty.STAMINA_SPENT];
+    return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT];
   }
   
   protected override init() {
     EventManager.newRoundEvent.subscribe(() => {
-      this.npc.reset(CombatProperty.STAMINA_SPENT);
-      this.npc.reset(CombatProperty.ATTACKS_MADE);
+      this.npc.reset(CombatProperties.STAMINA_SPENT);
+      this.npc.reset(CombatProperties.ATTACKS_MADE);
       this.npc.reset(Attribute.AP);
     });
   }
@@ -47,7 +47,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   onSpChange(change: number) {
     // Mark stamina as spent this round
     if (change < 0) {
-      this.npc.writeData(CombatProperty.STAMINA_SPENT, true);
+      this.npc.writeData(CombatProperties.STAMINA_SPENT, true);
     }
     // Apply fatigue penalty
     this.npc.getProperty(Attribute.SP).subscribe(sp => {
