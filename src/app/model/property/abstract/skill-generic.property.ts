@@ -1,6 +1,6 @@
-import { Characteristic } from "../characteristic";
+import { Characteristic } from "../characteristic.property";
 import { TemplateRole } from "./property";
-import { Rollable } from "./rollable";
+import { Rollable } from "./rollable.property";
 
 export abstract class GenericSkill extends Rollable {
   

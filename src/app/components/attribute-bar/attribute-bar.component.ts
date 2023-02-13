@@ -4,7 +4,7 @@ import { map, mergeMap, Observable, of, tap } from "rxjs";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Property } from "src/app/model/property/abstract/property";
-import { Attribute } from "src/app/model/property/attribute";
+import { Attribute } from "src/app/model/property/attribute.property";
 import { ObservableUtil } from "src/app/util/observable.util";
 
 @Component({

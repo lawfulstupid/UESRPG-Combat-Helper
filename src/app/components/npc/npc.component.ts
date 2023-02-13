@@ -4,10 +4,10 @@ import { DisplayRequiredValuesComponent } from "src/app/components/common/displa
 import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
 import { Property } from "src/app/model/property/abstract/property";
-import { Attribute } from "src/app/model/property/attribute";
-import { CombatProperty } from "src/app/model/property/combat.property";
-import { MiscProperties } from "src/app/model/property/misc.property";
-import { Modifier } from "src/app/model/property/modifier";
+import { Attribute } from "src/app/model/property/attribute.property";
+import { CombatProperty } from "src/app/model/property/combat";
+import { MiscProperties } from "src/app/model/property/misc";
+import { Modifier } from "src/app/model/property/modifier.property";
 import { EventManager } from "src/app/service/event.manager";
 import { ColorEnum } from "src/app/util/color.enum";
 

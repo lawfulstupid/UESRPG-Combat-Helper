@@ -5,11 +5,11 @@ import { FetchMethod } from 'src/app/model/character/data-character';
 import { Npc } from 'src/app/model/character/npc';
 import { Test } from 'src/app/model/combat/test';
 import { Enum } from 'src/app/model/enum/enum';
-import { Rollable } from 'src/app/model/property/abstract/rollable';
-import { Characteristic } from 'src/app/model/property/characteristic';
-import { Modifier } from 'src/app/model/property/modifier';
-import { Skill } from 'src/app/model/property/skill';
-import { NpcSkill } from 'src/app/model/property/skill-npc';
+import { Rollable } from 'src/app/model/property/abstract/rollable.property';
+import { Characteristic } from 'src/app/model/property/characteristic.property';
+import { Modifier } from 'src/app/model/property/modifier.property';
+import { Skill } from 'src/app/model/property/skill.property';
+import { NpcSkill } from 'src/app/model/property/skill-npc.property';
 import { SearchUtil } from 'src/app/util/search.util';
 
 @Component({

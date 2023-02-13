@@ -1,5 +1,5 @@
 import { TemplateRole } from "./abstract/property";
-import { Rollable } from "./abstract/rollable";
+import { Rollable } from "./abstract/rollable.property";
 
 export class Characteristic extends Rollable {
 

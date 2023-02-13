@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
 import { ObservableUtil } from "src/app/util/observable.util";
 import { DataCharacter, FetchMethod, ValueFetcher } from "../character/data-character";
-import { GenericSkill } from "./abstract/skill-generic";
-import { Characteristic } from "./characteristic";
-import { NpcSkill } from "./skill-npc";
+import { GenericSkill } from "./abstract/skill-generic.property";
+import { Characteristic } from "./characteristic.property";
+import { NpcSkill } from "./skill-npc.property";
 
 export class Skill extends GenericSkill {
   

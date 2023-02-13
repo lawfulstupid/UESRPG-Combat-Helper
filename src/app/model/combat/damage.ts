@@ -4,8 +4,8 @@ import { ObservableUtil } from "src/app/util/observable.util";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
-import { Attribute } from "../property/attribute";
-import { TransientProperties } from "../property/transient.property";
+import { Attribute } from "../property/attribute.property";
+import { TransientProperties } from "../property/transient";
 import { Wound } from "./wound";
 
 // This represents a damage expression delivered by the damage dealer

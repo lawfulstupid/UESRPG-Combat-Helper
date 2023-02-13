@@ -1,5 +1,5 @@
 import { TemplateRole } from "./abstract/property";
-import { Characteristic } from "./characteristic";
+import { Characteristic } from "./characteristic.property";
 import { TextAreaProperty } from "./generic/text-area.property";
 
 export class MiscProperties {

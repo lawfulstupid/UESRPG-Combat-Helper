@@ -7,9 +7,9 @@ import { Enum } from "../enum/enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
-import { Rollable } from "../property/abstract/rollable";
-import { Attribute } from "../property/attribute";
-import { Modifier } from "../property/modifier";
+import { Rollable } from "../property/abstract/rollable.property";
+import { Attribute } from "../property/attribute.property";
+import { Modifier } from "../property/modifier.property";
 
 export class Test {
   
