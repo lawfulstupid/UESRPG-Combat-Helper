@@ -1,5 +1,5 @@
 import { AbstractType } from "@angular/core";
-import { Simple, Simplifiable, Simplified } from "../../interface/simple";
+import { Simple, Simplifiable, Simplified } from "../../serialisation/simple";
 import { Property, TemplateRole } from "../abstract/property";
 
 export class ObjectProperty<T extends Simplifiable<T>> extends Property<T> {

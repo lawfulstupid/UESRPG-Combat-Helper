@@ -1,4 +1,5 @@
-import { SimplifiedWound, Wound } from "../../combat/wound";
+import { Wound } from "../../combat/wound";
+import { SimplifiedWound } from "../../serialisation/simplified-wound";
 import { TemplateRole } from "../abstract/property";
 import { ArrayProperty } from "../types/array.property";
 import { BooleanProperty } from "../types/boolean.property";
