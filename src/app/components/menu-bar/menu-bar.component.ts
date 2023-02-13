@@ -7,13 +7,13 @@ import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { RandomUtil } from "src/app/util/random.util";
 import { environment } from "src/environments/environment";
-import { ActionItem } from "../actionbar/actionbar.component";
+import { ActionItem } from "../action-bar/action-bar.component";
 import { StageComponent } from "../stage/stage.component";
 
 @Component({
   selector: 'app-menubar',
-  templateUrl: './menubar.component.html',
-  styleUrls: ['./menubar.component.scss']
+  templateUrl: './menu-bar.component.html',
+  styleUrls: ['./menu-bar.component.scss']
 })
 export class MenubarComponent implements OnInit {
   

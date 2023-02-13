@@ -7,7 +7,7 @@ import {
   MatDialogRef, MAT_DIALOG_DATA
 } from '@angular/material/dialog';
 import { mergeMap, Observable, of, throwError } from 'rxjs';
-import { ActionItem } from 'src/app/components/actionbar/actionbar.component';
+import { ActionItem } from 'src/app/components/action-bar/action-bar.component';
 import { ValueChange } from 'src/app/components/property-input/property-input.component';
 import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';

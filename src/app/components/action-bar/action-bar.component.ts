@@ -2,8 +2,8 @@ import { Component, Input } from "@angular/core";
 
 @Component({
   selector: 'app-actionbar',
-  templateUrl: 'actionbar.component.html',
-  styleUrls: ['actionbar.component.scss']
+  templateUrl: 'action-bar.component.html',
+  styleUrls: ['action-bar.component.scss']
 })
 export class ActionbarComponent {
   

@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { ActionItem } from "src/app/components/actionbar/actionbar.component";
+import { ActionItem } from "src/app/components/action-bar/action-bar.component";
 import { Dialog } from "../dialog";
 
 @Component({

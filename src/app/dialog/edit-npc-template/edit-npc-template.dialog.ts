@@ -1,6 +1,6 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { ActionItem } from "src/app/components/actionbar/actionbar.component";
+import { ActionItem } from "src/app/components/action-bar/action-bar.component";
 import { Data } from "src/app/model/character/data-character";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";

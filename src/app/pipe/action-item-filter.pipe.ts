@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { ActionItem } from "../components/actionbar/actionbar.component";
+import { ActionItem } from "../components/action-bar/action-bar.component";
 
 @Pipe({
   name: 'actionItemFilter',
