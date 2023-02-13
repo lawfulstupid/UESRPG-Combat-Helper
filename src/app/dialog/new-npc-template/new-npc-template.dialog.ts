@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { ActionItem } from "src/app/components/action-bar/action-bar.component";
-import { ValueChange } from "src/app/components/property-input/property-input.component";
+import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
+import { ValueChange } from "src/app/components/common/property-input/property-input.component";
 import { Data } from "src/app/model/character/data-character";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Identifier } from "src/app/model/identifier";

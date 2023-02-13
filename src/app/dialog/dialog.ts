@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { ActionItem } from "../components/action-bar/action-bar.component";
+import { ActionItem } from "../components/common/action-bar/action-bar.component";
 
 @Component({
   selector: 'app-dialog',

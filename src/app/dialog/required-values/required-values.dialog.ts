@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EMPTY, forkJoin, mergeMap, Observable } from 'rxjs';
-import { ActionItem } from 'src/app/components/action-bar/action-bar.component';
-import { ValueChange } from 'src/app/components/property-input/property-input.component';
+import { ActionItem } from 'src/app/components/common/action-bar/action-bar.component';
+import { ValueChange } from 'src/app/components/common/property-input/property-input.component';
 import { DataCharacter, FetchMethod } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
 import { StaticProvider } from 'src/app/service/static.provider';
