@@ -5,7 +5,7 @@ import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { Attribute } from "../property/attribute.property";
-import { TransientProperties } from "../property/transient";
+import { MiscProperties } from "../property/misc";
 import { Wound } from "./wound";
 
 // This represents a damage expression delivered by the damage dealer
@@ -59,7 +59,7 @@ export class DamageApplication {
         // Use hit location provided, or ask user if missing
         ObservableUtil.coalesce(
           () => of(hitLocation),
-          () => ValueRequestDialog.requestValue(TransientProperties.HIT_LOCATION, this.npc, true)
+          () => ValueRequestDialog.requestValue(MiscProperties.HIT_LOCATION, this.npc, true)
         ).subscribe(hitLocation => {
           Wound.make(npc, hitLocation, damage);
         });
