@@ -14,7 +14,7 @@ import { ObservableUtil } from "src/app/util/observable.util";
 })
 export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   
-  private static readonly RECENT_CHANGE_DURATION_MS = 3000;
+  private static readonly RECENT_CHANGE_DURATION_MS = 1000;
   
   readonly faCircleMinus = faCircleMinus;
   readonly faCirclePlus = faCirclePlus;
