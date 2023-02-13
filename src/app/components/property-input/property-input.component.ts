@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { catchError, EMPTY } from "rxjs";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
-import { EnumProperty } from "src/app/model/property/generic/enum.property";
-import { TextAreaProperty } from "src/app/model/property/generic/text-area.property";
+import { EnumProperty } from "src/app/model/property/types/enum.property";
+import { TextAreaProperty } from "src/app/model/property/types/text-area.property";
 
 @Component({
   selector: 'app-property-input',

@@ -1,8 +1,8 @@
 import { SizeEnum } from "../enum/size.enum";
 import { ThreatRatingEnum } from "../enum/threat-rating.enum";
 import { TemplateRole } from "./abstract/property";
-import { EnumProperty } from "./generic/enum.property";
-import { NumericalProperty } from "./generic/number.property";
+import { EnumProperty } from "./types/enum.property";
+import { NumericalProperty } from "./types/number.property";
 
 export class Attribute extends NumericalProperty {
   

@@ -1,8 +1,8 @@
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TemplateRole } from "./abstract/property";
 import { Characteristic } from "./characteristic.property";
-import { EnumProperty } from "./generic/enum.property";
-import { TextAreaProperty } from "./generic/text-area.property";
+import { EnumProperty } from "./types/enum.property";
+import { TextAreaProperty } from "./types/text-area.property";
 
 export class MiscProperties {
   

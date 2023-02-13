@@ -1,6 +1,6 @@
 import { TemplateRole } from "./abstract/property";
 import { Rollable } from "./abstract/rollable.property";
-import { NumericalProperty } from "./generic/number.property";
+import { NumericalProperty } from "./types/number.property";
 
 export class Modifier extends NumericalProperty {
   

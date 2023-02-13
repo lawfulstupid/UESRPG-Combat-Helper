@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { DataCharacter, ValueFetcher } from "../../character/data-character";
-import { NumericalProperty } from "../generic/number.property";
+import { NumericalProperty } from "../types/number.property";
 
 export abstract class Rollable extends NumericalProperty {
   
