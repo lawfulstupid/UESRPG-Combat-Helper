@@ -9,7 +9,7 @@ import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { Modifier } from "src/app/model/property/modifier.property";
 import { EventManager } from "src/app/service/event.manager";
-import { ColorEnum } from "src/app/util/color.enum";
+import { ColorEnum } from "src/app/enum/color.enum";
 
 @Component({
   selector: 'app-npc',

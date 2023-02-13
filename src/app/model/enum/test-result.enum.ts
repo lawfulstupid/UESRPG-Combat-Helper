@@ -1,4 +1,4 @@
-import { ColorEnum } from "src/app/util/color.enum";
+import { ColorEnum } from "src/app/enum/color.enum";
 import { Enum } from "./enum";
 
 export class TestResultEnum extends Enum {
