@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Npc } from "src/app/model/character/npc";
-import { CombatProperty } from "src/app/model/property/combat";
+import { CombatProperty } from "src/app/model/property/collections/combat";
 
 @Component({
   selector: 'app-wounds',

@@ -5,7 +5,7 @@ import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { Attribute } from "../property/attribute.property";
-import { MiscProperties } from "../property/misc";
+import { MiscProperties } from "../property/collections/misc";
 import { Wound } from "./wound";
 
 // This represents a damage expression delivered by the damage dealer

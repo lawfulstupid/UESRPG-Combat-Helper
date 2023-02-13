@@ -2,8 +2,8 @@ import { Npc } from "../character/npc";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
 import { Simplifiable, Simplified } from "../interface/simple";
-import { CombatProperty } from "../property/combat";
-import { MiscProperties } from "../property/misc";
+import { CombatProperty } from "../property/collections/combat";
+import { MiscProperties } from "../property/collections/misc";
 import { Modifier } from "../property/modifier.property";
 import { Test } from "./test";
 

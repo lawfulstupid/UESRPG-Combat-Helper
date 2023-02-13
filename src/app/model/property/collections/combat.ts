@@ -1,9 +1,9 @@
-import { SimplifiedWound, Wound } from "../combat/wound";
-import { TemplateRole } from "./abstract/property";
-import { ArrayProperty } from "./types/array.property";
-import { BooleanProperty } from "./types/boolean.property";
-import { NumericalProperty } from "./types/number.property";
-import { ObjectProperty } from "./types/object.property";
+import { SimplifiedWound, Wound } from "../../combat/wound";
+import { TemplateRole } from "../abstract/property";
+import { ArrayProperty } from "../types/array.property";
+import { BooleanProperty } from "../types/boolean.property";
+import { NumericalProperty } from "../types/number.property";
+import { ObjectProperty } from "../types/object.property";
 
 export class CombatProperty {
   
