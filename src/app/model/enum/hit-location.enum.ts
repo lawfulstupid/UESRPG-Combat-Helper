@@ -13,7 +13,7 @@ export class HitLocationEnum extends Enum {
     name: string,
     readonly hitRange: Array<number>
   ) {
-    super(name);
+    super(HitLocationEnum, name);
   }
   
   isHitBy(roll: number) {

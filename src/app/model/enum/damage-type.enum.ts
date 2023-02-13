@@ -14,7 +14,7 @@ export class DamageTypeEnum extends Enum {
   public static readonly POISON = new DamageTypeEnum('Poison', this.MAGIC);
   
   constructor(name: string, readonly parent?: DamageTypeEnum) {
-    super(name);
+    super(DamageTypeEnum, name);
   }
   
 }

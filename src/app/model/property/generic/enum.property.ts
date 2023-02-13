@@ -5,19 +5,6 @@ import { Property, TemplateRole } from "../abstract/property";
 
 export class EnumProperty<T extends Enum> extends Property<T> {
   
-  serialise(value: T): string {
-    return Enum.key(value, this.clazz);
-  }
-  
-  deserialise(key: string): T {
-    const value: T = Enum.value(key, this.clazz);
-    if (value === undefined) {
-      throw new Error('Key \'' + key + '\' does not exist on ' + this.clazz.name);
-    }
-    return value;
-  }
-  
-  
   readonly options: Array<Identifier>;
   
   constructor(private clazz: AbstractType<T>, key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
@@ -26,6 +13,18 @@ export class EnumProperty<T extends Enum> extends Property<T> {
       const enumValue = Enum.value<T>(enumKey, clazz);
       return new Identifier(enumKey, enumValue.name);
     });
+  }
+  
+  serialise(value: T): string {
+    return value.key();
+  }
+  
+  deserialise(key: string): T {
+    const value: T = Enum.value(key, this.clazz);
+    if (value === undefined) {
+      throw new Error('Key \'' + key + '\' does not exist on ' + this.clazz.name);
+    }
+    return value;
   }
   
 }
