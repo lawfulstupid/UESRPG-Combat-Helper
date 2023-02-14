@@ -34,7 +34,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     EventManager.newRoundEvent.subscribe(() => {
       this.npc.reset(CombatProperties.STAMINA_SPENT);
       this.npc.reset(CombatProperties.ATTACKS_MADE);
-      this.npc.reset(Attribute.AP);
+      this.npc.alterProperty(Attribute.AP, ap => Math.min(0, ap) + 3);
     });
   }
   
