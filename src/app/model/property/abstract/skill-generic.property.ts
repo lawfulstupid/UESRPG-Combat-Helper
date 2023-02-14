@@ -4,11 +4,8 @@ import { Rollable } from "./rollable.property";
 
 export abstract class GenericSkill extends Rollable {
   
-  readonly governingCharacteristics: Array<Characteristic>;
-  
-  protected constructor(key: string, name: string, governedBy: Array<Characteristic>) {
+  protected constructor(key: string, name: string, readonly governingCharacteristics: Array<Characteristic>) {
     super(key, name, TemplateRole.REFERENCE);
-    this.governingCharacteristics = governedBy;
   }
   
 }

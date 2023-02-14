@@ -34,11 +34,8 @@ export class Skill extends GenericSkill {
   public static readonly SUBTERFUGE   = new Skill('subterfuge',   'Subterfuge',   NpcSkill.STEALTH,   [Characteristic.AGILITY, Characteristic.INTELLIGENCE]);
   public static readonly SURVIVAL     = new Skill('survival',     'Survival',     NpcSkill.OBSERVE,   [Characteristic.INTELLIGENCE, Characteristic.PERCEPTION]);
   
-  readonly npcSkill: NpcSkill;
-  
-  protected constructor(key: string, name: string, npcSkill: NpcSkill, governedBy: Array<Characteristic>) {
+  protected constructor(key: string, name: string, readonly npcSkill: NpcSkill, governedBy: Array<Characteristic>) {
     super(key, name, governedBy);
-    this.npcSkill = npcSkill;
   }
   
   override getTargetNumber(npc: DataCharacter, fetchMethod: ValueFetcher<number>): Observable<number> {
