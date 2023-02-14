@@ -13,21 +13,22 @@ import { DragulaModule } from 'ng2-dragula';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppComponent } from './app.component';
 import { ActionbarComponent } from './components/common/action-bar/action-bar.component';
-import { AttributeBarComponent } from './components/npc/attribute-bar/attribute-bar.component';
-import { ErrorComponent } from './components/error/error.component';
 import { LongPressButtonComponent } from './components/common/long-press-button/long-press-button.component';
-import { MenubarComponent } from './components/menu-bar/menu-bar.component';
-import { NpcComponent } from './components/npc/npc.component';
 import { PixelRounderComponent } from './components/common/pixel-rounder/pixel-rounder.component';
 import { PropertyInputComponent } from './components/common/property-input/property-input.component';
+import { TestResultComponent } from './components/common/test-result/test-result.component';
+import { ErrorComponent } from './components/error/error.component';
+import { MenubarComponent } from './components/menu-bar/menu-bar.component';
+import { AttributeBarComponent } from './components/npc/attribute-bar/attribute-bar.component';
+import { NpcComponent } from './components/npc/npc.component';
 import { SkillRollerComponent } from './components/npc/skill-roller/skill-roller.component';
+import { WoundsComponent } from './components/npc/wounds/wounds.component';
 import { StageComponent } from './components/stage/stage.component';
 import { TestLogComponent } from './components/test-log/test-log.component';
-import { TestResultComponent } from './components/common/test-result/test-result.component';
-import { WoundsComponent } from './components/npc/wounds/wounds.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
+import { InfoDialog } from './dialog/info/info.dialog';
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
 import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
@@ -59,6 +60,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     ManageNpcTemplatesDialog,
     EditNpcTemplateDialog,
     ConfirmDialog,
+    InfoDialog,
     ActionItemFilterPipe,
   ],
   imports: [
