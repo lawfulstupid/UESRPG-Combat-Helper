@@ -1,5 +1,6 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { StaticProvider } from "src/app/service/static.provider";
 import { Dialog } from "../dialog";
 
 @Component({
@@ -13,6 +14,16 @@ export class InfoDialog extends Dialog<InfoDialog> {
     @Inject(MAT_DIALOG_DATA) public data: InfoDialogConfig
   ) {
     super(dialogRef);
+  }
+  
+  static placeholder(message: string) {
+    const config: MatDialogConfig = {
+      data: {
+        title: 'Placeholder Info',
+        message: message
+      }
+    }
+    StaticProvider.dialog.open(InfoDialog, config);
   }
   
 }

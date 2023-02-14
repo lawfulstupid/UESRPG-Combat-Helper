@@ -1,3 +1,5 @@
+import { InfoDialog } from "src/app/dialog/info/info.dialog";
+import { RandomUtil } from "src/app/util/random.util";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
@@ -29,18 +31,26 @@ export class Wound implements Simplifiable<Wound> {
       npc.alterProperty(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
       npc.alterProperty(Modifier.WOUND_PASSIVE, penalty => penalty - 20);
       
+      const failedShockTest = shockTest.result.isFail();
+      
       switch (hitLocation) {
         case HitLocationEnum.HEAD:
-          // TODO #30: add 'Stunned' condition for 1 round
-          // TODO #30: on failed shock test, set eye/ear (random) status to 'Lost'
+          InfoDialog.placeholder(npc.name + ' is Stunned for 1 round'); // TODO #30: replace with condition
+          if (failedShockTest) {
+            const part = RandomUtil.coinFlip() ? 'Eye' : 'Ear'; // TODO #30: pick randomly from remaining eyes/ears
+            const side = RandomUtil.coinFlip() ? 'Left' : 'Right';
+            InfoDialog.placeholder(npc.name + ' has lost their ' + side + ' ' + part); // TODO #30: replace with set body part status
+          }
           break;
         case HitLocationEnum.BODY:
           npc.alterProperty(Attribute.AP, ap => ap - 1); // lose 1 AP
-          // TODO #30: on failed shock test, set body status to 'Crippled'
+          if (failedShockTest) {
+            InfoDialog.placeholder(npc.name + ' has gained the \'Crippled Body\' condition'); // TODO #30: replace with set body status
+          }
           break;
         default:
-          // TODO #30: set limb status to 'Crippled'
-          // TODO #30: on failed shock test, set limb status to 'Lost'
+          const status = failedShockTest ? 'Lost' : 'Crippled';
+          InfoDialog.placeholder(npc.name + ' has gained the \'' + status + ' ' + hitLocation.name + '\' condition'); // TODO #30: replace with set body status
           break;
       }
       
@@ -48,7 +58,7 @@ export class Wound implements Simplifiable<Wound> {
         case DamageTypeEnum.FIRE:
           Test.make(npc, Characteristic.AGILITY, {required: true}).subscribe(agTest => {
             if (agTest.result.isFail()) {
-              // TODO #30: add 'Burning(1)' condition
+              InfoDialog.placeholder(npc.name + ' has gained the Burning(1) condition'); // TODO #30: replace with condition
             }
           });
           break;

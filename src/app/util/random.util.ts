@@ -12,6 +12,10 @@ export class RandomUtil {
   static d20 = () => this.d(20);
   static d100 = () => this.d(100);
   
+  static coinFlip(): boolean {
+    return this.d(2) === 1;
+  }
+  
   // Evaluate a dice expression e.g. "2d6+1"
   static eval(expr: string): number {
     return expr.replace(/\s+/g, '').split('+').map(this.evalTerm).reduce((s,x) => s + x);
