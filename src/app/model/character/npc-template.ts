@@ -8,7 +8,7 @@ export class NpcTemplate extends DataCharacter {
 
   readonly key: string;
   
-  constructor(key: string, name: string, data: Data) {
+  constructor(key: string, name: string, data: Data = {}) {
     super(name, data);
     this.key = key;
   }

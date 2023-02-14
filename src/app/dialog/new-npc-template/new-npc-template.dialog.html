@@ -5,9 +5,4 @@
   <mat-form-field *ngIf="!preDefined">
     <input matInput [(ngModel)]="name" placeholder="Template Name" autocomplete="false"/>
   </mat-form-field>
-  <app-property-input
-    *ngFor="let property of requiredProperties"
-    [property]="property"
-    (valueChange)="onValueChange(property, $event)"
-  ></app-property-input>
 </app-dialog>
