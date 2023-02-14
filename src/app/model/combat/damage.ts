@@ -61,7 +61,7 @@ export class DamageApplication {
           () => of(hitLocation),
           () => ValueRequestDialog.requestValue(MiscProperties.HIT_LOCATION, this.npc, true)
         ).subscribe(hitLocation => {
-          Wound.make(npc, hitLocation, damage);
+          Wound.make(npc, hitLocation, damage, damageType);
         });
       }
     });
