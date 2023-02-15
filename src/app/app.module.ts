@@ -34,6 +34,8 @@ import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { RequiredValuesDialog } from './dialog/required-values/required-values.dialog';
 import { ValueRequestDialog } from './dialog/value-request/value-request.dialog';
+import { InputEnterRedirectionDirective } from './directive/input-enter-redirection.directive';
+import { MatSelectEnterRedirectionDirective } from './directive/mat-select-enter-redirection.directive';
 import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
 
 @NgModule({
@@ -62,6 +64,8 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     ConfirmDialog,
     InfoDialog,
     ActionItemFilterPipe,
+    InputEnterRedirectionDirective,
+    MatSelectEnterRedirectionDirective
   ],
   imports: [
     BrowserAnimationsModule,

@@ -96,12 +96,6 @@ export class PropertyInputComponent<T> implements OnInit {
     this.showErrorMessage = !!this.errorMessage;
   }
   
-  onKeypress(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      this.onEnter.emit();
-    }
-  }
-  
 }
 
 export interface ValueChange<T> {
