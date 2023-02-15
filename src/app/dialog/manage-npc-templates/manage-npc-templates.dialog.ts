@@ -1,9 +1,14 @@
 import { Component } from "@angular/core";
 import { MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { Observable, of } from "rxjs";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
+import { Npc } from "src/app/model/character/npc";
 import { Identifier } from "src/app/model/identifier";
+import { EventManager } from "src/app/service/event.manager";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { StaticProvider } from "src/app/service/static.provider";
+import { StageComponent } from "../../components/stage/stage.component";
+import { ConfirmDialog } from "../confirm/confirm.dialog";
 import { Dialog } from "../dialog";
 import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
@@ -50,8 +55,35 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   }
   
   deleteTemplate(templateKey: string) {
-    NpcTemplateManager.delete(templateKey);
-    this.loadTemplateList();
+    // Check for NPCs using the template first
+    const npcs: Array<Npc> = StageComponent.instance.componentRefs
+      .map(component => component.instance.npc)
+      .filter(npc => npc.getTemplateKey() === templateKey);
+    
+    let confirmation: Observable<boolean>;
+    if (npcs.length === 0) {
+      confirmation = of(true);
+    } else {
+      const config: MatDialogConfig = {data: {
+        title: 'Delete NPCs',
+        message: '' + npcs.length + ' NPC' + (npcs.length === 1 ? ' is' : 's are') + ' currently using this template: '
+          + npcs.map(npc => npc.name).join(', ') + '.\n'
+          + (npcs.length === 1 ? 'This' : 'These') + ' must be removed before the template can be deleted.',
+        yesButton: 'Proceed',
+        noButton: 'Cancel'
+      }};
+      confirmation = StaticProvider.dialog.open(ConfirmDialog, config).afterClosed();
+    }
+    
+    confirmation.subscribe(confirmed => {
+      if (confirmed) {
+        npcs.forEach(npc => {
+          EventManager.removeNpcEvent.emit(npc);
+        });
+        NpcTemplateManager.delete(templateKey);
+        this.loadTemplateList();
+      }
+    });
   }
   
 }

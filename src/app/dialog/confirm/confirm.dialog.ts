@@ -14,11 +14,14 @@ export class ConfirmDialog extends Dialog<ConfirmDialog> {
     callback: () => this.dialogRef.close(true)
   }];
   
+  readonly lines: Array<string>;
+  
   constructor(
     dialogRef: MatDialogRef<ConfirmDialog>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogConfig
   ) {
     super(dialogRef);
+    this.lines = data.message.split('\n');
   }
   
 }

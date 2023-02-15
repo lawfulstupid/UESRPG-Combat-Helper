@@ -1,3 +1,5 @@
-<app-dialog [title]="data.title" [actions]="actions" [cancel]="data.noButton || 'No'" [cancelValue]="false">
-  {{data.message}}
+<app-dialog [title]="data.title" [actions]="actions" [cancel]="data.noButton || 'No'" [cancelValue]="false" fxLayout="column">
+  <span *ngFor="let line of lines">
+    {{line}}
+  </span>
 </app-dialog>
