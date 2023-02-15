@@ -37,7 +37,7 @@ export class EditNpcTemplateDialog extends Dialog<EditNpcTemplateDialog> {
     super(dialogRef);
     const template = NpcTemplateManager.load(this.templateKey);
     this.name = template.name;
-    this.data = template.getRawDataCopy();
+    this.data = template.getData();
     this.computeKeys();
   }
   

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { faArrowsUpDownLeftRight, faClose } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
+import { ColorEnum } from "src/app/enum/color.enum";
 import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
 import { Property } from "src/app/model/property/abstract/property";
@@ -9,7 +10,6 @@ import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { Modifier } from "src/app/model/property/modifier.property";
 import { EventManager } from "src/app/service/event.manager";
-import { ColorEnum } from "src/app/enum/color.enum";
 
 @Component({
   selector: 'app-npc',
@@ -34,7 +34,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     EventManager.newRoundEvent.subscribe(() => {
       this.npc.reset(CombatProperties.STAMINA_SPENT);
       this.npc.reset(CombatProperties.ATTACKS_MADE);
-      this.npc.alterProperty(Attribute.AP, ap => Math.min(0, ap) + 3);
+      this.npc.alter(Attribute.AP, ap => Math.min(0, ap) + 3);
     });
   }
   
@@ -47,12 +47,12 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   onSpChange(change: number) {
     // Mark stamina as spent this round
     if (change < 0) {
-      this.npc.writeData(CombatProperties.STAMINA_SPENT, true);
+      this.npc.put(CombatProperties.STAMINA_SPENT, true);
     }
     // Apply fatigue penalty
-    this.npc.getProperty(Attribute.SP).subscribe(sp => {
+    this.npc.get(Attribute.SP).subscribe(sp => {
       if (sp < 0) {
-        this.npc.writeData(Modifier.FATIGUE, sp * 10);
+        this.npc.put(Modifier.FATIGUE, sp * 10);
       } else {
         this.npc.reset(Modifier.FATIGUE);
       }

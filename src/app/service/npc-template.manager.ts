@@ -1,7 +1,7 @@
 import { ErrorComponent } from '../components/error/error.component';
 import { NpcTemplate } from '../model/character/npc-template';
 import { Identifier } from '../model/identifier';
-
+// 
 export class NpcTemplateManager {
   
   private static loadedTemplates: {[key: string]: NpcTemplate} = {};
@@ -23,7 +23,7 @@ export class NpcTemplateManager {
     // Merge with existing template
     const existing: NpcTemplate = this.load(template.key);
     existing.name = template.name;
-    existing.replaceData(template.getRawDataCopy());
+    existing.putData(template.getData());
     return this.save(existing);
   }
   

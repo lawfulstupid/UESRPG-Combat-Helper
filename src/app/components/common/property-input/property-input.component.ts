@@ -59,7 +59,7 @@ export class PropertyInputComponent<T> implements OnInit {
         this.directCharacterAccess = undefined;
         throw new Error('Cannot directly access templated properties');
       }
-      this.directCharacterAccess.getProperty(this.property, FetchMethod.SILENT)
+      this.directCharacterAccess.get(this.property, FetchMethod.SILENT)
         .pipe(catchError(() => EMPTY))
         .subscribe(value => {
           this.value = value;
@@ -88,7 +88,7 @@ export class PropertyInputComponent<T> implements OnInit {
   outputValue(init: boolean = false) {
     this.valueChange.emit({valueStr: this.valueStr, value: this.value});
     if (this.directCharacterAccess && !init) {
-      this.directCharacterAccess.writeData(this.property, this.value);
+      this.directCharacterAccess.put(this.property, this.value);
     }
   }
   

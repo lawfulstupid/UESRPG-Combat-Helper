@@ -46,7 +46,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   
   statDisplay(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
-      return this.npc.getProperty(this.attribute).pipe(map(stat => {
+      return this.npc.get(this.attribute).pipe(map(stat => {
         return '' + stat + ' / ' + statMax;
       }));
     }));
@@ -54,7 +54,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   
   getBarPercent(): Observable<string> {
     return this.npc.getTemplateProperty(this.attribute).pipe(mergeMap(statMax => {
-      return this.npc.getProperty(this.attribute).pipe(map(stat => {
+      return this.npc.get(this.attribute).pipe(map(stat => {
         let ratio = Math.max(0, 100 * stat / statMax);
         return ratio.toFixed(0) + '%';
       }));
@@ -73,9 +73,9 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
         }));
       }
     ).subscribe(value => {
-      this.npc.getProperty(this.attribute).subscribe(currentValue => {  // Get current value from NPC
+      this.npc.get(this.attribute).subscribe(currentValue => {  // Get current value from NPC
         const change = direction * value;
-        this.npc.writeData(this.attribute, currentValue + change);      // Modify it appropriately
+        this.npc.put(this.attribute, currentValue + change);      // Modify it appropriately
         this.updateChanges(change);
       });
     });

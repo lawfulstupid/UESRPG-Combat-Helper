@@ -8,8 +8,8 @@ import { Enum } from 'src/app/model/enum/enum';
 import { Rollable } from 'src/app/model/property/abstract/rollable.property';
 import { Characteristic } from 'src/app/model/property/characteristic.property';
 import { Modifier } from 'src/app/model/property/modifier.property';
-import { Skill } from 'src/app/model/property/skill.property';
 import { NpcSkill } from 'src/app/model/property/skill-npc.property';
+import { Skill } from 'src/app/model/property/skill.property';
 import { SearchUtil } from 'src/app/util/search.util';
 
 @Component({
@@ -46,13 +46,13 @@ export class SkillRollerComponent {
   
   displayTargetNumber(skill: Rollable): Observable<string> {
     if (this.npc.hasProperty(skill)) {
-      return this.npc.getProperty(skill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
+      return this.npc.get(skill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
     }
     
     if (skill instanceof Skill) {
       const npcSkill: NpcSkill = skill.npcSkill;
       if (this.npc.hasProperty(npcSkill)) {
-        return this.npc.getProperty(npcSkill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
+        return this.npc.get(npcSkill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
       }
     }
     

@@ -43,7 +43,7 @@ export class Skill extends GenericSkill {
   override getTargetNumber(npc: DataCharacter, fetchMethod: ValueFetcher<number>): Observable<number> {
     // Tries a few strategies to get the TN:
     return ObservableUtil.coalesce(
-      () => npc.getProperty(this, FetchMethod.SILENT),       // 1. Check for PC skill without asking user
+      () => npc.get(this, FetchMethod.SILENT),       // 1. Check for PC skill without asking user
       () => this.npcSkill.getTargetNumber(npc, fetchMethod), // 2. Check for NPC skill, ask user if missing
       () => super.getTargetNumber(npc, fetchMethod)          // 3. Default method. This fires if user clicks 'Cancel' on NPC skill value request dialog
     );

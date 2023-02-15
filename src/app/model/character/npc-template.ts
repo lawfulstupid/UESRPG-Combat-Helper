@@ -13,8 +13,8 @@ export class NpcTemplate extends DataCharacter {
     this.key = key;
   }
   
-  override writeData<T>(property: Property<T>, value: T) {
-    super.writeData(property, value);
+  override put<T>(property: Property<T>, value: T) {
+    super.put(property, value);
     NpcTemplateManager.update(this); // save update in local storage
   }
   
@@ -23,7 +23,7 @@ export class NpcTemplate extends DataCharacter {
     return ObservableUtil.coalesce(
       () => this.produceValue(property, fetchMethod)
     ).pipe(tap(value => {
-      this.writeData(property, value);
+      this.put(property, value);
     }));
   }
   

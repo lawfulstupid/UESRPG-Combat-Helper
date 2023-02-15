@@ -20,10 +20,10 @@ export class Npc extends DataCharacter implements Simplifiable<Npc> {
       case TemplateRole.REFERENCE:
       case TemplateRole.MAXIMUM:
         // get value from template
-        return this.template.getProperty<T>(property, fetchMethod).pipe(tap(value => {
+        return this.template.get<T>(property, fetchMethod).pipe(tap(value => {
           if (property.templateRole === TemplateRole.MAXIMUM) {
             // make a copy so we can track current value independently
-            this.writeData(property, value);
+            this.put(property, value);
           }
         }));
       case TemplateRole.NO_TEMPLATE:
@@ -33,7 +33,7 @@ export class Npc extends DataCharacter implements Simplifiable<Npc> {
           of(property.defaultValue),
           () => this.produceValue(property, fetchMethod)
         ).pipe(tap(value => {
-          this.writeData(property, value); // save the result wherever it came from
+          this.put(property, value); // save the result wherever it came from
         }));
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
@@ -53,7 +53,7 @@ export class Npc extends DataCharacter implements Simplifiable<Npc> {
     if (property?.templateRole === TemplateRole.NO_TEMPLATE) {
       return of(<T>property.defaultValue); // guaranteed to not be undefined
     } else {
-      return this.template.getProperty(property);
+      return this.template.get(property);
     }
   }
   
@@ -68,6 +68,8 @@ export class Npc extends DataCharacter implements Simplifiable<Npc> {
         return this.template.hasProperty(property);
       case TemplateRole.NO_TEMPLATE:
         return property.defaultValue !== undefined;
+      case TemplateRole.TRANSIENT:
+        return false; // transient properties are not saved
       default:
         throw new Error('Unhandled templating mode: ' + property.templateRole);
     }

@@ -12,7 +12,7 @@ export class SimplifiedNpc implements Simplified<Npc> {
   constructor(npc: Npc) {
     this.name = npc.name;
     this.templateKey = npc.getTemplateKey();
-    this.data = npc.getRawDataCopy();
+    this.data = npc.getData();
   }
   
   desimplify(): Npc {

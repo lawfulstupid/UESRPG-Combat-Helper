@@ -47,7 +47,7 @@ export class Wound implements Simplifiable<Wound> {
           }
           break;
         case HitLocationEnum.BODY:
-          npc.alterProperty(Attribute.AP, ap => ap - 1); // lose 1 AP
+          npc.alter(Attribute.AP, ap => ap - 1); // lose 1 AP
           description = 'Wounded Body';
           if (failedShockTest) {
             InfoDialog.placeholder(npc.name + ' has gained the \'Crippled Body\' condition'); // TODO #30: replace with set body status
@@ -71,11 +71,11 @@ export class Wound implements Simplifiable<Wound> {
           break;
         case DamageTypeEnum.FROST:
         case DamageTypeEnum.POISON:
-          npc.alterProperty(Attribute.SP, sp => sp - 1); // lose 1 SP
+          npc.alter(Attribute.SP, sp => sp - 1); // lose 1 SP
           break;
         case DamageTypeEnum.SHOCK:
         case DamageTypeEnum.MAGIC:
-          npc.alterProperty(Attribute.MP, mp => mp - damage); // lose MP equal to damage taken
+          npc.alter(Attribute.MP, mp => mp - damage); // lose MP equal to damage taken
           break;
         default:
           // PHYSICAL has no special effect
@@ -83,8 +83,8 @@ export class Wound implements Simplifiable<Wound> {
       }
       
       const wound = new Wound(hitLocation, damage, shockTest.result, description);
-      npc.alterProperty(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
-      npc.alterProperty(Modifier.WOUND_PASSIVE, penalty => penalty - 20);
+      npc.alter(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
+      npc.alter(Modifier.WOUND_PASSIVE, penalty => penalty - 20);
       return wound;
     });
   }
