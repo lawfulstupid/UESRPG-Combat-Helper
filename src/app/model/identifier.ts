@@ -19,7 +19,7 @@ export class Identifier {
     private readonly _name: string
   ) {}
   
-  renamed(alias: string): typeof this {
+  renamed(alias: string): this {
     const clone: typeof this = Object.create(this);
     clone.alias = alias;
     return clone;

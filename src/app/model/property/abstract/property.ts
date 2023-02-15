@@ -32,7 +32,7 @@ export abstract class Property<T> extends Identifier {
   }
   
   // Creates a derived property with the current class
-  derivedFrom<S>(baseProperty: Property<S>, transform: (value: S) => T): typeof this {
+  derivedFrom<S>(baseProperty: Property<S>, transform: (value: S) => T): this {
     const clone: typeof this = Object.create(this);
     clone.derivation = new PropertyDerivation(baseProperty, transform);
     return clone;
