@@ -3,6 +3,8 @@ import { Characteristic } from "./characteristic.property";
 
 export class NpcSkill extends GenericSkill {
   
+  override DOMAIN = 'skill.npc'
+  
   public static readonly COMBAT     = new NpcSkill('combat',    'Combat',     [Characteristic.STRENGTH, Characteristic.AGILITY]);
   public static readonly KNOWLEDGE  = new NpcSkill('knowledge', 'Knowledge',  [Characteristic.INTELLIGENCE]);
   public static readonly MAGIC      = new NpcSkill('magic',     'Magic',      [Characteristic.WILLPOWER]);

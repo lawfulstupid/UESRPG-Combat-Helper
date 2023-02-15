@@ -6,6 +6,8 @@ import { NumericalProperty } from "./types/number.property";
 
 export class Attribute extends NumericalProperty {
   
+  override DOMAIN = 'attribute';
+  
   public static readonly HP = new Attribute('hitPoints', 'Hit Points', TemplateRole.MAXIMUM);
   public static readonly WT = new Attribute('woundThreshold', 'Wound Threshold', TemplateRole.REFERENCE);
   public static readonly MP = new Attribute('magicka', 'Magicka Points', TemplateRole.MAXIMUM);

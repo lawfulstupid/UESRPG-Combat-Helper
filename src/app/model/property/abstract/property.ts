@@ -2,6 +2,12 @@ import { Identifier } from "../../identifier";
 
 export abstract class Property<T> extends Identifier {
   
+  readonly DOMAIN?: string;
+  
+  override get key(): string {
+    return (this.DOMAIN ? this.DOMAIN + '.' : '') + super.key;
+  }
+  
   constructor(key: string, name: string, readonly templateRole: TemplateRole, readonly defaultValue?: T) {
     super(key, name);
   }

@@ -4,6 +4,8 @@ import { NumericalProperty } from "./types/number.property";
 
 export class Modifier extends NumericalProperty {
   
+  override DOMAIN = 'modifier';
+  
   public static readonly MISC = new Modifier('miscModifier', 'Modifier');
   public static readonly FATIGUE = new Modifier('fatigue', 'Fatigue Penalty');
   public static readonly WOUND_PASSIVE = new Modifier('woundPassive', 'Wound Passive Penalty');

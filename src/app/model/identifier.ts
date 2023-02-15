@@ -1,8 +1,10 @@
 export class Identifier {
   
-  readonly key: string;   // identifer for persistance
-  readonly _name: string; // display name
-  private alias?: string; // alternative display name
+  private alias?: string; // alternative display name (TODO #28: remove)
+  
+  get key(): string {
+    return this._key;
+  }
   
   get name(): string {
     return this.alias || this._name;
@@ -12,10 +14,10 @@ export class Identifier {
     return this._name;
   }
   
-  constructor(key: string, name: string) {
-    this.key = key;
-    this._name = name;
-  }
+  constructor(
+    private readonly _key: string,
+    private readonly _name: string
+  ) {}
   
   renamed(alias: string): typeof this {
     const clone: typeof this = Object.create(this);

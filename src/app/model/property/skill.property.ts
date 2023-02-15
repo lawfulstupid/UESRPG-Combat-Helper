@@ -7,6 +7,8 @@ import { NpcSkill } from "./skill-npc.property";
 
 export class Skill extends GenericSkill {
   
+  override DOMAIN = 'skill';
+  
   public static readonly ACROBATICS   = new Skill('acrobatics',   'Acrobatics',   NpcSkill.PHYSICAL,  [Characteristic.STRENGTH, Characteristic.AGILITY]);
   public static readonly ALCHEMY      = new Skill('alchemy',      'Alchemy',      NpcSkill.KNOWLEDGE, [Characteristic.INTELLIGENCE]);
   public static readonly ALTERATION   = new Skill('alteration',   'Alteration',   NpcSkill.MAGIC,     [Characteristic.WILLPOWER]);

@@ -2,6 +2,8 @@ import { TemplateRole } from "./abstract/property";
 import { Rollable } from "./abstract/rollable.property";
 
 export class Characteristic extends Rollable {
+  
+  override DOMAIN = 'characteristic';
 
   public static readonly STRENGTH = new Characteristic('strength', 'Strength');
   public static readonly ENDURANCE = new Characteristic('endurance', 'Endurance');
