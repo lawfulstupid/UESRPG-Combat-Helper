@@ -1,4 +1,4 @@
-import { Observable, of, throwError } from "rxjs";
+import { map, Observable, of, throwError } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Dictionary } from "src/app/util/dictionary.util";
 import { Property, TemplateRole } from "../property/abstract/property";
@@ -17,6 +17,8 @@ export abstract class DataCharacter extends Character {
   public get<T>(property?: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
     if (property === undefined) {
       return throwError(() => new Error('Undefined property'));
+    } else if (property.isDerived()) {
+      return this.get(property.getBaseProperty()).pipe(map(value => property.derivationTransform(value)));
     } else {
       return this.getPropertyInternal(property, fetchMethod);
     }
