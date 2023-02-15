@@ -1,3 +1,4 @@
+import { DummyProperty } from "./abstract/dummy.property";
 import { TemplateRole } from "./abstract/property";
 import { Rollable } from "./abstract/rollable.property";
 
@@ -12,6 +13,8 @@ export class Characteristic extends Rollable {
   public static readonly WILLPOWER = new Characteristic('willpower', 'Willpower');
   public static readonly PERCEPTION = new Characteristic('perception', 'Perception');
   public static readonly PERSONALITY = new Characteristic('personality', 'Personality');
+  
+  public readonly BONUS = new DummyProperty<number>(this.name + ' Bonus').derivedFrom(this, score => Math.floor(score/10));
   
   protected constructor(key: string, name: string) {
     super(key, name, TemplateRole.REFERENCE);
