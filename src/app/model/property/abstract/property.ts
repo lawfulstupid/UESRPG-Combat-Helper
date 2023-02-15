@@ -1,3 +1,4 @@
+import { identity } from "rxjs";
 import { Identifier } from "../../identifier";
 
 export abstract class Property<T> extends Identifier {
@@ -36,6 +37,10 @@ export abstract class Property<T> extends Identifier {
     const clone: typeof this = Object.create(this);
     clone.derivation = new PropertyDerivation(baseProperty, transform);
     return clone;
+  }
+  
+  override renamed(alias: string): this {
+    return super.renamed(alias).derivedFrom(this, identity);
   }
   
 }
