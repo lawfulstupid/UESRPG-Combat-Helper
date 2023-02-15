@@ -8,7 +8,6 @@ import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute.property";
 import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
-import { Modifier } from "src/app/model/property/modifier.property";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({
@@ -49,14 +48,6 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     if (change < 0) {
       this.npc.put(CombatProperties.STAMINA_SPENT, true);
     }
-    // Apply fatigue penalty
-    this.npc.get(Attribute.SP).subscribe(sp => {
-      if (sp < 0) {
-        this.npc.put(Modifier.FATIGUE, sp * 10);
-      } else {
-        this.npc.reset(Modifier.FATIGUE);
-      }
-    });
   }
   
   close() {
