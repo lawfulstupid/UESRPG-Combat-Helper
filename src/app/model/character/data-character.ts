@@ -15,7 +15,11 @@ export abstract class DataCharacter extends Character {
   
   // Get a property from character
   public get<T>(property?: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
-    return this.getPropertyInternal(property, fetchMethod);
+    if (property === undefined) {
+      return throwError(() => new Error('Undefined property'));
+    } else {
+      return this.getPropertyInternal(property, fetchMethod);
+    }
   }
   
   // Save a property to character's internal data
@@ -57,10 +61,8 @@ export abstract class DataCharacter extends Character {
   }
   
   // GET Step 1: retrieves a property of the character from internal data
-  private getPropertyInternal<T>(property?: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
-    if (property === undefined) {
-      return throwError(() => new Error('Undefined property'));
-    } else if (this.data[property.key] !== undefined) {
+  private getPropertyInternal<T>(property: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
+    if (this.data[property.key] !== undefined) {
       try {
         let value: T = property.deserialise(this.data[property.key]);
         return of(value); // try to get value from internal data
