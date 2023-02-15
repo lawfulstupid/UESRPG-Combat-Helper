@@ -84,7 +84,6 @@ export class Wound implements Simplifiable<Wound> {
       
       const wound = new Wound(hitLocation, damage, shockTest.result, description);
       npc.alter(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
-      npc.alter(Modifier.WOUND_PASSIVE, penalty => penalty - 20);
       return wound;
     });
   }
