@@ -10,8 +10,8 @@ export class Attribute extends NumericalProperty {
   
   public static readonly HIT_POINTS = new Attribute('hitPoints', 'Hit Points', TemplateRole.MAXIMUM);
   public static readonly WOUND_THRESHOLD = new Attribute('woundThreshold', 'Wound Threshold', TemplateRole.REFERENCE);
-  public static readonly MAGICKA_POINTS = new Attribute('magicka', 'Magicka Points', TemplateRole.MAXIMUM);
-  public static readonly STAMINA_POINTS = new Attribute('stamina', 'Stamina Points', TemplateRole.MAXIMUM, 3);
+  public static readonly MAGICKA = new Attribute('magicka', 'Magicka Points', TemplateRole.MAXIMUM);
+  public static readonly STAMINA = new Attribute('stamina', 'Stamina Points', TemplateRole.MAXIMUM, 3);
   public static readonly INITIATIVE_RATING = new Attribute('initiative', 'Initiative Rating', TemplateRole.REFERENCE);
   public static readonly ACTION_POINTS = new Attribute('actionPoints', 'Action Points', TemplateRole.NO_TEMPLATE, 3);
   public static readonly SPEED = new Attribute('speed', 'Speed', TemplateRole.REFERENCE);

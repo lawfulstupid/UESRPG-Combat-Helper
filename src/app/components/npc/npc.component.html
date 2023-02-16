@@ -21,11 +21,11 @@
   <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.HIT_POINTS" [color]="colorEnum.RED"
     (onChange)="onHpChange($event)"
   ></app-attribute-bar>
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.STAMINA_POINTS" [color]="colorEnum.GREEN"
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.STAMINA" [color]="colorEnum.GREEN"
     (onChange)="onSpChange($event)"
     [disabled]="npc.get(combatEnum.STAMINA_SPENT) | async"
   ></app-attribute-bar>
-  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MAGICKA_POINTS" [color]="colorEnum.BLUE"></app-attribute-bar>
+  <app-attribute-bar [npc]="npc" [attribute]="attributeEnum.MAGICKA" [color]="colorEnum.BLUE"></app-attribute-bar>
   <div class="gap"></div>
   
   <!-- Skill roller -->

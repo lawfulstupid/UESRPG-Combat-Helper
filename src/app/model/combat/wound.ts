@@ -70,11 +70,11 @@ export class Wound implements Simplifiable<Wound> {
           break;
         case DamageTypeEnum.FROST:
         case DamageTypeEnum.POISON:
-          npc.alter(Attribute.STAMINA_POINTS, sp => sp - 1); // lose 1 SP
+          npc.alter(Attribute.STAMINA, sp => sp - 1); // lose 1 SP
           break;
         case DamageTypeEnum.SHOCK:
         case DamageTypeEnum.MAGIC:
-          npc.alter(Attribute.MAGICKA_POINTS, mp => mp - damage); // lose MP equal to damage taken
+          npc.alter(Attribute.MAGICKA, mp => mp - damage); // lose MP equal to damage taken
           break;
         default:
           // PHYSICAL has no special effect
