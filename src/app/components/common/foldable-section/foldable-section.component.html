@@ -1,0 +1,12 @@
+<div class="header" [ngClass]="open ? 'open' : 'closed'" fxLayout="row">
+  <span>{{title || '&nbsp;'}}</span>
+  <fa-icon [icon]="closeIcon" *ngIf="open"
+    (click)="open = false"
+  ></fa-icon>
+  <fa-icon [icon]="openIcon" *ngIf="!open"
+    (click)="open = true"
+  ></fa-icon>
+</div>
+<div class="container" *ngIf="open">
+  <ng-content></ng-content>
+</div>

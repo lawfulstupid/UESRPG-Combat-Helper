@@ -14,6 +14,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AppComponent } from './app.component';
 import { ActionbarComponent } from './components/common/action-bar/action-bar.component';
+import { FoldableSectionComponent } from './components/common/foldable-section/foldable-section.component';
 import { LongPressButtonComponent } from './components/common/long-press-button/long-press-button.component';
 import { PixelRounderComponent } from './components/common/pixel-rounder/pixel-rounder.component';
 import { PropertyInputComponent } from './components/common/property-input/property-input.component';
@@ -55,6 +56,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     TestLogComponent,
     TestResultComponent,
     WoundsComponent,
+    FoldableSectionComponent,
     Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
