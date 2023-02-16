@@ -32,7 +32,7 @@ export class Damage {
       appliedDamage = new DamageApplication(this.damage, this.damageType, npc, hitLocation);
     }
     
-    npc.alter(Attribute.HP, hp => hp - appliedDamage.damage);
+    npc.alter(Attribute.HIT_POINTS, hp => hp - appliedDamage.damage);
     return appliedDamage;
   }
   
@@ -54,7 +54,7 @@ export class DamageApplication {
       throw new Error('Physical damage subtypes cannot be applied');
     }
     
-    npc.get(Attribute.WT).subscribe(wt => {
+    npc.get(Attribute.WOUND_THRESHOLD).subscribe(wt => {
       if (damage > wt) {
         // Use hit location provided, or ask user if missing
         ObservableUtil.coalesce(
