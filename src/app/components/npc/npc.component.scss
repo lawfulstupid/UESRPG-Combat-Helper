@@ -31,6 +31,7 @@
     background-color: cornflowerblue;
     left: 0px;
     top: 0px;
+    cursor: grab;
     fa-icon {
         left: calc((16px - 14px) / 2);
     }
@@ -41,6 +42,7 @@
     background-color: crimson;
     left: calc(100% - 16px);
     top: 0px;
+    cursor: pointer;
     fa-icon {
         font-size: large;
         left: calc((16px - 11.25px) / 2);
