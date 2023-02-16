@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { catchError, EMPTY } from "rxjs";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
+import { ArrayProperty } from "src/app/model/property/types/array.property";
+import { BooleanProperty } from "src/app/model/property/types/boolean.property";
 import { EnumProperty } from "src/app/model/property/types/enum.property";
 import { TextAreaProperty } from "src/app/model/property/types/text-area.property";
 
@@ -20,12 +22,18 @@ export class PropertyInputComponent<T> implements OnInit {
       this.valueChange.emit({valueStr: this.valueStr, value: property.defaultValue});
     }
     
-    if (property instanceof EnumProperty) {
+    if (property instanceof ArrayProperty) {
+      this.arrayProperty = property;
+    } else if (property instanceof BooleanProperty) {
+      this.booleanProperty = property;
+      this.value = <T><any>false;
+      this.onValueChange();
+    } else if (property instanceof EnumProperty) {
       this.enumProperty = property;
     } else if (property instanceof TextAreaProperty) {
       this.textAreaProperty = property;
     } else {
-      this.defaultProperty = property;
+      this.defaultProperty = property; // for (single-line) text and numbers
     }
   }
   
@@ -38,8 +46,10 @@ export class PropertyInputComponent<T> implements OnInit {
   private property!: Property<T>;
   // Only one of the below will be populated -- determines how property input is displayed
   defaultProperty?: Property<T>;
-  textAreaProperty?: TextAreaProperty;
+  arrayProperty?: ArrayProperty<any>; // TODO #4
+  booleanProperty?: BooleanProperty;
   enumProperty?: EnumProperty<any>;
+  textAreaProperty?: TextAreaProperty;
   
   valueStr: string = '';
   value?: T;
@@ -64,12 +74,32 @@ export class PropertyInputComponent<T> implements OnInit {
         .subscribe(value => {
           this.value = value;
           this.valueStr = this.property.serialise(value);
-          this.outputValue(true);
+          this.output(true);
         });
     }
   }
   
+  // Call if [ngModel]="value"
   onValueChange() {
+    this.showErrorMessage = false;
+    this.errorMessage = undefined;
+    try {
+      if (this.value !== undefined) {
+        this.valueStr = this.property.serialise(this.value);
+      } else if (this.allowBlank) {
+        this.valueStr = '';
+      } else {
+        throw new Error('Value undefined');
+      }
+      this.output();
+    } catch (e) {
+      this.errorMessage = 'Invalid'; // TODO: more detail
+      this.valueChange.emit(undefined);
+    }
+  }
+  
+  // Call if [ngModel]="valueStr"
+  onValueStrChange() {
     this.showErrorMessage = false;
     this.errorMessage = undefined;
     try {
@@ -78,14 +108,14 @@ export class PropertyInputComponent<T> implements OnInit {
       } else {
         this.value = this.property.deserialise(this.valueStr);
       }
-      this.outputValue();
+      this.output();
     } catch (e) {
       this.errorMessage = 'Invalid'; // TODO: more detail
       this.valueChange.emit(undefined);
     }
   }
   
-  outputValue(init: boolean = false) {
+  private output(init: boolean = false) {
     this.valueChange.emit({valueStr: this.valueStr, value: this.value});
     if (this.directCharacterAccess && !init) {
       this.directCharacterAccess.put(this.property, this.value);

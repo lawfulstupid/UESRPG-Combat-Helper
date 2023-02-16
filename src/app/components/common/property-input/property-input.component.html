@@ -1,26 +1,30 @@
-<mat-form-field style="width: 100%">
-  <input matInput *ngIf="defaultProperty"
+<mat-form-field *ngIf="defaultProperty">
+  <input matInput
     [(ngModel)]="valueStr"
-    (ngModelChange)="onValueChange()"
+    (ngModelChange)="onValueStrChange()"
     (change)="onFocusChange()"
     [placeholder]="defaultProperty.name"
     autocomplete="false"
     (onEnterPressed)="onEnter.emit()"
   />
   <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
-  
-  <textarea matInput *ngIf="textAreaProperty"
+</mat-form-field>
+
+<mat-form-field *ngIf="textAreaProperty">
+  <textarea matInput
     class="notes"
     [(ngModel)]="valueStr"
-    (ngModelChange)="onValueChange()"
+    (ngModelChange)="onValueStrChange()"
     (change)="onFocusChange()"
     [placeholder]="textAreaProperty.name"
     autocomplete="false"
   ></textarea>
-  
-  <mat-select *ngIf="enumProperty"
+</mat-form-field>
+
+<mat-form-field *ngIf="enumProperty">
+  <mat-select
     [(ngModel)]="valueStr"
-    (ngModelChange)="onValueChange()"
+    (ngModelChange)="onValueStrChange()"
     [placeholder]="enumProperty.name"
     (onEnterPressed)="onEnter.emit()"
   >
@@ -29,3 +33,10 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+  
+<mat-checkbox *ngIf="booleanProperty"
+  [(ngModel)]="value"
+  (ngModelChange)="onValueChange()"
+>
+  {{booleanProperty.name}} 
+</mat-checkbox>

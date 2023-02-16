@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -74,6 +75,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     FlexLayoutModule,
     FontAwesomeModule,
     FormsModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatButtonModule,
     MatInputModule,
