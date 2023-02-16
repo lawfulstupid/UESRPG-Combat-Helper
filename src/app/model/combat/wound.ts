@@ -1,15 +1,16 @@
 import { InfoDialog } from "src/app/dialog/info/info.dialog";
 import { EventManager } from "src/app/service/event.manager";
-import { RandomUtil } from "src/app/util/random.util";
 import { Persistable, RegisterPersistable } from "../../persistence/persistable";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
 import { TestResultEnum } from "../enum/test-result.enum";
+import { WoundStatusEnum } from "../enum/wound-status.enum";
 import { Attribute } from "../property/attribute.property";
 import { Characteristic } from "../property/characteristic.property";
 import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
+import { WoundLocationProperty } from "../property/wound-location.property";
 import { Test } from "./test";
 
 @RegisterPersistable('8ec0cbd9-9d70-42fe-8594-993bde31afb2')
@@ -34,35 +35,31 @@ export class Wound implements Persistable<Wound> {
     return this.description + ' (' + this.severity.toString() + ')';
   }
   
-  static make(npc: Npc, hitLocation: HitLocationEnum, damage: number, damageType: DamageTypeEnum, tempModifier: number = 0) {
-    return Test.make(npc, MiscProperties.SHOCK_TEST, {required: true, tempModifier: tempModifier}).subscribe(shockTest => {
+  static make(npc: Npc, hitLocation: HitLocationEnum, damage: number, damageType: DamageTypeEnum) {
+    let woundLocation: WoundLocationProperty = hitLocation.asWoundLocation;
+    let woundStatus: WoundStatusEnum;
+    
+    return Test.make(npc, MiscProperties.SHOCK_TEST, {required: true}).subscribe(shockTest => {
       const failedShockTest = shockTest.result.isFail();
-      let description: string;
       
       switch (hitLocation) {
         case HitLocationEnum.HEAD:
+          woundStatus = WoundStatusEnum.WOUNDED;
           InfoDialog.placeholder(npc.name + ' is Stunned for 1 round'); // TODO #30: replace with condition
-          description = 'Wounded Head';
           if (failedShockTest) {
-            const part = RandomUtil.coinFlip() ? 'Eye' : 'Ear'; // TODO #30: pick randomly from remaining eyes/ears
-            const side = RandomUtil.coinFlip() ? 'Left' : 'Right';
-            InfoDialog.placeholder(npc.name + ' has lost their ' + side + ' ' + part); // TODO #30: replace with set body part status
-            description = 'Lost ' + side + ' ' + part;
+            woundStatus = WoundStatusEnum.LOST;
+            woundLocation = WoundLocationProperty.randomHeadPart();
           }
           break;
         case HitLocationEnum.BODY:
+          woundStatus = WoundStatusEnum.WOUNDED;
           npc.alter(Attribute.ACTION_POINTS, ap => ap - 1); // lose 1 AP
-          InfoDialog.placeholder(npc.name + ' loses 1 AP'); // TODO: #37: remove
-          description = 'Wounded Body';
           if (failedShockTest) {
-            InfoDialog.placeholder(npc.name + ' has gained the \'Crippled Body\' condition'); // TODO #30: replace with set body status
-            description = 'Crippled Body';
+            woundStatus = WoundStatusEnum.CRIPPLED;
           }
           break;
         default:
-          const status = failedShockTest ? 'Lost' : 'Crippled';
-          InfoDialog.placeholder(npc.name + ' has gained the \'' + status + ' ' + hitLocation.name + '\' condition'); // TODO #30: replace with set body status
-          description = status + ' ' + hitLocation.name;
+          woundStatus = failedShockTest ? WoundStatusEnum.LOST : WoundStatusEnum.CRIPPLED;
           break;
       }
       
@@ -87,7 +84,10 @@ export class Wound implements Persistable<Wound> {
           break;
       }
       
+      const description = woundStatus.name + ' ' + woundLocation.name;
+      InfoDialog.placeholder(npc.name + ' has gained the \'' + description + '\' condition'); // TODO #30: replace with set body status
       const wound = new Wound(hitLocation, damage, shockTest.result, description);
+      npc.put(woundLocation, woundStatus);
       npc.alter(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
       EventManager.npcWoundedEvent.emit(npc);
       return wound;

@@ -37,4 +37,8 @@ export class RandomUtil {
     }
   }
   
+  static fromList<T>(list: Array<T>): T {
+    return list[this.d(list.length) - 1];
+  }
+  
 }
