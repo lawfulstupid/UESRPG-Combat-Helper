@@ -93,7 +93,7 @@ export class PropertyInputComponent<T> implements OnInit {
       }
       this.output();
     } catch (e) {
-      this.errorMessage = 'Invalid'; // TODO: more detail
+      this.errorMessage = 'Invalid'; // TODO #40: more detail
       this.valueChange.emit(undefined);
     }
   }
@@ -110,7 +110,7 @@ export class PropertyInputComponent<T> implements OnInit {
       }
       this.output();
     } catch (e) {
-      this.errorMessage = 'Invalid'; // TODO: more detail
+      this.errorMessage = 'Invalid'; // TODO #40: more detail
       this.valueChange.emit(undefined);
     }
   }
