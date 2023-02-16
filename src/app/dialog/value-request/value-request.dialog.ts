@@ -60,15 +60,6 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
     });
   }
   
-  // Performs a request to the user to get a change to a value
-  static requestValueChange<T>(property: Property<T>, required: boolean = false): Observable<T> {
-    return this.doRequest({
-      property: property,
-      message: property.name + ' change:',
-      required: required
-    });
-  }
-  
   private static doRequest<T>(request: ValueRequest<T>): Observable<T> {
     const config: MatDialogConfig = {
       disableClose: request.required,

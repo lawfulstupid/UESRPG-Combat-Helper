@@ -15,7 +15,11 @@ export class DummyProperty<T> extends Property<T> {
   }
   
   deserialise(str: string): T {
-    throw new Error("Cannot deserialise a dummy property");
+    if (this.isDerived()) {
+      return this.derivationTransform(this.getBaseProperty().deserialise(str));
+    } else {
+      throw new Error("Cannot deserialise an underived dummy property");
+    }
   }
   
 }

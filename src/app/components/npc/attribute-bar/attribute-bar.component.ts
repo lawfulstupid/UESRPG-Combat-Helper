@@ -66,18 +66,16 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
       of(value),  // If value is provided, use it as-is
       () => {     // Otherwise, get value from user (lazy value)
         this.pauseChangeCollector(); // Pause timeout while dialog is open
-        return ValueRequestDialog.requestValueChange(this.attribute).pipe(tap({
+        return ValueRequestDialog.requestValue(this.attribute.DELTA).pipe(tap({
           // Resume timeout when dialog closes (error or otherwise)
           error: this.resumeChangeCollector,
           complete: this.resumeChangeCollector
         }));
       }
     ).subscribe(value => {
-      this.npc.get(this.attribute).subscribe(currentValue => {  // Get current value from NPC
-        const change = direction * value;
-        this.npc.put(this.attribute, currentValue + change);      // Modify it appropriately
-        this.updateChanges(change);
-      });
+      const change = direction * Math.abs(value);
+      this.npc.alter(this.attribute, currentValue => currentValue + change);
+      this.updateChanges(change);
     });
   }
   
