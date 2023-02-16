@@ -68,14 +68,14 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
         this.pauseChangeCollector(); // Pause timeout while dialog is open
         return ValueRequestDialog.requestValue(this.attribute.DELTA).pipe(tap({
           // Resume timeout when dialog closes (error or otherwise)
-          error: this.resumeChangeCollector,
-          complete: this.resumeChangeCollector
+          error: this.resumeChangeCollector.bind(this),
+          complete: this.resumeChangeCollector.bind(this)
         }));
       }
-    ).subscribe(value => {
+    ).pipe(ObservableUtil.ignoreError).subscribe(value => {
       const change = direction * Math.abs(value);
       this.npc.alter(this.attribute, currentValue => currentValue + change);
-      this.updateChanges(change);
+      this.updateChanges.bind(this)(change);
     });
   }
   

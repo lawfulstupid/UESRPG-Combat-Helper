@@ -1,7 +1,9 @@
-import { catchError, mergeMap, Observable, of, throwError } from "rxjs";
+import { catchError, EMPTY, mergeMap, Observable, of, OperatorFunction, throwError } from "rxjs";
 import { LazyUtil, MaybeLazy } from "./lazy.util";
 
 export class ObservableUtil {
+  
+  static ignoreError: OperatorFunction<any,any> = catchError(() => EMPTY);
   
   // Iterates through provided Observables and returns the first one containing a (non-un)defined value
   public static coalesce<T>(...values: Array<MaybeLazy<Observable<T|undefined>>>): Observable<T> {
