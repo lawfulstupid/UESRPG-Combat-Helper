@@ -23,6 +23,7 @@ import { TestResultComponent } from './components/common/test-result/test-result
 import { ErrorComponent } from './components/error/error.component';
 import { MenubarComponent } from './components/menu-bar/menu-bar.component';
 import { AttributeBarComponent } from './components/npc/attribute-bar/attribute-bar.component';
+import { EquipmentComponent } from './components/npc/equipment/equipment.component';
 import { NpcComponent } from './components/npc/npc.component';
 import { SkillRollerComponent } from './components/npc/skill-roller/skill-roller.component';
 import { WoundsComponent } from './components/npc/wounds/wounds.component';
@@ -62,6 +63,7 @@ import { RangePipe } from './pipe/range.pipe';
     TestResultComponent,
     WoundsComponent,
     FoldableSectionComponent,
+    EquipmentComponent,
     Dialog,
     ValueRequestDialog,
     RequiredValuesDialog,
