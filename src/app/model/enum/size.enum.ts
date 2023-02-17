@@ -15,7 +15,7 @@ export class SizeEnum extends Enum {
     readonly rank: number,
     readonly width: number
   ) {
-    super(SizeEnum, name);
+    super(name);
   }
   
   get display(): string {

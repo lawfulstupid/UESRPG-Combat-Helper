@@ -16,7 +16,7 @@ export class ThreatRatingEnum extends Enum {
     readonly critRange: number,
     readonly critFailRange: number
   ) {
-    super(ThreatRatingEnum, name);
+    super(name);
   }
   
 }

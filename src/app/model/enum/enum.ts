@@ -1,11 +1,9 @@
-import { AbstractType } from "@angular/core";
-
 export abstract class Enum {
   
   /* PURE REFLECTIVE JANK // IT JUST WORKS */
   
   key(): string {
-    return Enum.key(this, this.clazz);
+    return Enum.key(this, Object.getPrototypeOf(this).constructor);
   }
   
   static keys<T>(clazz: any = this): Array<string> {
@@ -24,6 +22,6 @@ export abstract class Enum {
     return clazz[key];
   }
   
-  protected constructor(private readonly clazz: AbstractType<Enum>, readonly name: string) {}
+  protected constructor(readonly name: string) {}
   
 }

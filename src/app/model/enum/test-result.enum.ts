@@ -13,7 +13,7 @@ export class TestResultEnum extends Enum {
     readonly color: ColorEnum | undefined,
     readonly advantagesGained: number
   ) {
-    super(TestResultEnum, name);
+    super(name);
   }
   
   isPass() {
