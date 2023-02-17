@@ -22,6 +22,11 @@ export abstract class Enum {
     return clazz[key];
   }
   
-  protected constructor(readonly name: string) {}
+  static allEnumsMap: {[className: string]: any} = {}; // allows you to get an Enum by it's class name
+  
+  protected constructor(readonly name: string) {
+    const clazz = Object.getPrototypeOf(this).constructor;
+    Enum.allEnumsMap[clazz.name] = clazz;
+  }
   
 }
