@@ -1,7 +1,7 @@
 import { ColorEnum } from "src/app/enum/color.enum";
 import { Enum } from "./enum";
 
-export class TestResultEnum extends Enum {
+export class TestResultEnum extends Enum<TestResultEnum> {
   
   public static readonly CRIT = new TestResultEnum('Crit', ColorEnum.GREEN, 1);
   public static readonly PASS = new TestResultEnum('Pass', undefined, 0);

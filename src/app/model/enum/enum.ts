@@ -1,9 +1,17 @@
-export abstract class Enum {
+import { AbstractType } from "@angular/core";
+import { PersistableClassMap } from "../serialisation/persistable";
+import { PersistableByProxy } from "../serialisation/persistable-proxy";
+
+export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,string> {
   
   /* PURE REFLECTIVE JANK // IT JUST WORKS */
   
   key(): string {
     return Enum.key(this, Object.getPrototypeOf(this).constructor);
+  }
+  
+  class(): AbstractType<any> {
+    return Object.getPrototypeOf(this).constructor;
   }
   
   static keys<T>(clazz: any = this): Array<string> {
@@ -22,11 +30,17 @@ export abstract class Enum {
     return clazz[key];
   }
   
-  static allEnumsMap: {[className: string]: any} = {}; // allows you to get an Enum by it's class name
-  
   protected constructor(readonly name: string) {
-    const clazz = Object.getPrototypeOf(this).constructor;
-    Enum.allEnumsMap[clazz.name] = clazz;
+    const clazz = this.class();
+    PersistableClassMap[clazz.name] = clazz;
+  }
+  
+  proxy(): string {
+    return this.key();
+  }
+  
+  deproxy(key: string): T {
+    return Enum.value(key, this); // this refers to the current class; see source interface
   }
   
 }

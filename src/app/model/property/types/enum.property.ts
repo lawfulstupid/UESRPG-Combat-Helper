@@ -3,7 +3,7 @@ import { Enum } from "../../enum/enum";
 import { Identifier } from "../../identifier";
 import { Property, TemplateRole } from "../abstract/property";
 
-export class EnumProperty<T extends Enum> extends Property<T> {
+export class EnumProperty<T extends Enum<T>> extends Property<T> {
   
   readonly options: Array<Identifier>;
   

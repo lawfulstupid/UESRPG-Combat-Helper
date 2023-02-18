@@ -1,6 +1,6 @@
 import { Enum } from "./enum";
 
-export class HitLocationEnum extends Enum {
+export class HitLocationEnum extends Enum<HitLocationEnum> {
   
   public static readonly HEAD  = new HitLocationEnum('Head', [0]);
   public static readonly BODY  = new HitLocationEnum('Body', [1,2,3,4,5]);

@@ -1,6 +1,6 @@
 import { Enum } from "./enum";
 
-export class SizeEnum extends Enum {
+export class SizeEnum extends Enum<SizeEnum> {
   
   public static readonly PUNY = new SizeEnum('Puny', -3, 0);
   public static readonly TINY = new SizeEnum('Tiny', -2, 0);

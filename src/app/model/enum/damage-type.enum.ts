@@ -1,6 +1,6 @@
 import { Enum } from "./enum";
 
-export class DamageTypeEnum extends Enum {
+export class DamageTypeEnum extends Enum<DamageTypeEnum> {
   
   public static readonly PHYSICAL = new DamageTypeEnum('');
   public static readonly SLASHING = new DamageTypeEnum('Slashing', this.PHYSICAL);
