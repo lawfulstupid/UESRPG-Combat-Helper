@@ -2,15 +2,15 @@ import { Observable, tap } from 'rxjs';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
+import { persistable } from '../serialisation/persistable';
+import { PersistableByProxy } from '../serialisation/persistable-proxy';
 import { Data, DataCharacter, ValueFetcher } from './data-character';
 
-export class NpcTemplate extends DataCharacter {
+@persistable
+export class NpcTemplate extends DataCharacter implements PersistableByProxy<NpcTemplate,string> {
 
-  readonly key: string;
-  
-  constructor(key: string, name: string, data: Data = {}) {
+  constructor(readonly key: string, name: string, data: Data = {}) {
     super(name, data);
-    this.key = key;
   }
   
   override put<T>(property: Property<T>, value: T) {
@@ -25,6 +25,14 @@ export class NpcTemplate extends DataCharacter {
     ).pipe(tap(value => {
       this.put(property, value);
     }));
+  }
+  
+  proxy(): string {
+    return this.key;
+  }
+  
+  deproxy(proxy: string): NpcTemplate {
+    return NpcTemplateManager.load(proxy);
   }
   
 }

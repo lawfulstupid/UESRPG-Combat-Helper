@@ -4,8 +4,7 @@ import { DragulaService } from "ng2-dragula";
 import { EMPTY, mergeMap, Observable, of } from "rxjs";
 import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
 import { Npc } from "src/app/model/character/npc";
-import { Simple } from "src/app/model/serialisation/simple";
-import { SimplifiedNpc } from "src/app/model/serialisation/simplified-npc";
+import { Persistence } from "src/app/model/serialisation/persistence";
 import { EventManager } from "src/app/service/event.manager";
 import { StaticProvider } from "src/app/service/static.provider";
 import { ErrorComponent } from "../error/error.component";
@@ -94,12 +93,12 @@ export class StageComponent implements OnInit {
   }
   
   private exportStage() {
-    const stage: Array<Array<SimplifiedNpc>> = [];
+    const stage: Array<Array<any>> = [];
     for (let elmDragColumn of Array.from(document.getElementsByClassName('drag-column'))) {
-      const column: Array<SimplifiedNpc> = [];
+      const column: Array<any> = [];
       for (let elmNpc of Array.from(elmDragColumn.querySelectorAll('app-npc'))) {
         const npc = this.componentRefs.find(ref => ref.location.nativeElement === elmNpc)!.instance.npc;
-        column.push(npc.simplify());
+        column.push(Persistence.simplify(npc));
       }
       stage.push(column);
     }
@@ -107,11 +106,11 @@ export class StageComponent implements OnInit {
   }
   
   private importStage() {
-    this.upload<Array<Array<SimplifiedNpc>>>().subscribe(stage => {
+    this.upload<Array<Array<any>>>().subscribe(stage => {
       this.clearStage().subscribe(() => {
         for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
           for (let npc of stage[columnIdx]) {
-            this.addNpc(Simple.desimplify(npc, SimplifiedNpc), columnIdx);
+            this.addNpc(Persistence.desimplify(npc), columnIdx);
           }
         }
       });

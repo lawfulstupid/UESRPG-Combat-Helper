@@ -1,12 +1,13 @@
 import { Observable, of, tap } from "rxjs";
+import { NpcManager } from "src/app/service/npc.manager";
 import { ObservableUtil } from "src/app/util/observable.util";
 import { Property, TemplateRole } from "../property/abstract/property";
-import { Simplifiable } from "../serialisation/simple";
-import { SimplifiedNpc } from "../serialisation/simplified-npc";
+import { persistable, Persistable } from "../serialisation/persistable";
 import { Data, DataCharacter, ValueFetcher } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 
-export class Npc extends DataCharacter implements Simplifiable<Npc> {
+@persistable
+export class Npc extends DataCharacter implements Persistable<Npc> {
   
   private template: NpcTemplate;
   
@@ -75,8 +76,8 @@ export class Npc extends DataCharacter implements Simplifiable<Npc> {
     }
   }
   
-  simplify(): SimplifiedNpc {
-    return new SimplifiedNpc(this);
+  clone(): Npc {
+    return new Npc(this.name, this.template, this.getData());
   }
   
 }
