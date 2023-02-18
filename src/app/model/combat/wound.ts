@@ -8,11 +8,11 @@ import { Attribute } from "../property/attribute.property";
 import { Characteristic } from "../property/characteristic.property";
 import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
-import { Simplifiable } from "../serialisation/simple";
-import { SimplifiedWound } from "../serialisation/simplified-wound";
+import { persistable, Persistable } from "../serialisation/persistable";
 import { Test } from "./test";
 
-export class Wound implements Simplifiable<Wound> {
+@persistable
+export class Wound implements Persistable<Wound> {
   
   constructor(
     readonly location: HitLocationEnum,
@@ -21,8 +21,8 @@ export class Wound implements Simplifiable<Wound> {
     public description?: string // TODO #30: remove
   ) {}
   
-  simplify(): SimplifiedWound {
-    return new SimplifiedWound(this);
+  clone(): Wound {
+    return new Wound(this.location, this.severity, this.shockTestResult, this.description);
   }
   
   display(): string {

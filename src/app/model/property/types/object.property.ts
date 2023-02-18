@@ -1,18 +1,18 @@
-import { AbstractType } from "@angular/core";
-import { Simple, Simplifiable, Simplified } from "../../serialisation/simple";
+import { Persistable } from "../../serialisation/persistable";
+import { Persistence } from "../../serialisation/persistence";
 import { Property, TemplateRole } from "../abstract/property";
 
-export class ObjectProperty<T extends Simplifiable<T>> extends Property<T> {
+export class ObjectProperty<T extends Persistable<T>> extends Property<T> {
   
   serialise(value: T): string {
-    return JSON.stringify(value.simplify());
+    return Persistence.serialise(value);
   }
   
   deserialise(str: string): T {
-    return Simple.desimplify(JSON.parse(str), this.simpleClass);
+    return <T>Persistence.deserialise(str);
   }
   
-  constructor(private readonly simpleClass: AbstractType<Simplified<T>>, key: string, name: string, templateRole: TemplateRole) {
+  constructor(key: string, name: string, templateRole: TemplateRole) {
     super(key, name, templateRole);
   }
   
