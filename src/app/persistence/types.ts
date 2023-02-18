@@ -7,4 +7,7 @@ export type RawProxy = {__proxyClass__: string, proxy: RawType};
 export type RawType = undefined | number | string | boolean | RawArray | RawObject | RawProxy;
 
 export type PersistableType = undefined | number | string | boolean | Array<PersistableType> | Persistable<any> | PersistableByProxy<any,any>;
-export type ObjectType = 'primitive' | 'array' | 'object' | 'proxy';
+
+export enum PersistenceType {
+  PRIMITIVE, ARRAY, OBJECT, PROXY
+}

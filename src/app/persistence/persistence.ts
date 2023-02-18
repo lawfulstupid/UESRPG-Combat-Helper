@@ -1,7 +1,7 @@
 import { AbstractType } from "@angular/core";
 import { Persistable, PersistableClassMap } from "./persistable";
 import { PersistableByProxy } from "./persistable-proxy";
-import { ObjectType, PersistableType, RawArray, RawObject, RawProxy, RawType } from "./types";
+import { PersistableType, PersistenceType, RawArray, RawObject, RawProxy, RawType } from "./types";
 
 export abstract class Persistence {
   
@@ -17,13 +17,13 @@ export abstract class Persistence {
   
   private static simplify(obj: any): RawType {
     switch (this.getType(obj)) {
-      case 'primitive':
+      case PersistenceType.PRIMITIVE:
         return <RawType>obj;
-      case 'array':
+      case PersistenceType.ARRAY:
         return this.simplifyArray(<Array<PersistableType>>obj);
-      case 'object':
+      case PersistenceType.OBJECT:
         return this.simplifyObject(<Persistable<any>>obj);
-      case 'proxy':
+      case PersistenceType.PROXY:
         return this.simplifyProxy(<PersistableByProxy<any,any>>obj);
       default:
         throw new Error('Cannot serialise object of type \'' + this.getType(obj) + '\'');
@@ -51,13 +51,13 @@ export abstract class Persistence {
   
   private static desimplify(rawObj: RawType): any {
     switch (this.getType(rawObj)) {
-      case 'primitive':
+      case PersistenceType.PRIMITIVE:
         return rawObj;
-      case 'array':
+      case PersistenceType.ARRAY:
         return this.desimplifyArray(<RawArray>rawObj);
-      case 'object':
+      case PersistenceType.OBJECT:
         return this.desimplifyObject(<RawObject>rawObj);
-      case 'proxy':
+      case PersistenceType.PROXY:
         return this.desimplifyProxy(<RawProxy>rawObj);
       default:
         throw new Error('Cannot deserialise object of type \'' + this.getType(rawObj) + '\'');
@@ -92,19 +92,19 @@ export abstract class Persistence {
     return clazz;
   }
   
-  private static getType(obj: PersistableType | RawType): ObjectType {
+  private static getType(obj: PersistableType | RawType): PersistenceType {
     switch (typeof obj) {
       case 'number':
       case 'bigint':
       case 'string':
       case 'boolean':
       case 'undefined':
-        return 'primitive';
+        return PersistenceType.PRIMITIVE;
       case 'object':
-        if (obj instanceof Array) return 'array';
-        if ((<Persistable<any>>obj).clone || (<RawObject>obj).__class__) return 'object';
-        if ((<PersistableByProxy<any,any>>obj).proxy || (<RawProxy>obj).__proxyClass__) return 'proxy';
-        return 'primitive'; // dictionary
+        if (obj instanceof Array) return PersistenceType.ARRAY;
+        if ((<Persistable<any>>obj).clone || (<RawObject>obj).__class__) return PersistenceType.OBJECT;
+        if ((<PersistableByProxy<any,any>>obj).proxy || (<RawProxy>obj).__proxyClass__) return PersistenceType.PROXY;
+        return PersistenceType.PRIMITIVE; // dictionary
       default:
         throw new Error('Unrecognised type: ' + typeof obj);
     }
