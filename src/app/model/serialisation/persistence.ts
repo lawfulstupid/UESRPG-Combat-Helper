@@ -12,7 +12,7 @@ export abstract class Persistence {
     return JSON.stringify(this.simplify(obj));
   }
   
-  static deserialise(str: string): PersistableType {
+  static deserialise<T extends PersistableType>(str: string): T {
     return this.desimplify(JSON.parse(str));
   }
   
@@ -27,7 +27,7 @@ export abstract class Persistence {
       case 'object':
         return Persistence.simplifyObject(<Persistable<any>>obj);
       case 'proxy':
-        return Persistence.simplifyProxy(obj);
+        return Persistence.simplifyProxy(<PersistableByProxy<any,any>>obj);
       default:
         throw new Error('Cannot serialise object of type \'' + this.getType(obj) + '\'');
     }
