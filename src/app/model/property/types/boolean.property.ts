@@ -1,4 +1,3 @@
-import { Identifier } from "../../identifier";
 import { Property, TemplateRole } from "../abstract/property";
 
 export class BooleanProperty extends Property<boolean> {
