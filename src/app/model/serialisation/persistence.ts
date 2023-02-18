@@ -64,7 +64,11 @@ export abstract class Persistence {
   
   private static desimplifyEnum(rawEnum: RawEnum): Enum {
     const clazz = Enum.allEnumsMap[rawEnum.__enum__];
-    return clazz.value(rawEnum.key);
+    const value = clazz.value(rawEnum.key);
+    if (value === undefined) {
+      throw new Error('Key \'' + rawEnum.key + '\' does not exist on ' + clazz.name);
+    }
+    return value;
   }
   
   private static desimplifyArray(rawArray: Array<RawType>): Array<any> {
