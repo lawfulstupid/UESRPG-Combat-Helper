@@ -1,6 +1,5 @@
 import { Enum } from "../enum/enum";
-import { Persistable, PersistableType } from "./persistable";
-import { PersistableClassMap } from "./persistable-class-map";
+import { Persistable, PersistableClassMap, PersistableType } from "./persistable";
 
 export abstract class Persistence {
   
@@ -73,8 +72,8 @@ export abstract class Persistence {
   }
   
   private static desimplifyObject(rawObj: RawObject): any {
-    const clazz = PersistableClassMap.classMap[rawObj.__class__];
-    if (clazz === undefined) throw new Error('Could not deserialise class \'' + rawObj.__class__ + '\'. Please add to PersistableClassMap.');
+    const clazz = PersistableClassMap[rawObj.__class__];
+    if (clazz === undefined) throw new Error('Class \'' + rawObj.__class__ + '\' not found in PersistableClassMap. Please decorate with @persistable.');
     
     const semiRaw: any = {};
     for (let key in rawObj) {
