@@ -1,6 +1,6 @@
 import { AbstractType } from "@angular/core";
-import { PersistableClassMap } from "../serialisation/persistable";
-import { PersistableByProxy } from "../serialisation/persistable-proxy";
+import { PersistableClassMap } from "../../persistence/persistable";
+import { PersistableByProxy } from "../../persistence/persistable-proxy";
 
 export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,string> {
   

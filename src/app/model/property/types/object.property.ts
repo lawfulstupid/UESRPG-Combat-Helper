@@ -1,5 +1,5 @@
-import { Persistable } from "../../serialisation/persistable";
-import { Persistence } from "../../serialisation/persistence";
+import { Persistable } from "../../../persistence/persistable";
+import { Persistence } from "../../../persistence/persistence";
 import { Property, TemplateRole } from "../abstract/property";
 
 export class ObjectProperty<T extends Persistable<T>> extends Property<T> {

@@ -1,5 +1,6 @@
 import { InfoDialog } from "src/app/dialog/info/info.dialog";
 import { RandomUtil } from "src/app/util/random.util";
+import { persistable, Persistable } from "../../persistence/persistable";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
@@ -8,7 +9,6 @@ import { Attribute } from "../property/attribute.property";
 import { Characteristic } from "../property/characteristic.property";
 import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
-import { persistable, Persistable } from "../serialisation/persistable";
 import { Test } from "./test";
 
 @persistable

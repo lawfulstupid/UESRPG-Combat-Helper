@@ -15,16 +15,16 @@ export abstract class Persistence {
     return this.desimplify(JSON.parse(str));
   }
   
-  static simplify(obj: any): RawType {
+  private static simplify(obj: any): RawType {
     switch (this.getType(obj)) {
       case 'primitive':
         return <RawType>obj;
       case 'array':
-        return Persistence.simplifyArray(<Array<PersistableType>>obj);
+        return this.simplifyArray(<Array<PersistableType>>obj);
       case 'object':
-        return Persistence.simplifyObject(<Persistable<any>>obj);
+        return this.simplifyObject(<Persistable<any>>obj);
       case 'proxy':
-        return Persistence.simplifyProxy(<PersistableByProxy<any,any>>obj);
+        return this.simplifyProxy(<PersistableByProxy<any,any>>obj);
       default:
         throw new Error('Cannot serialise object of type \'' + this.getType(obj) + '\'');
     }
@@ -45,20 +45,20 @@ export abstract class Persistence {
   private static simplifyProxy<T extends PersistableByProxy<T,P>, P extends PersistableType>(obj: T): RawProxy {
     return {
       __proxyClass__: Object.getPrototypeOf(obj).constructor.name,
-      proxy: Persistence.simplify(obj.proxy())
+      proxy: this.simplify(obj.proxy())
     };
   }
   
-  static desimplify(rawObj: RawType): any {
+  private static desimplify(rawObj: RawType): any {
     switch (this.getType(rawObj)) {
       case 'primitive':
         return rawObj;
       case 'array':
-        return Persistence.desimplifyArray(<RawArray>rawObj);
+        return this.desimplifyArray(<RawArray>rawObj);
       case 'object':
-        return Persistence.desimplifyObject(<RawObject>rawObj);
+        return this.desimplifyObject(<RawObject>rawObj);
       case 'proxy':
-        return Persistence.desimplifyProxy(<RawProxy>rawObj);
+        return this.desimplifyProxy(<RawProxy>rawObj);
       default:
         throw new Error('Cannot deserialise object of type \'' + this.getType(rawObj) + '\'');
     }

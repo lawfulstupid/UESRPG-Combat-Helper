@@ -1,8 +1,7 @@
 import { Observable, of, tap } from "rxjs";
-import { NpcManager } from "src/app/service/npc.manager";
 import { ObservableUtil } from "src/app/util/observable.util";
+import { persistable, Persistable } from "../../persistence/persistable";
 import { Property, TemplateRole } from "../property/abstract/property";
-import { persistable, Persistable } from "../serialisation/persistable";
 import { Data, DataCharacter, ValueFetcher } from "./data-character";
 import { NpcTemplate } from "./npc-template";
 

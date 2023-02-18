@@ -1,8 +1,8 @@
 import { EventEmitter } from "@angular/core";
 import { Observable } from "rxjs";
 import { ErrorComponent } from "../components/error/error.component";
-import { Persistence } from "../model/serialisation/persistence";
-import { PersistableType } from "../model/serialisation/types";
+import { Persistence } from "../persistence/persistence";
+import { PersistableType } from "../persistence/types";
 
 export class FileUtil {
   

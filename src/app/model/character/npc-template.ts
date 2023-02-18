@@ -1,9 +1,9 @@
 import { Observable, tap } from 'rxjs';
 import { ObservableUtil } from 'src/app/util/observable.util';
+import { persistable } from '../../persistence/persistable';
+import { PersistableByProxy } from '../../persistence/persistable-proxy';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
-import { persistable } from '../serialisation/persistable';
-import { PersistableByProxy } from '../serialisation/persistable-proxy';
 import { Data, DataCharacter, ValueFetcher } from './data-character';
 
 @persistable
