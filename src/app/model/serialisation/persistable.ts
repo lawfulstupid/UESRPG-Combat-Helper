@@ -1,5 +1,5 @@
 import { AbstractType } from "@angular/core";
-import { Enum } from "../enum/enum";
+import { PersistableByProxy } from "./persistable-proxy";
 
 export interface Persistable<T extends Persistable<T>> {
   
@@ -8,11 +8,9 @@ export interface Persistable<T extends Persistable<T>> {
   
 }
 
-export type PersistableType = 'undefined' | 'number' | 'bigint' | 'string' | 'boolean' | Enum | Array<PersistableType> | Persistable<any>;
-
-export const PersistableClassMap: {[key: string]: AbstractType<Persistable<any>>} = {};
+export const PersistableClassMap: {[key: string]: AbstractType<Persistable<any> | PersistableByProxy<any,any>>} = {};
 
 // Decorate classes with @persistable to add them to PersistableClassMap to enable deserialisation
-export function persistable<T extends Persistable<T>>(target: AbstractType<T>) {
+export function persistable<T extends Persistable<any> | PersistableByProxy<any,any>>(target: AbstractType<T>) {
   PersistableClassMap[target.name] = target;
 }

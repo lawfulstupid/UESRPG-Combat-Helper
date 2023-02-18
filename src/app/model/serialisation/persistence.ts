@@ -1,5 +1,8 @@
+import { AbstractType } from "@angular/core";
 import { Enum } from "../enum/enum";
-import { Persistable, PersistableClassMap, PersistableType } from "./persistable";
+import { Persistable, PersistableClassMap } from "./persistable";
+import { PersistableByProxy } from "./persistable-proxy";
+import { ObjectType, PersistableType, RawArray, RawEnum, RawObject, RawProxy, RawType } from "./types";
 
 export abstract class Persistence {
   
@@ -23,6 +26,8 @@ export abstract class Persistence {
         return Persistence.simplifyArray(<Array<PersistableType>>obj);
       case 'object':
         return Persistence.simplifyObject(<Persistable<any>>obj);
+      case 'proxy':
+        return Persistence.simplifyProxy(obj);
       default:
         throw new Error('Cannot serialise object of type \'' + this.getType(obj) + '\'');
     }
@@ -47,6 +52,13 @@ export abstract class Persistence {
     return raw;
   }
   
+  private static simplifyProxy<T extends PersistableByProxy<T,P>, P extends PersistableType>(obj: T): RawProxy {
+    return {
+      __proxyClass__: Object.getPrototypeOf(obj).constructor.name,
+      proxy: Persistence.simplify(obj.proxy())
+    };
+  }
+  
   static desimplify(rawObj: RawType): any {
     switch (this.getType(rawObj)) {
       case 'primitive':
@@ -57,6 +69,8 @@ export abstract class Persistence {
         return Persistence.desimplifyArray(<RawArray>rawObj);
       case 'object':
         return Persistence.desimplifyObject(<RawObject>rawObj);
+      case 'proxy':
+        return Persistence.desimplifyProxy(<RawProxy>rawObj);
       default:
         throw new Error('Cannot deserialise object of type \'' + this.getType(rawObj) + '\'');
     }
@@ -76,8 +90,7 @@ export abstract class Persistence {
   }
   
   private static desimplifyObject(rawObj: RawObject): any {
-    const clazz = PersistableClassMap[rawObj.__class__];
-    if (clazz === undefined) throw new Error('Class \'' + rawObj.__class__ + '\' not found in PersistableClassMap. Please decorate with @persistable.');
+    const clazz: AbstractType<Persistable<any>> = this.getClass(rawObj.__class__);
     
     const semiRaw: any = {};
     for (let key in rawObj) {
@@ -86,7 +99,18 @@ export abstract class Persistence {
       }
     }
     
-    return clazz.prototype.clone.bind(semiRaw)();
+    return Object.setPrototypeOf(semiRaw, clazz.prototype).clone();
+  }
+  
+  private static desimplifyProxy(rawProxy: RawProxy): any {
+    const clazz: AbstractType<PersistableByProxy<any,any>> = this.getClass(rawProxy.__proxyClass__);
+    return clazz.prototype.deproxy(rawProxy.proxy);
+  }
+  
+  private static getClass(className: string): AbstractType<any> {
+    const clazz = PersistableClassMap[className];
+    if (clazz === undefined) throw new Error('Class \'' + className + '\' not found in PersistableClassMap. Please decorate with @persistable.');
+    return clazz;
   }
   
   private static getType(obj: PersistableType | RawType): ObjectType {
@@ -98,18 +122,14 @@ export abstract class Persistence {
       case 'undefined':
         return 'primitive';
       case 'object':
-        if (obj instanceof Enum || (<RawEnum>obj).__enum__ !== undefined) return 'enum';
         if (obj instanceof Array) return 'array';
-        return 'object';
+        if (obj instanceof Enum || (<RawEnum>obj).__enum__) return 'enum';
+        if ((<PersistableByProxy<any,any>>obj).proxy || (<RawProxy>obj).__proxyClass__) return 'proxy';
+        if ((<Persistable<any>>obj).clone || (<RawObject>obj).__class__) return 'object';
+        return 'primitive'; // dictionary
       default:
         throw new Error('Unrecognised type: ' + typeof obj);
     }
   }
   
 }
-
-type RawEnum = {__enum__: string, key: string};
-type RawArray = Array<RawType>;
-type RawObject = {__class__: string, [key: string]: RawType};
-type RawType = number | string | boolean | RawEnum | RawArray | RawObject;
-type ObjectType = 'primitive' | 'enum' | 'array' | 'object';
