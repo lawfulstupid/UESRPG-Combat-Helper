@@ -9,7 +9,7 @@ export class EnumProperty<T extends Enum<T>> extends Property<T> {
   
   constructor(private clazz: AbstractType<T>, key: string, name: string, templateRole: TemplateRole, defaultValue?: T) {
     super(key, name, templateRole, defaultValue);
-    this.options = Enum.keys<T>(clazz).map(enumKey => {
+    this.options = Enum.keys(clazz).map(enumKey => {
       const enumValue = Enum.value<T>(enumKey, clazz);
       return new Identifier(enumKey, enumValue.name);
     });

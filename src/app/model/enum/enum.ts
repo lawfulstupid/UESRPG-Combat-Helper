@@ -7,14 +7,14 @@ export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,st
   /* PURE REFLECTIVE JANK // IT JUST WORKS */
   
   key(): string {
-    return Enum.key(this, Object.getPrototypeOf(this).constructor);
+    return Enum.key<typeof this>(this, this.class());
   }
   
-  class(): AbstractType<any> {
+  class(): AbstractType<this> {
     return Object.getPrototypeOf(this).constructor;
   }
   
-  static keys<T>(clazz: any = this): Array<string> {
+  static keys(clazz: any = this): Array<string> {
     return Object.keys(clazz);
   }
   
