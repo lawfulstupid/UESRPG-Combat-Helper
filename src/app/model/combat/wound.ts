@@ -1,6 +1,6 @@
 import { InfoDialog } from "src/app/dialog/info/info.dialog";
 import { RandomUtil } from "src/app/util/random.util";
-import { persistable, Persistable } from "../../persistence/persistable";
+import { Persistable, RegisterPersistable } from "../../persistence/persistable";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
@@ -11,7 +11,7 @@ import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
 import { Test } from "./test";
 
-@persistable
+@RegisterPersistable('8ec0cbd9-9d70-42fe-8594-993bde31afb2')
 export class Wound implements Persistable<Wound> {
   
   constructor(

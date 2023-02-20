@@ -1,5 +1,7 @@
+import { RegisterPersistable } from "src/app/persistence/persistable";
 import { Enum } from "./enum";
 
+@RegisterPersistable('a0b719f5-68c4-48e4-aba4-7f5b40d31af1')
 export class ThreatRatingEnum extends Enum<ThreatRatingEnum> {
   
   public static readonly MINOR_SOLO      = new ThreatRatingEnum('Minor Solo',       0,  95);

@@ -1,5 +1,7 @@
+import { RegisterPersistable } from "src/app/persistence/persistable";
 import { Enum } from "./enum";
 
+@RegisterPersistable('b5450171-b17b-41b8-a490-a4b481bd0e2f')
 export class SizeEnum extends Enum<SizeEnum> {
   
   public static readonly PUNY = new SizeEnum('Puny', -3, 0);

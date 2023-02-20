@@ -1,6 +1,8 @@
 import { ColorEnum } from "src/app/enum/color.enum";
+import { RegisterPersistable } from "src/app/persistence/persistable";
 import { Enum } from "./enum";
 
+@RegisterPersistable('5ddf1f16-4fe0-4de1-bca4-fa5940278107')
 export class TestResultEnum extends Enum<TestResultEnum> {
   
   public static readonly CRIT = new TestResultEnum('Crit', ColorEnum.GREEN, 1);

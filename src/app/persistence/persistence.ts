@@ -1,6 +1,6 @@
 import { AbstractType } from "@angular/core";
-import { Persistable, PersistableClassMap } from "./persistable";
-import { PersistableByProxy } from "./persistable-proxy";
+import { PersistableClassMap } from "./class-mapping";
+import { Persistable, PersistableByProxy } from "./persistable";
 import { PersistableType, PersistenceType, RawArray, RawObject, RawProxy, RawType } from "./types";
 
 export abstract class Persistence {
@@ -35,7 +35,7 @@ export abstract class Persistence {
   }
   
   private static simplifyObject<T extends Persistable<T>>(obj: T): RawObject {
-    const raw: RawObject = {__class__: Object.getPrototypeOf(obj).constructor.name};
+    const raw: RawObject = {__class__: PersistableClassMap.getIdentOfObject(obj)};
     for (let field in obj) {
       raw[field] = this.simplify(obj[field]);
     }
@@ -44,7 +44,7 @@ export abstract class Persistence {
   
   private static simplifyProxy<T extends PersistableByProxy<T,P>, P extends PersistableType>(obj: T): RawProxy {
     return {
-      __proxyClass__: Object.getPrototypeOf(obj).constructor.name,
+      __proxyClass__: PersistableClassMap.getIdentOfObject(obj),
       proxy: this.simplify(obj.proxy())
     };
   }
@@ -69,8 +69,6 @@ export abstract class Persistence {
   }
   
   private static desimplifyObject(rawObj: RawObject): any {
-    const clazz: AbstractType<Persistable<any>> = this.getClass(rawObj.__class__);
-    
     const semiRaw: any = {};
     for (let key in rawObj) {
       if (key !== '__class__') {
@@ -78,18 +76,13 @@ export abstract class Persistence {
       }
     }
     
+    const clazz: AbstractType<Persistable<any>> = PersistableClassMap.getClass(rawObj.__class__);
     return Object.setPrototypeOf(semiRaw, clazz.prototype).clone();
   }
   
   private static desimplifyProxy(rawProxy: RawProxy): any {
-    const clazz: AbstractType<PersistableByProxy<any,any>> = this.getClass(rawProxy.__proxyClass__);
+    const clazz: AbstractType<PersistableByProxy<any,any>> = PersistableClassMap.getClass(rawProxy.__proxyClass__);
     return clazz.prototype.deproxy.bind(clazz)(rawProxy.proxy);
-  }
-  
-  private static getClass(className: string): AbstractType<any> {
-    const clazz = PersistableClassMap[className];
-    if (clazz === undefined) throw new Error('Class \'' + className + '\' not found in PersistableClassMap. Please decorate with @persistable.');
-    return clazz;
   }
   
   private static getType(obj: PersistableType | RawType): PersistenceType {

@@ -1,12 +1,11 @@
 import { Observable, tap } from 'rxjs';
 import { ObservableUtil } from 'src/app/util/observable.util';
-import { persistable } from '../../persistence/persistable';
-import { PersistableByProxy } from '../../persistence/persistable-proxy';
+import { PersistableByProxy, RegisterPersistable } from '../../persistence/persistable';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
 import { Property } from '../property/abstract/property';
 import { Data, DataCharacter, ValueFetcher } from './data-character';
 
-@persistable
+@RegisterPersistable('becfea4d-d184-40e9-a8c5-51d870b66353')
 export class NpcTemplate extends DataCharacter implements PersistableByProxy<NpcTemplate,string> {
 
   constructor(readonly key: string, name: string, data: Data = {}) {

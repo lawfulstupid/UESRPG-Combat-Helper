@@ -1,5 +1,4 @@
-import { Persistable } from "./persistable";
-import { PersistableByProxy } from "./persistable-proxy";
+import { Persistable, PersistableByProxy } from "./persistable";
 
 export type RawArray = Array<RawType>;
 export type RawObject = {__class__: string, [key: string]: RawType};

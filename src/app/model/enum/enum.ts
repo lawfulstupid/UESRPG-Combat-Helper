@@ -1,6 +1,5 @@
 import { AbstractType } from "@angular/core";
-import { PersistableClassMap } from "../../persistence/persistable";
-import { PersistableByProxy } from "../../persistence/persistable-proxy";
+import { PersistableByProxy } from "src/app/persistence/persistable";
 
 export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,string> {
   
@@ -30,10 +29,7 @@ export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,st
     return clazz[key];
   }
   
-  protected constructor(readonly name: string) {
-    const clazz = this.class();
-    PersistableClassMap[clazz.name] = clazz;
-  }
+  protected constructor(readonly name: string) {}
   
   proxy(): string {
     return this.key();

@@ -1,5 +1,7 @@
+import { RegisterPersistable } from "src/app/persistence/persistable";
 import { Enum } from "./enum";
 
+@RegisterPersistable('936b230b-effe-4d1c-b1b3-30510a88a338')
 export class HitLocationEnum extends Enum<HitLocationEnum> {
   
   public static readonly HEAD  = new HitLocationEnum('Head', [0]);

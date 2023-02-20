@@ -1,16 +1,22 @@
 import { AbstractType } from "@angular/core";
-import { PersistableByProxy } from "./persistable-proxy";
+import { PersistableClassMap } from "./class-mapping";
+import { PersistableType } from "./types";
 
-export interface Persistable<T extends Persistable<T>> {
-  
-  // must call the class constructor
-  clone(): T;
-  
+interface GeneralPersistable {
 }
 
-export const PersistableClassMap: {[key: string]: AbstractType<Persistable<any> | PersistableByProxy<any,any>>} = {};
+export interface Persistable<T extends Persistable<T>> extends GeneralPersistable {
+  clone(): T; // must call the class constructor
+}
 
-// Decorate classes with @persistable to add them to PersistableClassMap to enable deserialisation
-export function persistable<T extends Persistable<any> | PersistableByProxy<any,any>>(target: AbstractType<T>) {
-  PersistableClassMap[target.name] = target;
+export interface PersistableByProxy<T extends PersistableByProxy<T,P>, P extends PersistableType> extends GeneralPersistable {
+  proxy(): P;
+  deproxy(proxy: P): T; // always run in a static context, meaning `this` will refer to the class
+}
+
+// Decorate classes with @RegisterPersistable to add them to PersistableClassMap
+export function RegisterPersistable<T extends GeneralPersistable>(ident: string) {
+  return (target: AbstractType<T>) => {
+    PersistableClassMap.put(ident, target);
+  };
 }
