@@ -1,0 +1,17 @@
+name: Update Patch Version
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build:
+    name: Update Patch Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Update patch version
+        run: npm version patch
+      - name: Push tag
+        run: git push
