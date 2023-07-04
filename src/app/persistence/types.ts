@@ -10,3 +10,8 @@ export type PersistableType = undefined | number | string | boolean | Array<Pers
 export enum PersistenceType {
   PRIMITIVE, ARRAY, OBJECT, PROXY
 }
+
+export interface PersistenceProxy<T,P> {
+  encode: (value: T) => P;
+  decode: (proxy: P) => T;
+}

@@ -1,6 +1,6 @@
 import { AbstractType } from "@angular/core";
 import { PersistableClassMap } from "./class-mapping";
-import { PersistableType } from "./types";
+import { PersistableType, PersistenceProxy } from "./types";
 
 interface GeneralPersistable {
 }
@@ -18,5 +18,12 @@ export interface PersistableByProxy<T extends PersistableByProxy<T,P>, P extends
 export function RegisterPersistable<T extends GeneralPersistable>(ident: string) {
   return (target: AbstractType<T>) => {
     PersistableClassMap.put(ident, target);
+  };
+}
+
+// Decorate fields with @PersistUsing to override default persistence logic
+export function PersistUsing<T, P extends PersistableType>(proxy: PersistenceProxy<T,P>) {
+  return (containingClass: any, fieldName: string) => {
+    console.log('PersistAs Field', containingClass, fieldName);
   };
 }

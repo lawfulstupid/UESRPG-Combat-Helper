@@ -1,4 +1,5 @@
 import { Observable, tap } from 'rxjs';
+import { PersistenceProxy } from 'src/app/persistence/types';
 import { ObservableUtil } from 'src/app/util/observable.util';
 import { PersistableByProxy, RegisterPersistable } from '../../persistence/persistable';
 import { NpcTemplateManager } from '../../service/npc-template.manager';
@@ -33,5 +34,14 @@ export class NpcTemplate extends DataCharacter implements PersistableByProxy<Npc
   deproxy(proxy: string): NpcTemplate {
     return NpcTemplateManager.load(proxy);
   }
+  
+  static readonly Proxy: PersistenceProxy<NpcTemplate, string> = {
+    encode(template: NpcTemplate): string {
+      return template.key;
+    },
+    decode(proxy: string): NpcTemplate {
+      return NpcTemplateManager.load(proxy);
+    }
+  };
   
 }
