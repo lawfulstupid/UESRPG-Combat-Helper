@@ -20,6 +20,7 @@ export class FileUtil {
     const link = document.createElement('input');
     link.type = 'file';
     link.accept = '.json';
+    
     link.onchange = () => {
       link.files?.item(0)?.text().then(text => {
         try {
@@ -30,6 +31,38 @@ export class FileUtil {
         }
       });
     };
+    
+    link.click();
+    link.remove();
+    return tempEvent;
+  }
+  
+  static uploadMany<T extends PersistableType>(): Observable<Array<T>> {
+    const tempEvent: EventEmitter<Array<T>> = new EventEmitter();
+    const link = document.createElement('input');
+    link.type = 'file';
+    link.accept = '.json';
+    link.multiple = true; // select multiple files
+    
+    link.onchange = () => {
+      if (!link.files) return;
+      
+      const fileList: Array<File> = [];
+      for (let i = 0; i < link.files.length; i++) {
+        const file = link.files.item(i);
+        if (file) fileList.push(file);
+      }
+      
+      Promise.all(fileList.map(f => f.text())).then(texts => {
+        try {
+          tempEvent.emit(texts.map(x => Persistence.deserialise(x)));
+        } catch (e) {
+          ErrorComponent.error('Failed to parse files');
+          throw e;
+        }
+      });
+    };
+    
     link.click();
     link.remove();
     return tempEvent;
