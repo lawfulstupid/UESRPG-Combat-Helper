@@ -104,8 +104,10 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   
   exportAllTemplates() {
     this.templateList.forEach(id => {
-      this.exportTemplate(id.key)
+      const template: NpcTemplate = NpcTemplateManager.load(id.key);
+      FileUtil.zip(JSON.stringify(template), id.key + '.json');
     });
+    FileUtil.downloadZip('templates.zip');
   }
   
   importTemplate() {

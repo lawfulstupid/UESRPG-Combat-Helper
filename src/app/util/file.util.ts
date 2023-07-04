@@ -1,4 +1,5 @@
 import { EventEmitter } from "@angular/core";
+import * as JSZip from 'jszip';
 import { Observable } from "rxjs";
 import { ErrorComponent } from "../components/error/error.component";
 import { Persistence } from "../persistence/persistence";
@@ -6,13 +7,28 @@ import { PersistableType } from "../persistence/types";
 
 export class FileUtil {
   
-  static download(data: PersistableType, filename: string) {
-    const blob = new Blob([Persistence.serialise(data)], {type: 'text/json'});
+  private static jszip: JSZip | null = null;
+
+  static download(data: PersistableType | Blob, filename: string) {
+    const blob = data instanceof Blob ? data : new Blob([Persistence.serialise(data)], {type: 'text/json'});
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.download = filename;
     link.click();
     link.remove();
+  }
+  
+  static zip(data: PersistableType, filename: string) {
+    if (!this.jszip) this.jszip = new JSZip();
+    this.jszip.file(filename, Persistence.serialise(data));
+  }
+  
+  static downloadZip(filename: string) {
+    if (!this.jszip) return;
+    this.jszip.generateAsync({type: 'blob'}).then(zip => {
+      FileUtil.download(zip, filename);
+      this.jszip = null;
+    });
   }
   
   static upload<T extends PersistableType>(): Observable<T> {
