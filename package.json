@@ -4,7 +4,6 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
-    "version": "npm run build",
     "prod": "scripts/runprod.bat"
   },
   "private": true,
