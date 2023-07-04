@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: 'dist\uesrpg-combat-helper'
+          path: 'dist/uesrpg-combat-helper'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
