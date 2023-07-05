@@ -99,13 +99,13 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   
   exportTemplate(templateKey: string) {
     const template: NpcTemplate = NpcTemplateManager.load(templateKey);
-    FileUtil.download(JSON.stringify(template), templateKey + '.json');
+    FileUtil.download(NpcTemplateManager.instance.serialise(template), templateKey + '.json');
   }
   
   exportAllTemplates() {
     this.templateList.forEach(id => {
       const template: NpcTemplate = NpcTemplateManager.load(id.key);
-      FileUtil.zip(JSON.stringify(template), id.key + '.json');
+      FileUtil.zip(NpcTemplateManager.instance.serialise(template), id.key + '.json');
     });
     FileUtil.downloadZip('templates.zip');
   }
@@ -113,8 +113,7 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   importTemplate() {
     FileUtil.uploadMany<string>().subscribe(templateStrs => {
       templateStrs.forEach(templateStr => {
-        const obj = JSON.parse(templateStr);
-        const template: NpcTemplate = new NpcTemplate(obj.key, obj.name, obj.data);
+        const template: NpcTemplate = NpcTemplateManager.instance.deserialise(templateStr);
         NpcTemplateManager.create(template);
       });
       this.loadTemplateList();

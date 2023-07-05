@@ -15,6 +15,14 @@ export abstract class LocalStorage<T extends LocalStorable> {
     return fullKey.substring(this.MASTER_KEY.length + 1);
   }
   
+  serialise(data: T): string {
+    return JSON.stringify(data);
+  }
+  
+  deserialise(str: string): T {
+    return this.construct(JSON.parse(str));
+  }
+  
   create(data: T): T {
     if (this.exists(data.key)) {
       throw ErrorComponent.error(this.MASTER_KEY + ' with key \'' + data.key + '\' already exists');
@@ -31,15 +39,14 @@ export abstract class LocalStorage<T extends LocalStorable> {
   }
   
   private save(data: T): T {
-    localStorage.setItem(this.fullKey(data.key), JSON.stringify(data));
+    localStorage.setItem(this.fullKey(data.key), this.serialise(data));
     return data;
   }
   
   load(key: string): T {
     const str = localStorage.getItem(this.fullKey(key));
     if (!str) throw new Error('No ' + this.MASTER_KEY + ' found with key \'' + key + '\'');
-    const obj = JSON.parse(str);
-    return this.construct(obj);
+    return this.deserialise(str);
   }
   
   delete(key: string) {
