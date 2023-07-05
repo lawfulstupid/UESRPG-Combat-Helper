@@ -22,8 +22,8 @@ jobs:
         run: exit 1
       - name: Set git credentials
         run: |
-          git config user.name "${{ github.triggering_actor.user.name }}"
-          git config user.email "${{ github.triggering_actor.user.email }}"
+          git config user.name "${{ github.event.pusher.name }}"
+          git config user.email "${{ github.event.pusher.email }}"
       - name: New patch version
         run: npm version patch
       - name: Git Push
