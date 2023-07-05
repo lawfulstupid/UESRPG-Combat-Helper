@@ -1,0 +1,17 @@
+# Automatically increments patch version if push doesn't contain a new version
+name: Patch Version
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  patch:
+    name: Patch Version
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.head_commit.message, 'v*.*.*') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: New patch version
+        run: npm version patch
