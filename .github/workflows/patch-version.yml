@@ -27,4 +27,4 @@ jobs:
       - name: New patch version
         run: npm version patch
       - name: Git Push
-        run: git push
+        run: git push --follow-tags
