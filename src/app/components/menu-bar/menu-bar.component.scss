@@ -3,8 +3,36 @@
     padding: 0 8px;
 }
 
+.title-box {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+}
+
 h1 {
     margin: auto 0;
     color: #000;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.badge {
+    display: inline-block;
+    background-color: #777;
+    color: #fff;
+    padding: 0.1em 0.4em;
+    border-radius: 10rem;
+    height: min-content;
+    margin: auto 0;
+    margin-left: 1ch;
+    font-size: 75%;
+}
+
+.separator {
+    position: relative;
+    .fadeout {
+        position: absolute;
+        width: 8px;
+        height: 100%;
+        left: -8px;
+    }
 }

@@ -1,7 +1,14 @@
 <div id="menubar" fxLayout="row" class="menubar">
-  <h1>
-    UESRPG Combat Helper v{{version}}
-  </h1>
-  <div class="separator"></div>
+  <div class="title-box">
+    <h1>
+      UESRPG Combat Helper
+    </h1>
+    <h1>
+      <div id="badge" class="badge">v{{version}}</div>
+    </h1>
+  </div>
+  <div class="separator">
+    <div id="fadeout" class="fadeout"></div>
+  </div>
   <app-actionbar [actions]="actions"></app-actionbar>
 </div>

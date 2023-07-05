@@ -25,8 +25,12 @@ export class MenubarComponent implements OnInit {
     separator: true,
     isHidden: () => environment.production
   }, {
-    label: 'New Round',
-    callback: this.newRound.bind(this)
+    label: 'New NPC',
+    callback: this.newNpc.bind(this)
+  }, {
+    label: 'Manage Templates',
+    callback: this.manageNpcTemplates.bind(this),
+    separator: true
   }, {
     label: 'Export',
     callback: () => {EventManager.exportStageEvent.emit();}
@@ -35,12 +39,8 @@ export class MenubarComponent implements OnInit {
     callback: () => {EventManager.importStageEvent.emit();},
     separator: true
   }, {
-    label: 'New NPC',
-    callback: this.newNpc.bind(this)
-  }, {
-    label: 'Manage Templates',
-    callback: this.manageNpcTemplates.bind(this),
-    separator: true
+    label: 'New Round',
+    callback: this.newRound.bind(this)
   }, {
     label: 'Log',
     callback: this.openLog.bind(this)
@@ -53,7 +53,10 @@ export class MenubarComponent implements OnInit {
       [r,g,b] = [RandomUtil.d(255),RandomUtil.d(255),RandomUtil.d(255)];
       lum = 0.2126*r + 0.7152*g + 0.0722*b;
     }
-    document.getElementById('menubar')!.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
+    const args = r + ',' + g + ',' + b;
+    document.getElementById('menubar')!.style.background = 'rgb(' + args + ')';
+    document.getElementById('fadeout')!.style.background = 'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(' + args + ') 100%)';
+    document.getElementById('badge')!.style.background = 'rgb(' + r/2 + ',' + g/2 + ',' + b/2 + ')';
   }
   
   private newNpc() {
