@@ -6,7 +6,6 @@ export abstract class LocalStorage<T extends LocalStorable> {
   readonly abstract MASTER_KEY: string;
   
   protected abstract construct(obj: any): T;
-  protected abstract merge(existing: T, update: T): void;
   
   private fullKey(entityKey: string): string {
     return this.MASTER_KEY + ':' + entityKey;
@@ -28,10 +27,7 @@ export abstract class LocalStorage<T extends LocalStorable> {
       throw ErrorComponent.error(this.MASTER_KEY + ' with key \'' + data.key + '\' does not exist in database');
     }
     
-    // Merge with existing data
-    const existing: T = this.load(data.key);
-    this.merge(existing, data);
-    return this.save(existing);
+    return this.save(data);
   }
   
   private save(data: T): T {

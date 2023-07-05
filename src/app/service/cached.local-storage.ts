@@ -1,13 +1,21 @@
 import { LocalStorable, LocalStorage } from "./local-storage";
 
 export abstract class CachedLocalStorage<T extends LocalStorable> extends LocalStorage<T> {
+
+  protected abstract merge(existing: T, update: T): void;
   
   private cache: {[key: string]: T} = {};
   
   override create(data: T): T {
     const createdData = super.create(data);
-    this.cache[data.key] = data;
-    return data;
+    this.cache[data.key] = createdData;
+    return createdData;
+  }
+  
+  override update(data: T): T {
+    const updatedData = super.update(data);
+    this.merge(this.load(data.key), updatedData);
+    return this.load(data.key);
   }
   
   override load(key: string): T {
