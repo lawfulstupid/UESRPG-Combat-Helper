@@ -5,22 +5,6 @@ on:
     tags: ['v*.*.*']
 
 jobs:
-  tag-latest:
-    name: Tag Latest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: Remove "latest" tag
-        uses: dev-drprasad/delete-tag-and-release@v1.0
-        with:
-          tag_name: latest
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          delete_release: false
-      - name: Create "latest" tag
-        uses: rickstaa/action-create-tag@v1
-        with:
-          tag: latest
   release:
     name: Create Release
     runs-on: ubuntu-latest
