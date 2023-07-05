@@ -15,10 +15,6 @@ jobs:
       - name: Find Tag
         id: tagger
         uses: jimschubert/query-tag-action@v1
-        with:
-          include: 'v*.*.*'
-      - name: Show Tag
-        run: echo tag = ${{ steps.tagger.outputs.tag }}
       - name: Set git credentials
         if: ${{ contains(steps.tagger.outputs.tag, '-') }}
         run: |
