@@ -14,14 +14,17 @@ jobs:
         uses: actions/checkout@master
       - name: Find Tag
         id: tagger
-        uses: jimschubert/query-tag-action@v1
+        run: echo "TAG_NAME=$(git describe --tags HEAD)" >> $GITHUB_OUTPUT
+      - name: Show Tag
+        run: echo ${{ steps.tagger.outputs.TAG_NAME }}
+      - name: Conditional Termination
+        if: ${{ contains(steps.tagger.outputs.TAG_NAME, '-') }}
+        run: exit 1
       - name: Set git credentials
-        if: ${{ contains(steps.tagger.outputs.tag, '-') }}
         run: |
           git config user.name "${{ github.triggering_actor.user.name }}"
           git config user.email "${{ github.triggering_actor.user.email }}"
       - name: New patch version
-        if: ${{ contains(steps.tagger.outputs.tag, '-') }}
         run: npm version patch
       - name: Git Push
         run: git push
