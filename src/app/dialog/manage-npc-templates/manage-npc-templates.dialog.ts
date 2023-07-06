@@ -25,11 +25,11 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
     label: 'New',
     callback: this.newTemplate.bind(this)
   }, {
-    label: 'Export All',
-    callback: this.exportAllTemplates.bind(this)
-  }, {
     label: 'Import',
     callback: this.importTemplate.bind(this)
+  }, {
+    label: 'Export All',
+    callback: this.exportAllTemplates.bind(this)
   }];
   
   rowActions: Array<ActionItem> = [{
