@@ -32,6 +32,7 @@ import { Dialog } from './dialog/dialog';
 import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
 import { InfoDialog } from './dialog/info/info.dialog';
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
+import { ManageSessionsDialog } from './dialog/manage-sessions/manage-sessions.dialog';
 import { NewNpcTemplateDialog } from './dialog/new-npc-template/new-npc-template.dialog';
 import { NewNpcDialog } from './dialog/new-npc/new-npc.dialog';
 import { RequiredValuesDialog } from './dialog/required-values/required-values.dialog';
@@ -63,6 +64,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     NewNpcDialog,
     NewNpcTemplateDialog,
     ManageNpcTemplatesDialog,
+    ManageSessionsDialog,
     EditNpcTemplateDialog,
     ConfirmDialog,
     InfoDialog,

@@ -1,12 +1,13 @@
 import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { DragulaService } from "ng2-dragula";
-import { EMPTY, mergeMap, Observable, of } from "rxjs";
+import { EMPTY, Observable, mergeMap, of } from "rxjs";
 import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
 import { Npc } from "src/app/model/character/npc";
+import { Session } from "src/app/model/session";
 import { EventManager } from "src/app/service/event.manager";
+import { SessionManager } from "src/app/service/session.manager";
 import { StaticProvider } from "src/app/service/static.provider";
-import { FileUtil } from "src/app/util/file.util";
 import { NpcComponent } from "../npc/npc.component";
 
 @Component({
@@ -37,8 +38,8 @@ export class StageComponent implements OnInit {
     
     EventManager.addNpcEvent.subscribe(this.addNpc.bind(this));
     EventManager.removeNpcEvent.subscribe(this.removeNpcEvent.bind(this));
-    EventManager.exportStageEvent.subscribe(this.exportStage.bind(this));
-    EventManager.importStageEvent.subscribe(this.importStage.bind(this));
+    EventManager.saveSessionEvent.subscribe(this.saveSession.bind(this));
+    EventManager.loadSessionEvent.subscribe(this.loadSession.bind(this));
   }
   
   ngOnInit() {
@@ -91,7 +92,7 @@ export class StageComponent implements OnInit {
     }));
   }
   
-  private exportStage() {
+  private saveSession(sessionName: string) {
     const stage: Array<Array<Npc>> = [];
     for (let elmDragColumn of Array.from(document.getElementsByClassName('drag-column'))) {
       const column: Array<Npc> = [];
@@ -101,18 +102,20 @@ export class StageComponent implements OnInit {
       }
       stage.push(column);
     }
-    FileUtil.download(stage, 'stage-' + new Date().toISOString().slice(0,-5) + '.json');
+
+    SessionManager.create(new Session(sessionName, stage));
+    EventManager.reloadSessionListEvent.emit();
   }
   
-  private importStage() {
-    FileUtil.upload<Array<Array<Npc>>>().subscribe(stage => {
-      this.clearStage().subscribe(() => {
-        for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
-          for (let npc of stage[columnIdx]) {
-            this.addNpc(npc, columnIdx);
-          }
+  private loadSession(sessionKey: string) {
+    const session: Session = SessionManager.load(sessionKey);
+    const stage = session.stage;
+    this.clearStage().subscribe(() => {
+      for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
+        for (let npc of stage[columnIdx]) {
+          this.addNpc(npc, columnIdx);
         }
-      });
+      }
     });
   }
   

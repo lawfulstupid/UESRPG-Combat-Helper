@@ -1,0 +1,16 @@
+<app-dialog title="Manage Sessions" [actions]="actions" cancel="Close" width="40vw">
+  <div class="table">
+    <div class="header-row" fxLayout="row">
+      <div fxFlex="30">Name</div>
+      <div fxFlex="25">Timestamp</div>
+      <div fxFlex="45">Manage</div>
+    </div>
+    <div class="row" *ngFor="let session of sessionList" fxLayout="row">
+      <div fxFlex="30">{{session.name}}</div>
+      <div fxFlex="25">{{session.key.substring(8)}}</div>
+      <div fxFlex="45">
+        <app-actionbar [actions]="rowActions" [callbackParam]="session.key"></app-actionbar>
+      </div>
+    </div>
+  </div>
+</app-dialog>

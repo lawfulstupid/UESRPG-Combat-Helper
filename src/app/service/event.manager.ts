@@ -9,8 +9,9 @@ export class EventManager {
   
   static newRoundEvent: EventEmitter<void> = new EventEmitter();
   
-  static exportStageEvent: EventEmitter<void> = new EventEmitter();
-  static importStageEvent: EventEmitter<void> = new EventEmitter();
+  static saveSessionEvent: EventEmitter<string> = new EventEmitter();
+  static loadSessionEvent: EventEmitter<string> = new EventEmitter();
+  static reloadSessionListEvent: EventEmitter<void> = new EventEmitter();
   
   static diceRollEvent: EventEmitter<Test> = new EventEmitter();
   

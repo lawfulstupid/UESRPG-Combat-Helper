@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AppComponent } from "src/app/app.component";
 import { ManageNpcTemplatesDialog } from "src/app/dialog/manage-npc-templates/manage-npc-templates.dialog";
+import { ManageSessionsDialog } from "src/app/dialog/manage-sessions/manage-sessions.dialog";
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { EventManager } from "src/app/service/event.manager";
@@ -32,15 +33,11 @@ export class MenubarComponent implements OnInit {
     callback: this.manageNpcTemplates.bind(this),
     separator: true
   }, {
-    label: 'Export',
-    callback: () => {EventManager.exportStageEvent.emit();}
-  }, {
-    label: 'Import',
-    callback: () => {EventManager.importStageEvent.emit();},
-    separator: true
-  }, {
     label: 'New Round',
     callback: this.newRound.bind(this)
+  }, {
+    label: 'Manage Sessions',
+    callback: this.manageSessions.bind(this)
   }, {
     label: 'Log',
     callback: this.openLog.bind(this)
@@ -69,6 +66,10 @@ export class MenubarComponent implements OnInit {
   
   private manageNpcTemplates() {
     StaticProvider.dialog.open(ManageNpcTemplatesDialog);
+  }
+  
+  private manageSessions() {
+    StaticProvider.dialog.open(ManageSessionsDialog);
   }
   
   private newRound() {
