@@ -29,8 +29,8 @@ export class Wound implements Persistable<Wound> {
     return this.description + ' (' + this.severity.toString() + ')';
   }
   
-  static make(npc: Npc, hitLocation: HitLocationEnum, damage: number, damageType: DamageTypeEnum) {
-    return Test.make(npc, MiscProperties.SHOCK_TEST, {required: true}).subscribe(shockTest => {
+  static make(npc: Npc, hitLocation: HitLocationEnum, damage: number, damageType: DamageTypeEnum, tempModifier: number = 0) {
+    return Test.make(npc, MiscProperties.SHOCK_TEST, {required: true, tempModifier: tempModifier}).subscribe(shockTest => {
       const failedShockTest = shockTest.result.isFail();
       let description: string;
       
