@@ -51,7 +51,20 @@ export class StageComponent implements OnInit {
     }
   }
   
-  private addNpc(npc: Npc, column: number = 0) {
+  private addNpc(npc: Npc, column?: number) {
+    // Get emptiest column if no column supplied
+    if (column === undefined) {
+      column = 0; // backup value
+      let smallestSize = Number.MAX_SAFE_INTEGER;
+      for (let idx = 0; idx < this.containers.length; idx++) {
+        const currentSize = this.containers.get(idx)!.length
+        if (currentSize < smallestSize) {
+          column = idx;
+          smallestSize = currentSize;
+        }
+      }
+    }
+    
     const component = this.containers.get(column)!.createComponent(NpcComponent);
     this.componentRefs.push(component);
     component.instance.npc = npc;
