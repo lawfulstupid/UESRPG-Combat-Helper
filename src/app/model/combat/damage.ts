@@ -54,16 +54,19 @@ export class DamageApplication {
       throw new Error('Physical damage subtypes cannot be applied');
     }
     
-    npc.get(Attribute.WOUND_THRESHOLD).subscribe(wt => {
-      if (damage > wt) {
-        // Use hit location provided, or ask user if missing
-        ObservableUtil.coalesce(
-          () => of(hitLocation),
-          () => ValueRequestDialog.requestValue(MiscProperties.HIT_LOCATION, this.npc, true)
-        ).subscribe(hitLocation => {
-          Wound.make(npc, hitLocation, damage, damageType);
-        });
-      }
+    npc.get(Attribute.HIT_POINTS).subscribe(hp => {
+      if (hp <= 0) return; // no need to generate wound if already dead
+      npc.get(Attribute.WOUND_THRESHOLD).subscribe(wt => {
+        if (damage > wt) {
+          // Use hit location provided, or ask user if missing
+          ObservableUtil.coalesce(
+            () => of(hitLocation),
+            () => ValueRequestDialog.requestValue(MiscProperties.HIT_LOCATION, this.npc, true)
+          ).subscribe(hitLocation => {
+            Wound.make(npc, hitLocation, damage, damageType);
+          });
+        }
+      });
     });
   }
   
