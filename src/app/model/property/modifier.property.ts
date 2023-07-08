@@ -11,7 +11,6 @@ export class Modifier extends NumericalProperty {
   public static readonly MISC = new Modifier('miscModifier', 'Modifier');
   public static readonly FATIGUE = new Modifier('fatigue', 'Fatigue Penalty').derivedFrom(Attribute.STAMINA, sp => Math.max(0, -10 * sp));
   public static readonly WOUND_PASSIVE = new Modifier('woundPassive', 'Wound Passive Penalty').derivedFrom(CombatProperties.WOUNDS, list => -20 * list.length);
-  public static readonly TEMP_MODIFIER = new Modifier('tempModifier', 'Temporary Modifier');
   
   constructor(key: string, name: string, private applications: Array<Rollable> | 'all' = 'all') {
     super(key, name, TemplateRole.NO_TEMPLATE, 0);
