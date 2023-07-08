@@ -24,12 +24,13 @@ url="$2"
 
 while read local_ref local_oid remote_ref remote_oid
 do
-	if [ "$remote_ref" == "refs/heads/master" ]; then 							# If pushing to master
+	if [ "$remote_ref" == 'refs/heads/master' ]; then 							# If pushing to master
 		HEAD_TAG=$(git describe --tags) 										# get HEAD tag
 		if [ -z $(git tag --list | grep $HEAD_TAG) ]; then						# check if HEAD tag is in list of real tags
-			echo "Updating application version..."
+			echo 'Updating application version...'
 			npm version patch         											# if HEAD is not tagged, update patch version before pushing
-			exit 1																# Please retry now version has been updated
+			echo 'Application version updated, please retry push'
+			exit 1
 		fi
 	fi
 done
