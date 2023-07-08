@@ -9,6 +9,11 @@
       <div class="attribute-bar-text">
         {{statDisplay() | async}}
       </div>
+      <input type="range" class="attribute-bar-slider"
+        min="0" max="{{getBarMax() | async}}"
+        value="{{getBarValue() | async}}"
+        (input)="onSliderChange($event)"
+      >
     </div>
   </div>
   <app-long-press-button (shortPress)="modify(1,1)" (longPress)="modify(1)" [disabled]="disabled">

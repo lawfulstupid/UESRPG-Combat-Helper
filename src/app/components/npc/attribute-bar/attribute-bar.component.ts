@@ -61,6 +61,22 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
     }));
   }
   
+  getBarMax(): Observable<number> {
+    return this.npc.getTemplateProperty(this.attribute);
+  }
+  
+  getBarValue(): Observable<number> {
+    return this.npc.get(this.attribute);
+  }
+  
+  onSliderChange(event: any) {
+    const newValue: number = Number.parseInt(event.target.value);
+    this.npc.get(this.attribute).subscribe(oldValue => {
+      this.npc.put(this.attribute, newValue);
+      this.updateChanges(newValue - oldValue);
+    });
+  }
+  
   modify(direction: number, value?: number) {
     ObservableUtil.coalesce(
       of(value),  // If value is provided, use it as-is

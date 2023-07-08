@@ -25,10 +25,25 @@
     background-color: gray;
 }
 
+.attribute-bar-slider {
+    @extend .attribute-bar-bg;
+    appearance: none;
+    margin: 0px;
+    background: transparent;
+}
+
+.attribute-bar-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: transparent;
+}
+
 .attribute-bar-text {
     @extend .attribute-bar;
     width: 100%;
     text-align: center;
     font-size: small;
     transform: translateY(-3px);
+    user-select: none;
 }
