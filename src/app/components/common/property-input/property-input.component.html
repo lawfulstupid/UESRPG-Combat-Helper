@@ -40,3 +40,10 @@
 >
   {{booleanProperty.name}} 
 </mat-checkbox>
+
+<app-multi-property-input *ngIf="multiProperty"
+  [property]="multiProperty"
+  [allowBlank]="allowBlank"
+  (valueChange)="onMultiValueChange($event)"
+  (onEnter)="onEnter.emit()"
+></app-multi-property-input>

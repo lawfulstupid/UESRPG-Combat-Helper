@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { catchError, EMPTY } from "rxjs";
+import { EMPTY, catchError } from "rxjs";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
+import { MultiProperty } from "src/app/model/property/abstract/multi.property";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
 import { ArrayProperty } from "src/app/model/property/types/array.property";
 import { BooleanProperty } from "src/app/model/property/types/boolean.property";
@@ -22,7 +23,9 @@ export class PropertyInputComponent<T> implements OnInit {
       this.valueChange.emit({valueStr: this.valueStr, value: property.defaultValue});
     }
     
-    if (property instanceof ArrayProperty) {
+    if (property instanceof MultiProperty) {
+      this.multiProperty = property;
+    } else if (property instanceof ArrayProperty) {
       this.arrayProperty = property;
     } else if (property instanceof BooleanProperty) {
       this.booleanProperty = property;
@@ -46,6 +49,7 @@ export class PropertyInputComponent<T> implements OnInit {
   private property!: Property<T>;
   // Only one of the below will be populated -- determines how property input is displayed
   defaultProperty?: Property<T>;
+  multiProperty?: MultiProperty<any,any>;
   arrayProperty?: ArrayProperty<any>; // TODO #4
   booleanProperty?: BooleanProperty;
   enumProperty?: EnumProperty<any>;
@@ -113,6 +117,12 @@ export class PropertyInputComponent<T> implements OnInit {
       this.errorMessage = 'Invalid'; // TODO #40: more detail
       this.valueChange.emit(undefined);
     }
+  }
+  
+  // Call if multi-property
+  onMultiValueChange(change: ValueChange<[any,any]>) {
+    this.value = <any>change?.value;
+    this.onValueChange();
   }
   
   private output(init: boolean = false) {

@@ -17,6 +17,7 @@ import { ActionbarComponent } from './components/common/action-bar/action-bar.co
 import { FoldableSectionComponent } from './components/common/foldable-section/foldable-section.component';
 import { LongPressButtonComponent } from './components/common/long-press-button/long-press-button.component';
 import { PixelRounderComponent } from './components/common/pixel-rounder/pixel-rounder.component';
+import { MultiPropertyInputComponent } from './components/common/property-input/multi-property-input/multi-property-input.component';
 import { PropertyInputComponent } from './components/common/property-input/property-input.component';
 import { TestResultComponent } from './components/common/test-result/test-result.component';
 import { ErrorComponent } from './components/error/error.component';
@@ -50,6 +51,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     ActionbarComponent,
     NpcComponent,
     PropertyInputComponent,
+    MultiPropertyInputComponent,
     AttributeBarComponent,
     LongPressButtonComponent,
     SkillRollerComponent,

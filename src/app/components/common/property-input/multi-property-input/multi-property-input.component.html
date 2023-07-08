@@ -1,0 +1,5 @@
+<div fxLayout="row">
+  <app-property-input [property]="property.propA" (valueChange)="onValueChangeA($event)" (onEnter)="onEnter.emit()"></app-property-input>
+  <div class="separator"></div>
+  <app-property-input [property]="property.propB" (valueChange)="onValueChangeB($event)" (onEnter)="onEnter.emit()"></app-property-input>
+</div>
