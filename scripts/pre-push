@@ -29,6 +29,7 @@ do
 		if [ -z $(git tag --list | grep $HEAD_TAG) ]; then						# check if HEAD tag is in list of real tags
 			echo "Updating application version..."
 			npm version patch         											# if HEAD is not tagged, update patch version before pushing
+			exit 1																# Please retry now version has been updated
 		fi
 	fi
 done
