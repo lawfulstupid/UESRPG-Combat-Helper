@@ -7,6 +7,7 @@ import { HitLocationEnum } from "../enum/hit-location.enum";
 import { Attribute } from "../property/attribute.property";
 import { MiscProperties } from "../property/collections/misc";
 import { Wound } from "./wound";
+import { MultiProperty } from "../property/abstract/multi.property";
 
 // This represents a damage expression delivered by the damage dealer
 export class Damage {
@@ -60,10 +61,10 @@ export class DamageApplication {
         if (damage > wt) {
           // Use hit location provided, or ask user if missing
           ObservableUtil.coalesce(
-            () => of(hitLocation),
-            () => ValueRequestDialog.requestValue(MiscProperties.HIT_LOCATION, this.npc, true)
-          ).subscribe(hitLocation => {
-            Wound.make(npc, hitLocation, damage, damageType);
+            () => of(MultiProperty.combine(hitLocation, 0)),
+            () => ValueRequestDialog.requestValue(MiscProperties.WOUND_LOCATION, this.npc, true)
+          ).subscribe(([hitLocation, tempModifier]) => {
+            Wound.make(npc, hitLocation, damage, damageType, tempModifier);
           });
         }
       });
