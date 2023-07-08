@@ -13,6 +13,7 @@
         min="0" max="{{getBarMax() | async}}"
         value="{{getBarValue() | async}}"
         (input)="onSliderChange($event)"
+        (change)="onSliderEnd($event)"
       >
     </div>
   </div>

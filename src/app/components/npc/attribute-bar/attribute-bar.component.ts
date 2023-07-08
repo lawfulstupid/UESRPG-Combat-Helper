@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Optional, Output } from "@angular/core";
 import { faCircleMinus, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { map, mergeMap, Observable, of, tap } from "rxjs";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
@@ -30,6 +30,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   
   private recentChangeTimeout?: NodeJS.Timeout;
   private recentChanges: number = 0;
+  private sliderValueInit: number | undefined;
   
   @Output()
   onChange: EventEmitter<number> = new EventEmitter();
@@ -73,8 +74,16 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
     const newValue: number = Number.parseInt(event.target.value);
     this.npc.get(this.attribute).subscribe(oldValue => {
       this.npc.put(this.attribute, newValue);
-      this.updateChanges(newValue - oldValue);
+      if (this.sliderValueInit === undefined) this.sliderValueInit = oldValue;
     });
+  }
+  
+  onSliderEnd(event: any) {
+    const newValue: number = Number.parseInt(event.target.value);
+    if (this.sliderValueInit !== undefined) {
+      this.updateChanges(newValue - this.sliderValueInit);
+      this.sliderValueInit = undefined;
+    }
   }
   
   modify(direction: number, value?: number) {
