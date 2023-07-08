@@ -98,7 +98,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
         }));
       }
     ).pipe(ObservableUtil.ignoreError).subscribe(value => {
-      const change = direction * Math.abs(value);
+      const change = direction * value;
       this.npc.alter(this.attribute, currentValue => currentValue + change);
       this.updateChanges.bind(this)(change);
     });
