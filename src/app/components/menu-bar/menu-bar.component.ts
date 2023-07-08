@@ -52,8 +52,18 @@ export class MenubarComponent implements OnInit {
     }
     const args = r + ',' + g + ',' + b;
     document.getElementById('menubar')!.style.background = 'rgb(' + args + ')';
-    document.getElementById('fadeout')!.style.background = 'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(' + args + ') 100%)';
-    document.getElementById('badge')!.style.background = 'rgb(' + r/2 + ',' + g/2 + ',' + b/2 + ')';
+    document.getElementById('fadeout')!.style.background = 'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(' + args + ') 100%)'
+
+    const badgeStyle1 = 'rgb(' + r/2 + ',' + g/2 + ',' + b/2 + ')';
+    const badgeStyle2 = 'rgb(' + r/3 + ',' + g/3 + ',' + b/3 + ')';
+    const badge: HTMLElement = <HTMLElement>document.getElementById('badge');
+    badge.style.background = badgeStyle1;
+    badge.onmouseenter = () => {
+      badge.style.background = badgeStyle2;
+    };
+    badge.onmouseleave = () => {
+      badge.style.background = badgeStyle1;
+    };
   }
   
   private newNpc() {
