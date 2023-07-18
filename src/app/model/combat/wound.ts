@@ -47,6 +47,7 @@ export class Wound implements Persistable<Wound> {
           break;
         case HitLocationEnum.BODY:
           npc.alter(Attribute.ACTION_POINTS, ap => ap - 1); // lose 1 AP
+          InfoDialog.placeholder(npc.name + ' loses 1 AP'); // TODO: #37: remove
           description = 'Wounded Body';
           if (failedShockTest) {
             InfoDialog.placeholder(npc.name + ' has gained the \'Crippled Body\' condition'); // TODO #30: replace with set body status
