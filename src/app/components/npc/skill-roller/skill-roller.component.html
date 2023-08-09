@@ -15,7 +15,13 @@
       {{characteristic.name}} {{displayTargetNumber(characteristic) | async}}
     </mat-option>
   </mat-select>
-  <app-property-input [property]="miscModifierProperty" [directCharacterAccess]="npc" [allowBlank]="true" (onEnter)="roll()"></app-property-input>
+  <app-property-input
+    [property]="miscModifierProperty"
+    [directCharacterAccess]="npc"
+    [allowBlank]="true"
+    [highlight]="(npc.get(miscModifierProperty) | async) !== 0"
+    (onEnter)="roll()"
+  ></app-property-input>
   <button mat-raised-button (click)="roll()">Roll</button>
 </div>
 <app-test-result [test]="test" *ngIf="test">

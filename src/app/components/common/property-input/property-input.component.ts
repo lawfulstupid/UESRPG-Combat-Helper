@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { EMPTY, catchError } from "rxjs";
+import { ColorEnum } from "src/app/enum/color.enum";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { MultiProperty } from "src/app/model/property/abstract/multi.property";
 import { Property, TemplateRole } from "src/app/model/property/abstract/property";
@@ -45,6 +46,12 @@ export class PropertyInputComponent<T> implements OnInit {
   
   @Input()
   directCharacterAccess?: DataCharacter;
+  
+  @Input()
+  highlight: boolean = false;
+  
+  @Input()
+  highlightColor: string = ColorEnum.YELLOW;
   
   private property!: Property<T>;
   // Only one of the below will be populated -- determines how property input is displayed

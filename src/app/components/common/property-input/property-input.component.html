@@ -5,6 +5,7 @@
     (change)="onFocusChange()"
     [placeholder]="defaultProperty.name"
     autocomplete="false"
+    [style.color]="highlight ? highlightColor : ''"
     (onEnterPressed)="onEnter.emit()"
   />
   <mat-hint style="color: lightcoral" *ngIf="showErrorMessage">{{errorMessage}}</mat-hint>
@@ -17,6 +18,7 @@
     (ngModelChange)="onValueStrChange()"
     (change)="onFocusChange()"
     [placeholder]="textAreaProperty.name"
+    [style.color]="highlight ? highlightColor : ''"
     autocomplete="false"
   ></textarea>
 </mat-form-field>
