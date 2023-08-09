@@ -28,7 +28,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly moveIcon = faArrowsUpDownLeftRight;
   
   protected override requiredProperties(): Array<Property<any>> {
-    return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT, Characteristic.STRENGTH];
+    return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT, Characteristic.STRENGTH]; // TODO #17: remove STRENGTH
   }
   
   protected override init() {

@@ -35,6 +35,7 @@
   <app-property-input [property]="notesProperty" [directCharacterAccess]="npc" [allowBlank]="true"></app-property-input> 
   
   <!-- Auto Notes -->
+  <!-- TODO #17: Remove Strength Bonus display -->
   <div style="margin-left: auto">
     Strength Bonus: {{this.npc.get(characteristicEnum.STRENGTH.BONUS) | async}}
   </div>
