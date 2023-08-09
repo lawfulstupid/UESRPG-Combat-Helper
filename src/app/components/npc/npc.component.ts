@@ -6,6 +6,7 @@ import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
 import { Property } from "src/app/model/property/abstract/property";
 import { Attribute } from "src/app/model/property/attribute.property";
+import { Characteristic } from "src/app/model/property/characteristic.property";
 import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { EventManager } from "src/app/service/event.manager";
@@ -18,6 +19,7 @@ import { EventManager } from "src/app/service/event.manager";
 export class NpcComponent extends DisplayRequiredValuesComponent {
   
   readonly colorEnum = ColorEnum;
+  readonly characteristicEnum = Characteristic;
   readonly attributeEnum = Attribute;
   readonly combatEnum = CombatProperties;
   readonly notesProperty = MiscProperties.NOTES;
@@ -26,7 +28,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly moveIcon = faArrowsUpDownLeftRight;
   
   protected override requiredProperties(): Array<Property<any>> {
-    return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT];
+    return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT, Characteristic.STRENGTH];
   }
   
   protected override init() {

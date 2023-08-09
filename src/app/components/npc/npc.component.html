@@ -32,7 +32,12 @@
   <app-skill-roller [npc]="npc"></app-skill-roller>
   
   <!-- Notes -->
-  <app-property-input [property]="notesProperty" [directCharacterAccess]="npc" [allowBlank]="true"></app-property-input>
+  <app-property-input [property]="notesProperty" [directCharacterAccess]="npc" [allowBlank]="true"></app-property-input> 
+  
+  <!-- Auto Notes -->
+  <div style="margin-left: auto">
+    Strength Bonus: {{this.npc.get(characteristicEnum.STRENGTH.BONUS) | async}}
+  </div>
   
   <!-- Wounds -->
   <app-wounds [npc]="npc"></app-wounds>
