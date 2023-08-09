@@ -65,6 +65,7 @@ export class PropertyInputComponent<T> implements OnInit {
   valueStr: string = '';
   value?: T;
   
+  error?: Error | unknown;
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
@@ -93,7 +94,7 @@ export class PropertyInputComponent<T> implements OnInit {
   // Call if [ngModel]="value"
   onValueChange() {
     this.showErrorMessage = false;
-    this.errorMessage = undefined;
+    this.error = undefined;
     try {
       if (this.value !== undefined) {
         this.valueStr = this.property.serialise(this.value);
@@ -104,7 +105,7 @@ export class PropertyInputComponent<T> implements OnInit {
       }
       this.output();
     } catch (e) {
-      this.errorMessage = 'Invalid'; // TODO #40: more detail
+      this.error = e;
       this.valueChange.emit(undefined);
     }
   }
@@ -112,7 +113,7 @@ export class PropertyInputComponent<T> implements OnInit {
   // Call if [ngModel]="valueStr"
   onValueStrChange() {
     this.showErrorMessage = false;
-    this.errorMessage = undefined;
+    this.error = undefined;
     try {
       if (this.allowBlank && this.valueStr.trim() === '') {
         this.value = undefined;
@@ -121,7 +122,7 @@ export class PropertyInputComponent<T> implements OnInit {
       }
       this.output();
     } catch (e) {
-      this.errorMessage = 'Invalid'; // TODO #40: more detail
+      this.error = e;
       this.valueChange.emit(undefined);
     }
   }
@@ -140,7 +141,16 @@ export class PropertyInputComponent<T> implements OnInit {
   }
   
   onFocusChange() {
-    this.showErrorMessage = !!this.errorMessage;
+    if (this.error === undefined) {
+      this.showErrorMessage = false;
+    } else if (this.error instanceof Error) {
+      this.errorMessage = this.error.message;
+      this.showErrorMessage = true;
+    } else {
+      if (!this.showErrorMessage) console.log(this.error);
+      this.errorMessage = 'Error';
+      this.showErrorMessage = true;
+    }
   }
   
 }
