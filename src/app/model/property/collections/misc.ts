@@ -11,6 +11,6 @@ export class MiscProperties {
   public static readonly NOTES = new TextAreaProperty('notes', 'Notes', TemplateRole.NO_TEMPLATE);
   public static readonly SHOCK_TEST = Characteristic.ENDURANCE.renamed('Shock Test');
   public static readonly HIT_LOCATION = new EnumProperty(HitLocationEnum, 'hitLocation', 'Hit Location', TemplateRole.TRANSIENT);
-  public static readonly WOUND_LOCATION = new MultiProperty(this.HIT_LOCATION, Modifier.MISC);
+  public static readonly WOUND_LOCATION = new MultiProperty(this.HIT_LOCATION, Modifier.SHOCK_TEST);
   
 }
