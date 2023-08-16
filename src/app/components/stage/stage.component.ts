@@ -47,7 +47,7 @@ export class StageComponent implements OnInit {
     const list = Array.from(document.getElementsByClassName('drag-column'));
     for (let elm of list) {
       const realElm = <HTMLElement>elm;
-      realElm.style.width = Math.floor(elm.clientWidth / list.length) + 'px';
+      realElm.style.width = Math.floor(window.innerWidth / list.length) + 'px';
     }
   }
   
