@@ -20,6 +20,12 @@ export class MenubarComponent implements OnInit {
   
   readonly version = environment.appVersion;
   
+  readonly roundCounter: ActionItem = {
+    label: 1,
+    plaintext: true,
+    separator: true
+  };
+  
   actions: Array<ActionItem> = [{
     label: 'Test',
     callback: this.test.bind(this),
@@ -35,7 +41,9 @@ export class MenubarComponent implements OnInit {
   }, {
     label: 'New Round',
     callback: this.newRound.bind(this)
-  }, {
+  },
+  this.roundCounter,
+  {
     label: 'Manage Sessions',
     callback: this.manageSessions.bind(this)
   }, {
@@ -84,6 +92,7 @@ export class MenubarComponent implements OnInit {
   
   private newRound() {
     EventManager.newRoundEvent.emit();
+    this.roundCounter.label = <number>this.roundCounter.label + 1;
   }
   
   private openLog() {

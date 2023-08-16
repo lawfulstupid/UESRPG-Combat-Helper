@@ -14,19 +14,22 @@ export class ActionbarComponent {
   callbackParam?: any;
   
   doCallback(action: ActionItem) {
-    if (this.callbackParam === undefined) {
-      action.callback();
-    } else {
-      action.callback(this.callbackParam);
+    if (action.callback) {
+      if (this.callbackParam === undefined) {
+        action.callback();
+      } else {
+        action.callback(this.callbackParam);
+      }
     }
   }
   
 }
 
 export interface ActionItem {
-  label: string;
-  callback: Function;
+  label: string | number;
+  callback?: Function;
   separator?: boolean;
+  plaintext?: boolean;
   isDisabled?: () => boolean;
   isHidden?: () => boolean;
 }

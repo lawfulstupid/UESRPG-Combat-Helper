@@ -1,13 +1,19 @@
 .actionbar {
     padding-top: 8px;
     padding-bottom: 8px;
-    button:first-child {  
-        margin-left: 0px;
-    }
-    button {
+    :not(.separator) {
         margin-left: 8px;
+        &:first-child {
+            margin-left: 0px;
+        }
     }
-    div.separator {
+    .separator {
         border-right: 1px solid gray;
+    }
+    .text {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size: large;
+        color: #424242;
     }
 }
