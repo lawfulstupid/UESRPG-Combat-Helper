@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
-import { faArrowsUpDownLeftRight, faClose } from "@fortawesome/free-solid-svg-icons";
+import { MatDialogConfig } from "@angular/material/dialog";
+import { faArrowsUpDownLeftRight, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
+import { EditDataCharacterDialog } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
 import { ColorEnum } from "src/app/enum/color.enum";
 import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
@@ -10,6 +12,7 @@ import { Characteristic } from "src/app/model/property/characteristic.property";
 import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { EventManager } from "src/app/service/event.manager";
+import { StaticProvider } from "src/app/service/static.provider";
 
 @Component({
   selector: 'app-npc',
@@ -24,8 +27,9 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly combatEnum = CombatProperties;
   readonly notesProperty = MiscProperties.NOTES;
   
-  readonly closeIcon = faClose;
   readonly moveIcon = faArrowsUpDownLeftRight;
+  readonly editIcon = faPen;
+  readonly closeIcon = faClose;
   
   protected override requiredProperties(): Array<Property<any>> {
     return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT, Characteristic.STRENGTH]; // TODO #17: remove STRENGTH
@@ -50,6 +54,17 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     if (change < 0) {
       this.npc.put(CombatProperties.STAMINA_SPENT, true);
     }
+  }
+  
+  edit() {
+    const config: MatDialogConfig = { data: {
+      title: 'Edit NPC',
+      character: this.npc
+    }};
+    StaticProvider.dialog.open(EditDataCharacterDialog, config).afterClosed().subscribe(([updatedName, updatedData]) => {
+      this.npc.name = updatedName;
+      this.npc.putData(updatedData);
+    });
   }
   
   close() {

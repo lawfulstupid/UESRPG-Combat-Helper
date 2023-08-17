@@ -41,6 +41,18 @@
     }
 }
 
+.edit-button {
+    @extend .circle-button;
+    background-color: gold;
+    left: calc(100% - 36px);
+    cursor: pointer;
+    fa-icon {
+        font-size: small;
+        left: calc((16px - 14px) / 2);
+        top: -1px;
+    }
+}
+
 .delete-button {
     @extend .circle-button;
     background-color: crimson;
