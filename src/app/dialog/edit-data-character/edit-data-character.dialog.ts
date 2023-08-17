@@ -1,18 +1,16 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
-import { Data } from "src/app/model/character/data-character";
-import { NpcTemplate } from "src/app/model/character/npc-template";
-import { NpcTemplateManager } from "src/app/service/npc-template.manager";
+import { Data, DataCharacter } from "src/app/model/character/data-character";
 import { StaticProvider } from "src/app/service/static.provider";
 import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
 import { Dialog } from "../dialog";
 
 @Component({
-  templateUrl: 'edit-npc-template.dialog.html',
+  templateUrl: 'edit-data-character.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class EditNpcTemplateDialog extends Dialog<EditNpcTemplateDialog> {
+export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog> {
   
   override actions: Array<ActionItem> = [{
     label: 'Add Row',
@@ -31,13 +29,13 @@ export class EditNpcTemplateDialog extends Dialog<EditNpcTemplateDialog> {
   newRows: Array<[string, string]> = [];
   
   constructor(
-    dialogRef: MatDialogRef<EditNpcTemplateDialog>,
-    @Inject(MAT_DIALOG_DATA) public templateKey: string
+    dialogRef: MatDialogRef<EditDataCharacterDialog>,
+    @Inject(MAT_DIALOG_DATA) params: EditDataCharacterDialogParams
   ) {
     super(dialogRef);
-    const template = NpcTemplateManager.load(this.templateKey);
-    this.name = template.name;
-    this.data = template.getData();
+    this.title = params.title;
+    this.name = params.character.name;
+    this.data = params.character.getData();
     this.computeKeys();
   }
   
@@ -79,8 +77,12 @@ export class EditNpcTemplateDialog extends Dialog<EditNpcTemplateDialog> {
     this.newRows.forEach(row => {
       finalData[row[0]] = row[1];
     });
-    NpcTemplateManager.update(new NpcTemplate(this.templateKey, this.name, finalData));
-    this.dialogRef.close();
+    this.dialogRef.close([this.name, finalData]);
   }
   
+}
+
+interface EditDataCharacterDialogParams {
+  character: DataCharacter;
+  title: string;
 }

@@ -12,7 +12,7 @@ import { FileUtil } from "src/app/util/file.util";
 import { StageComponent } from "../../components/stage/stage.component";
 import { ConfirmDialog } from "../confirm/confirm.dialog";
 import { Dialog } from "../dialog";
-import { EditNpcTemplateDialog } from "../edit-npc-template/edit-npc-template.dialog";
+import { EditDataCharacterDialog } from "../edit-data-character/edit-data-character.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
@@ -61,8 +61,14 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   }
   
   editTemplate(templateKey: string) {
-    const config: MatDialogConfig = { data: templateKey };
-    StaticProvider.dialog.open(EditNpcTemplateDialog, config);
+    const template = NpcTemplateManager.load(templateKey);
+    const config: MatDialogConfig = { data: {
+      title: 'Edit NPC Template',
+      character: template
+    }};
+    StaticProvider.dialog.open(EditDataCharacterDialog, config).afterClosed().subscribe(([updatedName, updatedData]) => {
+      NpcTemplateManager.update(new NpcTemplate(templateKey, updatedName, updatedData));
+    });
   }
   
   deleteTemplate(templateKey: string) {

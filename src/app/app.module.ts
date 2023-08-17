@@ -30,7 +30,7 @@ import { StageComponent } from './components/stage/stage.component';
 import { TestLogComponent } from './components/test-log/test-log.component';
 import { ConfirmDialog } from './dialog/confirm/confirm.dialog';
 import { Dialog } from './dialog/dialog';
-import { EditNpcTemplateDialog } from './dialog/edit-npc-template/edit-npc-template.dialog';
+import { EditDataCharacterDialog } from './dialog/edit-data-character/edit-data-character.dialog';
 import { InfoDialog } from './dialog/info/info.dialog';
 import { ManageNpcTemplatesDialog } from './dialog/manage-npc-templates/manage-npc-templates.dialog';
 import { ManageSessionsDialog } from './dialog/manage-sessions/manage-sessions.dialog';
@@ -69,7 +69,7 @@ import { RangePipe } from './pipe/range.pipe';
     NewNpcTemplateDialog,
     ManageNpcTemplatesDialog,
     ManageSessionsDialog,
-    EditNpcTemplateDialog,
+    EditDataCharacterDialog,
     ConfirmDialog,
     InfoDialog,
     ActionItemFilterPipe,
