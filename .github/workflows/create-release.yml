@@ -17,5 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
+          name: Release ${{ github.ref_name }}
           draft: true
+          prerelease: true
           generateReleaseNotes: true
