@@ -1,5 +1,6 @@
 import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DragulaService } from "ng2-dragula";
 import { EMPTY, Observable, mergeMap, of } from "rxjs";
 import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
@@ -18,6 +19,10 @@ import { NpcComponent } from "../npc/npc.component";
 export class StageComponent implements OnInit {
   
   public static instance: StageComponent;
+  readonly faPlus = faPlus;
+  readonly faMinus = faMinus;
+  
+  numColumns = 4;
   
   @ViewChildren('insertionPoint', {read: ViewContainerRef})
   containers!: QueryList<ViewContainerRef>;
@@ -43,12 +48,19 @@ export class StageComponent implements OnInit {
   }
   
   ngOnInit() {
-    // Fix column width to be integer pixel
-    const list = Array.from(document.getElementsByClassName('drag-column'));
-    for (let elm of list) {
-      const realElm = <HTMLElement>elm;
-      realElm.style.width = Math.floor(window.innerWidth / list.length) + 'px';
-    }
+    this.setColumnWidths();
+    addEventListener("resize", this.setColumnWidths);
+  }
+  
+  private setColumnWidths() {
+    setTimeout(() => {
+      // Fix column width to be integer pixel
+      const list = Array.from(document.getElementsByClassName('drag-column'));
+      for (let elm of list) {
+        const realElm = <HTMLElement>elm;
+        realElm.style.width = Math.floor(window.innerWidth / list.length) + 'px';
+      }
+    }, 0);
   }
   
   private addNpc(npc: Npc, column?: number) {
@@ -124,12 +136,41 @@ export class StageComponent implements OnInit {
     const session: Session = SessionManager.load(sessionKey);
     const stage = session.stage;
     this.clearStage().subscribe(() => {
+      this.setColumns(stage.length); // set number of columns on stage import
       for (let columnIdx = 0; columnIdx < stage.length; columnIdx++) {
         for (let npc of stage[columnIdx]) {
           this.addNpc(npc, columnIdx);
         }
       }
     });
+  }
+  
+  addColumn() {
+    this.numColumns++;
+    this.setColumnWidths();
+  }
+  
+  removeColumn(idx: number) {
+    // Only last column can be removed
+    if (idx !== this.numColumns - 1) return;
+    
+    // Only empty columns can be removed
+    const columns = Array.from(document.getElementsByClassName('drag-column'))
+    const lastColumn = columns[columns.length - 1];
+    const numNpcs = lastColumn.querySelectorAll('app-npc').length;
+    if (numNpcs !== 0) return;
+    
+    this.numColumns--;
+    this.setColumnWidths();
+  }
+  
+  private setColumns(num: number) {
+    if (num > this.numColumns) {
+      this.numColumns = num;
+    } else while (num < this.numColumns) {
+      this.removeColumn(this.numColumns - 1);
+    }
+    this.setColumnWidths();
   }
   
 }

@@ -41,6 +41,7 @@ import { ValueRequestDialog } from './dialog/value-request/value-request.dialog'
 import { InputEnterRedirectionDirective } from './directive/input-enter-redirection.directive';
 import { MatSelectEnterRedirectionDirective } from './directive/mat-select-enter-redirection.directive';
 import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
+import { RangePipe } from './pipe/range.pipe';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
     ConfirmDialog,
     InfoDialog,
     ActionItemFilterPipe,
+    RangePipe,
     InputEnterRedirectionDirective,
     MatSelectEnterRedirectionDirective
   ],

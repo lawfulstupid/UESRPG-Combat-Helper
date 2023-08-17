@@ -1,14 +1,18 @@
-<div fxLayout="row">
-  <div dragula="DRAGGABLE" class="drag-column">
-    <ng-template #insertionPoint></ng-template>
+<div id="stage" fxLayout="row">
+  <div class="addColumnButton">
+    <div class="addColumnButtonCircle" (click)="addColumn()">
+      <fa-icon [icon]="faPlus"></fa-icon>
+    </div>
+    <div class="addColumnButtonVertical" (click)="addColumn()"></div>
   </div>
-  <div dragula="DRAGGABLE" class="drag-column">
-    <ng-template #insertionPoint></ng-template>
-  </div>
-  <div dragula="DRAGGABLE" class="drag-column">
-    <ng-template #insertionPoint></ng-template>
-  </div>
-  <div dragula="DRAGGABLE" class="drag-column">
-    <ng-template #insertionPoint></ng-template>
-  </div>
+  <ng-container *ngFor="let idx of numColumns | range">
+    <div dragula="DRAGGABLE" class="drag-column">
+      <ng-template #insertionPoint></ng-template>
+      <div class="removalIndicator" (click)="removeColumn(idx)">
+        <div class="minus">
+          <fa-icon [icon]="faMinus"></fa-icon>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
