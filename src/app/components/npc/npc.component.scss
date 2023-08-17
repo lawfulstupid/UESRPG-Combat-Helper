@@ -10,6 +10,10 @@
     margin-left: 8px;
     margin-right: 8px;
     align-items: center;
+    &.dead {
+        background-color: hwb(0 27% 60%);
+        opacity: 0.4;
+    }
 }
 
 .circle-button {
@@ -52,6 +56,7 @@
 .npc-name {
     align-items: center;
     text-align: center;
+    text-decoration: line-through;
 }
 
 mat-hint.hint-table {

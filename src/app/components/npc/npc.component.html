@@ -1,4 +1,4 @@
-<div class="npc" fxLayout="column" *ngIf="loaded">
+<div class="npc" fxLayout="column" [ngClass]="{'dead': (npc.get(attributeEnum.HIT_POINTS) | asyncDefault: 1) <= 0}" *ngIf="loaded">
   <!-- Floating Buttons -->
   <div class="drag-handle">
     <fa-icon [icon]="moveIcon"></fa-icon>

@@ -41,6 +41,7 @@ import { ValueRequestDialog } from './dialog/value-request/value-request.dialog'
 import { InputEnterRedirectionDirective } from './directive/input-enter-redirection.directive';
 import { MatSelectEnterRedirectionDirective } from './directive/mat-select-enter-redirection.directive';
 import { ActionItemFilterPipe } from './pipe/action-item-filter.pipe';
+import { AsyncDefaultPipe } from './pipe/async-default.pipe';
 import { RangePipe } from './pipe/range.pipe';
 
 @NgModule({
@@ -73,6 +74,7 @@ import { RangePipe } from './pipe/range.pipe';
     InfoDialog,
     ActionItemFilterPipe,
     RangePipe,
+    AsyncDefaultPipe,
     InputEnterRedirectionDirective,
     MatSelectEnterRedirectionDirective
   ],
