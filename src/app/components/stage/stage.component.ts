@@ -57,24 +57,26 @@ export class StageComponent implements OnInit {
   }
   
   private setColumnWidths() {
-    // Fix column width to be integer pixel
-    const list = Array.from(document.getElementsByClassName('drag-column'));
-    const width = Math.floor(window.innerWidth / this.numColumns);
-    for (let elm of list) {
-      const realElm = <HTMLElement>elm;
-      realElm.style.width = '' + width + 'px';
-    }
-    
-    // Check if columns are too narrow, try to remove
-    if (width < StageComponent.MIN_COLUMN_WIDTH_PX) {
-      this.removeColumn(this.numColumns - 1);
-    } else if (width > StageComponent.MAX_COLUMN_WIDTH_PX) {
-      this.addColumn();
-    }
-    
-    // Update controls
-    this.canAddColumns = Math.floor(window.innerWidth / (this.numColumns + 1)) >= StageComponent.MIN_COLUMN_WIDTH_PX;
-    this.canRemoveColumns = Math.floor(window.innerWidth / (this.numColumns - 1)) <= StageComponent.MAX_COLUMN_WIDTH_PX;
+    setTimeout(() => {
+      // Fix column width to be integer pixel
+      const list = Array.from(document.getElementsByClassName('drag-column'));
+      const width = Math.floor(window.innerWidth / this.numColumns);
+      for (let elm of list) {
+        const realElm = <HTMLElement>elm;
+        realElm.style.width = '' + width + 'px';
+      }
+      
+      // Check if columns are too narrow, try to remove
+      if (width < StageComponent.MIN_COLUMN_WIDTH_PX) {
+        this.removeColumn(this.numColumns - 1);
+      } else if (width > StageComponent.MAX_COLUMN_WIDTH_PX) {
+        this.addColumn();
+      }
+      
+      // Update controls
+      this.canAddColumns = Math.floor(window.innerWidth / (this.numColumns + 1)) >= StageComponent.MIN_COLUMN_WIDTH_PX;
+      this.canRemoveColumns = Math.floor(window.innerWidth / (this.numColumns - 1)) <= StageComponent.MAX_COLUMN_WIDTH_PX;
+    }, 0);
   }
   
   private addNpc(npc: Npc, column?: number) {
@@ -161,7 +163,7 @@ export class StageComponent implements OnInit {
   
   addColumn() {
     this.numColumns++;
-    setTimeout(this.setColumnWidths.bind(this), 0);
+    this.setColumnWidths();
   }
   
   removeColumn(idx: number) {
@@ -181,13 +183,13 @@ export class StageComponent implements OnInit {
     }
     
     this.numColumns--;
-    setTimeout(this.setColumnWidths.bind(this), 0);
+    this.setColumnWidths();
   }
   
   private setColumns(num: number) {
     if (num > this.numColumns) {
       this.numColumns = num;
-      setTimeout(this.setColumnWidths.bind(this), 0);
+      this.setColumnWidths();
     } else while (num < this.numColumns) {
       this.removeColumn(this.numColumns - 1);
     }
