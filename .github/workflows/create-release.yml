@@ -14,10 +14,7 @@ jobs:
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           name: Release ${{ github.ref_name }}
-          draft: true
-          prerelease: true
+          token: ${{ secrets.PAT }}
           generateReleaseNotes: true
