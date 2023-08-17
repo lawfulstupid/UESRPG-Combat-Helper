@@ -13,11 +13,10 @@ jobs:
         uses: actions/checkout@master
       - name: Create Release
         id: create_release
-        uses: actions/create-release@latest
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          tag: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          generateReleaseNotes: true
