@@ -1,5 +1,5 @@
 <div id="stage" fxLayout="row">
-  <div class="addColumnButton">
+  <div class="addColumnButton" [hidden]="!canAddColumns">
     <div class="addColumnButtonCircle" (click)="addColumn()">
       <fa-icon [icon]="faPlus"></fa-icon>
     </div>
@@ -8,7 +8,7 @@
   <ng-container *ngFor="let idx of numColumns | range">
     <div dragula="DRAGGABLE" class="drag-column">
       <ng-template #insertionPoint></ng-template>
-      <div class="removalIndicator" (click)="removeColumn(idx)">
+      <div class="removalIndicator" (click)="removeColumn(idx)" [hidden]="!canRemoveColumns">
         <div class="minus">
           <fa-icon [icon]="faMinus"></fa-icon>
         </div>

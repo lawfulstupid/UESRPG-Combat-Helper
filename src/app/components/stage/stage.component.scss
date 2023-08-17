@@ -32,7 +32,7 @@
             transform: translateY(-50%);
         }
     }
-    &:last-child > .removalIndicator:only-child {
+    &:last-child > .removalIndicator:only-child:not([hidden]) {
         display: block;
         &:hover {
             opacity: 1;

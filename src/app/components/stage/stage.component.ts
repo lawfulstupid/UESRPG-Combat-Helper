@@ -22,6 +22,10 @@ export class StageComponent implements OnInit {
   readonly faPlus = faPlus;
   readonly faMinus = faMinus;
   
+  static readonly MIN_COLUMN_WIDTH_PX = 280;
+  static readonly MAX_COLUMN_WIDTH_PX = 500;
+  canAddColumns = true;
+  canRemoveColumns = true;
   numColumns = 4;
   
   @ViewChildren('insertionPoint', {read: ViewContainerRef})
@@ -49,18 +53,28 @@ export class StageComponent implements OnInit {
   
   ngOnInit() {
     this.setColumnWidths();
-    addEventListener("resize", this.setColumnWidths);
+    addEventListener("resize", this.setColumnWidths.bind(this));
   }
   
   private setColumnWidths() {
-    setTimeout(() => {
-      // Fix column width to be integer pixel
-      const list = Array.from(document.getElementsByClassName('drag-column'));
-      for (let elm of list) {
-        const realElm = <HTMLElement>elm;
-        realElm.style.width = Math.floor(window.innerWidth / list.length) + 'px';
-      }
-    }, 0);
+    // Fix column width to be integer pixel
+    const list = Array.from(document.getElementsByClassName('drag-column'));
+    const width = Math.floor(window.innerWidth / this.numColumns);
+    for (let elm of list) {
+      const realElm = <HTMLElement>elm;
+      realElm.style.width = '' + width + 'px';
+    }
+    
+    // Check if columns are too narrow, try to remove
+    if (width < StageComponent.MIN_COLUMN_WIDTH_PX) {
+      this.removeColumn(this.numColumns - 1);
+    } else if (width > StageComponent.MAX_COLUMN_WIDTH_PX) {
+      this.addColumn();
+    }
+    
+    // Update controls
+    this.canAddColumns = Math.floor(window.innerWidth / (this.numColumns + 1)) >= StageComponent.MIN_COLUMN_WIDTH_PX;
+    this.canRemoveColumns = Math.floor(window.innerWidth / (this.numColumns - 1)) <= StageComponent.MAX_COLUMN_WIDTH_PX;
   }
   
   private addNpc(npc: Npc, column?: number) {
@@ -147,30 +161,36 @@ export class StageComponent implements OnInit {
   
   addColumn() {
     this.numColumns++;
-    this.setColumnWidths();
+    setTimeout(this.setColumnWidths.bind(this), 0);
   }
   
   removeColumn(idx: number) {
     // Only last column can be removed
-    if (idx !== this.numColumns - 1) return;
+    if (idx !== this.numColumns - 1) {
+      console.log('Cannot remove column ' + idx);
+      return;
+    }
     
     // Only empty columns can be removed
     const columns = Array.from(document.getElementsByClassName('drag-column'))
     const lastColumn = columns[columns.length - 1];
     const numNpcs = lastColumn.querySelectorAll('app-npc').length;
-    if (numNpcs !== 0) return;
+    if (numNpcs !== 0) {
+      console.log('Cannot remove non-empty column');
+      return;
+    }
     
     this.numColumns--;
-    this.setColumnWidths();
+    setTimeout(this.setColumnWidths.bind(this), 0);
   }
   
   private setColumns(num: number) {
     if (num > this.numColumns) {
       this.numColumns = num;
+      setTimeout(this.setColumnWidths.bind(this), 0);
     } else while (num < this.numColumns) {
       this.removeColumn(this.numColumns - 1);
     }
-    this.setColumnWidths();
   }
   
 }
