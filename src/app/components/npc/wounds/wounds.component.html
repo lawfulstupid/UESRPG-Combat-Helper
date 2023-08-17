@@ -1,3 +1,6 @@
-<div *ngFor="let wound of npc.get(woundsProperty) | async">
+<div *ngFor="let wound of wounds">
   {{wound.display()}}
+  <span class="removeWound" (click)="remove(wound)">
+    <fa-icon [icon]="faClose" ></fa-icon>
+  </span>
 </div>

@@ -1,4 +1,4 @@
-import { map, Observable, of, throwError } from "rxjs";
+import { firstValueFrom, map, Observable, of, throwError } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Dictionary } from "src/app/util/dictionary.util";
 import { Property, TemplateRole } from "../property/abstract/property";
@@ -36,10 +36,12 @@ export abstract class DataCharacter extends Character {
   }
 
   // Transform a property in internal data
-  public alter<T>(property: Property<T>, transform: (currentValue: T) => T) {
-    this.get(property).subscribe(currentValue => {
+  // Returns a Promise when resolved
+  public alter<T>(property: Property<T>, transform: (currentValue: T) => T): Promise<void> {
+    const resolved = this.get(property).pipe(map(currentValue => {
       this.put(property, transform(currentValue));
-    });
+    }));
+    return firstValueFrom(resolved);
   }
   
   // Reset a property in internal data to default value

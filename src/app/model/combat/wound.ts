@@ -1,4 +1,5 @@
 import { InfoDialog } from "src/app/dialog/info/info.dialog";
+import { EventManager } from "src/app/service/event.manager";
 import { RandomUtil } from "src/app/util/random.util";
 import { Persistable, RegisterPersistable } from "../../persistence/persistable";
 import { Npc } from "../character/npc";
@@ -14,6 +15,8 @@ import { Test } from "./test";
 @RegisterPersistable('8ec0cbd9-9d70-42fe-8594-993bde31afb2')
 export class Wound implements Persistable<Wound> {
   
+  guid: string = crypto.randomUUID();
+  
   constructor(
     readonly location: HitLocationEnum,
     readonly severity: number,
@@ -22,7 +25,9 @@ export class Wound implements Persistable<Wound> {
   ) {}
   
   clone(): Wound {
-    return new Wound(this.location, this.severity, this.shockTestResult, this.description);
+    const copy = new Wound(this.location, this.severity, this.shockTestResult, this.description);
+    copy.guid = this.guid;
+    return copy;
   }
   
   display(): string {
@@ -84,6 +89,7 @@ export class Wound implements Persistable<Wound> {
       
       const wound = new Wound(hitLocation, damage, shockTest.result, description);
       npc.alter(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
+      EventManager.npcWoundedEvent.emit(npc);
       return wound;
     });
   }
