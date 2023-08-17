@@ -3,6 +3,10 @@
     height: auto;
     min-height: calc(100vh - 52px);
     width: 100%;
+    background-color: #303030;
+    &:nth-child(odd) {
+        background-color: #333333;
+    }
     &first-child {
         border-left: none;
     }
