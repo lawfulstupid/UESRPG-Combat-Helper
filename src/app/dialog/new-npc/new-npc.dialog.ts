@@ -25,7 +25,7 @@ export class NewNpcDialog extends Dialog<NewNpcDialog> {
   }, {
     label: 'Existing Template',
     callback: this.existingTemplateOptions.bind(this),
-    isHidden: () => !this.newTemplate
+    isHidden: () => !this.newTemplate || this.templateList.length === 0
   }];
   
   templateList: Array<Identifier> = NpcTemplateManager.list();
@@ -39,6 +39,9 @@ export class NewNpcDialog extends Dialog<NewNpcDialog> {
   
   constructor(dialogRef: MatDialogRef<NewNpcDialog>) {
     super(dialogRef);
+    if (this.templateList.length === 0) {
+      this.newTemplateOptions();
+    }
     this.filterTemplates('');
   }
   
