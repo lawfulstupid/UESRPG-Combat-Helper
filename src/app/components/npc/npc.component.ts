@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MatDialogConfig } from "@angular/material/dialog";
-import { faArrowsUpDownLeftRight, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faArrowsUpDownLeftRight, faClone, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { EditDataCharacterDialog } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
 import { ColorEnum } from "src/app/enum/color.enum";
@@ -28,6 +28,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly notesProperty = MiscProperties.NOTES;
   
   readonly moveIcon = faArrowsUpDownLeftRight;
+  readonly cloneIcon = faClone;
   readonly editIcon = faPen;
   readonly closeIcon = faClose;
   
@@ -54,6 +55,10 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     if (change < 0) {
       this.npc.put(CombatProperties.STAMINA_SPENT, true);
     }
+  }
+  
+  clone() {
+    EventManager.addNpcEvent.emit(this.npc.clone());
   }
   
   edit() {

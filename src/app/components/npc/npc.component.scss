@@ -23,6 +23,7 @@
     position: absolute;
     z-index: 100;
     color: rgb(70, 70, 70);
+    top: 0px;
     fa-icon {
         position: absolute;
         pointer-events: none;
@@ -34,10 +35,21 @@
     @extend .circle-button;
     background-color: cornflowerblue;
     left: 0px;
-    top: 0px;
     cursor: grab;
     fa-icon {
         left: calc((16px - 14px) / 2);
+    }
+}
+
+.clone-button {
+    @extend .circle-button;
+    background-color: seagreen;
+    left: calc(100% - 56px);
+    cursor: pointer;
+    fa-icon {
+        font-size: 12px;
+        left: calc((16px - 12px) / 2);
+        top: -2px;
     }
 }
 
@@ -47,9 +59,9 @@
     left: calc(100% - 36px);
     cursor: pointer;
     fa-icon {
-        font-size: small;
-        left: calc((16px - 14px) / 2);
-        top: -1px;
+        font-size: 12px;
+        left: calc((16px - 12px) / 2);
+        top: -2px;
     }
 }
 
@@ -57,7 +69,6 @@
     @extend .circle-button;
     background-color: crimson;
     left: calc(100% - 16px);
-    top: 0px;
     cursor: pointer;
     fa-icon {
         font-size: large;
