@@ -1,4 +1,4 @@
-<app-dialog title="New NPC" [actions]="actions" cancel="Close" width="15vw">
+<app-dialog [title]="'New NPC'" [actions]="actions" cancel="Close" width="15vw">
   <mat-form-field *ngIf="!newTemplate">
     <mat-select [(ngModel)]="templateKey" placeholder="Class" (selectionChange)="onSelectTemplate()">
       <mat-option>

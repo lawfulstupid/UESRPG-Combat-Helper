@@ -1,4 +1,4 @@
-<app-dialog title="Value Request" [actions]="actions" [cancel]="request.required ? undefined : 'Cancel'">
+<app-dialog [title]="'Value Request'" [actions]="actions" [cancel]="request.required ? undefined : 'Cancel'">
   <span>{{request.message}}</span>
   <app-property-input [property]="request.property" (valueChange)="onValueChange($event)" (onEnter)="respond()"></app-property-input>
 </app-dialog>

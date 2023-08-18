@@ -1,4 +1,4 @@
-<app-dialog title="New NPC Template" [actions]="actions" cancel="Cancel" width="15vw">
+<app-dialog [title]="'New NPC Template'" [actions]="actions" cancel="Cancel" width="15vw">
   <mat-form-field *ngIf="!preDefined">
     <input matInput [(ngModel)]="key" placeholder="Template Key" autocomplete="false"/>
   </mat-form-field>
