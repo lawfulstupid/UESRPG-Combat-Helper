@@ -25,7 +25,7 @@
   <button mat-raised-button (click)="roll()">Roll</button>
 </div>
 <app-test-result [test]="test" *ngIf="test">
-  <div (click)="closeResults()">
+  <div (click)="closeResults()" style="cursor: pointer" title="Clear">
     <fa-icon [icon]="closeIcon"></fa-icon>
   </div>
 </app-test-result>

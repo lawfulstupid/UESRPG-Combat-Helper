@@ -30,7 +30,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly moveIcon = faArrowsUpDownLeftRight;
   readonly cloneIcon = faClone;
   readonly editIcon = faPen;
-  readonly closeIcon = faClose;
+  readonly removeIcon = faClose;
   
   protected override requiredProperties(): Array<Property<any>> {
     return [Attribute.SPEED, Attribute.SIZE, CombatProperties.STAMINA_SPENT, Characteristic.STRENGTH]; // TODO #17: remove STRENGTH
@@ -72,7 +72,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
     });
   }
   
-  close() {
+  remove() {
     EventManager.removeNpcEvent.emit(this.npc);
   }
   

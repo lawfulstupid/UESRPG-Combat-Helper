@@ -1,6 +1,6 @@
 <div *ngFor="let wound of wounds">
   {{wound.display()}}
-  <span class="removeWound" (click)="remove(wound)">
+  <span class="removeWound" (click)="remove(wound)" title="Remove">
     <fa-icon [icon]="faClose" ></fa-icon>
   </span>
 </div>
