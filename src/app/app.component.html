@@ -1,6 +1,6 @@
 <app-error></app-error>
 <app-menubar></app-menubar>
-<mat-drawer-container style="overflow-y: hidden;">
+<mat-drawer-container style="overflow-y: hidden;" *ngIf="!environment.mobile">
   <mat-drawer mode="over" position="end" style="width: 320px;" (openedStart)="onDrawerOpen()">
     <app-test-log></app-test-log>
   </mat-drawer>
@@ -8,3 +8,6 @@
     <app-stage></app-stage>
   </mat-drawer-content>
 </mat-drawer-container>
+<div class="mobile-warning" *ngIf="environment.mobile">
+  This web application is designed to be used on desktop with a keyboard and mouse.
+</div>

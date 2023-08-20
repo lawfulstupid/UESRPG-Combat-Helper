@@ -52,6 +52,10 @@ export class MenubarComponent implements OnInit {
   }];
   
   ngOnInit() {
+    if (environment.mobile) {
+      this.actions = [];
+    }
+    
     let [r,g,b] = [0,0,0];
     let lum = 0;
     while (lum < 128 || lum > 200) {

@@ -8,11 +8,13 @@ import { StaticProvider } from './service/static.provider';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   
   public static instance: AppComponent;
+  readonly environment = environment;
   
   @ViewChild(MatDrawer, {read: MatDrawer, static: true})
   drawer!: MatDrawer;
@@ -22,7 +24,7 @@ export class AppComponent {
   ) {
     AppComponent.instance = this;
     StaticProvider.dialog = dialog;
-    if (!environment.production) {
+    if (!environment.production && !environment.mobile) {
       setTimeout(() => {
         EventManager.addNpcEvent.emit(NpcManager.create('Testificate', 'bandit'));
       }, 100);
