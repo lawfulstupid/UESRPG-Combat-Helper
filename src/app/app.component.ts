@@ -16,7 +16,7 @@ export class AppComponent {
   public static instance: AppComponent;
   readonly environment = environment;
   
-  @ViewChild(MatDrawer, {read: MatDrawer, static: true})
+  @ViewChild(MatDrawer, {read: MatDrawer, static: false})
   drawer!: MatDrawer;
   
   constructor(
