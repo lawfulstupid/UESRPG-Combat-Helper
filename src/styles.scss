@@ -3,8 +3,13 @@
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "./styles/dragula.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    @extend .no-scrollbar;
+    height: 100%;
+}
+body {
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .separator {
     margin-left: auto;
