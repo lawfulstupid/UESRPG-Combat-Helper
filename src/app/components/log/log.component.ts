@@ -3,11 +3,11 @@ import { Test } from "src/app/model/combat/test";
 import { EventManager } from "src/app/service/event.manager";
 
 @Component({
-  selector: 'app-test-log',
-  templateUrl: 'test-log.component.html',
-  styleUrls: ['test-log.component.scss']
+  selector: 'app-log',
+  templateUrl: 'log.component.html',
+  styleUrls: ['log.component.scss']
 })
-export class TestLogComponent {
+export class LogComponent {
   
   queue: Array<Test> = [];
   
