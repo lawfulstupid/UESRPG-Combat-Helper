@@ -1,13 +1,20 @@
 .menubar {
     width: 100%;
     padding: 0 8px;
+    padding-right: 0px;
 }
 
 .title-box {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     white-space: nowrap;
-    overflow: hidden;
     display: flex;
+}
+
+.version-number {
+    white-space: nowrap;
+    display: flex;
+    overflow: hidden;
+    flex: 1;
 }
 
 h1 {
@@ -24,17 +31,11 @@ h1 {
     border-radius: 10rem;
     height: min-content;
     margin: auto 0;
-    margin-left: 1ch;
+    margin-left: 8px;
     font-size: 75%;
     font-family: 'Consolas', 'Courier New'
 }
 
 .separator {
     position: relative;
-    .fadeout {
-        position: absolute;
-        width: 8px;
-        height: 100%;
-        left: -8px;
-    }
 }

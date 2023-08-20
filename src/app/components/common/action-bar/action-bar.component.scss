@@ -1,6 +1,9 @@
+:host {
+    overflow: hidden;
+}
+
 .actionbar {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 8px;
     :not(.separator) {
         margin-left: 8px;
         &:first-child {
@@ -16,4 +19,10 @@
         font-size: large;
         color: #424242;
     }
+    * {
+        flex: none;
+    }
+    
+    width: 100%;
+    overflow-x: scroll;
 }
