@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -8,11 +8,20 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 })
 export class ActionbarComponent {
   
+  @ViewChild("actionbar", {read: ElementRef, static: true})
+  elementRef?: ElementRef;
+  
   @Input()
   actions: Array<ActionItem> = [];
   
   @Input()
   callbackParam?: any;
+  
+  get scrollpos(): number {
+    if (!this.elementRef) return 0.5;
+    const elm: Element = this.elementRef.nativeElement;
+    return elm.scrollLeft / (elm.scrollWidth - elm.clientWidth);
+  }
   
   doCallback(action: ActionItem) {
     if (action.callback) {

@@ -1,4 +1,4 @@
-<div fxLayout="row" class="actionbar no-scrollbar fadein fadeout">
+<div #actionbar fxLayout="row" class="actionbar no-scrollbar" [ngClass]="{'fadein': scrollpos > 0, 'fadeout': scrollpos < 1}">
   <ng-container *ngFor="let action of actions | actionItemFilter">
     <button mat-raised-button *ngIf="!action.plaintext"
       (click)="doCallback(action)"
