@@ -8,9 +8,14 @@ export class Identifier {
     return this._name;
   }
   
+  get code(): string | undefined {
+    return this._code;
+  }
+  
   constructor(
     private _key: string,
-    private _name: string
+    private _name: string,
+    private _code?: string
   ) {}
   
   renamed(alias: string): this {

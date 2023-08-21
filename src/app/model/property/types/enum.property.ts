@@ -11,7 +11,7 @@ export class EnumProperty<T extends Enum<T>> extends Property<T> {
     super(key, name, templateRole, defaultValue);
     this.options = Enum.keys(clazz).map(enumKey => {
       const enumValue = Enum.value<T>(enumKey, clazz);
-      return new Identifier(enumKey, enumValue.name);
+      return new Identifier(enumKey, enumValue.name, enumValue.code);
     });
   }
   

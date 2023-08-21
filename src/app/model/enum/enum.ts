@@ -29,7 +29,10 @@ export abstract class Enum<T extends Enum<T>> implements PersistableByProxy<T,st
     return clazz[key];
   }
   
-  protected constructor(readonly name: string) {}
+  protected constructor(
+    readonly name: string,
+    readonly code?: string
+  ) {}
   
   proxy(): string {
     return this.key();

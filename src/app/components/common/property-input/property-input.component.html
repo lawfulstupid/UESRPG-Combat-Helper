@@ -31,7 +31,7 @@
     (onEnterPressed)="onEnter.emit()"
   >
     <mat-option *ngFor="let option of enumProperty.options" [value]="option.key">
-      {{option.name}}
+      {{option.name}} {{option.code ? '(' + option.code + ')' : ''}}
     </mat-option>
   </mat-select>
 </mat-form-field>
