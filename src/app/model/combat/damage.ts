@@ -1,13 +1,14 @@
 import { of } from "rxjs";
+import { LogComponent } from "src/app/components/log/log.component";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { ObservableUtil } from "src/app/util/observable.util";
 import { Npc } from "../character/npc";
 import { DamageTypeEnum } from "../enum/damage-type.enum";
 import { HitLocationEnum } from "../enum/hit-location.enum";
+import { MultiProperty } from "../property/abstract/multi.property";
 import { Attribute } from "../property/attribute.property";
 import { MiscProperties } from "../property/collections/misc";
 import { Wound } from "./wound";
-import { MultiProperty } from "../property/abstract/multi.property";
 
 // This represents a damage expression delivered by the damage dealer
 export class Damage {
@@ -55,8 +56,13 @@ export class DamageApplication {
       throw new Error('Physical damage subtypes cannot be applied');
     }
     
+    LogComponent.log(npc.name + ' took ' + damageType.pretty(damage) + (hitLocation ? ' to their ' + hitLocation.name : '') + '.');
+    
     npc.get(Attribute.HIT_POINTS).subscribe(hp => {
-      if (hp <= 0) return; // no need to generate wound if already dead
+      if (hp <= 0) {
+        LogComponent.log(npc.name + ' died.');
+        return; // no need to generate wound if already dead
+      }
       npc.get(Attribute.WOUND_THRESHOLD).subscribe(wt => {
         if (damage > wt) {
           // Use hit location provided, or ask user if missing

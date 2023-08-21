@@ -19,4 +19,8 @@ export class DamageTypeEnum extends Enum<DamageTypeEnum> {
     super(name);
   }
   
+  pretty(damage: number): string {
+    return damage.toString() + (this === DamageTypeEnum.PHYSICAL ? '' : ' ' + this.name) + ' damage';
+  }
+  
 }
