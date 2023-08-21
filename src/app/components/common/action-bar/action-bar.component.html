@@ -3,9 +3,15 @@
     <button mat-raised-button *ngIf="!action.plaintext"
       (click)="doCallback(action)"
       [disabled]="action.isDisabled && action.isDisabled()"
+      title="{{action.icon ? action.label : ''}}"
       tabindex="-1"
     >
-      {{action.label}}
+      <ng-container *ngIf="action.icon">
+        <fa-icon [icon]="action.icon" style="font-size: large;"></fa-icon>
+      </ng-container>
+      <ng-container *ngIf="!action.icon">
+        {{action.label}}
+      </ng-container>
     </button>
     <span class="text" *ngIf="action.plaintext">
       {{action.label}}

@@ -42,3 +42,7 @@ mat-option.divider + * {
 .fadein.fadeout {
     mask: linear-gradient(90deg, #0000 0, #000 8px, #000 calc(100% - 8px), #0000 100%);
 }
+
+button.mat-raised-button {
+    min-width: fit-content !important; // override mat-raised-button's default 64px
+}

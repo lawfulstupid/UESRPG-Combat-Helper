@@ -10,6 +10,7 @@ import { SessionManager } from "src/app/service/session.manager";
 import { FileUtil } from "src/app/util/file.util";
 import { Dialog } from "../dialog";
 import { ValueRequestDialog } from "../value-request/value-request.dialog";
+import { faDownload, faHandPointer, faPencil, faTractor, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   templateUrl: 'manage-sessions.dialog.html',
@@ -31,15 +32,19 @@ export class ManageSessionsDialog extends Dialog<ManageSessionsDialog> {
   }];
   
   rowActions: Array<ActionItem> = [{
+    icon: faHandPointer,
     label: 'Load',
     callback: this.loadSession.bind(this)
   }, {
+    icon: faPencil,
     label: 'Rename',
     callback: this.renameSession.bind(this)
   }, {
+    icon: faTrash,
     label: 'Delete',
     callback: this.deleteSession.bind(this)
   }, {
+    icon: faDownload,
     label: 'Export',
     callback: this.exportSession.bind(this)
   }];

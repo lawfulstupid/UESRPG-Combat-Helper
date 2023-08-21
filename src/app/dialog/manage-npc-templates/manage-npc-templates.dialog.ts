@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { faDownload, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Observable, of } from "rxjs";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
 import { Npc } from "src/app/model/character/npc";
@@ -33,12 +34,15 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   }];
   
   rowActions: Array<ActionItem> = [{
+    icon: faPencil,
     label: 'Edit',
     callback: this.editTemplate.bind(this)
   }, {
+    icon: faTrash,
     label: 'Delete',
     callback: this.deleteTemplate.bind(this)
   }, {
+    icon: faDownload,
     label: 'Export',
     callback: this.exportTemplate.bind(this)
   }];
