@@ -13,8 +13,16 @@
         {{action.label}}
       </ng-container>
     </button>
-    <span class="text" *ngIf="action.plaintext">
-      {{action.label}}
+    <span *ngIf="action.plaintext"
+      class="text"
+      title="{{action.icon ? action.label : ''}}"
+    >
+      <ng-container *ngIf="action.icon">
+        <fa-icon [icon]="action.icon"></fa-icon>
+      </ng-container>
+      <ng-container *ngIf="!action.icon">
+        {{action.label}}
+      </ng-container>
     </span>
     <div class="separator" *ngIf="action.separator"></div>
   </ng-container>
