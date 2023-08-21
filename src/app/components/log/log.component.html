@@ -1,9 +1,9 @@
-<div class="log-entry" *ngFor="let test of queue">
+<div class="log-entry" *ngFor="let logEntry of queue">
   <div class="timestamp">
-    {{test.timestamp | date: 'mediumTime'}}
+    {{logEntry.timestamp | date: 'mediumTime'}}
   </div>
   <div class="description">
-    {{test.character.name}} rolled {{test.property.name}}:
+    {{logEntry.text}}
   </div>
-  <app-test-result [test]="test"></app-test-result>
+  <app-test-result *ngIf="logEntry.test" [test]="logEntry.test"></app-test-result>
 </div>

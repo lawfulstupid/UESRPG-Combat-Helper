@@ -1,5 +1,6 @@
 import { Component, Inject } from "@angular/core";
-import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { LogComponent } from "src/app/components/log/log.component";
 import { StaticProvider } from "src/app/service/static.provider";
 import { Dialog } from "../dialog";
 
@@ -14,6 +15,7 @@ export class InfoDialog extends Dialog<InfoDialog> {
     @Inject(MAT_DIALOG_DATA) public data: InfoDialogConfig
   ) {
     super(dialogRef);
+    LogComponent.log(data.message);
   }
   
   static placeholder(message: string) {
