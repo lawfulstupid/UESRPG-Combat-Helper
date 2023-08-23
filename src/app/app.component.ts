@@ -4,7 +4,6 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { environment } from 'src/environments/environment';
 import { EventManager } from './service/event.manager';
 import { NpcManager } from './service/npc.manager';
-import { StaticProvider } from './service/static.provider';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +19,9 @@ export class AppComponent {
   drawer!: MatDrawer;
   
   constructor(
-    dialog: MatDialog
+    public dialog: MatDialog
   ) {
     AppComponent.instance = this;
-    StaticProvider.dialog = dialog;
     if (!environment.production && !environment.mobile) {
       setTimeout(() => {
         EventManager.addNpcEvent.emit(NpcManager.create('Testificate', 'bandit'));

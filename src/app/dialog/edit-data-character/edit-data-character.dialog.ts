@@ -1,8 +1,8 @@
 import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
 import { Data, DataCharacter } from "src/app/model/character/data-character";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
 import { Dialog } from "../dialog";
 
@@ -57,13 +57,11 @@ export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog> {
   }
   
   deleteAll() {
-    const config: MatDialogConfig = {
-      data: <ConfirmDialogConfig>{
-        title: 'Delete All Properties',
-        message: 'Are you sure?'
-      }
+    const data: ConfirmDialogConfig = {
+      title: 'Delete All Properties',
+      message: 'Are you sure?'
     };
-    StaticProvider.dialog.open(ConfirmDialog, config).afterClosed().subscribe(response => {
+    DialogUtil.open(ConfirmDialog, data).subscribe(response => {
       if (response) {
         this.data = {};
         this.keys = [];

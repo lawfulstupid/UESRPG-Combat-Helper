@@ -5,7 +5,7 @@ import { ManageSessionsDialog } from "src/app/dialog/manage-sessions/manage-sess
 import { NewNpcDialog } from "src/app/dialog/new-npc/new-npc.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { EventManager } from "src/app/service/event.manager";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 import { RandomUtil } from "src/app/util/random.util";
 import { environment } from "src/environments/environment";
 import { ActionItem } from "../common/action-bar/action-bar.component";
@@ -78,19 +78,17 @@ export class MenubarComponent implements OnInit {
   }
   
   private newNpc() {
-    StaticProvider.dialog.open(NewNpcDialog).afterClosed().subscribe(npc => {
-      if (npc) {
-        EventManager.addNpcEvent.emit(npc);
-      }
+    DialogUtil.open(NewNpcDialog).subscribe(npc => {
+      EventManager.addNpcEvent.emit(npc);
     });
   }
   
   private manageNpcTemplates() {
-    StaticProvider.dialog.open(ManageNpcTemplatesDialog);
+    DialogUtil.open(ManageNpcTemplatesDialog);
   }
   
   private manageSessions() {
-    StaticProvider.dialog.open(ManageSessionsDialog);
+    DialogUtil.open(ManageSessionsDialog);
   }
   
   private newRound() {

@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { MatDialogConfig } from "@angular/material/dialog";
 import { faArrowsUpDownLeftRight, faClone, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { EditDataCharacterDialog } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
@@ -13,7 +12,7 @@ import { Characteristic } from "src/app/model/property/characteristic.property";
 import { CombatProperties } from "src/app/model/property/collections/combat";
 import { MiscProperties } from "src/app/model/property/collections/misc";
 import { EventManager } from "src/app/service/event.manager";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 
 @Component({
   selector: 'app-npc',
@@ -64,11 +63,11 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   }
   
   edit() {
-    const config: MatDialogConfig = { data: {
+    const data = {
       title: 'Edit NPC',
       character: this.npc
-    }};
-    StaticProvider.dialog.open(EditDataCharacterDialog, config).afterClosed().subscribe(([updatedName, updatedData]) => {
+    };
+    DialogUtil.open(EditDataCharacterDialog, data).subscribe(([updatedName, updatedData]) => {
       this.npc.name = updatedName;
       this.npc.putData(updatedData);
     });

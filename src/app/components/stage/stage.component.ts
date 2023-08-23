@@ -1,5 +1,4 @@
 import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainerRef } from "@angular/core";
-import { MatDialogConfig } from "@angular/material/dialog";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DragulaService } from "ng2-dragula";
 import { EMPTY, Observable, mergeMap, of } from "rxjs";
@@ -8,7 +7,7 @@ import { Npc } from "src/app/model/character/npc";
 import { Session } from "src/app/model/session";
 import { EventManager } from "src/app/service/event.manager";
 import { SessionManager } from "src/app/service/session.manager";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 import { NpcComponent } from "../npc/npc.component";
 
 @Component({
@@ -110,15 +109,15 @@ export class StageComponent implements OnInit {
     if (this.componentRefs.length === 0) return of(undefined);
     
     // There are NPCs on the stage -- get confirmation from user to clear
-    const config: MatDialogConfig = {data:{
+    const data = {
       title: 'Clear Stage',
       message: 'This will delete existing NPCs. Are you sure?',
       yesButton: 'Proceed',
       noButton: 'Cancel'
-    }};
+    };
     
     // open confirmation dialog
-    return StaticProvider.dialog.open(ConfirmDialog, config).afterClosed().pipe(mergeMap(response => {
+    return DialogUtil.open(ConfirmDialog, data).pipe(mergeMap(response => {
       if (response) {
         // perform the stage clear if response was affirmative
         this.componentRefs.forEach(ref => {

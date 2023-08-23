@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { LogComponent } from "src/app/components/log/log.component";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 import { Dialog } from "../dialog";
 
 @Component({
@@ -19,13 +19,11 @@ export class InfoDialog extends Dialog<InfoDialog> {
   }
   
   static placeholder(message: string) {
-    const config: MatDialogConfig = {
-      data: {
-        title: 'Placeholder Info',
-        message: message
-      }
+    const data = {
+      title: 'Placeholder Info',
+      message: message
     }
-    StaticProvider.dialog.open(InfoDialog, config);
+    DialogUtil.open(InfoDialog, data);
   }
   
 }

@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EMPTY, forkJoin, mergeMap, Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EMPTY, Observable, forkJoin, mergeMap } from 'rxjs';
 import { ActionItem } from 'src/app/components/common/action-bar/action-bar.component';
 import { ValueChange } from 'src/app/components/common/property-input/property-input.component';
 import { DataCharacter, FetchMethod } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
-import { StaticProvider } from 'src/app/service/static.provider';
+import { DialogUtil } from 'src/app/util/dialog.util';
 import { Dictionary, DictionaryUtil } from 'src/app/util/dictionary.util';
 import { Dialog } from '../dialog';
 
@@ -52,14 +52,12 @@ export class RequiredValuesDialog extends Dialog<RequiredValuesDialog> {
       return EMPTY;
     }
     
-    const config: MatDialogConfig = {
-      data: {
-        title: 'Required Values for ' + requester.name + ':',
-        properties: missingProperties
-      }
+    const data = {
+      title: 'Required Values for ' + requester.name + ':',
+      properties: missingProperties
     };
     
-    return StaticProvider.dialog.open(RequiredValuesDialog, config).afterClosed().pipe(mergeMap((values: Dictionary<any>) => {
+    return DialogUtil.open(RequiredValuesDialog, data).pipe(mergeMap((values: Dictionary<any>) => {
       // Save all results to character
       // Each individual result is saved via DataCharacter.populate(property, value)
       // All collected into an array

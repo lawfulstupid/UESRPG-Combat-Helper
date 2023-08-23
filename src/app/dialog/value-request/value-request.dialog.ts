@@ -3,15 +3,16 @@ import {
   Inject
 } from '@angular/core';
 import {
+  MAT_DIALOG_DATA,
   MatDialogConfig,
-  MatDialogRef, MAT_DIALOG_DATA
+  MatDialogRef
 } from '@angular/material/dialog';
-import { mergeMap, Observable, of, throwError } from 'rxjs';
+import { Observable, mergeMap, of, throwError } from 'rxjs';
 import { ActionItem } from 'src/app/components/common/action-bar/action-bar.component';
 import { ValueChange } from 'src/app/components/common/property-input/property-input.component';
 import { DataCharacter } from 'src/app/model/character/data-character';
 import { Property } from 'src/app/model/property/abstract/property';
-import { StaticProvider } from 'src/app/service/static.provider';
+import { DialogUtil } from 'src/app/util/dialog.util';
 import { Dialog } from '../dialog';
 
 @Component({
@@ -65,7 +66,7 @@ export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
       disableClose: request.required,
       data: request
     };
-    return StaticProvider.dialog.open(ValueRequestDialog<T>, config).afterClosed().pipe(mergeMap(value => {
+    return DialogUtil.openRaw(ValueRequestDialog<T>, config).pipe(mergeMap(value => {
       if (value === undefined) {
         // Throw error if undefined, so .subscribe() never triggers
         return throwError(() => new Error('No value provided for ' + request.property.name));

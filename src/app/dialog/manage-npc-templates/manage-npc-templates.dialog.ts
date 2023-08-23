@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
+import { MatDialogRef } from "@angular/material/dialog";
 import { faDownload, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Observable, of } from "rxjs";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
@@ -8,7 +8,7 @@ import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Identifier } from "src/app/model/identifier";
 import { EventManager } from "src/app/service/event.manager";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
-import { StaticProvider } from "src/app/service/static.provider";
+import { DialogUtil } from "src/app/util/dialog.util";
 import { FileUtil } from "src/app/util/file.util";
 import { StageComponent } from "../../components/stage/stage.component";
 import { ConfirmDialog } from "../confirm/confirm.dialog";
@@ -59,18 +59,18 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   }
   
   newTemplate() {
-    StaticProvider.dialog.open(NewNpcTemplateDialog).afterClosed().subscribe(() => {
+    DialogUtil.open(NewNpcTemplateDialog).subscribe(() => {
       this.loadTemplateList();
     });
   }
   
   editTemplate(templateKey: string) {
     const template = NpcTemplateManager.load(templateKey);
-    const config: MatDialogConfig = { data: {
+    const data = {
       title: 'Edit NPC Template',
       character: template
-    }};
-    StaticProvider.dialog.open(EditDataCharacterDialog, config).afterClosed().subscribe(([updatedName, updatedData]) => {
+    };
+    DialogUtil.open(EditDataCharacterDialog, data).subscribe(([updatedName, updatedData]) => {
       NpcTemplateManager.update(new NpcTemplate(templateKey, updatedName, updatedData));
     });
   }
@@ -85,15 +85,15 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
     if (npcs.length === 0) {
       confirmation = of(true);
     } else {
-      const config: MatDialogConfig = {data: {
+      const data = {
         title: 'Delete NPCs',
         message: '' + npcs.length + ' NPC' + (npcs.length === 1 ? ' is' : 's are') + ' currently using this template: '
           + npcs.map(npc => npc.name).join(', ') + '.\n'
           + (npcs.length === 1 ? 'This' : 'These') + ' must be removed before the template can be deleted.',
         yesButton: 'Proceed',
         noButton: 'Cancel'
-      }};
-      confirmation = StaticProvider.dialog.open(ConfirmDialog, config).afterClosed();
+      };
+      confirmation = DialogUtil.open(ConfirmDialog, data);
     }
     
     confirmation.subscribe(confirmed => {
