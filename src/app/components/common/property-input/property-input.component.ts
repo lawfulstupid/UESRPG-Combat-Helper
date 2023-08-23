@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { EMPTY, catchError } from "rxjs";
 import { ColorEnum } from "src/app/enum/color.enum";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { MultiProperty } from "src/app/model/property/abstract/multi.property";
@@ -8,7 +7,6 @@ import { ArrayProperty } from "src/app/model/property/types/array.property";
 import { BooleanProperty } from "src/app/model/property/types/boolean.property";
 import { EnumProperty } from "src/app/model/property/types/enum.property";
 import { TextAreaProperty } from "src/app/model/property/types/text-area.property";
-import { ErrorComponent } from "../../error/error.component";
 
 @Component({
   selector: 'app-property-input',
