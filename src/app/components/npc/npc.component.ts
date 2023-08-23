@@ -4,6 +4,7 @@ import { faArrowsUpDownLeftRight, faClone, faClose, faPen } from "@fortawesome/f
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
 import { EditDataCharacterDialog } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
 import { ColorEnum } from "src/app/enum/color.enum";
+import { FetchMethod } from "src/app/model/character/data-character";
 import { DamageApplication } from "src/app/model/combat/damage";
 import { DamageTypeEnum } from "src/app/model/enum/damage-type.enum";
 import { Property } from "src/app/model/property/abstract/property";
@@ -26,6 +27,7 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   readonly attributeEnum = Attribute;
   readonly combatEnum = CombatProperties;
   readonly notesProperty = MiscProperties.NOTES;
+  readonly fetchMethodEnum = FetchMethod;
   
   readonly moveIcon = faArrowsUpDownLeftRight;
   readonly cloneIcon = faClone;
