@@ -1,6 +1,7 @@
 import { AsyncPipe } from "@angular/common";
 import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from "@angular/core";
 import { Observable, Subscribable } from "rxjs";
+import { Maybe, MaybeUtil } from "../util/maybe.util";
 
 @Pipe({
   name: 'asyncDefault',
@@ -14,9 +15,9 @@ export class AsyncDefaultPipe implements OnDestroy, PipeTransform {
     this.asyncInstance = new AsyncPipe(ref);
   }
   
-  transform<T>(obj: Observable<T> | Subscribable<T> | Promise<T> | null | undefined, defaultValue: T): T {
-    const value = this.asyncInstance.transform(obj);
-    return value === null || value === undefined ? defaultValue : value;
+  transform<T>(obj: Maybe<Observable<Maybe<T>> | Subscribable<Maybe<T>> | Promise<Maybe<T>>>, defaultValue: T): T {
+    const value: Maybe<T> = this.asyncInstance.transform(obj);
+    return MaybeUtil.getOrElse(value, defaultValue);
   }
   
   ngOnDestroy() {
