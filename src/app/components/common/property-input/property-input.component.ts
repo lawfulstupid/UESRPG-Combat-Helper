@@ -8,6 +8,7 @@ import { ArrayProperty } from "src/app/model/property/types/array.property";
 import { BooleanProperty } from "src/app/model/property/types/boolean.property";
 import { EnumProperty } from "src/app/model/property/types/enum.property";
 import { TextAreaProperty } from "src/app/model/property/types/text-area.property";
+import { ErrorComponent } from "../../error/error.component";
 
 @Component({
   selector: 'app-property-input',
@@ -147,8 +148,8 @@ export class PropertyInputComponent<T> implements OnInit {
       this.errorMessage = this.error.message;
       this.showErrorMessage = true;
     } else {
-      if (!this.showErrorMessage) console.log(this.error);
-      this.errorMessage = 'Error';
+      if (!this.showErrorMessage) console.error(this.error);
+      this.errorMessage = 'Unknown Error';
       this.showErrorMessage = true;
     }
   }

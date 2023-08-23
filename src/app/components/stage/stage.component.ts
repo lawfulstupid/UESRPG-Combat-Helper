@@ -169,7 +169,6 @@ export class StageComponent implements OnInit {
   removeColumn(idx: number) {
     // Only last column can be removed
     if (idx !== this.numColumns - 1) {
-      console.log('Cannot remove column ' + idx);
       return;
     }
     
@@ -178,7 +177,6 @@ export class StageComponent implements OnInit {
     const lastColumn = columns[columns.length - 1];
     const numNpcs = lastColumn.querySelectorAll('app-npc').length;
     if (numNpcs !== 0) {
-      console.log('Cannot remove non-empty column');
       return;
     }
     
