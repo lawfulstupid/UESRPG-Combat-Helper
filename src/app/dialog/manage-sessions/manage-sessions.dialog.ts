@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
+import { faDownload, faHandPointer, faPencil, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
 import { Identifier } from "src/app/model/identifier";
 import { TemplateRole } from "src/app/model/property/abstract/property";
@@ -10,13 +11,12 @@ import { SessionManager } from "src/app/service/session.manager";
 import { FileUtil } from "src/app/util/file.util";
 import { Dialog } from "../dialog";
 import { ValueRequestDialog } from "../value-request/value-request.dialog";
-import { faDownload, faHandPointer, faPencil, faTractor, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   templateUrl: 'manage-sessions.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class ManageSessionsDialog extends Dialog<ManageSessionsDialog> {
+export class ManageSessionsDialog extends Dialog<ManageSessionsDialog, void, void> {
   
   private static readonly NAME_PROP = new TextProperty('sessionName', 'Session Name', TemplateRole.NO_TEMPLATE);
   

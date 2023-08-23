@@ -10,7 +10,7 @@ import { Dialog } from "../dialog";
   templateUrl: 'edit-data-character.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog> {
+export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog, EditCharacterConfig, EditCharacterResult> {
   
   override actions: Array<ActionItem> = [{
     label: 'Add Row',
@@ -30,7 +30,7 @@ export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog> {
   
   constructor(
     dialogRef: MatDialogRef<EditDataCharacterDialog>,
-    @Inject(MAT_DIALOG_DATA) params: EditDataCharacterDialogParams
+    @Inject(MAT_DIALOG_DATA) params: EditCharacterConfig
   ) {
     super(dialogRef);
     this.title = params.title;
@@ -75,12 +75,20 @@ export class EditDataCharacterDialog extends Dialog<EditDataCharacterDialog> {
     this.newRows.forEach(row => {
       finalData[row[0]] = row[1];
     });
-    this.dialogRef.close([this.name, finalData]);
+    this.dialogRef.close({
+      name: this.name,
+      data: finalData
+    });
   }
   
 }
 
-interface EditDataCharacterDialogParams {
+export interface EditCharacterConfig {
   character: DataCharacter;
   title: string;
+}
+
+export interface EditCharacterResult {
+  name: string;
+  data: Data;
 }

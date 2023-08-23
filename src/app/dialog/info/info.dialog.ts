@@ -8,7 +8,7 @@ import { Dialog } from "../dialog";
   templateUrl: 'info.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class InfoDialog extends Dialog<InfoDialog> {
+export class InfoDialog extends Dialog<InfoDialog, InfoDialogConfig, void> {
   
   constructor(
     dialogRef: MatDialogRef<InfoDialog>,
@@ -19,7 +19,7 @@ export class InfoDialog extends Dialog<InfoDialog> {
   }
   
   static placeholder(message: string) {
-    const data = {
+    const data: InfoDialogConfig = {
       title: 'Placeholder Info',
       message: message
     }

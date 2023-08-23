@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { faArrowsUpDownLeftRight, faClone, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
 import { DisplayRequiredValuesComponent } from "src/app/components/common/display-required-values.component";
-import { EditDataCharacterDialog } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
+import { EditDataCharacterDialog, EditCharacterConfig } from "src/app/dialog/edit-data-character/edit-data-character.dialog";
 import { ColorEnum } from "src/app/enum/color.enum";
 import { FetchMethod } from "src/app/model/character/data-character";
 import { DamageApplication } from "src/app/model/combat/damage";
@@ -63,13 +63,13 @@ export class NpcComponent extends DisplayRequiredValuesComponent {
   }
   
   edit() {
-    const data = {
+    const data: EditCharacterConfig = {
       title: 'Edit NPC',
       character: this.npc
     };
-    DialogUtil.open(EditDataCharacterDialog, data).subscribe(([updatedName, updatedData]) => {
-      this.npc.name = updatedName;
-      this.npc.putData(updatedData);
+    DialogUtil.open(EditDataCharacterDialog, data).subscribe(update => {
+      this.npc.name = update.name;
+      this.npc.putData(update.data);
     });
   }
   

@@ -11,14 +11,21 @@ export class DialogUtil {
     return AppComponent.instance.dialog;
   }
   
-  public static openRaw<T extends Dialog<T>>(dialog: ComponentType<T>, config: MatDialogConfig<any>): Observable<any> {
+  public static openRaw<D extends Dialog<D,I,O>, I, O>(dialog: ComponentType<Dialog<D,I,O>>, config: MatDialogConfig<I>): Observable<O | undefined> {
     return this.dialog.open(dialog, config).afterClosed();
   }
   
-  public static open<T extends Dialog<T>>(dialog: ComponentType<T>, data?: any): Observable<any> {
-    const config: MatDialogConfig<any> = { data: data };
-    const response = this.openRaw(dialog, config);
+  public static open: <D extends Dialog<D,I,O>, I, O>(
+    ...[dialog, args]: void extends I ? OneArg<D,I,O> : TwoArgs<D,I,O>
+  ) => Observable<O> = this.openInternal;
+
+  private static openInternal<D extends Dialog<D,I,O>, I, O>(dialog: ComponentType<Dialog<D,I,O>>, data?: I): Observable<O> {
+    const config: MatDialogConfig<I> = { data: data };
+    const response: Observable<O | undefined> = this.openRaw(dialog, config);
     return ObservableUtil.coalesce(response).pipe(ObservableUtil.ignoreError);
   }
-
+  
 }
+
+type OneArg<D,I,O> = [ComponentType<Dialog<D,I,O>>];
+type TwoArgs<D,I,O> = [ComponentType<Dialog<D,I,O>>, I];

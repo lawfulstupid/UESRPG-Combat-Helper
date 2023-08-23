@@ -2,7 +2,7 @@ import { Component, ComponentRef, OnInit, QueryList, ViewChildren, ViewContainer
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { DragulaService } from "ng2-dragula";
 import { EMPTY, Observable, mergeMap, of } from "rxjs";
-import { ConfirmDialog } from "src/app/dialog/confirm/confirm.dialog";
+import { ConfirmDialog, ConfirmDialogConfig } from "src/app/dialog/confirm/confirm.dialog";
 import { Npc } from "src/app/model/character/npc";
 import { Session } from "src/app/model/session";
 import { EventManager } from "src/app/service/event.manager";
@@ -109,7 +109,7 @@ export class StageComponent implements OnInit {
     if (this.componentRefs.length === 0) return of(undefined);
     
     // There are NPCs on the stage -- get confirmation from user to clear
-    const data = {
+    const data: ConfirmDialogConfig = {
       title: 'Clear Stage',
       message: 'This will delete existing NPCs. Are you sure?',
       yesButton: 'Proceed',

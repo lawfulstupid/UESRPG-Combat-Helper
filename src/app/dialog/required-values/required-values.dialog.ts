@@ -13,7 +13,7 @@ import { Dialog } from '../dialog';
   templateUrl: './required-values.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class RequiredValuesDialog extends Dialog<RequiredValuesDialog> {
+export class RequiredValuesDialog extends Dialog<RequiredValuesDialog, RequiredValuesRequest, Dictionary<any>> {
   
   override actions: Array<ActionItem> = [{
     label: 'Submit',
@@ -52,7 +52,7 @@ export class RequiredValuesDialog extends Dialog<RequiredValuesDialog> {
       return EMPTY;
     }
     
-    const data = {
+    const data: RequiredValuesRequest = {
       title: 'Required Values for ' + requester.name + ':',
       properties: missingProperties
     };

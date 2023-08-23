@@ -11,16 +11,16 @@ import { NpcTemplateManager } from "src/app/service/npc-template.manager";
 import { DialogUtil } from "src/app/util/dialog.util";
 import { FileUtil } from "src/app/util/file.util";
 import { StageComponent } from "../../components/stage/stage.component";
-import { ConfirmDialog } from "../confirm/confirm.dialog";
+import { ConfirmDialog, ConfirmDialogConfig } from "../confirm/confirm.dialog";
 import { Dialog } from "../dialog";
-import { EditDataCharacterDialog } from "../edit-data-character/edit-data-character.dialog";
+import { EditDataCharacterDialog, EditCharacterConfig } from "../edit-data-character/edit-data-character.dialog";
 import { NewNpcTemplateDialog } from "../new-npc-template/new-npc-template.dialog";
 
 @Component({
   templateUrl: 'manage-npc-templates.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
+export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog, void, void> {
   
   override actions: Array<ActionItem> = [{
     label: 'New',
@@ -66,12 +66,12 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
   
   editTemplate(templateKey: string) {
     const template = NpcTemplateManager.load(templateKey);
-    const data = {
+    const data: EditCharacterConfig = {
       title: 'Edit NPC Template',
       character: template
     };
-    DialogUtil.open(EditDataCharacterDialog, data).subscribe(([updatedName, updatedData]) => {
-      NpcTemplateManager.update(new NpcTemplate(templateKey, updatedName, updatedData));
+    DialogUtil.open(EditDataCharacterDialog, data).subscribe(update => {
+      NpcTemplateManager.update(new NpcTemplate(templateKey, update.name, update.data));
     });
   }
   
@@ -85,7 +85,7 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog> {
     if (npcs.length === 0) {
       confirmation = of(true);
     } else {
-      const data = {
+      const data: ConfirmDialogConfig = {
         title: 'Delete NPCs',
         message: '' + npcs.length + ' NPC' + (npcs.length === 1 ? ' is' : 's are') + ' currently using this template: '
           + npcs.map(npc => npc.name).join(', ') + '.\n'

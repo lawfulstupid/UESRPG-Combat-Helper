@@ -7,7 +7,7 @@ import { ActionItem } from "../components/common/action-bar/action-bar.component
   templateUrl: 'dialog.html',
   styleUrls: ['dialog.scss']
 })
-export class Dialog<T> {
+export class Dialog<D, I, O> {
   
   @Input('title')
   title: string = '';
@@ -28,9 +28,9 @@ export class Dialog<T> {
   cancelButton?: string;
   
   @Input('cancelValue')
-  cancelValue: any = undefined;
+  cancelValue?: O = undefined;
   
-  constructor(protected dialogRef: MatDialogRef<T>) {
+  constructor(protected dialogRef: MatDialogRef<D,O>) {
     this.dialogRef.afterClosed().subscribe(() => {
       this.setFocus();
     });

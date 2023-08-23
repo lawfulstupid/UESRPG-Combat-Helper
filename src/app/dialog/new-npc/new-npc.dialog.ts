@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ActionItem } from "src/app/components/common/action-bar/action-bar.component";
+import { Npc } from "src/app/model/character/npc";
 import { NpcTemplate } from "src/app/model/character/npc-template";
 import { Identifier } from "src/app/model/identifier";
 import { NpcTemplateManager } from "src/app/service/npc-template.manager";
@@ -12,7 +13,7 @@ import { Dialog } from "../dialog";
   templateUrl: 'new-npc.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class NewNpcDialog extends Dialog<NewNpcDialog> {
+export class NewNpcDialog extends Dialog<NewNpcDialog, void, Npc> {
   
   override actions: Array<ActionItem> = [{
     label: 'Create',

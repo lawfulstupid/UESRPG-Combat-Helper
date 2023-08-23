@@ -19,7 +19,7 @@ import { Dialog } from '../dialog';
   templateUrl: 'value-request.dialog.html',
   styleUrls: ['../dialog.scss']
 })
-export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>> {
+export class ValueRequestDialog<T> extends Dialog<ValueRequestDialog<T>, ValueRequest<T>, T> {
 
   override actions: Array<ActionItem> = [{
     label: 'Submit',
