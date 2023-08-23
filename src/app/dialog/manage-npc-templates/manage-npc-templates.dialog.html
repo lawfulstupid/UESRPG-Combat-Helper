@@ -3,12 +3,12 @@
     <div class="header-row" fxLayout="row">
       <div fxFlex="30">Name</div>
       <div fxFlex="30">Key</div>
-      <div fxFlex="40">Manage</div>
+      <div fxFlex="40" class="centred">Manage</div>
     </div>
     <div class="row" *ngFor="let template of templateList" fxLayout="row">
       <div fxFlex="30">{{template.name}}</div>
       <div fxFlex="30">{{template.key}}</div>
-      <div fxFlex="40">
+      <div fxFlex="40" class="centred">
         <app-actionbar [actions]="rowActions" [callbackParam]="template.key"></app-actionbar>
       </div>
     </div>

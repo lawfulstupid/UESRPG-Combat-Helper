@@ -46,3 +46,10 @@ mat-option.divider + * {
 button.mat-raised-button {
     min-width: fit-content !important; // override mat-raised-button's default 64px
 }
+
+.centred {
+    text-align: center;
+    app-actionbar > div.actionbar {
+        justify-content: center;
+    }
+}
