@@ -1,4 +1,4 @@
-import { firstValueFrom, map, Observable, of, throwError } from "rxjs";
+import { EMPTY, firstValueFrom, map, Observable, of, throwError } from "rxjs";
 import { ValueRequestDialog } from "src/app/dialog/value-request/value-request.dialog";
 import { Dictionary } from "src/app/util/dictionary.util";
 import { Property, TemplateRole } from "../property/abstract/property";
@@ -14,7 +14,7 @@ export abstract class DataCharacter extends Character {
   }
   
   // Get a property from character
-  public get<T>(property?: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
+  public get<T>(property: Property<T>, fetchMethod?: ValueFetcher<T>): Observable<T> {
     if (property === undefined) {
       return throwError(() => new Error('Undefined property'));
     } else if (property.isDerived()) {
@@ -94,7 +94,8 @@ export type ValueFetcher<T> = (property: Property<T>, character: DataCharacter) 
 export class FetchMethod {
   public static readonly DEFAULT: ValueFetcher<any> = (property, character) => ValueRequestDialog.requestValue(property, character);
   public static readonly REQUIRED: ValueFetcher<any> = (property, character) => ValueRequestDialog.requestValue(property, character, true);
-  public static readonly SILENT: ValueFetcher<any> = () => throwError(() => new Error('No value available'));
+  public static readonly ERROR: ValueFetcher<any> = () => throwError(() => new Error('No value available'));
+  public static readonly SILENT: ValueFetcher<any> = () => EMPTY;
   public static USE_VALUE(value: any): ValueFetcher<any> {
     return () => of(value);
   }

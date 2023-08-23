@@ -46,13 +46,13 @@ export class SkillRollerComponent {
   
   displayTargetNumber(skill: Rollable): Observable<string> {
     if (this.npc.hasProperty(skill)) {
-      return this.npc.get(skill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
+      return this.npc.get(skill, FetchMethod.ERROR).pipe(map(value => '(' + value + ')'));
     }
     
     if (skill instanceof Skill) {
       const npcSkill: NpcSkill = skill.npcSkill;
       if (this.npc.hasProperty(npcSkill)) {
-        return this.npc.get(npcSkill, FetchMethod.SILENT).pipe(map(value => '(' + value + ')'));
+        return this.npc.get(npcSkill, FetchMethod.ERROR).pipe(map(value => '(' + value + ')'));
       }
     }
     

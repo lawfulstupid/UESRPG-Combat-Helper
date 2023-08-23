@@ -49,7 +49,7 @@ export class Npc extends DataCharacter implements Persistable<Npc> {
   }
   
   // gets the maximum value of a numerical property
-  getTemplateProperty<T>(property?: Property<T>): Observable<T> {
+  getTemplateProperty<T>(property: Property<T>): Observable<T> {
     if (property?.templateRole === TemplateRole.NO_TEMPLATE) {
       return of(<T>property.defaultValue); // guaranteed to not be undefined
     } else {

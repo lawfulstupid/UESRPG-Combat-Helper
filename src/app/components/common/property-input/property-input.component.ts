@@ -83,7 +83,6 @@ export class PropertyInputComponent<T> implements OnInit {
         throw new Error('Cannot directly access templated properties');
       }
       this.directCharacterAccess.get(this.property, FetchMethod.SILENT)
-        .pipe(catchError(() => EMPTY))
         .subscribe(value => {
           this.value = value;
           this.valueStr = this.property.serialise(value);
