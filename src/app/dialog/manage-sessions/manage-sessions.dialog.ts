@@ -60,7 +60,7 @@ export class ManageSessionsDialog extends Dialog<ManageSessionsDialog, void, voi
   }
   
   loadSessionList() {
-    this.sessionList = SessionManager.list();
+    this.sessionList = SessionManager.list().sort((a,b) => b.key.localeCompare(a.key));
   }
   
   saveSession() {
