@@ -101,7 +101,7 @@ export class MenubarComponent implements OnInit {
   }
   
   private test() {
-    const npc: Npc = StageComponent.instance.componentRefs[0].instance.npc;
+    const npc: Npc = StageComponent.instance.columns[0][0].instance.npc;
   }
   
 }

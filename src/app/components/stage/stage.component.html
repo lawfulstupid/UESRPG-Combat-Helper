@@ -5,8 +5,8 @@
     </div>
     <div class="addColumnButtonVertical" (click)="addColumn()"></div>
   </div>
-  <ng-container *ngFor="let idx of numColumns | range">
-    <div dragula="DRAGGABLE" class="drag-column">
+  <ng-container *ngFor="let idx of columns.length | range">
+    <div dragula="DRAGGABLE" [dragulaModel]="columns[idx]" class="drag-column" id="drag-column-{{idx}}">
       <ng-template #insertionPoint></ng-template>
       <div class="removalIndicator" (click)="removeColumn(idx)" [hidden]="!canRemoveColumns">
         <div class="minus">

@@ -77,7 +77,8 @@ export class ManageNpcTemplatesDialog extends Dialog<ManageNpcTemplatesDialog, v
   
   deleteTemplate(templateKey: string) {
     // Check for NPCs using the template first
-    const npcs: Array<Npc> = StageComponent.instance.componentRefs
+    const npcs: Array<Npc> = StageComponent.instance.columns
+      .flatMap(column => column)
       .map(component => component.instance.npc)
       .filter(npc => npc.getTemplateKey() === templateKey);
     
