@@ -13,10 +13,10 @@
 
 <mat-form-field *ngIf="textAreaProperty">
   <textarea matInput
-    class="notes"
     [(ngModel)]="valueStr"
     (ngModelChange)="onValueStrChange()"
     (change)="onFocusChange()"
+    oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'
     [placeholder]="textAreaProperty.name"
     [style.color]="highlight ? highlightColor : ''"
     autocomplete="false"
