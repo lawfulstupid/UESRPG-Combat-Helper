@@ -1,5 +1,5 @@
 import { EventEmitter } from "@angular/core";
-import * as JSZip from 'jszip';
+import JSZip from "@progress/jszip-esm";
 import { Observable } from "rxjs";
 import { ErrorComponent } from "../components/error/error.component";
 import { Persistence } from "../persistence/persistence";
