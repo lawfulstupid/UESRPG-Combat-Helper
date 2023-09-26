@@ -1,7 +1,7 @@
 {
   "name": "uesrpg-combat-helper",
-  "version": "0.12.0",
-  "versionHash": "31f3afa691d48bd926901796a9a0713d6cc4940d",
+  "version": "0.12.1",
+  "versionHash": "0b93ac0821f91570f77e4899f831107fb676927e",
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
