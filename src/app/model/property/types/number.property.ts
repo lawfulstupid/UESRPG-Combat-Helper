@@ -1,6 +1,7 @@
 import { identity } from "rxjs";
 import { DummyProperty } from "../abstract/dummy.property";
 import { Property } from "../abstract/property";
+import * as math from "mathjs";
 
 export class NumericalProperty extends Property<number> {
   
@@ -11,9 +12,9 @@ export class NumericalProperty extends Property<number> {
   }
   
   deserialise(str: string): number {
-    const value: number = Number.parseInt(str);
-    if (value === null || value === undefined || Number.isNaN(value)) {
-      throw new Error('Unable to convert \'' + str + '\' to number');
+    const value: number = math.evaluate(str);
+    if (value === null || value === undefined || Number.isNaN(value) || !math.isInteger(value)) {
+      throw new Error('Unable to evaluate \'' + str + '\'');
     }
     return value;
   }
