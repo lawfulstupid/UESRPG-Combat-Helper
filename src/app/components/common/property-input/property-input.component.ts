@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, ComponentRef, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { ColorEnum } from "src/app/enum/color.enum";
 import { DataCharacter, FetchMethod } from "src/app/model/character/data-character";
 import { MultiProperty } from "src/app/model/property/abstract/multi.property";
@@ -68,6 +68,9 @@ export class PropertyInputComponent<T> implements OnInit {
   errorMessage?: string;
   showErrorMessage: boolean = false;
   
+  @ViewChild('textarea', {read: ElementRef})
+  textAreaElmRef?: ElementRef;
+  
   @Output()
   valueChange: EventEmitter<ValueChange<T>> = new EventEmitter();
   
@@ -80,13 +83,18 @@ export class PropertyInputComponent<T> implements OnInit {
         this.directCharacterAccess = undefined;
         throw new Error('Cannot directly access templated properties');
       }
-      this.directCharacterAccess.get(this.property, FetchMethod.SILENT)
-        .subscribe(value => {
-          this.value = value;
-          this.valueStr = this.property.serialise(value);
-          this.output(true);
-        });
+      this.directCharacterAccess.get(this.property, FetchMethod.SILENT).subscribe(value => {
+        this.value = value;
+        this.valueStr = this.property.serialise(value);
+        this.output(true);
+      });
     }
+    
+    // Update text area size
+    setTimeout(() => {
+      let elm: Element = this.textAreaElmRef?.nativeElement;
+      if (elm) elm.dispatchEvent(new InputEvent('input'));
+    });
   }
   
   // Call if [ngModel]="value"
