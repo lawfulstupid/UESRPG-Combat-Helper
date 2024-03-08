@@ -87,6 +87,7 @@ export class AttributeBarComponent extends DisplayRequiredValuesComponent {
   }
   
   modify(direction: number, value?: number) {
+    if (this.disabled) return;
     ObservableUtil.coalesce(
       of(value),  // If value is provided, use it as-is
       () => {     // Otherwise, get value from user (lazy value)
