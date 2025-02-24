@@ -11,6 +11,7 @@ import { Characteristic } from "../property/characteristic.property";
 import { CombatProperties } from "../property/collections/combat";
 import { MiscProperties } from "../property/collections/misc";
 import { Test } from "./test";
+import { forkJoin } from "rxjs";
 
 @RegisterPersistable('8ec0cbd9-9d70-42fe-8594-993bde31afb2')
 export class Wound implements Persistable<Wound> {
@@ -19,19 +20,18 @@ export class Wound implements Persistable<Wound> {
   
   constructor(
     readonly location: HitLocationEnum,
-    readonly severity: number,
     readonly shockTestResult: TestResultEnum,
     public description?: string // TODO #30: remove
   ) {}
   
   clone(): Wound {
-    const copy = new Wound(this.location, this.severity, this.shockTestResult, this.description);
+    const copy = new Wound(this.location, this.shockTestResult, this.description);
     copy.guid = this.guid;
     return copy;
   }
   
   display(): string {
-    return this.description + ' (' + this.severity.toString() + ')';
+    return this.description || '';
   }
   
   static make(npc: Npc, hitLocation: HitLocationEnum, damage: number, damageType: DamageTypeEnum, tempModifier: number = 0) {
@@ -42,7 +42,7 @@ export class Wound implements Persistable<Wound> {
       switch (hitLocation) {
         case HitLocationEnum.HEAD:
           InfoDialog.placeholder(npc.name + ' is Stunned for 1 round'); // TODO #30: replace with condition
-          description = 'Wounded Head';
+          description = 'Concussion';
           if (failedShockTest) {
             const part = RandomUtil.coinFlip() ? 'Eye' : 'Ear'; // TODO #30: pick randomly from remaining eyes/ears
             const side = RandomUtil.coinFlip() ? 'Left' : 'Right';
@@ -55,8 +55,8 @@ export class Wound implements Persistable<Wound> {
           InfoDialog.placeholder(npc.name + ' loses 1 AP'); // TODO: #37: remove
           description = 'Wounded Body';
           if (failedShockTest) {
-            InfoDialog.placeholder(npc.name + ' has gained the \'Crippled Body\' condition'); // TODO #30: replace with set body status
-            description = 'Crippled Body';
+            InfoDialog.placeholder(npc.name + ' has gained the \'Internal Bleeding\' condition'); // TODO #30: replace with set body status
+            description = 'Internal Bleeding';
           }
           break;
         default:
@@ -75,10 +75,29 @@ export class Wound implements Persistable<Wound> {
           });
           break;
         case DamageTypeEnum.FROST:
-        case DamageTypeEnum.POISON:
           npc.alter(Attribute.STAMINA, sp => sp - 1); // lose 1 SP
           break;
+        case DamageTypeEnum.POISON:
+          InfoDialog.placeholder(`${npc.name} has gained the Poisoned(${Math.floor(damage / 2)}) condition`); // TODO #30: replace with condition
+          break;
         case DamageTypeEnum.SHOCK:
+          forkJoin([
+            npc.get(Characteristic.STRENGTH),
+            npc.get(Characteristic.ENDURANCE)
+          ]).subscribe(([str, end]) => {
+            let characteristic;
+            if (str > end) {
+              characteristic = Characteristic.STRENGTH;
+            } else {
+              characteristic = Characteristic.ENDURANCE;
+            }
+            Test.make(npc, characteristic, {required: true}).subscribe(test => {
+              if (test.result.isFail()) {
+                InfoDialog.placeholder(`${npc.name} is Stunned for 1 round`); // TODO #30: replace with condition
+              }
+            });
+          });
+          break;
         case DamageTypeEnum.MAGIC:
           npc.alter(Attribute.MAGICKA, mp => mp - damage); // lose MP equal to damage taken
           break;
@@ -87,7 +106,8 @@ export class Wound implements Persistable<Wound> {
           break;
       }
       
-      const wound = new Wound(hitLocation, damage, shockTest.result, description);
+      // TODO #30: Gain the dying condition
+      const wound = new Wound(hitLocation, shockTest.result, description);
       npc.alter(CombatProperties.WOUNDS, wounds => wounds.concat(wound));
       EventManager.npcWoundedEvent.emit(npc);
       return wound;
